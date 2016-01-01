@@ -159,35 +159,44 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </code></pre>
 <blockquote>
 <p>Note : You will frequently encounter this method used in combination with arrow functions</p>
+</blockquote>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> doubledNumbers <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>n <span class="token operator">=</span><span class="token operator">></span> n <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>doubledNumbers<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [0, 2, 4, 6, 8, 10, 12]</span>
 </code></pre>
 <p>numbers.map(doubleN) produces [doubleN(0), doubleN(1), doubleN(2), doubleN(3), doubleN(4), doubleN(5), doubleN(6)] which is equal to [0, 2, 4, 6, 8, 10, 12].</p>
-<p>Note: If you do not need to return a new array and just want to do a loop that has side effects, you might just want to use a for / forEach loop instead of a map.<br>```js<br>Array.prototype.filter()</p>
+<blockquote>
+<p>Note: If you do not need to return a new array and just want to do a loop that has side effects, you might just want to use a for / forEach loop instead of a map.</p>
 </blockquote>
-<p>const evenNumbers = numbers.filter(function(n) {<br>  return n % 2 === 0; // true if “n” is par, false if “n” isn’t<br>});<br>console.log(evenNumbers); // [0, 2, 4, 6]</p>
-<p>Note : You will frequently encounter this method used in combination with arrow functions</p>
-<p>const evenNumbers = numbers.filter(n =&gt; n % 2 === 0);<br>console.log(evenNumbers); // [0, 2, 4, 6]</p>
-<pre><code>We are using .filter on the numbers array, filter is iterating on each element of the array and passes it to our function. The goal of the function is to return a boolean that will determine whether the current value will be kept or not. Filter then returns the array with only the kept values.
-Array.prototype.reduce()
+<pre class=" language-js"><code class="language-js">Array<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 
-The reduce method goal is to reduce all elements of the array it iterates on into a single value. How it aggregates those elements is up to you.
-```js
-const sum = numbers.reduce(
-  function(acc, n) {
-    return acc + n;
-  },
-  0 // accumulator variable value at first iteration step
-);
+<span class="token keyword">const</span> evenNumbers <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> n <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true if "n" is par, false if "n" isn't</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>evenNumbers<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [0, 2, 4, 6]</span>
 
-console.log(sum) // 21
-</code></pre><blockquote>
+Note <span class="token punctuation">:</span> You will frequently encounter <span class="token keyword">this</span> method used <span class="token keyword">in</span> combination <span class="token keyword">with</span> arrow functions
+
+<span class="token keyword">const</span> evenNumbers <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>n <span class="token operator">=</span><span class="token operator">></span> n <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>evenNumbers<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [0, 2, 4, 6]</span>
+</code></pre>
+<p>We are using .filter on the numbers array, filter is iterating on each element of the array and passes it to our function. The goal of the function is to return a boolean that will determine whether the current value will be kept or not. Filter then returns the array with only the kept values.<br>Array.prototype.reduce()</p>
+<p>The reduce method goal is to reduce all elements of the array it iterates on into a single value. How it aggregates those elements is up to you.</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> sum <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span>
+  <span class="token keyword">function</span><span class="token punctuation">(</span>acc<span class="token punctuation">,</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> acc <span class="token operator">+</span> n<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token number">0</span> <span class="token comment" spellcheck="true">// accumulator variable value at first iteration step</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>sum<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 21</span>
+</code></pre>
+<blockquote>
 <p>Note : You will frequently encounter this method used in combination with arrow functions</p>
+</blockquote>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> sum <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>acc<span class="token punctuation">,</span> n<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> acc <span class="token operator">+</span> n<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>sum<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 21</span>
 </code></pre>
 <p>Just like for .map and .filter methods, .reduce is applied on an array and takes a function as the first parameter.</p>
-</blockquote>
 <p>This time though, there are changes:</p>
 <p>1、.reduce takes two parameters</p>
 <p>The first parameter is a function that will be called at each iteration step.</p>
