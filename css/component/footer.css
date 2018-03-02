@@ -13,4 +13,11 @@
     color: orange;
     font-size: 1.6rem;
   }
-  
+  #index-bg .footer{
+    position: absolute;
+    bottom: 3rem;
+
+    text-align: center;
+    width: 90%;
+    color: #ccc;
+  }
