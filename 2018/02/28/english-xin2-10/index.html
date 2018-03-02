@@ -131,7 +131,7 @@
     <li>版权声明：自由转载-非商用-非衍生-保持署名（
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
-    <li>作者：Lian</li>
+    <li>作者：<a href="/">Lian</a></li>
     <li>日期：2018年02月28日 23:02</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
@@ -161,122 +161,6 @@
 		
 </div>
 
-<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
-
-<div class="form-comment">
-  <h2>
-		我要发表看法
-	</h2>
-
-
-	<form method="post" action="" 
-	 onsubmit="return pleaseWait()">
-	 <!-- 留言正文 -->
-	 
-		
-<p>
-	<label for="comment-content">
-		您的留言:
-	</label>
-</p>
-
-<p>
-	<textarea 
-	id="comment-content" 
-	name="content" 
-	rows="10" cols="50">
-	</textarea>
-</p>
-
-		<!-- 姓名 -->
-	 
-		
-<p>
-	<label for="comment-author">
-		您的大名:
-	</label>
-</p>
-
-<p>
-	<input 
-	id="comment-author" 
-	name="author" 
-	size="30" 
-	value=""
-	pattern="^.*+$"
-	required
-	>
-	<span class="hint">
-			 «-必填
-	</span
-</p>
-
-
-		<!-- 微信 -->
-	 
-		
-<p>
-	<label for="comment-wechat">
-		您的微信:
-	</label>
-</p>
-
-<p>
-	<input 
-	id="comment-wechat" 
-	name="wechat" 
-	size="30" 
-	value=""
-	pattern="^[a-zA-Zd_]{5,}$"
-	
-	>
-	<span class="hint">
-			 «-选填，不公开
-	</span
-</p>
-
-
-		<!-- 电子邮箱 -->
-		
-		
-<p>
-	<label for="comment-email">
-		电子邮箱：
-	</label>
-</p>
-
-<p>
-	<input 
-	id="comment-email" 
-	name="email" 
-	size="30" 
-	value=""
-	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
-	
-	>
-	<span class="hint">
-			 «-选填，不公开
-	</span
-</p>
-
-
-		<p>
-			<input type="submit" class="submit-button" value="发表">
-			<span class="hint"> «- 点击按钮</span>
-		</p>
-	</form>
-
-</div>
-
-
-<!-- data:{
-	name:'',
-	type:'passwor',
-	label:'您的大名',
-	hint:'',
-	pattern:'[A-z]{3}',
-	required:"required"
-} -->
 
 
 <div class="footer">
