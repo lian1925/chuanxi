@@ -33,8 +33,8 @@
       </span>
       
       <span> » 
-          <a href="/tags/Node-js/">
-            Node.js
+          <a href="/tags/趣味/">
+            趣味
           </a>
       </span>
       
@@ -50,8 +50,8 @@
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/Node-js/">
-              Node.js
+            <a href="/tags/趣味/">
+              趣味
             </a>
         </span>
       </p>
@@ -59,84 +59,53 @@
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2017/11/08/node-code-4/">
+            <a href="/2018/03/02/english-xin3-5/">
               ⇐ 
             </a>
         </span>
         <span>
             
-            <a href="/2017/11/08/node-code-6/">
+            <a href="#">
               ⇒
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2017/11/08/node-code-4/">
-                    课4 express 入门 | Node.js
+                <a href="/2018/03/02/english-xin3-5/">
+                    第5课 The facts
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2017/11/08/node-code-6/">
-                    课6 Express与MySQL
+                <a href="#">
+                    无
                 </a>
         </P>
     </div>
 </div>
 
 <div class="post">
-<h1>课5 安装MySQL | Node.js</h1>
+<h1>爱情小诗</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
-    2017年11月08日 17:11
+    2018年03月02日 19:03
   </p>
 </div>
       
 
 <div class="page">
-    <p>本节将会学习如何安装MySQL数据库。<br><a id="more"></a></p>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h3><p>如果你的系统是CentOS,则安装方法如下：<br>1、获取MySQL资源</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">wget</span> http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
-<span class="token function">sudo</span> rpm -ivh mysql-community-release-el7-5.noarch.rpm
-yum update
-</code></pre>
-<p>2、安装</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> yum <span class="token function">install</span> mysql-server
-<span class="token function">sudo</span> systemctl start mysqld
-</code></pre>
-<p>3、登录数据库</p>
-<pre class=" language-bash"><code class="language-bash">mysql -u root -p
-</code></pre>
-<p>4、退出数据库</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token keyword">exit</span>
-</code></pre>
-<h3 id="Ubuntu"><a href="#Ubuntu" class="headerlink" title="Ubuntu"></a>Ubuntu</h3><p>如果你的系统是Ubuntu,则安装方法如下：<br>1、更新apt-get包管理器</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> update
-</code></pre>
-<p>2、安装mysql</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> mysql-server-5.5
-</code></pre>
-<p>3、配置mysql</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">sudo</span> mysql_secure_installation
-</code></pre>
-<p>4、查看mysql 版本</p>
-<pre class=" language-bash"><code class="language-bash">mysql –version
-</code></pre>
-<p>5、查看mysql当前状态</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">service</span> mysql status
-</code></pre>
-<p>6、运行mysql</p>
-<pre class=" language-bash"><code class="language-bash">mysql –uroot -p
-</code></pre>
-<h2 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h2><p>如果我们需要远程访问数据库，我们需要提前开启数据库账号的远程访问权限。</p>
-<p>开启方法如下：</p>
-<p>1、进入mysql<br>Mysql –uroot -p</p>
-<p>2、选择mysql 数据表<br>use mysql;</p>
-<p>3、赋予账号权限<br>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘root’@’%’ IDENTIFIED BY ‘password’ WITH GRANT OPTION;</p>
-<p>4、强制生效<br>FLUSH PRIVILEGES;</p>
-<p>(完)</p>
+    <p>今天恰逢元宵佳节，偶然<code>GET</code>到一首很美，很美的英文小诗。</p>
+<p>甚是喜欢，特此摘记。</p>
+<h2 id="Sun-Moon-and-You"><a href="#Sun-Moon-and-You" class="headerlink" title="Sun, Moon and You."></a>Sun, Moon and You.</h2><p>I love three things in this world.<br>Sun, Moon and You.</p>
+<p><code>Sun</code> for morning, <code>Moon</code> for night, and <code>You</code> forever.</p>
+<p>原想英文很棒。不料，中文更是惊喜连连，优美如画。</p>
+<h2 id="日，月，卿"><a href="#日，月，卿" class="headerlink" title="日，月，卿"></a>日，月，卿</h2><p>浮世三千，吾爱有三。</p>
+<p>日，月，与卿。</p>
+<p><code>日</code>为朝，<code>月</code>为暮。</p>
+<p><code>卿</code>为朝朝暮暮。</p>
+<p>有幸品读，美不胜收，如痴如醉！</p>
 
 </div>
 </div>
@@ -149,7 +118,7 @@ yum update
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
     <li>作者：Lian</li>
-    <li>日期：2017年11月08日 17:11</li>
+    <li>日期：2018年03月02日 19:03</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
 </div>
