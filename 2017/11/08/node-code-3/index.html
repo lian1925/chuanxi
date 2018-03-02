@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>
+    小沙丘的网络漫游记
+  </title>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  <script>
+    if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+      document.body.classList.add('mobile');            
+    } else{
+      document.body.classList.add('pc');
+			document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+    }
+  </script>
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/Node-js/">
+            Node.js
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/Node-js/">
+              Node.js
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2017/11/08/node-code-1/">
+              ⇐ 
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2017/11/08/node-code-4/">
+              ⇒
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2017/11/08/node-code-1/">
+                    课1 第一个程序
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2017/11/08/node-code-4/">
+                    课4 express 入门 | Node.js
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<h1>课3 异步与文件读取</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2017年11月08日 16:11
+  </p>
+</div>
+      
+
+<div class="page">
+    <p>本节将学习使用Node.js读取文件的操作。Node.js提供了两种文件读取方式：同步与异步。<br><a id="more"></a></p>
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><p>关于读取文件，我们将学习一下的新语句。</p>
+<p><code>读取</code><br>异步读取文件：readFileSync()<br>同步读取文件：readFile()</p>
+<p><code>写入</code><br>异步写文件：writeFileSync()<br>同步写文件：writeFile()</p>
+<h2 id="代码练习"><a href="#代码练习" class="headerlink" title="代码练习"></a>代码练习</h2><p>本节我们需要准备两个文件，一个是正常的txt文件，命名为lesson3_data.txt，写入如下内容：</p>
+<pre class=" language-txt"><code class="language-txt">Hello Node.js.
+</code></pre>
+<p>另一个文件命名为lesson3.js，填写如下代码：</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> data <span class="token operator">=</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span><span class="token string">'/lesson3_data.txt'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 同步操作，会造成堵塞</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"同步："</span><span class="token operator">+</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 异步读取文件</span>
+fs<span class="token punctuation">.</span><span class="token function">readFile</span><span class="token punctuation">(</span><span class="token string">'/lesson3_data.txt'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>err<span class="token punctuation">,</span> data<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token keyword">throw</span> err<span class="token punctuation">;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"异步："</span><span class="token operator">+</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+fs<span class="token punctuation">.</span><span class="token function">writeFileSync</span><span class="token punctuation">(</span><span class="token string">'/lesson3_data.txt'</span><span class="token punctuation">,</span> <span class="token string">'\n add something Sync.'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+fs<span class="token punctuation">.</span><span class="token function">writeFile</span><span class="token punctuation">(</span><span class="token string">'/lesson3_data.txt'</span><span class="token punctuation">,</span> <span class="token string">'Hello Node.js'</span><span class="token punctuation">,</span><span class="token string">'w'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token keyword">throw</span> err<span class="token punctuation">;</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'The file has been saved!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>OK，代码编写完，打开命令行终端，输入内容：<br>node app.js</p>
+<h2 id="你应该看到的结果"><a href="#你应该看到的结果" class="headerlink" title="你应该看到的结果"></a>你应该看到的结果</h2><p>To do later</p>
+<h2 id="加分项"><a href="#加分项" class="headerlink" title="加分项"></a>加分项</h2><p>1、逐行阅读代码，试着从后往前读，理解代码</p>
+<p>2、为每行代码添加注释</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p>1、有哪些修饰符可以用来控制文件访问?</p>
+<p>答：最重要的是 + 修饰符,写法就是 ‘w+’, ‘r+’, ‘a+’ ——这样的话文件将以同时读写的方式打开,而对于文件位置的使用也有些不同。<br>(完)</p>
+
+</div>
+</div>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：Lian</li>
+    <li>日期：2017年11月08日 16:11</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+<div id="" class="item-comment">
+  <p class="author">
+    
+    lian <span>说：</span>
+  </p>
+
+  <div class="content">
+      <blockquote>
+        <pre>引用xiaotian044500的发言：</pre>
+        看来这么想的不在少数啊, 确实挺像的.
+        </blockquote>
+        哈哈
+  </div>
+    
+</div>
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+
+	<form method="post" action="" 
+	 onsubmit="return pleaseWait()">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.*+$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<p>
+			<input type="submit" class="submit-button" value="发表">
+			<span class="hint"> «- 点击按钮</span>
+		</p>
+	</form>
+
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+</div>
+</body>
+
+</html>
+
