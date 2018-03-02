@@ -1,0 +1,275 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/robot.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>
+    小沙丘的网络漫游记
+  </title>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  <script>
+    if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+      document.body.classList.add('mobile');            
+    } else{
+      document.body.classList.add('pc');
+			document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+    }
+  </script>
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/博客/">
+            博客
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>分类：
+        <span> 
+            <a href="/tags/博客/">
+              博客
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2017/10/05/nginx-502-error/">
+              ⇐ 
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2017/10/05/blog-comments-feature/">
+              ⇒
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2017/10/05/nginx-502-error/">
+                    Nginx 502 错误
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2017/10/05/blog-comments-feature/">
+                    博客添加评论功能
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<h1>博客添加图标样式</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2017年10月05日 14:10
+  </p>
+</div>
+      
+
+<div class="page">
+    <p>目标：为博客添加好看的图标样式，提示阅读体验。<br><a id="more"></a></p>
+<h2 id="图标库"><a href="#图标库" class="headerlink" title="图标库"></a>图标库</h2><p><a href="http://www.iconfont.cn/" target="_blank" rel="external">阿里巴巴矢量图标库</a>,可以使用GitHub账号登录</p>
+<p>第一步，在图标库中搜索所需的图标<br>第二步，将选好的图标加入项目，如:blog<br>第三步，在HTML和css文件中引用</p>
+<ul>
+<li>获取项目生成的css文件链接，加入html文件的头部<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>//at.alicdn.com/t/font_407924_kx6yx3r9q4m6xbt9.css<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+</code></pre>
+</li>
+<li>选择所需的图标，获取其class名字，应用于页面<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>i</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>iconfont icon-sousuo<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>i</span><span class="token punctuation">></span></span>
+</code></pre>
+</li>
+</ul>
+<h3 id="blog项目图标参考"><a href="#blog项目图标参考" class="headerlink" title="blog项目图标参考"></a>blog项目图标参考</h3><p>搜索<br>icon-sousuo<br>微博<br>icon-weibo<br>github<br>icon-github<br>twitter<br>icon-twitter<br>facebook<br>icon-facebook<br>斜线<br>icon-xiexian1<br>双箭头<br>icon-shuangjiantou-copy</p>
+
+</div>
+</div>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：Lian</li>
+    <li>日期：2017年10月05日 14:10</li>
+  </ul>
+</div>
+      
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+<div id="" class="item-comment">
+  <p class="author">
+    
+    lian <span>说：</span>
+  </p>
+
+  <div class="content">
+      <blockquote>
+        <pre>引用xiaotian044500的发言：</pre>
+        看来这么想的不在少数啊, 确实挺像的.
+        </blockquote>
+        哈哈
+  </div>
+    
+</div>
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+
+	<form method="post" action="" 
+	 onsubmit="return pleaseWait()">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.*+$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<p>
+			<input type="submit" class="submit-button" value="发表">
+			<span class="hint"> «- 点击按钮</span>
+		</p>
+	</form>
+
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+</div>
+</body>
+
+</html>
+

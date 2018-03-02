@@ -1,0 +1,23 @@
+form{
+  margin: 1rem;
+}
+form p{
+  margin: 0.5rem;
+  font-size: 1.6rem;
+}
+form input,
+form textarea {
+  border: 1px solid #d3d3d3;
+  margin-top: 0;
+  line-height: 1.4;
+  padding: 0.4rem 0.3rem;
+  background-color: #f5f4df;
+  font-size: 1.4rem;
+}
+form textarea {
+  width: 90%;
+  text-indent: 0px;
+}
+form .hint{
+  color: grey;
+}

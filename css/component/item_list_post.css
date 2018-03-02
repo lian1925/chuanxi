@@ -1,0 +1,8 @@
+
+.item-list-post li{
+  font-size: 1.6rem;
+  line-height: 1.8;
+}
+.item-list-post span{
+  color: rgba(0, 0, 0, 0.5);
+}

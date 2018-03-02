@@ -1,0 +1,312 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/robot.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>
+    小沙丘的网络漫游记
+  </title>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  <script>
+    if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+      document.body.classList.add('mobile');            
+    } else{
+      document.body.classList.add('pc');
+			document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+    }
+  </script>
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/PXT/">
+            PXT
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>分类：
+        <span> 
+            <a href="/tags/PXT/">
+              PXT
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2017/10/11/pxt-editor/">
+              ⇐ 
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2017/10/11/pxt-target/">
+              ⇒
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2017/10/11/pxt-editor/">
+                    JavaScript编辑器特性 | PXT
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2017/10/11/pxt-target/">
+                    编译 | PXT
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<h1>异步 | PXT</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2017年10月11日 18:10
+  </p>
+</div>
+      
+
+<div class="page">
+    <h1 id="异步与线程"><a href="#异步与线程" class="headerlink" title="异步与线程"></a>异步与线程</h1><h2 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h2><p>JavaScript is generally speaking single threaded (there are web workers and other such inventions, but these are generally considered separate processes, that share no address space with the main process). If a function needs to wait for<br>some input (e.g., web request), you need to supply a callback function that gets<br>executed when the data is available.</p>
+<pre class=" language-typescript-ignore"><code class="language-typescript-ignore">downloadData("https://example.com/", (err, data) => {
+    if (err) { ... }
+    else {
+        let parsed = JSON.parse(data)
+        ...
+    }
+})
+</code></pre>
+<p>This becomes somewhat problematic when you start to nest these.<br>A simple web search on “callback hell” will tell why.</p>
+<p>One way to fix this is to use promises, but the idea<br>remains the same — in the <code>.then()</code> handler you provide the function to execute<br>when data is available, but the advantage is that you can often avoid nesting<br>them (functions returning promises are often by convention called <code>somethingAsync</code>):</p>
+<pre class=" language-typescript-ignore"><code class="language-typescript-ignore">downloadDataAsync("https://example.com/")
+    .then(data => {
+        let parsed = JSON.parse(data)
+        ...
+    }, err => { ... })
+    .then(() => downloadDataAsync("https://somewhere-else.com/"))
+    .then(somewhere => ...)
+</code></pre>
+<p>There are proposals of introducing C#-style <code>async</code>/<code>await</code> to JavaScript.<br>In fact TypeScript can compile <code>async/await</code> to ES6 generators (yield).<br>In that case you can use <code>await</code> operator to make a call to a promise-returning<br>function look sequential:</p>
+<pre class=" language-typescript-ignore"><code class="language-typescript-ignore">let parsed = JSON.parse(await downloadDataAsync("https://example.com/"))
+...
+let somewhere = await downloadDataAsync("https://somewhere-else.com/")
+...
+</code></pre>
+<p>Needless to say, this is way more readable and easier to get right than<br>the previous two solutions. In fact, it lets you simulate<br>cooperative multithreading — you think you have multiple threads,<br>but only one of them runs at any given time, and you can be sure<br>your thread will not get interrupted until the point where it uses <code>await</code>.</p>
+<h2 id="Promise-Await-And-what-is-that-for-loop-thing-again"><a href="#Promise-Await-And-what-is-that-for-loop-thing-again" class="headerlink" title="Promise? Await? And what is that for loop thing again?"></a>Promise? Await? And what is that <code>for</code> loop thing again?</h2><p>Now, all of this is great, but not really something you want to explain<br>to someone who’s just trying to learn what a <code>for</code> loop is.</p>
+<p>For this reason, PXT lets users call async functions, as if they were<br>regular functions. This loses information about where your thread can<br>be interrupted, but we can hopefully recover that in the IDE (by for example<br>displaying a little clock next to async calls).</p>
+<pre class=" language-typescript-ignore"><code class="language-typescript-ignore">let parsed = JSON.parse(downloadData("https://example.com/"))
+...
+let somewhere = downloadData("https://somewhere-else.com/")
+...
+</code></pre>
+<p>Supporting async functions this way is one of the main reasons why we have<br>our own compilation scheme from TypeScript to JavaScript (cross-browser<br>debugger is another major one).</p>
+<h2 id="Implementing-async-functions"><a href="#Implementing-async-functions" class="headerlink" title="Implementing async functions"></a>Implementing async functions</h2><p>Currently, to implement an async function, you first need to add <code>//% promise</code><br>attribute to the declaration:</p>
+<pre class=" language-typescript-ignore"><code class="language-typescript-ignore">//? Downloads data from remote site.
+//% promise shim=basic::downloadData
+export function downloadData(url:string) { return "" }
+</code></pre>
+<p>In the simulator you return a promise:</p>
+<pre class=" language-typescript-ignore"><code class="language-typescript-ignore">export function downloadDataAsync(url:string) {
+    return new Promise<string>((resolve, reject) =>
+        $.get(url, (data, status) => {
+            resolve(data)
+        }))
+}
+</code></pre>
+<p>It is also possible to use <code>//% async</code> and use <code>getResume()</code> function<br>to get a callback. You can see some older code do that.</p>
+<p>Note, that you can <a href="/simshim">generate TypeScript definition</a> from the<br>simulator files, which will take care of the <code>//% promise</code> and <code>//% shim=...</code> annotations.</p>
+
+</div>
+</div>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：Lian</li>
+    <li>日期：2017年10月11日 18:10</li>
+  </ul>
+</div>
+      
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+<div id="" class="item-comment">
+  <p class="author">
+    
+    lian <span>说：</span>
+  </p>
+
+  <div class="content">
+      <blockquote>
+        <pre>引用xiaotian044500的发言：</pre>
+        看来这么想的不在少数啊, 确实挺像的.
+        </blockquote>
+        哈哈
+  </div>
+    
+</div>
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+
+	<form method="post" action="" 
+	 onsubmit="return pleaseWait()">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.*+$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<p>
+			<input type="submit" class="submit-button" value="发表">
+			<span class="hint"> «- 点击按钮</span>
+		</p>
+	</form>
+
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+</div>
+</body>
+
+</html>
+

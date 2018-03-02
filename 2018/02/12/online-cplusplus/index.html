@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/robot.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>
+    小沙丘的网络漫游记
+  </title>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  <script>
+    if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+      document.body.classList.add('mobile');            
+    } else{
+      document.body.classList.add('pc');
+			document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+    }
+  </script>
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/淬炼/">
+            淬炼
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>分类：
+        <span> 
+            <a href="/tags/淬炼/">
+              淬炼
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/02/10/online-vscode/">
+              ⇐ 
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/02/14/online-pxt/">
+              ⇒
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/02/10/online-vscode/">
+                    熟悉你的IDE | VS code
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/02/14/online-pxt/">
+                    PXT | 概念淬炼
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<h1>C++ | 知识淬炼</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年02月12日 20:02
+  </p>
+</div>
+      
+
+<div class="page">
+    <p>过程化编程<br>首先要确定计算机要采取的操作，然后使用编程语言实现这些操作。这种编程方式，和菜谱规定厨师做蛋糕应遵循的一系列步骤非常相似。</p>
+<p>面向对象编程<br>设计类，将数据与方法合并起来，准确表示程序需要处理的东西。</p>
+<p>泛型编程<br>复用代码，抽象通用概念。</p>
+<p>简单的示例：</p>
+<pre class=" language-c++"><code class="language-c++">#include <iostream>
+using namespace std;
+int main(){
+    cout<<"Hello world";
+    return 0;
+}
+</code></pre>
+<p>名称空间<br>当使用多个厂商的代码时，使用名称空间可以正确引用各自的代码。</p>
+<p>函数格式<br>有函数头与函数体；<br>接收参数<br>返回一个值<br>需要原型</p>
+<p>结构<br>假如要存储运动员的信息，包括：姓名，年龄，工资，进球数等，希望有一种数据格式可以将所有数据存储在同一单元。<br>数组可以吗？数组只能存储相同格式的数据，所以不满足。<br>结构可以满足要求，因为同一个结构可以存储多种类型的数据。</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token keyword">struct</span> inflatable
+<span class="token punctuation">{</span>
+    <span class="token keyword">char</span> name<span class="token punctuation">[</span><span class="token number">20</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token keyword">float</span> volume<span class="token punctuation">;</span>
+    <span class="token keyword">double</span> price<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    inflatable guest <span class="token operator">=</span>
+    <span class="token punctuation">{</span>
+        <span class="token string">"Li ming"</span><span class="token punctuation">,</span>
+        <span class="token number">1.88</span><span class="token punctuation">,</span>
+        <span class="token number">29.99</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    cout<span class="token operator">&lt;&lt;</span> guest<span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>枚举<br>用于定义常量</p>
+<pre class=" language-c++"><code class="language-c++">enum color{red,blue,green};
+color paper = blue;
+</code></pre>
+<p>计算机在存储数据时，需要考虑3个基本问题：<br>1、信息存储在何处<br>2、存储的值是多少<br>3、存储的信息是什么类型</p>
+<p>策略1，简单变量，声明语句定义了数据类型和标识符，程序为值分配内存，并在内部跟踪该内存位置。<br>策略2，定义指针，指针是一个变量，存储值的地址。<code>*</code>称为解除引用运算符，应用于指针，可以得到该地址存储的值。</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">int</span> cups <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 声明指针</span>
+<span class="token keyword">int</span> <span class="token operator">*</span> p_cups<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 初始化</span>
+p_cups <span class="token operator">=</span> <span class="token operator">&amp;</span>cups<span class="token punctuation">;</span>
+
+cout<span class="token operator">&lt;&lt;</span> <span class="token operator">&amp;</span>cups<span class="token punctuation">;</span>
+</code></pre>
+<p>分配内存与删除内存<br>指针真正的用武之地在于，分配未命名的内存以存储数据。</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">int</span> <span class="token operator">*</span> pt <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token keyword">int</span><span class="token punctuation">;</span>
+<span class="token operator">*</span>pt <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+
+<span class="token keyword">delete</span> pt<span class="token punctuation">;</span>
+</code></pre>
+<h2 id="c-程序设计原理与实践"><a href="#c-程序设计原理与实践" class="headerlink" title="c++ 程序设计原理与实践"></a>c++ 程序设计原理与实践</h2><p>程序<br>描述怎么做的行为</p>
+<p>编译<br>将程序从人类可读的代码转换为机器可读的代码称为编译。</p>
+<p>链接<br>描述将多个单独编译的代码，链接成可执行程序的过程。</p>
+<p>变量<br>在内存中存储数据</p>
+<p>命名规则</p>
+<p>类型安全</p>
+<p>表达式<br>通过一系列的操作来计算一个数</p>
+<p>选择语句</p>
+<p>循环语句<br>用于处理重复性的工作。</p>
+<p>函数<br>一个命名的语句序列，能够返回计算结果</p>
+<p>向量<br>一组可以通过索引来访问的顺序存储的数据元素。</p>
+<p>错误<br>编译时<br>连接时<br>运行时<br>逻辑</p>
+<p>错误的来源</p>
+<p>声明<br>为命名实体指定一个类型</p>
+<p>定义<br>给出实体完整描述的声明</p>
+
+</div>
+</div>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：Lian</li>
+    <li>日期：2018年02月12日 20:02</li>
+  </ul>
+</div>
+      
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+<div id="" class="item-comment">
+  <p class="author">
+    
+    lian <span>说：</span>
+  </p>
+
+  <div class="content">
+      <blockquote>
+        <pre>引用xiaotian044500的发言：</pre>
+        看来这么想的不在少数啊, 确实挺像的.
+        </blockquote>
+        哈哈
+  </div>
+    
+</div>
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+
+	<form method="post" action="" 
+	 onsubmit="return pleaseWait()">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.*+$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<p>
+			<input type="submit" class="submit-button" value="发表">
+			<span class="hint"> «- 点击按钮</span>
+		</p>
+	</form>
+
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+</div>
+</body>
+
+</html>
+

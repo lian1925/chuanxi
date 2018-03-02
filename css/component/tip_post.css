@@ -1,0 +1,26 @@
+
+
+.tip-post .post-cate {
+  float: right;
+  margin: 0.5rem 3rem 0.5rem 0.5rem;
+}
+.tip-post .post-cate a {
+  color: green;
+}
+.tip-post .content{
+  margin: 1rem;
+  line-height: 1.8;
+  clear: both;
+}
+.tip-post .read-more a{
+  color: green;
+  margin: 1.5rem;
+  font-size: 1.6rem;
+  line-height: 220%;
+}
+.tip-post p.post-meta{
+  font-size: 1.4rem;
+  margin-right: 2rem;
+  color: #3d3d3d;
+  float: right;
+}

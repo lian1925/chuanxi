@@ -1,0 +1,284 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/robot.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>
+    小沙丘的网络漫游记
+  </title>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  <script>
+    if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+      document.body.classList.add('mobile');            
+    } else{
+      document.body.classList.add('pc');
+			document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+    }
+  </script>
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/淬炼/">
+            淬炼
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>分类：
+        <span> 
+            <a href="/tags/淬炼/">
+              淬炼
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/02/08/online-javascript/">
+              ⇐ 
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/02/12/online-cplusplus/">
+              ⇒
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/02/08/online-javascript/">
+                    JavaScript | 知识淬炼
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/02/12/online-cplusplus/">
+                    C++ | 知识淬炼
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<h1>熟悉你的IDE | VS code</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年02月10日 09:02
+  </p>
+</div>
+      
+
+<div class="page">
+    <h2 id="VS-Code"><a href="#VS-Code" class="headerlink" title="VS Code"></a>VS Code</h2><p>Visual Studio Code，是一个轻量级的开源代码编辑器。IDE内置了JavaScript，typescript和Node.js的支持。并支持其他编程语言的支持，包括：C++,C#,Java,Python,PHP,Go。</p>
+<p>rk 28dr 5ync rmve</p>
+<h2 id="快捷键-macOS"><a href="#快捷键-macOS" class="headerlink" title="快捷键-macOS"></a>快捷键-macOS</h2><p>1、General<br><strong>⇧+⌘+P，Show Command Palette</strong><br>显示命令栏</p>
+<p><strong>⌘+P，Quick Open, Go to File…</strong><br>输入名字，跳转指定文件</p>
+<p>⇧+⌘+N,New window/instance<br>开启新窗口/页面</p>
+<p><strong>⌘+W，Close window/instance</strong><br>关闭窗口/页面</p>
+<p>⌘+, User Settings<br>用户设置</p>
+<p>⌘K+⌘S，Keyboard Shortcuts<br>快捷键</p>
+<p>2、Basic editing<br>⌘+X Cut line (empty selection)<br>剪切一行<br>⌘+C Copy line (empty selection)<br>复制一行<br><strong>⌥+↓ / ⌥+↑ Move line down/up</strong><br>将行移上或移下<br>⇧⌥↓ / ⇧⌥↑ Copy line down/up<br>将行移上火移下，叠加复制功能<br>⇧+⌘+K Delete line<br>删除行<br>⌘+Enter / ⇧+⌘+Enter Insert line below/above<br>插入一行<br>⇧+⌘+\ Jump to matching bracket<br>跳入括号<br>⌘+] / ⌘+[ Indent/outdent line<br>缩进<br>Home / End Go to beginning/end of line<br>跳到首行或尾行<br>⌘↑ / ⌘↓ Go to beginning/end of file<br>跳到首行或尾行<br>⌃PgUp / ⌃PgDn Scroll line up/down<br>折叠行<br>⌘PgUp /⌘PgDn Scroll page up/down<br>折叠页<br>⌥⌘[ / ⌥⌘] Fold/unfold region</p>
+<p>⌘K ⌘[ / ⌘K ⌘] Fold/unfold all subregions<br>⌘K ⌘0 / ⌘K ⌘J Fold/unfold all regions<br>⌘K ⌘C Add line comment<br>添加注释<br>⌘K ⌘U Remove line comment<br>删除注释<br><strong>⌘+/ Toggle line comment</strong><br>翻转注释<br>⇧⌥A Toggle block comment<br>翻转注释<br>⌥Z Toggle word wrap<br>单词折叠</p>
+<p>3、Multi-cursor and selection<br>⌥ + click Insert cursor<br>插入光标<br>⌥⌘↑ Insert cursor above<br>向上插入光标<br><strong>⌥⌘↓ Insert cursor below</strong><br>向下插入光标<br>⌘U Undo last cursor operation<br>取消最后的光标操作<br>⇧⌥I Insert cursor at end of each line selected<br>在选择的每一行末尾插入光标<br>⌘I Select current line<br>选择当前行<br><strong>⇧⌘L Select all occurrences of current selection</strong><br>选择所有与选中内容相同的项<br>⌘F2 Select all occurrences of current word<br>选择与当前单词相同的项<br>⌃⇧⌘→ / ← Expand / shrink selection<br>扩展选项<br>⇧⌥ + drag mouse Column (box) selection<br>鼠标移动选择<br>⇧⌥⌘↑ / ↓ Column (box) selection up/down<br>选项移动向上或下<br>⇧⌥⌘← / → Column (box) selection left/right<br>移动选项左或右<br>⇧⌥⌘PgUp Column (box) selection page up<br>⇧⌥⌘PgDn Column (box) selection page down</p>
+<p>4、Search and replace<br><strong>⌘F Find</strong><br>查找<br>⌥⌘F Replace<br>替换<br><strong>⌘G / ⇧⌘G Find next/previous</strong><br>查找下一个<br>⌥Enter Select all occurrences of Find match<br>选中所有匹配项<br><strong>⌘D Add selection to next Find match</strong><br>添加下一项<br>⌘K ⌘D Move last selection to next Find match<br>选中上一项</p>
+<p>5、Rich languages editing<br>⌃Space Trigger suggestion<br>翻转提示<br>⇧⌘Space Trigger parameter hints<br>翻转参数提示<br>⇧⌥F Format document<br>文本格式<br>⌘K ⌘F Format selection<br>格式选择<br><strong>F12 Go to Definition</strong><br>跳转定义处<br>⌥F12 Peek Definition<br>查看定义<br>⌘K F12 Open Definition to the side<br>在旁边打开定义<br>⌘. Quick Fix<br>快速修复<br>⇧F12 Show References<br>查看参考<br>F2 Rename Symbol<br>重命名<br>⌘K ⌘X Trim trailing whitespace<br>删除空格<br>⌘K M Change file language<br>改变文本语言</p>
+<p>6、Navigation<br>⌘T Show all Symbols<br>显示所有变量<br>⌃G Go to Line…<br>定位行<br>⌘P Go to File…<br>定位文件<br><strong>⇧⌘O Go to Symbol…</strong><br>定位变量<br>⇧⌘M Show Problems panel<br>显示问题面板<br>F8 / ⇧F8 Go to next/previous error or warning<br>跳转下一个异常<br>⌃⇧Tab Navigate editor group history<br>编辑器历史<br>⌃- / ⌃⇧- Go back/forward<br>跳到前后<br>⌃⇧M Toggle Tab moves focus<br>移动聚焦</p>
+<p>7、Editor management<br>⌘W Close editor<br>关闭编辑器<br>⌘K F Close folder<br>关闭文件夹<br><strong>⌘\ Split editor</strong><br>分离编辑器<br>⌘1 / ⌘2 / ⌘3 Focus into 1<br>st, 2nd, 3rd editor group<br>⌘K ⌘← / ⌘K ⌘→ Focus into previous/next editor group<br>⌘K ⇧⌘← / ⌘K ⇧⌘→ Move editor left/right<br>⌘K ← / ⌘K → Move active editor group</p>
+<p>8、File management<br>⌘N New File<br>新建文件<br>⌘O Open File…<br>打开文件<br>⌘S Save<br>保存<br>⇧⌘S Save As…<br>保存为<br>⌥⌘S Save All<br>保存所有<br>⌘W Close<br>关闭<br>⌘K ⌘W Close Allr<br>关闭所有<br>⇧⌘T Reopen closed editor<br>重启编辑器<br>⌘K Enter Keep preview mode editor open<br>预览模式<br>⌃Tab / ⌃⇧Tab Open next / previous<br><strong>⌘K P Copy path of active file</strong><br>复制当前文件的路径<br><strong>⌘K R Reveal active file in Explorer</strong><br>在显示器打开当前文件<br>⌘K O Show active ofile in new window/instance<br>在新窗口打开当前文件</p>
+<p>9、Display<br><strong>⌃⌘F Toggle full screen</strong><br>切换全屏<br>⌥⌘1 Toggle editor layout (horizontal/vertical)<br>切换编辑器布局<br>⌘= / ⇧⌘- Zoom in/out<br>缩放<br>⌘B Toggle Sidebar visibility<br>切换侧边栏<br>⇧⌘E Show Explorer / Toggle focus<br>显示焦点<br>⇧⌘F Show Search<br>显示搜索<br>⌃⇧G Show Source Control<br>显示资源板<br>⇧⌘D Show Debug<br>显示调试<br>⇧⌘X Show Extensions<br>显示扩展<br>⇧⌘H Replace in files<br>替换文件<br>⇧⌘J Toggle Search details<br>搜索细节<br>⇧⌘U Show Output panel<br>显示输出面板<br>⇧⌘V Open Markdown preview<br>显示markdown 预览<br>v⌘K V Open Markdown preview to the side<br>在侧边栏显示markdown预览<br>⌘K Z Zen Mode (Esc Esc to exit)</p>
+<p>10、Debug<br>F9 Toggle breakpoint<br>切换断点<br>F5 Start/Continue<br>开始运行<br>F11 / ⇧F11 Step into/ out<br>跳入循环<br>F10 Step over<br>跳出循环<br>⇧F5 Stop<br>停止<br>⌘K ⌘I Show hover<br>显示悬停</p>
+<p>11、Integrated terminal<br>⌃<code>Show integrated terminal
+集成终端
+⌃⇧</code> Create new terminal<br>创建新终端<br>⌘C Copy selection<br>复制选择项<br>⌘↑ / ↓ Scroll up/down<br>PgUp / PgDn Scroll page up/down<br>⌘Home / End Scroll to top/bottom</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h2 id="文件夹与文件操作"><a href="#文件夹与文件操作" class="headerlink" title="文件夹与文件操作"></a>文件夹与文件操作</h2><h2 id="代码编辑"><a href="#代码编辑" class="headerlink" title="代码编辑"></a>代码编辑</h2><h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><h2 id="debugg"><a href="#debugg" class="headerlink" title="debugg"></a>debugg</h2><h2 id="自定义"><a href="#自定义" class="headerlink" title="自定义"></a>自定义</h2><h2 id="扩展"><a href="#扩展" class="headerlink" title="扩展"></a>扩展</h2>
+</div>
+</div>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：Lian</li>
+    <li>日期：2018年02月10日 09:02</li>
+  </ul>
+</div>
+      
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+<div id="" class="item-comment">
+  <p class="author">
+    
+    lian <span>说：</span>
+  </p>
+
+  <div class="content">
+      <blockquote>
+        <pre>引用xiaotian044500的发言：</pre>
+        看来这么想的不在少数啊, 确实挺像的.
+        </blockquote>
+        哈哈
+  </div>
+    
+</div>
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+
+	<form method="post" action="" 
+	 onsubmit="return pleaseWait()">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.*+$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<p>
+			<input type="submit" class="submit-button" value="发表">
+			<span class="hint"> «- 点击按钮</span>
+		</p>
+	</form>
+
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+</div>
+</body>
+
+</html>
+

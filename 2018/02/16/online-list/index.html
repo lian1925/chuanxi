@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/robot.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>
+    小沙丘的网络漫游记
+  </title>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  <script>
+    if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+      document.body.classList.add('mobile');            
+    } else{
+      document.body.classList.add('pc');
+			document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+    }
+  </script>
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/淬炼/">
+            淬炼
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>分类：
+        <span> 
+            <a href="/tags/淬炼/">
+              淬炼
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/02/14/online-koa/">
+              ⇐ 
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/02/16/online-newyear/">
+              ⇒
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/02/14/online-koa/">
+                    Koa.Js | 淬炼
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/02/16/online-newyear/">
+                    新年祝福 | 清单
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<h1>概念淬炼 | 清单</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年02月16日 18:02
+  </p>
+</div>
+      
+
+<div class="page">
+    <p>1、提取概念<br>2、顾名思义，解读概念<br>3、下定义<br>4、示例<br>5、示例说明</p>
+<p>例如：<br>1、提取概念<br>BOM<br>window<br>frames<br>top<br>parent<br>location<br>navigator<br>screen<br>history</p>
+<p>2、顾名思义<br>browser object model<br>窗口<br>框架<br>顶层<br>父级<br>定位<br>导航<br>屏幕<br>历史</p>
+<p>3、定义<br>在浏览器中，windows对象具有双重角色。一方面，它是JavaScript访问浏览器的一个接口；另一方面，它是ECMAScript规定的全局对象。</p>
+<p>如果页面中包含框架，则每个框架都有自己的window对象，且保存在fremes集合中。</p>
+<p>top对象始终指向最高层的框架，即浏览器窗口。</p>
+<p>parent对象指向当前框架的直接上层框架。</p>
+<p>location对象提供与当前窗口中加载的文档有关的信息；还提供了一些导航功能。</p>
+<p>navigator，提供识别客户端浏览器的相关信息。</p>
+<p>screen对象用于表明客户端的能力。</p>
+<p>history对象保存用户上网的历史记录。</p>
+<p>4、示例</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> age <span class="token operator">=</span> <span class="token number">29</span><span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">sayAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token function">alert</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>age<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+window<span class="token punctuation">.</span>age <span class="token comment" spellcheck="true">// 29</span>
+window<span class="token punctuation">.</span><span class="token function">sayAge</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 29</span>
+</code></pre>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Frameset Example<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>frameset</span> <span class="token attr-name">cols</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>50%,50%<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>frame</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>red.htm<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>redFrame<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>frame</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>blue.htm<span class="token punctuation">"</span></span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>blueFrame<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>frameset</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+</code></pre>
+<pre class=" language-js"><code class="language-js">window<span class="token punctuation">.</span>parent<span class="token punctuation">.</span>frames<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+window<span class="token punctuation">.</span>top<span class="token punctuation">.</span>frames<span class="token punctuation">[</span><span class="token string">"blueFrame"</span><span class="token punctuation">]</span>
+</code></pre>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">//􏳪􏹞􏱞􏱟 URL 􏸬 http://www.wrox.com/WileyCDA/</span>
+<span class="token comment" spellcheck="true">//􏰌 URL 􏱠􏱡􏸬"http://www.wrox.com/WileyCDA/#section1"</span>
+location<span class="token punctuation">.</span>hash <span class="token operator">=</span> <span class="token string">"#section1"</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//􏰌 URL 􏱠􏱡􏸬"http://www.wrox.com/WileyCDA/?q=javascript" </span>
+location<span class="token punctuation">.</span>search <span class="token operator">=</span> <span class="token string">"?q=javascript"</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//􏰌 URL 􏱠􏱡􏸬"http://www.yahoo.com/WileyCDA/"</span>
+location<span class="token punctuation">.</span>hostname <span class="token operator">=</span> <span class="token string">"www.yahoo.com"</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//􏰌 URL 􏱠􏱡􏸬"http://www.yahoo.com/mydir/" </span>
+location<span class="token punctuation">.</span>pathname <span class="token operator">=</span> <span class="token string">"mydir"</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">//􏰌 URL 􏱠􏱡􏸬"http://www.yahoo.com:8080/WileyCDA/" </span>
+location<span class="token punctuation">.</span>port <span class="token operator">=</span> <span class="token number">8080</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">//􏱙􏱚􏱩􏱪􏱦在 IE 中􏱫􏼅􏱩 function hasPlugin(name){</span>
+    name <span class="token operator">=</span> name<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> navigator<span class="token punctuation">.</span>plugins<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>navigator<span class="token punctuation">.</span> plugins <span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>name<span class="token punctuation">.</span><span class="token function">toLowerCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span> <span class="token operator">></span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token boolean">true</span><span class="token punctuation">;</span>
+￼￼<span class="token punctuation">}</span> <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">//􏱙􏱚 Flash </span>
+<span class="token function">alert</span><span class="token punctuation">(</span><span class="token function">hasPlugin</span><span class="token punctuation">(</span><span class="token string">"Flash"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-js"><code class="language-js">window<span class="token punctuation">.</span><span class="token function">resizeTo</span><span class="token punctuation">(</span>screen<span class="token punctuation">.</span>availWidth<span class="token punctuation">,</span> screen<span class="token punctuation">.</span>availHeight<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">// 后退一页</span>
+history<span class="token punctuation">.</span><span class="token function">go</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 前进一页</span>
+history<span class="token punctuation">.</span><span class="token function">go</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// 前进两页</span>
+history<span class="token punctuation">.</span><span class="token function">go</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="清单革命"><a href="#清单革命" class="headerlink" title="清单革命"></a>清单革命</h2><p>无知之错<br>没有掌握相关的知识。</p>
+<p>无能之错<br>不是因为没有掌握相关知识，而是没有正确使用这些知识。</p>
+<p>超级专家<br>相比普通人，他们知道更多重要的细节，学会如何掌控特定工作的复杂性。</p>
+<p>清单<br>理性选择后的思维工具。</p>
+<p>处理复杂问题的两大困难<br>一，人类的记忆和注意力谬误。在重压下，人们特别容易忽视一些单调的例行事项。<br>二，人们会麻痹大意，故意跳过一些明明记得的步骤。</p>
+<p>清单<br>提醒我们一些必要的步骤，让操作者明白该干什么。这不仅是一种检查方法，还是一种高水平绩效的纪律</p>
+<p>原则<br>把简单的事情做好，不要犯低级错误，也要为随机应变和主观判断流出足够的空间。</p>
+<p>特殊清单<br>将全力下放更多人。</p>
+<p>应急机制</p>
+<p>持续改善<br>沟通质量的改善</p>
+<h2 id="旅行清单"><a href="#旅行清单" class="headerlink" title="旅行清单"></a>旅行清单</h2><p>1、证件与钱包<br>身份证+交通卡+钥匙，钱包，驾驶证，银行卡<br>2、衣物<br>内衣，内裤，外衣，外裤<br>3、日常用品<br>刮须刀，眼镜盒，牙刷，充电器<br>4、手机与电脑<br>手机，充电线头+线，电脑，电源线，移动硬盘</p>
+<p>5、家乡特产<br>鱿鱼丝，凤爪，鱼干</p>
+<p>待办清单<br>1、送李超凤爪，回馈他姐鱼干<br>2、和老余吃个饭<br>3、和海浪打个球<br>4、手机换屏</p>
+<h2 id="早上出门清单"><a href="#早上出门清单" class="headerlink" title="早上出门清单"></a>早上出门清单</h2><p>1、清洗<br>上厕所，刷牙，洗脸，洗澡，头发整洁，衣服整洁，没有异味</p>
+<p>2、出门物品<br>手机(充满电)，电脑(充满电)，编程屋硬件，特产</p>
+<h2 id="睡觉前清单"><a href="#睡觉前清单" class="headerlink" title="睡觉前清单"></a>睡觉前清单</h2><p>洗脸，泡脚</p>
+<p>刷牙，洗衣服</p>
+<p>手机充电，电脑充电</p>
+<h2 id="人际关系-持续改善"><a href="#人际关系-持续改善" class="headerlink" title="人际关系 持续改善"></a>人际关系 持续改善</h2><p>强化自我认知，激励他人<br>认知他人<br>塑造交往印象，营造将来往来期待</p>
+<h2 id="事业-持续改善"><a href="#事业-持续改善" class="headerlink" title="事业 持续改善"></a>事业 持续改善</h2><p>塑造专业公信力<br>学识与习作</p>
+<p>幽默、真情<br>前端编程<br>青年分享</p>
+<h2 id="交谈"><a href="#交谈" class="headerlink" title="交谈"></a>交谈</h2><p>1、李超<br>特产<br>鱼干送他姐，回谢上次的蓝莓干。凤爪送他夫人，凤爪以出自湛江为傲，风味最佳。另含丰富胶原蛋白，改善肤质。<br>microbit<br>软件平台试用感受，下期迭代建议。<br>硬件<br>返还硬件，咨询硬件调试情况，建议当场演示，拍照。<br>培训<br>培训计划进行情况<br>推荐书籍<br>清单革命，理由：上次硬件电路第一次出厂，发生线路故障。原因是采用新的USB接口，对线序预计错误导致电路线路出错。<br>如果，当事者有清单看过此书，就会意识到使用新元器件，要谨慎小心，增加评估，检查，确认可靠等步骤清单，以保证工作的可靠。<br>若如此，则可避免此次的失误。<br>当然，这本书的价值不仅仅局限于此，清单是应对复杂情况，保证可靠性的绝佳武器。<br>2018年目标<br>编程屋，编程教育品牌</p>
+<h2 id="网络课程"><a href="#网络课程" class="headerlink" title="网络课程"></a>网络课程</h2><p>录制视频<br>1、工具<br>keynote，一款mac系统自带的演示工具，功能类似PowerPoint。<br>交互界面<br>工具栏，导航栏，主区，属性面板</p>
+
+</div>
+</div>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：Lian</li>
+    <li>日期：2018年02月16日 18:02</li>
+  </ul>
+</div>
+      
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+<div id="" class="item-comment">
+  <p class="author">
+    
+    lian <span>说：</span>
+  </p>
+
+  <div class="content">
+      <blockquote>
+        <pre>引用xiaotian044500的发言：</pre>
+        看来这么想的不在少数啊, 确实挺像的.
+        </blockquote>
+        哈哈
+  </div>
+    
+</div>
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+
+	<form method="post" action="" 
+	 onsubmit="return pleaseWait()">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.*+$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<p>
+			<input type="submit" class="submit-button" value="发表">
+			<span class="hint"> «- 点击按钮</span>
+		</p>
+	</form>
+
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+</div>
+</body>
+
+</html>
+
