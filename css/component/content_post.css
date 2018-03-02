@@ -38,7 +38,8 @@
   border: 2px solid rgba(0, 0, 0, 0.25);
   max-width: 90%;
 }
-.page p code{
+.page p code,
+.page ul li code{
   display: inline-block;
   font-weight: 500;
   font-size: 1.7rem;
