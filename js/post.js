@@ -8,6 +8,7 @@ $('.page p img').each(function() {
   var content = '<a data-fancybox="image" href="' + src + '")></a>';
   $(this).wrap('' + content + ')></a>')
 })
+var hostUrl = ["http://138.128.204.8:8080","http://39.108.194.159:8080"]
 // alert(JSON.stringify(location))
 var doButton = function(type){
   if(type == "addComment"){
@@ -73,7 +74,7 @@ function addComment() {
     return false;
   }
   var data = {content,author,wechat,email,post_id};
-  var url =  "http://39.108.194.159:8080/comment/comment/new"
+  var url =  `${hostUrl[1]}/comment/comment/new`
   var obj = {url,data,method:'POST'}
   
   request(obj)
@@ -105,7 +106,7 @@ var getAllComment = function() {
     return;
   }
   var post_id = flag.innerText.trim();
-  var url =  `http://39.108.194.159:8080/comment/comment/post`
+  var url =  `${hostUrl[1]}/comment/comment/post`
   
   var data = {post_id}
   var obj = {data,url,method:'GET'};
