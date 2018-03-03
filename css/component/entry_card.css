@@ -63,22 +63,4 @@
   background-repeat: no-repeat; 
   background-image: url("http://www.ruanyifeng.com/images_pub/pub_121.jpg");
 }
-body#index-bg{
-  background-repeat: no-repeat;
-    background-attachment: fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-    background-position: 50% 50%;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    height: 100%;
-    background-image: url(http://www.ruanyifeng.com/images_pub/pub_0.png);
-    -webkit-transition: All 2s ease;
-    -moz-transition: All 2s ease;
-    -o-transition: All 2s ease;
-    -ms-transition: All 2s ease;
-    transition: All 2s ease;
-}
+
