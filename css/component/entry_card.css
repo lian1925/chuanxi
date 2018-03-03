@@ -1,5 +1,5 @@
 
-.entry-card{
+.entry-card {   
   /* width: 90%; */
   width: 380px;
   height: 200px;
@@ -17,15 +17,18 @@
   text-align: center;
   margin: 0;
   margin-top: 1.5rem;
+  
   text-shadow: 0 1px 1px #333;
   font-weight: bolder;
   font-size: 2.2rem;
   line-height: 2.2rem;
   border: none;
 }
+
 .entry-card h2 a {
   color: snow;
 }
+
 .entry-card h3{
 
   text-shadow: 0 1px 1px #333;
@@ -40,6 +43,7 @@
   line-height: 4rem;
   border-bottom: 1px solid #d3d3d3;
 }
+
 .entry-card .inner p a {
   color: snow;
   font-size: 1.6rem;
@@ -47,14 +51,16 @@
   /* padding: 0.5rem; */
 }
 
-#index-bg{
+#index-bg 
+{
   background-position: 50% 50%;
-    width: 100%;
-    height: 100%;
-    background-attachment: fixed;
-    transition: all 2s ease-in;
-    
+  /* width: 100%;
+  height: 100%; */
+  background-attachment: fixed;
+  transition: all 2s ease-in;
+
   background-size: cover; 
   background-repeat: no-repeat; 
   background-image: url("http://www.ruanyifeng.com/images_pub/pub_121.jpg");
 }
+
