@@ -94,9 +94,8 @@
   </p>
 </div>
       
-
-<div class="page">
-    <p>Lesson 24 It could be worse 不幸中之万幸</p>
+  <div class="page">
+      <p>Lesson 24 It could be worse 不幸中之万幸</p>
 <h2 id="提问"><a href="#提问" class="headerlink" title="提问"></a>提问</h2><p>Had the writer’s money been stolen?</p>
 <h2 id="课文"><a href="#课文" class="headerlink" title="课文"></a>课文</h2><p>I <code>entered</code> the hotel manager’s office and sat down. I had just lost ￡50 and I felt very upset. </p>
 <p>‘I left the money in my room, ’ I said, ‘and it’s not there now. ’ The manager was <code>sympathetic</code>, but he could do nothing. ‘Everyone’s losing money these days, ’ he said. </p>
@@ -112,7 +111,7 @@
 <p>“这是我在这位先生的房门外捡到的，”她说。“是啊，”我对那位经理说，“这世界上还是有诚实可言的！”</p>
 <p>(完)</p>
 
-</div>
+  </div>
 </div>
 
 <!-- 文档信息 -->
@@ -134,30 +133,149 @@
   <h2>留言</h2>
   
   
-<div id="" class="item-comment">
-  <p class="author">
-    
-    lian <span>说：</span>
-  </p>
-
-  <div class="content">
-      <blockquote>
-        <pre>引用xiaotian044500的发言：</pre>
-        看来这么想的不在少数啊, 确实挺像的.
-        </blockquote>
-        哈哈
-  </div>
-    
-</div>
 		
 </div>
 
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
 
 
 <div class="footer">
   Copyright @ <a href="/">lian</a> | 2009-2018
 </div>
+
+
+<p id="info-meta" style="display:block;">
+  书单1520044293
+</p>
+
 </div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/post.js"></script>
+
 </body>
 
 </html>

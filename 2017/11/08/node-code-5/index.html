@@ -73,7 +73,7 @@
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2017/11/08/node-code-4/">
-                    课4 express 入门 | Node.js
+                    课4 express 入门
                 </a>
         </P>
         <P>下一篇：
@@ -94,9 +94,8 @@
   </p>
 </div>
       
-
-<div class="page">
-    <p>本节将会学习如何安装MySQL数据库。<br><a id="more"></a></p>
+  <div class="page">
+      <p>本节将会学习如何安装MySQL数据库。<br><a id="more"></a></p>
 <h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><h3 id="CentOS"><a href="#CentOS" class="headerlink" title="CentOS"></a>CentOS</h3><p>如果你的系统是CentOS,则安装方法如下：<br>1、获取MySQL资源</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">wget</span> http://repo.mysql.com/mysql-community-release-el7-5.noarch.rpm
 <span class="token function">sudo</span> rpm -ivh mysql-community-release-el7-5.noarch.rpm
@@ -138,7 +137,7 @@ yum update
 <p>4、强制生效<br>FLUSH PRIVILEGES;</p>
 <p>(完)</p>
 
-</div>
+  </div>
 </div>
 
 <!-- 文档信息 -->
@@ -160,30 +159,149 @@ yum update
   <h2>留言</h2>
   
   
-<div id="" class="item-comment">
-  <p class="author">
-    
-    lian <span>说：</span>
-  </p>
-
-  <div class="content">
-      <blockquote>
-        <pre>引用xiaotian044500的发言：</pre>
-        看来这么想的不在少数啊, 确实挺像的.
-        </blockquote>
-        哈哈
-  </div>
-    
-</div>
 		
 </div>
 
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
 
 
 <div class="footer">
   Copyright @ <a href="/">lian</a> | 2009-2018
 </div>
+
+
+<p id="info-meta" style="display:block;">
+  书单1520044293
+</p>
+
 </div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/post.js"></script>
+
 </body>
 
 </html>

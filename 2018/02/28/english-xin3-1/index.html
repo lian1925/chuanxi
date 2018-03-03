@@ -94,9 +94,8 @@
   </p>
 </div>
       
-
-<div class="page">
-    <p>A Puma at large 逃遁的美洲狮</p>
+  <div class="page">
+      <p>A Puma at large 逃遁的美洲狮</p>
 <h2 id="提问"><a href="#提问" class="headerlink" title="提问"></a>提问</h2><p>Where must the puma have come from?</p>
 <h2 id="课文"><a href="#课文" class="headerlink" title="课文"></a>课文</h2><p><code>Pumas [ˈpju:mə 美洲狮]</code> are large, cat-like animals which are found in America. </p>
 <p>When reports came into London Zoo that a wild puma had been spotted forty-five miles south of London, they were not taken <code>seriously [ˈsɪəriəsli 严肃地]</code> . </p>
@@ -115,7 +114,7 @@
 <p>搜寻美洲狮的工作是从一座小村庄开始的。那里的一位妇女在采摘黑莓时的看见“一只大猫”，离她仅5码远，她刚看见它，它就立刻逃走了。专家证实，美洲狮非被逼得走投无路，是决不会伤人的。事实上搜寻工作很困难，因为常常是早晨在甲地发现那只美洲狮，晚上却在20英里外的乙地发现它的踪迹。无论它走哪儿，一路上总会留下一串死鹿及死兔子之类的小动物，在许多地方看见爪印，灌木丛中发现了粘在上面的美洲狮毛。有人抱怨说夜里听见“像猫一样的叫声”;一位商人去钓鱼，看见那只美洲狮在树上。专家们如今已经完全肯定那只动物就是美洲狮，但它是从哪儿来的呢?由于全国动物园没有一家报告丢了美洲狮，因此那只美洲狮一定是某位私人收藏豢养的，不知怎么设法逃出来了。搜寻工作进行了好几个星期，但始终未能逮住那只美洲狮。想到在宁静的乡村里有一头危险的野兽继续逍遥流窜，真令人担心。</p>
 <p>(完)</p>
 
-</div>
+  </div>
 </div>
 
 <!-- 文档信息 -->
@@ -137,30 +136,149 @@
   <h2>留言</h2>
   
   
-<div id="" class="item-comment">
-  <p class="author">
-    
-    lian <span>说：</span>
-  </p>
-
-  <div class="content">
-      <blockquote>
-        <pre>引用xiaotian044500的发言：</pre>
-        看来这么想的不在少数啊, 确实挺像的.
-        </blockquote>
-        哈哈
-  </div>
-    
-</div>
 		
 </div>
 
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
 
 
 <div class="footer">
   Copyright @ <a href="/">lian</a> | 2009-2018
 </div>
+
+
+<p id="info-meta" style="display:block;">
+  书单1520044293
+</p>
+
 </div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/post.js"></script>
+
 </body>
 
 </html>

@@ -94,9 +94,8 @@
   </p>
 </div>
       
-
-<div class="page">
-    <p>本节将学习Express，并对MySQL进行数据的增删改查操作。<br><a id="more"></a></p>
+  <div class="page">
+      <p>本节将学习Express，并对MySQL进行数据的增删改查操作。<br><a id="more"></a></p>
 <h2 id="新知识"><a href="#新知识" class="headerlink" title="新知识"></a>新知识</h2><p>本课我们将学习两个新的Node.js库，并初步接触 Restful的API写法。</p>
 <p><code>co</code> 库，对JavaScript程序进行异步操作。</p>
 <p><code>mysql2</code> 库，用于数据库的操作，包括常用的对数据表增删改查。</p>
@@ -175,7 +174,7 @@ app<span class="token punctuation">.</span><span class="token keyword">delete</s
 <p>2、为什么使用co库？<br>co库是nodejs领域鼎鼎大名的TJ大神的代表作，用在数据库操作上，可以实现将异步转同步，提高代码可读性。</p>
 <p>(完)</p>
 
-</div>
+  </div>
 </div>
 
 <!-- 文档信息 -->
@@ -197,30 +196,149 @@ app<span class="token punctuation">.</span><span class="token keyword">delete</s
   <h2>留言</h2>
   
   
-<div id="" class="item-comment">
-  <p class="author">
-    
-    lian <span>说：</span>
-  </p>
-
-  <div class="content">
-      <blockquote>
-        <pre>引用xiaotian044500的发言：</pre>
-        看来这么想的不在少数啊, 确实挺像的.
-        </blockquote>
-        哈哈
-  </div>
-    
-</div>
 		
 </div>
 
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
 
 
 <div class="footer">
   Copyright @ <a href="/">lian</a> | 2009-2018
 </div>
+
+
+<p id="info-meta" style="display:block;">
+  Express与MySQL1520044293
+</p>
+
 </div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/post.js"></script>
+
 </body>
 
 </html>
