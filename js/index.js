@@ -5,6 +5,7 @@ function backgroundImage() {
   var pub_img_num = 355;
   var pub_img_current_no = function() {
     return Math.floor(Math.random() * pub_img_num + 1);
+    // return 121;
   };
 
   var pub_img_url = function() {
