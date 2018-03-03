@@ -28,6 +28,10 @@ var getParameterByName = function (name, url) {
 }
 var backToPage = function(){
   var path = getParameterByName("redirect");
+  if(path == null){
+    location.href = "/home/"
+    return ;
+  }
   location.href=path;
 }
 
@@ -96,7 +100,11 @@ var getOneComment = function(obj){
   $(".content-comment").append(item_comment);
 }
 var getAllComment = function() {
-  var post_id = document.getElementById('info-meta').innerText;
+  var flag = document.getElementById('info-meta');
+  if(flag == undefined){
+    return;
+  }
+  var post_id = flag.innerText.trim();
   var url =  `http://39.108.194.159:8080/comment/comment/post`
   
   var data = {post_id}
