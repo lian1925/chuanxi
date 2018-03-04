@@ -2,14 +2,15 @@ var pub_img_current_image;
 
 function backgroundImage() {
   var pub_img_path = 'http://www.ruanyifeng.com/images_pub/';
-  var pub_img_num = 355;
+  pub_img_path = 'http://www.liangyl.com/art_image/';
+  var pub_img_num = 55;
   var pub_img_current_no = function() {
     return Math.floor(Math.random() * pub_img_num + 1);
     // return 121;
   };
 
   var pub_img_url = function() {
-    return pub_img_path + 'pub_' + pub_img_current_no() + '.jpg';
+    return pub_img_path + 'lian' + pub_img_current_no() + '.jpg';
   };
 
   if (pub_img_current_image === undefined) pub_img_current_image = pub_img_url();
