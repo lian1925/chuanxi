@@ -9,14 +9,3 @@
   font-size: 2rem;
   line-height: 220%;
 }
-.form-comment .submit-button{
-  margin-top: 2rem;
-  width: 10rem;
-  padding: 0.2rem 3rem;
-  text-align: center;
-  font-size: 1.6rem;
-  line-height: 1.4;
-  background: greenyellow;
-  color: salmon;
-  text-shadow: 1px 1px 0px #eeeeee;
-}
