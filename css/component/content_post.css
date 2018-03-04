@@ -60,3 +60,12 @@
   margin-left: 0.4rem;
   margin-top: 1.5rem;
 }
+.page hr{
+  /* border: gray; */
+  /* border: none; */
+  /* border-bottom: gray; */
+  /* border: 1px solid grey; */
+  border: none;
+  border-bottom: 1px dashed #d3d3d3;
+  margin: 1.5rem 1rem;
+}
