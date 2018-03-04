@@ -19,12 +19,10 @@ body .asset-nav{
     box-shadow: inset 0px 1px 0px 0px #eeeeee;
     border: 1px solid #dcdcdc;
     /* // 背景 */
-    background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #aad2f0), color-stop(1, #8bc1ed) );
+    /* background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #aad2f0), color-stop(1, #8bc1ed) );
     background: -moz-linear-gradient( center top, #aad2f0 5%, #8bc1ed 100% );
-    background-color: #aad2f0;
-    /* clear: both; */
-    /* width: 95%; */
-    /* height: 4em; */
+    background-color: #aad2f0; */
+    background-color: #e0dfcc;
   }
   body .entry-categories {
     display: inline-block;
