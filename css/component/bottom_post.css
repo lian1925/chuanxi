@@ -25,7 +25,7 @@
   font-size: 1.92rem;
   font-weight: bold;
   line-height: 180%;
-  color: #556677;
+  color: black;
 }
 .post-foot ul{
   padding-left: 2.5rem;
@@ -36,11 +36,11 @@
 
 .post-foot ul li{
   list-style-type: square;
-  color: #6B5046;
+  color: black;
   font-size: 1.6rem;
     line-height: 220%;
 }
 
 .post-foot ul li *{
-  color: salmon;
+  color: orange;
 }

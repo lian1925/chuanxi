@@ -18,7 +18,8 @@
   text-align: center;
   font-size: 1.6rem;
   line-height: 1.4;
-  background: greenyellow;
-  color: salmon;
+  background: #e0dfcc;
+  color: orange;
   text-shadow: 1px 1px 0px #eeeeee;
+  border-radius: 5px;
 }
