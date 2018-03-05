@@ -16,14 +16,25 @@
 <link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
 
 <body>
+
+    
   <script>
-    if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
-      document.body.classList.add('mobile');            
-    } else{
-      document.body.classList.add('pc');
-			document.getElementsByTagName("html")[0].style.fontSize="62.5%";
-    }
-  </script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
   <div class="container">
 <!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
 <!-- 头部开始 -->
