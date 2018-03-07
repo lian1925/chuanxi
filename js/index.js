@@ -2,7 +2,7 @@ var pub_img_current_image;
 
 function backgroundImage() {
   var pub_img_path = 'http://www.ruanyifeng.com/images_pub/';
-  pub_img_path = 'http://www.liangyl.com/art_image/';
+  pub_img_path = 'http://www.liangyl.com/art_image2/';
   var pub_img_num = 55;
   var pub_img_current_no = function() {
     return Math.floor(Math.random() * pub_img_num + 1);

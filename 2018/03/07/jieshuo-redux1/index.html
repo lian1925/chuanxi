@@ -43,8 +43,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/趣味/">
-            趣味
+          <a href="/tags/解读/">
+            解读
           </a>
       </span>
       
@@ -60,8 +60,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/趣味/">
-              趣味
+            <a href="/tags/解读/">
+              解读
             </a>
         </span>
       </p>
@@ -69,48 +69,76 @@ if(isiOS){
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2018/03/05/share-movie0/">
+            <a href="/2018/03/07/jieshuo-vuex/">
               ⇐ 
             </a>
         </span>
         <span>
             
-            <a href="/2018/03/07/jieshuo-vuex/">
+            <a href="#">
               ⇒
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2018/03/05/share-movie0/">
-                    引言 | 活动
+                <a href="/2018/03/07/jieshuo-vuex/">
+                    Vuex 源码1 | 解读
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2018/03/07/jieshuo-vuex/">
-                    Vuex 源码1 | 解读
+                <a href="#">
+                    无
                 </a>
         </P>
     </div>
 </div>
 
 <div class="post">
-<h1>电影推荐1 | 活动</h1>
+<h1>Redux 源码1 | 解读</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
-    2018年03月05日 17:03
+    2018年03月07日 16:03
   </p>
 </div>
       
   <div class="page">
-      <p>电影推荐：红海行动。</p>
-<p>近一个世纪以来，中国侨胞远迁东南亚，中东，非洲等地。</p>
-<p>相比其他民族，不少华人精打细算，勤劳聪明，善于经商，在当地打下殷实的家底。然而，每当这些小国发生政局战乱，对于军阀而言，富有的华人就是白花花，不设防的羔羊。</p>
-<p>捏造借口，屠杀华人，掠夺财富成了各路军阀，扩充财政，改善军备最好的捷径。</p>
-<p>这就是红海行动电影的时代背景，它的取材来自于当年轰动中外的也门撤侨事件。<br>看过去年战狼2的朋友，应该会喜欢这部电影。</p>
-<p>(完)</p>
+      <h2 id="warning"><a href="#warning" class="headerlink" title="warning"></a>warning</h2><p>我们先看第一个文件 src/utils/warning.js</p>
+<p>1、warning<br>功能：输出警告信息 1</p>
+<p>严谨：判断console和console.error 2</p>
+<p>复杂度：2</p>
+<p>不足：0</p>
+<h2 id="isPlainObject"><a href="#isPlainObject" class="headerlink" title="isPlainObject"></a>isPlainObject</h2><p>第二份文件 src/utils/isPlainObject.js</p>
+<p>1、isPlainObject<br>功能：判断是否为纯对象。 1</p>
+<p>严谨：判断object和null 2</p>
+<p>复杂度：3</p>
+<p>不足：1</p>
+<h2 id="actionTypes-js"><a href="#actionTypes-js" class="headerlink" title="actionTypes.js"></a>actionTypes.js</h2><p>第三份文件 src/utils/actionTypes.js</p>
+<p>1、ActionTypes<br>功能：定义action的状态值 1<br>严谨： 0<br>复杂度：2<br>不足：0</p>
+<h2 id="index"><a href="#index" class="headerlink" title="index"></a>index</h2><p>第四份文件 src/index.js</p>
+<p>1、isCrushed<br>功能：判断是否抛出警告 1<br>严谨： 3<br>复杂度： 0<br>不足：1</p>
+<p>2、export<br>功能：模块出口 1<br>严谨：0<br>复杂度：1<br>不足：0</p>
+<h2 id="createStore-js"><a href="#createStore-js" class="headerlink" title="createStore.js"></a>createStore.js</h2><p>第五份文件 src/createStore.js</p>
+<p>1、createStore<br>功能：创建store，存储state树 1<br>严谨： 3<br>复杂度： 0<br>不足：1</p>
+<p>2、observable<br>功能：返回state变化的观察器 1<br>严谨：3<br>复杂度：1<br>不足：2</p>
+<p>3、replaceReducer<br>功能：替换reducer 1<br>严谨：1<br>复杂度：2<br>不足：0</p>
+<p>4、dispatch<br>功能：处理action 1<br>严谨：3<br>复杂度：3<br>不足：0</p>
+<p>5、subscribe<br>功能：订阅 1<br>严谨：2+2<br>复杂度：3+3<br>不足：0</p>
+<p>6、getState<br>功能：获取state值 1<br>严谨：1<br>复杂度：1<br>不足：0</p>
+<h2 id="compose-js"><a href="#compose-js" class="headerlink" title="compose.js"></a>compose.js</h2><p>第六份文件 src/utils/compose.js</p>
+<p>1、compose<br>功能：组合多个函数 1<br>严谨： 2<br>复杂度：3<br>不足：0</p>
+<h2 id="combineReducers-js"><a href="#combineReducers-js" class="headerlink" title="combineReducers.js"></a>combineReducers.js</h2><p>第六份文件 src/utils/combineReducers.js</p>
+<p>1、getUndefinedStateErrorMessage<br>功能：返回错误信息 1<br>严谨： 0<br>复杂度：2<br>不足：0</p>
+<p>2、getUnexpectedStateShapeWarningMessage<br>功能：返回异常错误信息 1<br>严谨： 4<br>复杂度：4<br>不足：0</p>
+<p>3、assertReducerShape<br>功能：返回reducer错误信息 1<br>严谨： 2<br>复杂度：3<br>不足：0</p>
+<p>4、combineReducers<br>功能：组合reducer 1<br>严谨： 2+2<br>复杂度：5+4<br>不足：0</p>
+<h2 id="bindActionCreators-js"><a href="#bindActionCreators-js" class="headerlink" title="bindActionCreators.js"></a>bindActionCreators.js</h2><p>第7份文件 src/utils/bindActionCreators.js</p>
+<p>1、 bindActionCreator<br>功能：绑定action 1<br>严谨： 0<br>复杂度：1<br>不足：0</p>
+<p>2、 bindActionCreators<br>功能：组合多个action creator 1<br>严谨： 3<br>复杂度：3<br>不足：0</p>
+<h2 id="applyMiddleware-js"><a href="#applyMiddleware-js" class="headerlink" title="applyMiddleware.js"></a>applyMiddleware.js</h2><p>第8份文件 src/utils/applyMiddleware.js</p>
+<p>1、 applyMiddleware<br>功能：添加中间件 1<br>严谨： 1<br>复杂度：4<br>不足：0</p>
 
   </div>
 </div>
@@ -123,7 +151,7 @@ if(isiOS){
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
     <li>作者：<a href="/">Lian</a></li>
-    <li>日期：2018年03月05日 17:03</li>
+    <li>日期：2018年03月07日 16:03</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
 </div>
@@ -269,7 +297,7 @@ if(isiOS){
 
 
 <p id="info-meta" style="display:none;">
-  share-movie2
+  jieshuo-redux1
 </p>
 
 </div>
