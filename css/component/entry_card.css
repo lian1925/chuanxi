@@ -26,7 +26,7 @@
 }
 
 .entry-card h2 a {
-  color: snow;
+  color: orange;
 }
 
 .entry-card h3{
@@ -34,7 +34,7 @@
   text-shadow: 0 1px 1px #333;
   text-align: center;
   font-size: 1.8rem;
-  color: orange;
+  color: white;
   font-weight: normal;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .entry-card .inner p a {
-  color: snow;
+  color: orange;
   font-size: 1.6rem;
   text-shadow: 0 1px 1px #333;
   /* padding: 0.5rem; */
@@ -63,4 +63,12 @@
   background-repeat: no-repeat; 
   background-image: url("http://www.ruanyifeng.com/images_pub/pub_121.jpg");
 }
-
+.entry-card p.honor{
+  text-align: center;
+  color:white;
+  line-height: 220%;
+}
+body.pc .entry-card h3{
+  margin-top: 0;
+  font-weight: normal;
+}
