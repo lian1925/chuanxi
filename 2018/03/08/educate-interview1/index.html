@@ -43,8 +43,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/惜拾/">
-            惜拾
+          <a href="/tags/程序员/">
+            程序员
           </a>
       </span>
       
@@ -60,8 +60,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/惜拾/">
-              惜拾
+            <a href="/tags/程序员/">
+              程序员
             </a>
         </span>
       </p>
@@ -69,34 +69,34 @@ if(isiOS){
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2018/03/08/xishi-code2/">
+            <a href="/2018/03/08/xishi-code3/">
               ⇐ 
             </a>
         </span>
         <span>
             
-            <a href="/2018/03/08/educate-interview1/">
+            <a href="#">
               ⇒
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2018/03/08/xishi-code2/">
-                    微信源码2 | 惜拾卷
+                <a href="/2018/03/08/xishi-code3/">
+                    微信源码3 | 惜拾卷
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2018/03/08/educate-interview1/">
-                    面试 | 程序员
+                <a href="#">
+                    无
                 </a>
         </P>
     </div>
 </div>
 
 <div class="post">
-<h1>微信源码3 | 惜拾卷</h1>
+<h1>面试 | 程序员</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -108,36 +108,7 @@ if(isiOS){
 
 
   <div class="page">
-      <h2 id="源码-1"><a href="#源码-1" class="headerlink" title="源码 1"></a>源码 1</h2><p>摘自</p>
-<blockquote>
-<p><a href="https://github.com/Hao-Wu/WeApp-Demo/blob/master/page/API/pages/video/video.wxss" target="_blank" rel="external">https://github.com/Hao-Wu/WeApp-Demo/blob/master/page/API/pages/video/video.wxss</a></p>
-</blockquote>
-<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.page-body-info</span> </span><span class="token punctuation">{</span>
-  <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span>
-  <span class="token property">margin-top</span><span class="token punctuation">:</span> <span class="token number">40</span>rpx<span class="token punctuation">;</span>
-  <span class="token property">padding</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">360</span>rpx<span class="token punctuation">;</span>
-  <span class="token property">border-top</span><span class="token punctuation">:</span> <span class="token number">1</span>rpx solid <span class="token hexcode">#D9D9D9</span><span class="token punctuation">;</span>
-  <span class="token property">border-bottom</span><span class="token punctuation">:</span> <span class="token number">1</span>rpx solid <span class="token hexcode">#D9D9D9</span><span class="token punctuation">;</span>
-  <span class="token property">align-items</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
-  <span class="token property">justify-content</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>理由：</p>
-<p>rpx是微信小程序新引入的一种新的像素单位。</p>
-<h2 id="源码-2"><a href="#源码-2" class="headerlink" title="源码 2"></a>源码 2</h2><p>摘自</p>
-<blockquote>
-<p><a href="https://github.com/Hao-Wu/WeApp-Demo/blob/master/page/API/pages/video/video.js" target="_blank" rel="external">https://github.com/Hao-Wu/WeApp-Demo/blob/master/page/API/pages/video/video.js</a></p>
-</blockquote>
-<pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> duration <span class="token operator">=</span> Array<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>length<span class="token punctuation">:</span> <span class="token number">60</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>n<span class="token punctuation">,</span> i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">return</span> i <span class="token operator">+</span> <span class="token number">1</span>
-<span class="token punctuation">}</span><span class="token punctuation">)</span>
-
-duration<span class="token punctuation">:</span> duration<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>t<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> t <span class="token operator">+</span> <span class="token string">'秒'</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-</code></pre>
-<p>理由：</p>
-<p>使用Array.apply和map，生成数字数组的一种优雅写法。</p>
-
+      
   </div>
 </div>
 <!-- 文档信息 -->
@@ -289,7 +260,7 @@ duration<span class="token punctuation">:</span> duration<span class="token punc
 
 
 <p id="info-meta" style="display:none;">
-  xishi-code3
+  educate-interview1
 </p>
 
 

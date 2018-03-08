@@ -20,7 +20,13 @@
   word-wrap: break-word;
   word-break: break-all;
 }
-
+.page blockquote p a{
+  color: #383838;
+  font-size: 1.4rem;
+}
+.page blockquote {
+  margin-bottom: 1.5rem;
+}
 .page p {
   font-size: 1.6rem;
   margin-top: 1rem;
