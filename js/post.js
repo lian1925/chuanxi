@@ -51,10 +51,19 @@ var request = function(obj){
   };
   if(obj.method === "POST"){
     $.ajax(settings).done(function (response) {
+      if(obj.type == "addVisitCount"){
+        // console.log(response);
+        return;
+      }
       location.href=`/response/?redirect=${location.pathname}`
     });
   }else if(obj.method === "GET"){
     $.get(obj.url,obj.data, function (response) {
+      if(obj.type === "getVisitCount"){
+        // console.log(response);
+        $("div.post-foot h3").append(`<span style="font-size:1.4rem;font-family:Arial;color:grey;"> (${response.length} visitors)</span>`);
+        return;
+      }
       var dataList = response.dataList;
       for(var i = 0;i<dataList.length;i++){
         getOneComment(dataList[i]);
@@ -113,6 +122,32 @@ var getAllComment = function() {
   // alert('comment')
   request(obj)
 }
+var addVisitCount = function() {
+  var flag = document.getElementById('info-meta');
+  if(flag == undefined){
+    return;
+  }
+  var post_id = flag.innerText.trim();
+  var url =  `${hostUrl[1]}/comment/visit/add`
+  
+  var data = {post_id}
+  var obj = {data,url,method:'POST',type:'addVisitCount'};
+  // alert('comment')
+  request(obj)
+}
+var getVisitCount = function() {
+  var flag = document.getElementById('info-meta');
+  if(flag == undefined){
+    return;
+  }
+  var post_id = flag.innerText.trim();
+  var url =  `${hostUrl[1]}/comment/visit/count`
+  
+  var data = {post_id}
+  var obj = {data,url,method:'GET',type:'getVisitCount'};
+  // alert('comment')
+  request(obj)
+}
 var formatDate = function(date){
   var date = new Date(date)
   var day = date.getDate();
@@ -123,11 +158,17 @@ var formatDate = function(date){
   return `${year}年${month}月${day}日 ${hour}:${minute}`
 }
 getAllComment();
-var ap = new APlayer({
-  element: document.getElementById('aplayer1'),
-  music: {
-      title: 'A Puma at large',
-      author: 'ShenZhen Lian',
-      url: document.getElementById('info-url').innerText.trim()
-  }
-});
+addVisitCount();
+getVisitCount();
+var elementPlayer = document.getElementById('aplayer1');
+if(elementPlayer !== null){
+
+  var ap = new APlayer({
+    element: document.getElementById('aplayer1'),
+    music: {
+        title: 'A Puma at large',
+        author: 'by ShenZhen Lian',
+        url: document.getElementById('info-url').innerText.trim()
+    }
+  });
+}
