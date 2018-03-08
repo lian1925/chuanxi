@@ -61,7 +61,7 @@ var request = function(obj){
     $.get(obj.url,obj.data, function (response) {
       if(obj.type === "getVisitCount"){
         // console.log(response);
-        $("div.post-foot h3").append(`<span style="font-size:1.4rem;font-family:Arial;color:grey;"> (${response.length} visitors)</span>`);
+        $("div.post-foot h3").append(`<span style="font-size:1.4rem;font-family:Arial;color:grey;"> ( ${response.length+1} visitors )</span>`);
         return;
       }
       var dataList = response.dataList;
