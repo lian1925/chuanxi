@@ -123,3 +123,11 @@ var formatDate = function(date){
   return `${year}年${month}月${day}日 ${hour}:${minute}`
 }
 getAllComment();
+var ap = new APlayer({
+  element: document.getElementById('aplayer1'),
+  music: {
+      title: 'A Puma at large',
+      author: 'ShenZhen Lian',
+      url: document.getElementById('info-url').innerText.trim()
+  }
+});
