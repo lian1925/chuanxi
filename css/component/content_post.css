@@ -6,8 +6,19 @@
   background-color: #f5f2f0;
   border-radius: 0.7rem;
   margin: 1rem 0.3rem;
-  width: 95%;
+  width: 92%;
   font-size: 1.4rem;
+}
+.page pre[class*="language-word"]{
+  font-style: italic;
+  line-height: 1.45;
+  color: #383838;
+  border:1px dashed #c1c1c1;
+  border-radius: 0.5rem;
+  background:#e0dfcc;
+  display: block;
+  word-wrap: break-word;
+  word-break: break-all;
 }
 
 .page p {

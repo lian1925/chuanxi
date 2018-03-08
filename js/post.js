@@ -166,7 +166,7 @@ if(elementPlayer !== null){
   var ap = new APlayer({
     element: document.getElementById('aplayer1'),
     music: {
-        title: 'A Puma at large',
+        title: document.querySelector("div.post h1").innerHTML,
         author: 'by ShenZhen Lian',
         url: document.getElementById('info-url').innerText.trim()
     }
