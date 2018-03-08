@@ -137,6 +137,55 @@ duration<span class="token punctuation">:</span> duration<span class="token punc
 </code></pre>
 <p>理由：</p>
 <p>使用Array.apply和map，生成数字数组的一种优雅写法。</p>
+<h2 id="源码-3"><a href="#源码-3" class="headerlink" title="源码 3"></a>源码 3</h2><pre class=" language-js"><code class="language-js"><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> types<span class="token punctuation">.</span>length<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>type<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    pageObject<span class="token punctuation">[</span>type<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">var</span> key <span class="token operator">=</span> type <span class="token operator">+</span> <span class="token string">'Size'</span>
+      <span class="token keyword">var</span> changedData <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+      changedData<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>data<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string">'default'</span> <span class="token operator">?</span> <span class="token string">'mini'</span> <span class="token punctuation">:</span> <span class="token string">'default'</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">setData</span><span class="token punctuation">(</span>changedData<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span>types<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>立即函数的用法。</p>
+<h2 id="源码-4"><a href="#源码-4" class="headerlink" title="源码 4"></a>源码 4</h2><p>摘自：</p>
+<blockquote>
+<p><a href="https://github.com/Hao-Wu/WeApp-Demo/blob/a3fa66e230b9fa520dab5c73a57678194f7fab5a/page/component/pages/label/label.js" target="_blank" rel="external">https://github.com/Hao-Wu/WeApp-Demo/blob/a3fa66e230b9fa520dab5c73a57678194f7fab5a/page/component/pages/label/label.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js">changed<span class="token punctuation">[</span><span class="token string">'checkboxItems['</span> <span class="token operator">+</span> i <span class="token operator">+</span> <span class="token string">'].checked'</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span>
+
+<span class="token comment" spellcheck="true">// better</span>
+changed<span class="token punctuation">[</span><span class="token template-string"><span class="token string">`checkboxItems[</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>i<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">].checked`</span></span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span>
+</code></pre>
+<p>理由：</p>
+<p>此处，使用<code>${}</code>，可读性更好。</p>
+<h2 id="源码-5"><a href="#源码-5" class="headerlink" title="源码 5"></a>源码 5</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/fluency03/weapp-500px/blob/master/utils/util.js" target="_blank" rel="external">https://github.com/fluency03/weapp-500px/blob/master/utils/util.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">formatTime</span><span class="token punctuation">(</span>date<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> year <span class="token operator">=</span> date<span class="token punctuation">.</span><span class="token function">getFullYear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> month <span class="token operator">=</span> date<span class="token punctuation">.</span><span class="token function">getMonth</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> day <span class="token operator">=</span> date<span class="token punctuation">.</span><span class="token function">getDate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">var</span> hour <span class="token operator">=</span> date<span class="token punctuation">.</span><span class="token function">getHours</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> minute <span class="token operator">=</span> date<span class="token punctuation">.</span><span class="token function">getMinutes</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">var</span> second <span class="token operator">=</span> date<span class="token punctuation">.</span><span class="token function">getSeconds</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+  <span class="token keyword">return</span> <span class="token punctuation">[</span>year<span class="token punctuation">,</span> month<span class="token punctuation">,</span> day<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>formatNumber<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">' '</span> <span class="token operator">+</span> <span class="token punctuation">[</span>hour<span class="token punctuation">,</span> minute<span class="token punctuation">,</span> second<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>formatNumber<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">':'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">formatNumber</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  n <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> n<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">?</span> n <span class="token punctuation">:</span> <span class="token string">'0'</span> <span class="token operator">+</span> n
+<span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p><code>map</code>和join连用，是实现日期格式一种优雅写法。</p>
 
   </div>
 </div>
