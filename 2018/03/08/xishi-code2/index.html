@@ -43,8 +43,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/趣味/">
-            趣味
+          <a href="/tags/惜拾/">
+            惜拾
           </a>
       </span>
       
@@ -60,8 +60,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/趣味/">
-              趣味
+            <a href="/tags/惜拾/">
+              惜拾
             </a>
         </span>
       </p>
@@ -75,7 +75,7 @@ if(isiOS){
         </span>
         <span>
             
-            <a href="#">
+            <a href="/2018/03/08/xishi-code3/">
               ⇒
             </a>
         </span>
@@ -83,20 +83,20 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/03/08/xishi-code1/">
-                    源码1 | 惜拾卷
+                    React源码1 | 惜拾卷
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="#">
-                    无
+                <a href="/2018/03/08/xishi-code3/">
+                    微信源码3 | 惜拾卷
                 </a>
         </P>
     </div>
 </div>
 
 <div class="post">
-<h1>源码2 | 惜拾卷</h1>
+<h1>微信源码2 | 惜拾卷</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -198,10 +198,26 @@ exports<span class="token punctuation">.</span>extend <span class="token operato
 <p>获取object的某个属性值时，严谨的做法是先检测object存在，且object的该属性存在，使用<code>&amp;&amp;</code>连写，是一种非常优雅的写法。</p>
 <h2 id="源码5"><a href="#源码5" class="headerlink" title="源码5"></a>源码5</h2><p>摘自</p>
 <blockquote>
-<p><a href="https://github.com/Hao-Wu/WeApp-Demo/blob/master/util/util.js" target="_blank" rel="external">https://github.com/Hao-Wu/WeApp-Demo/blob/master/util/util.js</a><br>```js<br>function formatTime(time) {<br>  if (typeof time !== ‘number’ || time &lt; 0) {<br>    return time<br>  }</p>
+<p><a href="https://github.com/Hao-Wu/WeApp-Demo/blob/master/util/util.js" target="_blank" rel="external">https://github.com/Hao-Wu/WeApp-Demo/blob/master/util/util.js</a></p>
 </blockquote>
-<p>  var hour = parseInt(time / 3600)<br>  time = time % 3600<br>  var minute = parseInt(time / 60)<br>  time = time % 60<br>  var second = time</p>
-<p>  return ([hour, minute, second]).map(function (n) {<br>    n = n.toString()<br>    return n[1] ? n : ‘0’ + n<br>  }).join(‘:’)<br>}<br>```<br>理由：</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">formatTime</span><span class="token punctuation">(</span>time<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> time <span class="token operator">!==</span> <span class="token string">'number'</span> <span class="token operator">||</span> time <span class="token operator">&lt;</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> time
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">var</span> hour <span class="token operator">=</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>time <span class="token operator">/</span> <span class="token number">3600</span><span class="token punctuation">)</span>
+  time <span class="token operator">=</span> time <span class="token operator">%</span> <span class="token number">3600</span>
+  <span class="token keyword">var</span> minute <span class="token operator">=</span> <span class="token function">parseInt</span><span class="token punctuation">(</span>time <span class="token operator">/</span> <span class="token number">60</span><span class="token punctuation">)</span>
+  time <span class="token operator">=</span> time <span class="token operator">%</span> <span class="token number">60</span>
+  <span class="token keyword">var</span> second <span class="token operator">=</span> time
+
+  <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token punctuation">[</span>hour<span class="token punctuation">,</span> minute<span class="token punctuation">,</span> second<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    n <span class="token operator">=</span> n<span class="token punctuation">.</span><span class="token function">toString</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> n<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">?</span> n <span class="token punctuation">:</span> <span class="token string">'0'</span> <span class="token operator">+</span> n
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">':'</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
 <p>使用<code>map</code>和三目运算符连用，是实现时间格式的优雅写法。</p>
 
   </div>
