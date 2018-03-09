@@ -1,0 +1,375 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>
+    小沙丘的网络漫游记
+  </title>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/程序员/">
+            程序员
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/程序员/">
+              程序员
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/03/09/educate-interview2/">
+              ⇐ 
+            </a>
+        </span>
+        <span>
+            
+            <a href="#">
+              ⇒
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/03/09/educate-interview2/">
+                    educate-interview2
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="#">
+                    无
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<h1>面试3 |</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年03月09日 19:03
+  </p>
+</div>
+      
+
+
+
+  <div class="page">
+      <blockquote>
+<blockquote>
+<p>填空题<br>何时接触电脑 何时接触前端<br>运算符 字符串处理        延时 display        position        XMLHttpRequest        正则<br>Jquery绑定事件        cookie</p>
+<p>大题<br>BOM浏览器信息<br>浏览器兼容性举例<br>闭包作用与举例<br>新闻ul列表，插入3个，获取index<br>全文单词首字母大写<br>ajax过程</p>
+<p>逻辑题<br>任何时间分针和时针夹角<br>文章单词（字母）频率出现最高<br>30分钟等到车概率是70%，那10分钟呢？<br>一个班学舞蹈的有75%，学唱歌的有85%，问同时学习舞蹈和唱歌的最多多少，最少多少？<br>两个很大数的加法运算</p>
+</blockquote>
+</blockquote>
+<h2 id="part-2"><a href="#part-2" class="headerlink" title="part 2"></a>part 2</h2><p>如果窗口变小，图片数如何调整，自适应(阿里问题)</p>
+<p>图片是动态加载，还是提前加载好，给定一个图片数组，图片预加载过程(腾讯问题1)？必须提前加载提高性能。</p>
+<p>什么条件下触发向下滚动事件？(腾讯问题2)</p>
+<p>2.轮播图实现过程（当图片全部播放完，如何切换第一张）</p>
+<p>css和js实现</p>
+<p>只用for能实现吗，不用计时器（连计时器都忘说了）</p>
+<p>settimeout(fun,0)能立马运行吗?原理</p>
+<p>3.ajax怎么实现？ajax底层原理？</p>
+<p>4.图片编码格式？（哈夫曼编码，DCT编码）</p>
+<p>base64编码原理</p>
+<p>base64编码格式</p>
+<p>5.图片预加载方式</p>
+<p>6.倒计时实现过程</p>
+<p>能精确实现一秒计时吗？</p>
+<p>7.js怎么实现继承？</p>
+<p>8.深度优先和广度优先遍历DOM树代码</p>
+<p>9.实现两个盒子宽度自适应？（说出很多种方法）</p>
+<p>10.position有哪些属性？</p>
+<p>11.后台的框架，加密？</p>
+<p>线性同余，约瑟夫遍历映射，logistic映射，是对称加密吗？</p>
+<p>12.React框架？</p>
+<p>13.对node.js的了解</p>
+<p>14.哪种排序算法最快？</p>
+<h2 id="part-3"><a href="#part-3" class="headerlink" title="part 3"></a>part 3</h2><p>link和import的区别？<br>js实现中央播报台时间播报。例如：今天是北京时间：二〇一五年三月十二日 星期三 五时三十八分</p>
+<h2 id="part-4"><a href="#part-4" class="headerlink" title="part 4"></a>part 4</h2><p>prototype和<strong>proto</strong>的关系是什么<br>meta viewport原理<br>域名收敛是什么<br>float和display：inline-block；的区别<br>前端优化策略列举<br>首屏、白屏时间如何计算<br>闭包<br>作用域链<br>ajax如何实现、readyState五中状态的含义<br>jsonp如何实现<br>怎么处理跨域<br>restful的method解释<br>get和post的区别<br>事件模型解释<br>编写一个元素拖拽的插件<br>编写一个contextmenu的插件<br>编写web端cookie的设置和获取方法<br>兼容ie６的水平垂直居中<br>兼容ie的事件封装<br>h5和原生android的优缺点<br>编写h5需要注意什么<br>xss和crsf的原理以及怎么预防<br>css优先级<br>如何实现点击radio的文字描述控制radio的状态（通过label实现）<br>delegate如何实现<br>框架原理<br>angularjs</p>
+<p>angular的directive怎么写<br>angular的脏检查（双向绑定）是如何实现的<br>依赖注入如何实现<br>scope如何实现<br>$parse模块如何实现（主要自己写了一个类似的库）<br>react</p>
+<p>react在setState后发生了什么（直接说了setState源码）<br>flux解释<br>对react有什么了解（直接说了react中虚拟dom内部表示，mount过程源码和同步过程源码）<br>jsBridge<br>如何说服对方使用jsBridge<br>requirejs<br>amd和cmd区别，怎么了解到这些区别的，是否是去看了规范<br>requirejs那些经常用的方法，然后对其进行解释<br>weex<br>weex实现大致原理（只写过demo，面试管很好没有难为我，只问了这一个问题）</p>
+<p>http协议<br>accept是什么，怎么用<br>http协议状态码，302和303的区别<br>前端缓存如何实现、etag如何实现、etag和cache-control的max-age的优先级哪个比较高以及为什么、cache-control和expire优先级哪个比较高以及为什么<br>node<br>Buffer模块是干什么的<br>Stream是什么，使用的两种模式<br>http模块如何将异步处理方式实现成同步处理方式，具体解析请参考http模块如何将异步处理转成同步处理<br>其他问题<br>utf8和gbk的区别<br>知道页面上某个点的坐标，如何获取该坐标上的所有元素<br>angular、react和jQuery适合哪些应用场景（建议查看各个框架产生背景）<br>7点15分小于180度的夹角是多少<br>大数相加<br>给５升和６升的水杯如何倒出３升的水<br>一班喜欢足球的人60%，喜欢排球的70%，喜欢篮球的80%，求喜欢足球和排球的占多少<br>前端异常监测如何实现<br>直播点赞按钮的冒泡功能如何实现<br>js的uglify如何实现<br>项目架构、如何带人（自己带过一个小团队）<br>前端工程化方面做了哪些东西</p>
+<h2 id="part-4-1"><a href="#part-4-1" class="headerlink" title="part 4"></a>part 4</h2><p>1、什么是盒子模型？</p>
+<p>在网页中，一个元素占有空间的大小由几个部分构成，其中包括元素的内容（content），元素的内边距（padding），元素的边框（border），元素的外边距（margin）四个部分。这四个部分占有的空间中，有的部分可以显示相应的内容，而有的部分只用来分隔相邻的区域或区域。4个部分一起构成了css中元素的盒模型。</p>
+<p>2、行内元素有哪些？块级元素有哪些？ 空(void)元素有那些？</p>
+<p>行内元素：a、b、span、img、input、strong、select、label、em、button、textarea</p>
+<p>块级元素：div、ul、li、dl、dt、dd、p、h1-h6、blockquote</p>
+<p>空元素：即系没有内容的HTML元素，例如：br、meta、hr、link、input、img</p>
+<p>简述一下src与href的区别</p>
+<p>href 是指向网络资源所在位置，建立和当前元素（锚点）或当前文档（链接）之间的链接，用于超链接。</p>
+<p>src是指向外部资源的位置，指向的内容将会嵌入到文档中当前标签所在位置；在请求src资源时会将其指向的资源下载并应用到文档内，例如js脚本，img图片和frame等元素。当浏览器解析到该元素时，会暂停其他资源的下载和处理，直到将该资源加载、编译、执行完毕，图片和框架等元素也如此，类似于将所指向资源嵌入当前标签内。这也是为什么将js脚本放在底部而不是头部。</p>
+<p>3、CSS实现垂直水平居中<br>怎样添加、移除、移动、复制、创建和查找节点？</p>
+<p>1）创建新节点</p>
+<p>createDocumentFragment() //创建一个DOM片段</p>
+<p>createElement() //创建一个具体的元素</p>
+<p>createTextNode() //创建一个文本节点</p>
+<p>2）添加、移除、替换、插入</p>
+<p>appendChild() //添加</p>
+<p>removeChild() //移除</p>
+<p>replaceChild() //替换</p>
+<p>insertBefore() //插入</p>
+<p>3）查找</p>
+<p>getElementsByTagName() //通过标签名称</p>
+<p>getElementsByName() //通过元素的Name属性的值</p>
+<p>getElementById() //通过元素Id，唯一性</p>
+<p>4、如何消除一个数组里面重复的元素？</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">let</span> array1 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> array2 <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+array1<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>item<span class="token operator">=</span><span class="token operator">></span><span class="token punctuation">{</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>arr2<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token operator">&lt;</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    arr2<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>array2<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>5、统计字符串中字母个数或统计最多字母数。</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> str <span class="token operator">=</span> <span class="token string">"liann"</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>i<span class="token operator">&lt;</span>str<span class="token punctuation">.</span>length<span class="token punctuation">;</span>i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">var</span> char <span class="token operator">=</span> str<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span>obj<span class="token punctuation">[</span>char<span class="token punctuation">]</span><span class="token operator">===</span>undefined<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    obj<span class="token punctuation">[</span>char<span class="token punctuation">]</span><span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    obj<span class="token punctuation">[</span>char<span class="token punctuation">]</span><span class="token punctuation">.</span>count<span class="token operator">=</span><span class="token number">1</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token keyword">else</span><span class="token punctuation">{</span>
+    obj<span class="token punctuation">[</span>char<span class="token punctuation">]</span><span class="token punctuation">.</span>count<span class="token operator">++</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>item<span class="token punctuation">)</span><span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>item<span class="token punctuation">,</span>obj<span class="token punctuation">[</span>item<span class="token punctuation">]</span><span class="token punctuation">.</span>count<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>6、写一个function，清除字符串前后的空格。（兼容所有浏览器）</p>
+<p>7、使用正则表达式验证邮箱格式</p>
+<h2 id="part-6"><a href="#part-6" class="headerlink" title="part 6"></a>part 6</h2><p>内存，堆栈</p>
+<p>500ml的杯子和300ml的杯子量出400ml的水<br>第一次，将300倒入500；<br>第二次，再将300倒入500，则剩100；<br>第三次，将500倒空，盛入100<br>第四次，再加入300</p>
+<h2 id="part-7"><a href="#part-7" class="headerlink" title="part 7"></a>part 7</h2><ul>
+<li>原型继承<em> 事件机制</em> 前端安全(XSS、CSRF)<em> 性能优化</em> 前端模块化<em> DOM相关操作及优化</em> 跨域的方式及原理<em> AJAX原理</em> TCP/IP基本概念<em> HTTP状态码及解释</em> 浏览器缓存原理* …</li>
+</ul>
+
+  </div>
+</div>
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年03月09日 19:03</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  educate-interview3
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

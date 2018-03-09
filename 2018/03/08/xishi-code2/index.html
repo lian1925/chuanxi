@@ -188,13 +188,13 @@ exports<span class="token punctuation">.</span>extend <span class="token operato
 <h2 id="源码4"><a href="#源码4" class="headerlink" title="源码4"></a>源码4</h2><p>摘自</p>
 <blockquote>
 <p><a href="https://github.com/Hao-Wu/WeApp-Demo/blob/master/vendor/qcloud-weapp-client-sdk/lib/request.js" target="_blank" rel="external">https://github.com/Hao-Wu/WeApp-Demo/blob/master/vendor/qcloud-weapp-client-sdk/lib/request.js</a></p>
+</blockquote>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">if</span> <span class="token punctuation">(</span>session <span class="token operator">&amp;&amp;</span> session<span class="token punctuation">.</span>id <span class="token operator">&amp;&amp;</span> session<span class="token punctuation">.</span>skey<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     header<span class="token punctuation">[</span>constants<span class="token punctuation">.</span>WX_HEADER_ID<span class="token punctuation">]</span> <span class="token operator">=</span> session<span class="token punctuation">.</span>id<span class="token punctuation">;</span>
     header<span class="token punctuation">[</span>constants<span class="token punctuation">.</span>WX_HEADER_SKEY<span class="token punctuation">]</span> <span class="token operator">=</span> session<span class="token punctuation">.</span>skey<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
 <p>理由：</p>
-</blockquote>
 <p>获取object的某个属性值时，严谨的做法是先检测object存在，且object的该属性存在，使用<code>&amp;&amp;</code>连写，是一种非常优雅的写法。</p>
 <h2 id="源码5"><a href="#源码5" class="headerlink" title="源码5"></a>源码5</h2><p>摘自</p>
 <blockquote>
