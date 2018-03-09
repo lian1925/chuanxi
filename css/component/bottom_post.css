@@ -13,12 +13,13 @@
   border-radius: 1rem;
   -moz-box-shadow: inset 0px 1px 0px 0px #eeeeee;
   -webkit-box-shadow: inset 0px 1px 0px 0px #eeeeee;
-  box-shadow: inset 0px 1px 0px 0px #eeeeee;
+  /* box-shadow: inset 0px 1px 0px 0px #eeeeee; */
   /* // 背景 */
   /* background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #aad2f0), color-stop(1, #8bc1ed) );
   background: -moz-linear-gradient( center top, #aad2f0 5%, #8bc1ed 100% );
   background-color: #AAD2F0; */
   background-color: #e0dfcc;
+  box-shadow: 4px 4px #c3c3c3;
 }
 .post-foot h3 {
   border-bottom: 1px solid gray;

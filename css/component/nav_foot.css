@@ -1,0 +1,23 @@
+.nav-foot{
+  margin: 0 0rem;
+
+}
+.nav-foot .left{
+  float: left;
+  color: orange;
+}
+.nav-foot .right{
+  float: right;
+  color: orange;
+}
+.nav-foot a{
+  color: orange;
+  line-height: 220%;
+  font-size: 1.8rem;
+}
+p.nav-foot:after{
+  content: "";
+  clear: both;
+  display: block;
+
+}
