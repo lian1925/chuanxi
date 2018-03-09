@@ -1,0 +1,355 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>
+    小沙丘的网络漫游记
+  </title>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/惜拾/">
+            惜拾
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/惜拾/">
+              惜拾
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/03/09/xishi-code5/">
+              ⇐ 
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/03/09/xishi-code7/">
+              ⇒
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/03/09/xishi-code5/">
+                    vue 应用源码 5 | 惜拾卷
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/03/09/xishi-code7/">
+                    vue 应用源码7 | 惜拾卷
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<h1>vue 应用源码 6 | 惜拾卷</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年03月09日 15:03
+  </p>
+</div>
+      
+
+
+
+  <div class="page">
+      <p>本篇继续解析上一篇的项目<code>bailicangdu/vue2-elm 1.6k start</code></p>
+<h2 id="code-1"><a href="#code-1" class="headerlink" title="code 1"></a>code 1</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/bailicangdu/vue2-elm/blob/master/src/store/action.js" target="_blank" rel="external">https://github.com/bailicangdu/vue2-elm/blob/master/src/store/action.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">async</span> <span class="token function">getUserInfo</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    commit<span class="token punctuation">,</span>
+    state
+<span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> res <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">commit</span><span class="token punctuation">(</span>GET_USERINFO<span class="token punctuation">,</span> res<span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>api请求时，往往接触到异步操作，比较优雅的做法是将异步转同步。</p>
+<h2 id="code-2"><a href="#code-2" class="headerlink" title="code 2"></a>code 2</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/bailicangdu/vue2-elm/blob/master/src/service/getData.js" target="_blank" rel="external">https://github.com/bailicangdu/vue2-elm/blob/master/src/service/getData.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">/**
+ * 获取首页默认地址
+ */</span>
+
+<span class="token keyword">export</span> <span class="token keyword">const</span> cityGuess <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">'/v1/cities'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+    type<span class="token punctuation">:</span> <span class="token string">'guess'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>理由：</p>
+<p>将所有的api请求集总，统一fetch函数完成请求，是一种相对整齐的写法。</p>
+<h2 id="code-3"><a href="#code-3" class="headerlink" title="code 3"></a>code 3</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/bailicangdu/vue2-elm/blob/master/src/router/router.js" target="_blank" rel="external">https://github.com/bailicangdu/vue2-elm/blob/master/src/router/router.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> home <span class="token operator">=</span> r <span class="token operator">=</span><span class="token operator">></span> require<span class="token punctuation">.</span><span class="token function">ensure</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">r</span><span class="token punctuation">(</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../page/home/home'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'home'</span><span class="token punctuation">)</span>
+<span class="token keyword">const</span> city <span class="token operator">=</span> r <span class="token operator">=</span><span class="token operator">></span> require<span class="token punctuation">.</span><span class="token function">ensure</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">r</span><span class="token punctuation">(</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'../page/city/city'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">'city'</span><span class="token punctuation">)</span>
+</code></pre>
+<p>理由：</p>
+<p>这里用到了<code>require.ensure</code>，它是webpack提供的代码分割功能。</p>
+<p>它的作用是把js模块给独立导出一个.js文件的，然后使用这个模块的时候，webpack会构造script dom元素，由浏览器发起异步请求这个js文件。</p>
+<h2 id="code-4"><a href="#code-4" class="headerlink" title="code 4"></a>code 4</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/bailicangdu/vue2-elm/blob/master/src/config/env.js" target="_blank" rel="external">https://github.com/bailicangdu/vue2-elm/blob/master/src/config/env.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">if</span> <span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span>NODE_ENV <span class="token operator">==</span> <span class="token string">'development'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  imgBaseUrl <span class="token operator">=</span> <span class="token string">'http://cangdu.org:8001/img/'</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span><span class="token keyword">else</span> <span class="token keyword">if</span><span class="token punctuation">(</span>process<span class="token punctuation">.</span>env<span class="token punctuation">.</span>NODE_ENV <span class="token operator">==</span> <span class="token string">'production'</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    baseUrl <span class="token operator">=</span> <span class="token string">'http://cangdu.org:8001'</span><span class="token punctuation">;</span>
+  imgBaseUrl <span class="token operator">=</span> <span class="token string">'http://cangdu.org:8001/img/'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>一般情况下，编译环境和线上环境的api接口是不同的，设定切换逻辑是常见的做法。</p>
+<h2 id="code-5"><a href="#code-5" class="headerlink" title="code 5"></a>code 5</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/bailicangdu/vue2-elm/blob/master/src/config/fetch.js" target="_blank" rel="external">https://github.com/bailicangdu/vue2-elm/blob/master/src/config/fetch.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">if</span> <span class="token punctuation">(</span>type <span class="token operator">==</span> <span class="token string">'GET'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> dataStr <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//数据拼接字符串</span>
+    Object<span class="token punctuation">.</span><span class="token function">keys</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>key <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        dataStr <span class="token operator">+</span><span class="token operator">=</span> key <span class="token operator">+</span> <span class="token string">'='</span> <span class="token operator">+</span> data<span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">+</span> <span class="token string">'&amp;'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>dataStr <span class="token operator">!==</span> <span class="token string">''</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        dataStr <span class="token operator">=</span> dataStr<span class="token punctuation">.</span><span class="token function">substr</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> dataStr<span class="token punctuation">.</span><span class="token function">lastIndexOf</span><span class="token punctuation">(</span><span class="token string">'&amp;'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        url <span class="token operator">=</span> url <span class="token operator">+</span> <span class="token string">'?'</span> <span class="token operator">+</span> dataStr<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>get请求时，往往需要将数据与url拼接，这是一种传统的处理方式。相比而言，上文提到的处理方式，更为简洁优雅。</p>
+<p>(未完)</p>
+
+  </div>
+</div>
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年03月09日 15:03</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  xishi-code6
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

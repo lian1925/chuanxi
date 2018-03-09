@@ -75,7 +75,7 @@ if(isiOS){
         </span>
         <span>
             
-            <a href="#">
+            <a href="/2018/03/09/xishi-code5/">
               ⇒
             </a>
         </span>
@@ -88,15 +88,15 @@ if(isiOS){
         </P>
         <P>下一篇：
 
-                <a href="#">
-                    无
+                <a href="/2018/03/09/xishi-code5/">
+                    vue 应用源码 5 | 惜拾卷
                 </a>
         </P>
     </div>
 </div>
 
 <div class="post">
-<h1>源码4 | 惜拾卷</h1>
+<h1>react 应用源码4 | 惜拾卷</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -163,7 +163,23 @@ if(isiOS){
 </code></pre>
 <p>理由：</p>
 <p>这里的赋值，用到了es6的新语法，解构赋值。对于需要解构数组或对象的场合，都很实用，可读性很好。</p>
-<h2 id="code-5"><a href="#code-5" class="headerlink" title="code 5"></a>code 5</h2>
+<h2 id="code-5"><a href="#code-5" class="headerlink" title="code 5"></a>code 5</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/samuel1112/v2er/blob/master/src/reducers.js" target="_blank" rel="external">https://github.com/samuel1112/v2er/blob/master/src/reducers.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">topicType</span><span class="token punctuation">(</span>state<span class="token operator">=</span><span class="token punctuation">{</span>type<span class="token punctuation">:</span> <span class="token string">'latest'</span><span class="token punctuation">,</span> name<span class="token punctuation">:</span> <span class="token string">'Latest'</span><span class="token punctuation">}</span><span class="token punctuation">,</span> action<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">switch</span> <span class="token punctuation">(</span>action<span class="token punctuation">.</span>type<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        <span class="token keyword">case</span> SET_TOPIC_VIEW<span class="token punctuation">:</span>
+            <span class="token keyword">return</span> action<span class="token punctuation">.</span>topic<span class="token punctuation">;</span>
+        <span class="token keyword">default</span><span class="token punctuation">:</span>
+            <span class="token keyword">return</span> state<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>es6的新语法中，允许定义函数时，声明传参的默认值。在redux的reducer中，使用该特性是非常合适的。</p>
+<p>(完)</p>
+
   </div>
 </div>
 <!-- 文档信息 -->
