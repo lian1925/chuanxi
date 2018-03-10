@@ -1,0 +1,452 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand1.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <title>
+    小沙丘的网络漫游记
+  </title>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/草稿/">
+            草稿
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/草稿/">
+              草稿
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/03/10/draft-code-1/">
+              ⇐ 
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/03/10/draft-code-3/">
+              ⇒
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/03/10/draft-code-1/">
+                    Vue源码 | 草稿
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/03/10/draft-code-3/">
+                    vue源码 3 | 草稿
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<h1>Vue源码 2 | 草稿</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年03月10日 21:03
+  </p>
+</div>
+      
+
+
+
+  <div class="page">
+      <p>项目：vuejs/vue</p>
+<h2 id="code-1"><a href="#code-1" class="headerlink" title="code 1"></a>code 1</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/vdom/patch.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/vdom/patch.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js">  <span class="token keyword">function</span> isUnknownElement <span class="token punctuation">(</span>vnode<span class="token punctuation">,</span> inVPre<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>
+      <span class="token operator">!</span>inVPre <span class="token operator">&amp;&amp;</span>
+      <span class="token operator">!</span>vnode<span class="token punctuation">.</span>ns <span class="token operator">&amp;&amp;</span>
+      <span class="token operator">!</span><span class="token punctuation">(</span>
+        config<span class="token punctuation">.</span>ignoredElements<span class="token punctuation">.</span>length <span class="token operator">&amp;&amp;</span>
+        config<span class="token punctuation">.</span>ignoredElements<span class="token punctuation">.</span><span class="token function">some</span><span class="token punctuation">(</span>ignore <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+          <span class="token keyword">return</span> <span class="token function">isRegExp</span><span class="token punctuation">(</span>ignore<span class="token punctuation">)</span>
+            <span class="token operator">?</span> ignore<span class="token punctuation">.</span><span class="token function">test</span><span class="token punctuation">(</span>vnode<span class="token punctuation">.</span>tag<span class="token punctuation">)</span>
+            <span class="token punctuation">:</span> ignore <span class="token operator">===</span> vnode<span class="token punctuation">.</span>tag
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+      <span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>
+      config<span class="token punctuation">.</span><span class="token function">isUnknownElement</span><span class="token punctuation">(</span>vnode<span class="token punctuation">.</span>tag<span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>多重真值判断，含函数的一种写法。</p>
+<h2 id="code-2"><a href="#code-2" class="headerlink" title="code 2"></a>code 2</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/vdom/patch.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/vdom/patch.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js">
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isDef</span><span class="token punctuation">(</span>vnode<span class="token punctuation">.</span>elm<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isDef</span><span class="token punctuation">(</span>ownerArray<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// This vnode was used in a previous render!</span>
+      <span class="token comment" spellcheck="true">// now it's used as a new node, overwriting its elm would cause</span>
+      <span class="token comment" spellcheck="true">// potential patch errors down the road when it's used as an insertion</span>
+      <span class="token comment" spellcheck="true">// reference node. Instead, we clone the node on-demand before creating</span>
+      <span class="token comment" spellcheck="true">// associated DOM element for it.</span>
+      vnode <span class="token operator">=</span> ownerArray<span class="token punctuation">[</span>index<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">cloneVNode</span><span class="token punctuation">(</span>vnode<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>双重赋值的用例。</p>
+<h2 id="code-3"><a href="#code-3" class="headerlink" title="code 3"></a>code 3</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/vdom/patch.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/vdom/patch.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js">      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isDef</span><span class="token punctuation">(</span>i <span class="token operator">=</span> i<span class="token punctuation">.</span>hook<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token function">isDef</span><span class="token punctuation">(</span>i <span class="token operator">=</span> i<span class="token punctuation">.</span>init<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">i</span><span class="token punctuation">(</span>vnode<span class="token punctuation">,</span> <span class="token boolean">false</span> <span class="token comment" spellcheck="true">/* hydrating */</span><span class="token punctuation">,</span> parentElm<span class="token punctuation">,</span> refElm<span class="token punctuation">)</span>
+      <span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>奇怪的传值。</p>
+<h2 id="code-4"><a href="#code-4" class="headerlink" title="code 4"></a>code 4</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/vdom/create-functional-component.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/vdom/create-functional-component.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js">  <span class="token comment" spellcheck="true">// support for compiled functional template</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>isCompiled<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// exposing $options for renderStatic()</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>$options <span class="token operator">=</span> options
+    <span class="token comment" spellcheck="true">// pre-resolve slots for renderSlot()</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>$slots <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">slots</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>$scopedSlots <span class="token operator">=</span> data<span class="token punctuation">.</span>scopedSlots <span class="token operator">||</span> emptyObject
+  <span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>哪些变量以$开头。</p>
+<h2 id="code-5"><a href="#code-5" class="headerlink" title="code 5"></a>code 5</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/vdom/create-functional-component.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/vdom/create-functional-component.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js">
+  <span class="token keyword">const</span> vnode <span class="token operator">=</span> options<span class="token punctuation">.</span>render<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">,</span> renderContext<span class="token punctuation">.</span>_c<span class="token punctuation">,</span> renderContext<span class="token punctuation">)</span>
+</code></pre>
+<p>理由：<br>call的用例。</p>
+<h2 id="code-6"><a href="#code-6" class="headerlink" title="code 6"></a>code 6</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/vdom/create-component.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/vdom/create-component.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> vnode <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">VNode</span><span class="token punctuation">(</span>
+    <span class="token template-string"><span class="token string">`vue-component-</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>Ctor<span class="token punctuation">.</span>cid<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">${name ? `</span></span><span class="token operator">-</span>$<span class="token punctuation">{</span>name<span class="token punctuation">}</span><span class="token template-string"><span class="token string">` : ''}`</span></span><span class="token punctuation">,</span>
+    data<span class="token punctuation">,</span> undefined<span class="token punctuation">,</span> undefined<span class="token punctuation">,</span> undefined<span class="token punctuation">,</span> context<span class="token punctuation">,</span>
+    <span class="token punctuation">{</span> Ctor<span class="token punctuation">,</span> propsData<span class="token punctuation">,</span> listeners<span class="token punctuation">,</span> tag<span class="token punctuation">,</span> children <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    asyncFactory
+  <span class="token punctuation">)</span>
+</code></pre>
+<p>理由：</p>
+<p>嵌套字符串变量。</p>
+<h2 id="code-7"><a href="#code-7" class="headerlink" title="code 7"></a>code 7</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/vdom/modules/ref.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/vdom/modules/ref.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js">  create <span class="token punctuation">(</span>_<span class="token punctuation">:</span> any<span class="token punctuation">,</span> vnode<span class="token punctuation">:</span> VNodeWithData<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">registerRef</span><span class="token punctuation">(</span>vnode<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+</code></pre>
+<p>理由：</p>
+<p>any的用例。</p>
+<h2 id="code-8"><a href="#code-8" class="headerlink" title="code 8"></a>code 8</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/vdom/modules/directives.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/vdom/modules/directives.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  create<span class="token punctuation">:</span> updateDirectives<span class="token punctuation">,</span>
+  update<span class="token punctuation">:</span> updateDirectives<span class="token punctuation">,</span>
+  destroy<span class="token punctuation">:</span> <span class="token keyword">function</span> unbindDirectives <span class="token punctuation">(</span>vnode<span class="token punctuation">:</span> VNodeWithData<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">updateDirectives</span><span class="token punctuation">(</span>vnode<span class="token punctuation">,</span> emptyNode<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>函数的定义</p>
+<h2 id="code-9"><a href="#code-9" class="headerlink" title="code 9"></a>code 9</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/vdom/modules/directives.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/vdom/modules/directives.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> normalizeDirectives <span class="token punctuation">(</span>
+  dirs<span class="token punctuation">:</span> <span class="token operator">?</span>Array<span class="token operator">&lt;</span>VNodeDirective<span class="token operator">></span><span class="token punctuation">,</span>
+  vm<span class="token punctuation">:</span> Component
+<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token punctuation">[</span>key<span class="token punctuation">:</span> string<span class="token punctuation">]</span><span class="token punctuation">:</span> VNodeDirective <span class="token punctuation">}</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> res <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>dirs<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// $flow-disable-line</span>
+    <span class="token keyword">return</span> res
+  <span class="token punctuation">}</span>
+  <span class="token keyword">let</span> i<span class="token punctuation">,</span> dir
+  <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> dirs<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    dir <span class="token operator">=</span> dirs<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>dir<span class="token punctuation">.</span>modifiers<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// $flow-disable-line</span>
+      dir<span class="token punctuation">.</span>modifiers <span class="token operator">=</span> emptyModifiers
+    <span class="token punctuation">}</span>
+    res<span class="token punctuation">[</span><span class="token function">getRawDirName</span><span class="token punctuation">(</span>dir<span class="token punctuation">)</span><span class="token punctuation">]</span> <span class="token operator">=</span> dir
+    dir<span class="token punctuation">.</span>def <span class="token operator">=</span> <span class="token function">resolveAsset</span><span class="token punctuation">(</span>vm<span class="token punctuation">.</span>$options<span class="token punctuation">,</span> <span class="token string">'directives'</span><span class="token punctuation">,</span> dir<span class="token punctuation">.</span>name<span class="token punctuation">,</span> <span class="token boolean">true</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+  <span class="token comment" spellcheck="true">// $flow-disable-line</span>
+  <span class="token keyword">return</span> res
+<span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>方括号变量。</p>
+<h2 id="code-10"><a href="#code-10" class="headerlink" title="code 10"></a>code 10</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/vdom/helpers/resolve-async-component.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/vdom/helpers/resolve-async-component.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> ensureCtor <span class="token punctuation">(</span>comp<span class="token punctuation">:</span> any<span class="token punctuation">,</span> base<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>
+    comp<span class="token punctuation">.</span>__esModule <span class="token operator">||</span>
+    <span class="token punctuation">(</span>hasSymbol <span class="token operator">&amp;&amp;</span> comp<span class="token punctuation">[</span>Symbol<span class="token punctuation">.</span>toStringTag<span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token string">'Module'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    comp <span class="token operator">=</span> comp<span class="token punctuation">.</span><span class="token keyword">default</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token function">isObject</span><span class="token punctuation">(</span>comp<span class="token punctuation">)</span>
+    <span class="token operator">?</span> base<span class="token punctuation">.</span><span class="token function">extend</span><span class="token punctuation">(</span>comp<span class="token punctuation">)</span>
+    <span class="token punctuation">:</span> comp
+<span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>此处用到了新语法 symbol</p>
+
+  </div>
+</div>
+
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年03月10日 21:03</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/03/10/draft-code-1/">« Vue源码 | 草稿...</a></span>
+  <span class="right"><a href="/2018/03/10/draft-code-3/">vue源码 3 | ... »</a></span>
+</p>
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  draft-code-2
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

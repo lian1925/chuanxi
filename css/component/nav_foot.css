@@ -1,6 +1,7 @@
 .nav-foot{
   margin: 0 0rem;
   width: 100%;
+  border-bottom: 1px solid gray;
 }
 .nav-foot .left{
   float: left;
