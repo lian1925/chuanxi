@@ -78,7 +78,7 @@ if(isiOS){
         </span>
         <span>
             
-            <a href="#">
+            <a href="/2018/03/10/draft-code-4/">
               ⇒
             </a>
         </span>
@@ -91,8 +91,8 @@ if(isiOS){
         </P>
         <P>下一篇：
 
-                <a href="#">
-                    无
+                <a href="/2018/03/10/draft-code-4/">
+                    vue源码 4 | 草稿
                 </a>
         </P>
     </div>
@@ -111,7 +111,168 @@ if(isiOS){
 
 
   <div class="page">
-      
+      <h2 id="code-1"><a href="#code-1" class="headerlink" title="code 1"></a>code 1</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/vdom/helpers/normalize-children.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/vdom/helpers/normalize-children.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">// 1. When the children contains components - because a functional component</span>
+<span class="token comment" spellcheck="true">// may return an Array instead of a single root. In this case, just a simple</span>
+<span class="token comment" spellcheck="true">// normalization is needed - if any child is an Array, we flatten the whole</span>
+<span class="token comment" spellcheck="true">// thing with Array.prototype.concat. It is guaranteed to be only 1-level deep</span>
+<span class="token comment" spellcheck="true">// because functional components already normalize their own children.</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> simpleNormalizeChildren <span class="token punctuation">(</span>children<span class="token punctuation">:</span> any<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> children<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>children<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> Array<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>concat<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span> children<span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> children
+<span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>解读代码。</p>
+<h2 id="code-2"><a href="#code-2" class="headerlink" title="code 2"></a>code 2</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/vdom/helpers/index.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/vdom/helpers/index.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">export</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token string">'./merge-hook'</span>
+<span class="token keyword">export</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token string">'./extract-props'</span>
+<span class="token keyword">export</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token string">'./update-listeners'</span>
+<span class="token keyword">export</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token string">'./normalize-children'</span>
+<span class="token keyword">export</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token string">'./resolve-async-component'</span>
+<span class="token keyword">export</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token string">'./get-first-component-child'</span>
+<span class="token keyword">export</span> <span class="token operator">*</span> <span class="token keyword">from</span> <span class="token string">'./is-async-placeholder'</span>
+</code></pre>
+<p>理由：</p>
+<p>导出模块。</p>
+<h2 id="code-3"><a href="#code-3" class="headerlink" title="code 3"></a>code 3</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/vdom/helpers/get-first-component-child.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/vdom/helpers/get-first-component-child.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">export</span> <span class="token keyword">function</span> getFirstComponentChild <span class="token punctuation">(</span>children<span class="token punctuation">:</span> <span class="token operator">?</span>Array<span class="token operator">&lt;</span>VNode<span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token operator">?</span>VNode <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>Array<span class="token punctuation">.</span><span class="token function">isArray</span><span class="token punctuation">(</span>children<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> children<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">const</span> c <span class="token operator">=</span> children<span class="token punctuation">[</span>i<span class="token punctuation">]</span>
+      <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isDef</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span> <span class="token punctuation">(</span><span class="token function">isDef</span><span class="token punctuation">(</span>c<span class="token punctuation">.</span>componentOptions<span class="token punctuation">)</span> <span class="token operator">||</span> <span class="token function">isAsyncPlaceholder</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> c
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>在循环中，return 返回至哪里。</p>
+<h2 id="code-4"><a href="#code-4" class="headerlink" title="code 4"></a>code 4</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/util/debug.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/util/debug.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">export</span> <span class="token keyword">let</span> generateComponentTrace <span class="token operator">=</span> <span class="token punctuation">(</span>noop<span class="token punctuation">:</span> any<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// work around flow check</span>
+<span class="token keyword">export</span> <span class="token keyword">let</span> formatComponentName <span class="token operator">=</span> <span class="token punctuation">(</span>noop<span class="token punctuation">:</span> any<span class="token punctuation">)</span>
+</code></pre>
+<p>理由：</p>
+<p>语法不明。</p>
+<h2 id="code-5"><a href="#code-5" class="headerlink" title="code 5"></a>code 5</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/util/debug.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/util/debug.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> classifyRE <span class="token operator">=</span> <span class="token regex">/(?:^|[-_])(\w)/g</span>
+  <span class="token keyword">const</span> classify <span class="token operator">=</span> str <span class="token operator">=</span><span class="token operator">></span> str
+    <span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span>classifyRE<span class="token punctuation">,</span> c <span class="token operator">=</span><span class="token operator">></span> c<span class="token punctuation">.</span><span class="token function">toUpperCase</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token function">replace</span><span class="token punctuation">(</span><span class="token regex">/[-_]/g</span><span class="token punctuation">,</span> <span class="token string">''</span><span class="token punctuation">)</span>
+</code></pre>
+<p>理由：</p>
+<p>正则表达式解读。</p>
+<h2 id="code-6"><a href="#code-6" class="headerlink" title="code 6"></a>code 6</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/util/debug.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/util/debug.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js">    <span class="token keyword">const</span> options <span class="token operator">=</span> <span class="token keyword">typeof</span> vm <span class="token operator">===</span> <span class="token string">'function'</span> <span class="token operator">&amp;&amp;</span> vm<span class="token punctuation">.</span>cid <span class="token operator">!=</span> <span class="token keyword">null</span>
+      <span class="token operator">?</span> vm<span class="token punctuation">.</span>options
+      <span class="token punctuation">:</span> vm<span class="token punctuation">.</span>_isVue
+        <span class="token operator">?</span> vm<span class="token punctuation">.</span>$options <span class="token operator">||</span> vm<span class="token punctuation">.</span>constructor<span class="token punctuation">.</span>options
+        <span class="token punctuation">:</span> vm <span class="token operator">||</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>三目运算符的应用。</p>
+<h2 id="code-7"><a href="#code-7" class="headerlink" title="code 7"></a>code 7</h2><p>摘自 </p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/util/env.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/util/env.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js">
+<span class="token comment" spellcheck="true">// can we use __proto__?</span>
+<span class="token keyword">export</span> <span class="token keyword">const</span> hasProto <span class="token operator">=</span> <span class="token string">'__proto__'</span> <span class="token keyword">in</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p><code>_proto_</code>的用例。</p>
+<h2 id="code-7-1"><a href="#code-7-1" class="headerlink" title="code 7"></a>code 7</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/util/env.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/util/env.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">export</span> <span class="token keyword">let</span> supportsPassive <span class="token operator">=</span> <span class="token boolean">false</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>inBrowser<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> opts <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+    Object<span class="token punctuation">.</span><span class="token function">defineProperty</span><span class="token punctuation">(</span>opts<span class="token punctuation">,</span> <span class="token string">'passive'</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">{</span>
+      <span class="token keyword">get</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">/* istanbul ignore next */</span>
+        supportsPassive <span class="token operator">=</span> <span class="token boolean">true</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">:</span> Object<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// https://github.com/facebook/flow/issues/285</span>
+    window<span class="token punctuation">.</span><span class="token function">addEventListener</span><span class="token punctuation">(</span><span class="token string">'test-passive'</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">,</span> opts<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span> <span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">e</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>语法不明。</p>
+<h2 id="code-8"><a href="#code-8" class="headerlink" title="code 8"></a>code 8</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/util/env.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/util/env.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"> <span class="token comment" spellcheck="true">// a non-standard Set polyfill that only works with primitive keys.</span>
+  _Set <span class="token operator">=</span> <span class="token keyword">class</span> <span class="token class-name">Set</span> <span class="token keyword">implements</span> <span class="token class-name">SimpleSet</span> <span class="token punctuation">{</span>
+    <span class="token keyword">set</span><span class="token punctuation">:</span> Object<span class="token punctuation">;</span>
+    constructor <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">set</span> <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+    has <span class="token punctuation">(</span>key<span class="token punctuation">:</span> string <span class="token operator">|</span> number<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span>
+    add <span class="token punctuation">(</span>key<span class="token punctuation">:</span> string <span class="token operator">|</span> number<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">set</span><span class="token punctuation">[</span>key<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span>
+    clear <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token keyword">set</span> <span class="token operator">=</span> Object<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token keyword">null</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>语法不明。</p>
+<h2 id="code-9"><a href="#code-9" class="headerlink" title="code 9"></a>code 9</h2><p>摘自</p>
+<p>&gt;</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">interface</span> <span class="token class-name">SimpleSet</span> <span class="token punctuation">{</span>
+  <span class="token function">has</span><span class="token punctuation">(</span>key<span class="token punctuation">:</span> string <span class="token operator">|</span> number<span class="token punctuation">)</span><span class="token punctuation">:</span> boolean<span class="token punctuation">;</span>
+  <span class="token function">add</span><span class="token punctuation">(</span>key<span class="token punctuation">:</span> string <span class="token operator">|</span> number<span class="token punctuation">)</span><span class="token punctuation">:</span> mixed<span class="token punctuation">;</span>
+  <span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">export</span> type <span class="token punctuation">{</span> SimpleSet <span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>接口用例。</p>
+<h2 id="code-10"><a href="#code-10" class="headerlink" title="code 10"></a>code 10</h2><p>摘自</p>
+<blockquote>
+<p><a href="https://github.com/vuejs/vue/blob/dev/src/core/util/lang.js" target="_blank" rel="external">https://github.com/vuejs/vue/blob/dev/src/core/util/lang.js</a></p>
+</blockquote>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">/**
+ * Check if a string starts with $ or _
+ */</span>
+<span class="token keyword">export</span> <span class="token keyword">function</span> isReserved <span class="token punctuation">(</span>str<span class="token punctuation">:</span> string<span class="token punctuation">)</span><span class="token punctuation">:</span> boolean <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> c <span class="token operator">=</span> <span class="token punctuation">(</span>str <span class="token operator">+</span> <span class="token string">''</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">charCodeAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+  <span class="token keyword">return</span> c <span class="token operator">===</span> <span class="token number">0x24</span> <span class="token operator">||</span> c <span class="token operator">===</span> <span class="token number">0x5F</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>理由：</p>
+<p>此处做<code>+&#39;&#39;</code>的处理是否必要。</p>
+
   </div>
 </div>
 
@@ -133,7 +294,7 @@ if(isiOS){
 
 <p class="nav-foot">
   <span class="left"><a href="/2018/03/10/draft-code-2/">« Vue源码 2 | ...</a></span>
-  <span class="right"><a href="#">无... »</a></span>
+  <span class="right"><a href="/2018/03/10/draft-code-4/">vue源码 4 | ... »</a></span>
 </p>
 
 
