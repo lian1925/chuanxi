@@ -1,0 +1,325 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  <title>
+    小沙丘的网络漫游记
+  </title>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/草稿/">
+            草稿
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/草稿/">
+              草稿
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/03/13/draft-code-18/">
+              ⇐ 
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/03/13/draft-code-20/">
+              ⇒
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/03/13/draft-code-18/">
+                    https | 安全
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/03/13/draft-code-20/">
+                    适配 | 草稿
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<h1>兼容 | 草稿</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年03月13日 18:03
+  </p>
+</div>
+      
+
+
+
+  <div class="page">
+      <p>摘自：</p>
+<blockquote>
+<p><a href="https://www.jianshu.com/p/9f6f5454b8c5?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation" target="_blank" rel="external">https://www.jianshu.com/p/9f6f5454b8c5?utm_campaign=maleskine&amp;utm_content=note&amp;utm_medium=seo_notes&amp;utm_source=recommendation</a></p>
+</blockquote>
+<h2 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h2><p>对于较新的css特性，怎么处理浏览器的兼容问题？</p>
+<p>答：<br>normalize;</p>
+<p>现在大多数用户使用移动设备，这些浏览器大多支持较新的html5和css3特性，如果你们公司的客户刚好处于这种情况，则兼容则不是很严重的问题。</p>
+<p>如果业务有要求解决，其思路有两：<br>一，为不兼容的特性写垫片，pollyfill，现有的html5和css3的特性，差不多都有人写了对应的plyfill，如果你不想自己写的话，可以下载使用。<br>比如：像FlashCanvas就是专门针对canvas元素的Polyfill</p>
+<p>二， 最流行的检测库:Modernizr，Modernizr的功能就是检测当前浏览器对HTML5和CSS3各个特性的支持情况。</p>
+<p>一种方案是，根据检测的情况，对旧版浏览器做优雅降级处理，比如 css3的text-shadow特性，可以制造漂亮的阴影效果，但是在旧版本ie不支持，则为之提供一个简单的替代样式方案。</p>
+<h2 id="屏幕适配"><a href="#屏幕适配" class="headerlink" title="屏幕适配"></a>屏幕适配</h2><p>对应手机端和电脑端，怎么处理屏幕适配问题？</p>
+<p>答：目前有两种解决思路。</p>
+<p>一种是通过响应式布局来适配两种屏幕。它的特点是只有一套代码，全端公用。通过媒体查询屏幕宽度，来选用css样式，达到不同的适配效果。</p>
+<p>这种方式，适用于相对简单的展示型网站，如企业官网，新闻网站，博客。</p>
+<p>它的缺点是将pc于移动端的代码混在一起，这种开发方式其实违反了编程中非常重要的解耦原则。现在的移动端网站，用户提出了更高的挑战：更酷的用户效果，更快的加载速度，更灵敏的响应速度。因此移动端项目功能越来越多，复杂度越更高了。</p>
+<p>因此，第二种方案就是，将pc和移动端项目分离，通过终端判断，向用户响应相应的项目。</p>
+<p>2、安卓和苹果，如何提高一致的视觉效果？</p>
+<p>答：阿里巴巴的手淘团队，</p>
+<p>虽然H5的页面与PC的Web页面相比简单了不少，但让我们头痛的事情是要想尽办法让页面能适配众多不同的终端设备。看看下图你就会知道，这是多么痛苦的一件事情：</p>
+<p>而整个手淘设计师和前端开发的适配协作基本思路是：</p>
+<p>选择一种尺寸作为设计和开发基准</p>
+<p>定义一套适配规则，自动适配剩下的两种尺寸(其实不仅这两种，你懂的)</p>
+<p>特殊适配效果给出设计效果</p>
+<p>动态改写标签</p>
+<p>给元素添加data-dpr属性，并且动态改写data-dpr的值</p>
+<p>给元素添加font-size属性，并且动态改写font-size的值</p>
+<blockquote>
+<p><a href="https://github.com/huainanhai/flexible/blob/master/public/js/frame/flexible.debug.js" target="_blank" rel="external">https://github.com/huainanhai/flexible/blob/master/public/js/frame/flexible.debug.js</a></p>
+</blockquote>
+
+  </div>
+</div>
+
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年03月13日 18:03</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/03/13/draft-code-18/">« https | 安全...</a></span>
+  <span class="right"><a href="/2018/03/13/draft-code-20/">适配 | 草稿... »</a></span>
+</p>
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  draft-code-19
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+
