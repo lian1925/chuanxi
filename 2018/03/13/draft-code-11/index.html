@@ -99,7 +99,7 @@ if(isiOS){
 </div>
 
 <div class="post">
-<h1>draft-code-11</h1>
+<h1>观察者模式 | 草稿</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -111,7 +111,80 @@ if(isiOS){
 
 
   <div class="page">
-      
+      <p>观察者模式</p>
+<p>当对象间存在一对多关系时，则使用观察者模式（Observer Pattern）。比如，当一个对象被修改时，则会自动通知它的依赖对象。观察者模式属于行为型模式。</p>
+<p>主要解决：一个对象状态改变给其他对象通知的问题，而且要考虑到易用和低耦合，保证高度的协作。</p>
+<p>何时使用：一个对象（目标对象）的状态发生改变，所有的依赖对象（观察者对象）都将得到通知，进行广播通知。</p>
+<p>如何解决：使用面向对象技术，可以将这种依赖关系弱化。</p>
+<p>关键代码：在抽象类里有一个 ArrayList 存放观察者们。</p>
+<p>应用实例： 1、拍卖的时候，拍卖师观察最高标价，然后通知给其他竞价者竞价。</p>
+<p>优点： 1、观察者和被观察者是抽象耦合的。 2、建立一套触发机制。</p>
+<p>缺点： 1、如果一个被观察者对象有很多的直接和间接的观察者的话，将所有的观察者都通知到会花费很多时间。 2、如果在观察者和观察目标之间有循环依赖的话，观察目标会触发它们之间进行循环调用，可能导致系统崩溃。 3、观察者模式没有相应的机制让观察者知道所观察的目标对象是怎么发生变化的，而仅仅只是知道观察目标发生了变化。</p>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">// 建立一张观察者列表，存储观察者名单。</span>
+<span class="token keyword">function</span> <span class="token function">ObserverList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>observerList <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+ObserverList<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>add <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span> obj <span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>observerList<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span> obj <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+ObserverList<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>count <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>observerList<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+ObserverList<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token keyword">get</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span> index <span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">if</span><span class="token punctuation">(</span> index <span class="token operator">></span> <span class="token operator">-</span><span class="token number">1</span> <span class="token operator">&amp;&amp;</span> index <span class="token operator">&lt;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>observerList<span class="token punctuation">.</span>length <span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>observerList<span class="token punctuation">[</span> index <span class="token punctuation">]</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+ObserverList<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>indexOf <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span> obj<span class="token punctuation">,</span> startIndex <span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">var</span> i <span class="token operator">=</span> startIndex<span class="token punctuation">;</span>
+
+  <span class="token keyword">while</span><span class="token punctuation">(</span> i <span class="token operator">&lt;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>observerList<span class="token punctuation">.</span>length <span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span> <span class="token keyword">this</span><span class="token punctuation">.</span>observerList<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">===</span> obj <span class="token punctuation">)</span><span class="token punctuation">{</span>
+      <span class="token keyword">return</span> i<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    i<span class="token operator">++</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+ObserverList<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>removeAt <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span> index <span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>observerList<span class="token punctuation">.</span><span class="token function">splice</span><span class="token punctuation">(</span> index<span class="token punctuation">,</span> <span class="token number">1</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 建立被观察者对象，提供添加，删除和通知功能</span>
+<span class="token keyword">function</span> <span class="token function">Subject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>observers <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ObserverList</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+Subject<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>addObserver <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span> observer <span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>observers<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span> observer <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+Subject<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>removeObserver <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span> observer <span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>observers<span class="token punctuation">.</span><span class="token function">removeAt</span><span class="token punctuation">(</span> <span class="token keyword">this</span><span class="token punctuation">.</span>observers<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span> observer<span class="token punctuation">,</span> <span class="token number">0</span> <span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+Subject<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>notify <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span> context <span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">var</span> observerCount <span class="token operator">=</span> <span class="token keyword">this</span><span class="token punctuation">.</span>observers<span class="token punctuation">.</span><span class="token function">count</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">for</span><span class="token punctuation">(</span><span class="token keyword">var</span> i<span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> observerCount<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>observers<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">update</span><span class="token punctuation">(</span> context <span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// 观察者对象，提供update接口，接收通知。</span>
+<span class="token comment" spellcheck="true">// The Observer</span>
+<span class="token keyword">function</span> <span class="token function">Observer</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+  <span class="token keyword">this</span><span class="token punctuation">.</span>update <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// ...</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
   </div>
 </div>
 

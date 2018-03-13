@@ -78,7 +78,7 @@ if(isiOS){
         </span>
         <span>
             
-            <a href="#">
+            <a href="/2018/03/13/draft-code-12/">
               ⇒
             </a>
         </span>
@@ -86,13 +86,13 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/03/13/draft-code-11/">
-                    draft-code-11
+                    观察者模式 | 草稿
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="#">
-                    无
+                <a href="/2018/03/13/draft-code-12/">
+                    代理模式 | 草稿
                 </a>
         </P>
     </div>
@@ -123,7 +123,125 @@ if(isiOS){
 </code></pre>
 <p>理由:</p>
 <p>定义模块的原则，在于使用立即函数 Immediately-Invoked-Function-Expressions (IIFE)，存储私有变量和方法，返回共有对象或方法。</p>
-<h2 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h2><p>```js </p>
+<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p>摘自：</p>
+<pre class=" language-js"><code class="language-js">
+意图：保证一个类仅有一个实例，并提供一个访问它的全局访问点。
+
+主要解决：一个全局使用的类频繁地创建与销毁。
+
+何时使用：当您想控制实例数目，节省系统资源的时候。
+
+如何解决：判断系统是否已经有这个单例，如果有则返回，如果没有则创建。
+
+优点： <span class="token number">1</span>、在内存里只有一个实例，减少了内存的开销，尤其是频繁的创建和销毁实例（比如管理学院首页页面缓存）。 <span class="token number">2</span>、避免对资源的多重占用（比如写文件操作）。
+
+使用场景： <span class="token number">1</span>、要求生产唯一序列号。 <span class="token number">2</span>、WEB 中的计数器，不用每次刷新都在数据库里加一次，用单例先缓存起来。 <span class="token number">3</span>、创建的一个对象需要消耗的资源过多，比如 I<span class="token operator">/</span>O 与数据库的连接等。
+</code></pre>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> mySingleton <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+  <span class="token comment" spellcheck="true">// Instance stores a reference to the Singleton</span>
+  <span class="token keyword">var</span> instance<span class="token punctuation">;</span>
+
+  <span class="token keyword">function</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">// Singleton</span>
+
+    <span class="token comment" spellcheck="true">// Private methods and variables</span>
+    <span class="token keyword">function</span> <span class="token function">privateMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> <span class="token string">"I am private"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">var</span> privateVariable <span class="token operator">=</span> <span class="token string">"Im also private"</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">var</span> privateRandomNumber <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+
+      <span class="token comment" spellcheck="true">// Public methods and variables</span>
+      publicMethod<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> <span class="token string">"The public can see me!"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">,</span>
+
+      publicProperty<span class="token punctuation">:</span> <span class="token string">"I am also public"</span><span class="token punctuation">,</span>
+
+      getRandomNumber<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> privateRandomNumber<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">// Get the Singleton instance if one exists</span>
+    <span class="token comment" spellcheck="true">// or create one if it doesn't</span>
+    getInstance<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span> <span class="token operator">!</span>instance <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        instance <span class="token operator">=</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token keyword">return</span> instance<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> myBadSingleton <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+  <span class="token comment" spellcheck="true">// Instance stores a reference to the Singleton</span>
+  <span class="token keyword">var</span> instance<span class="token punctuation">;</span>
+
+  <span class="token keyword">function</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">// Singleton</span>
+
+    <span class="token keyword">var</span> privateRandomNumber <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+
+      getRandomNumber<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> privateRandomNumber<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">return</span> <span class="token punctuation">{</span>
+
+    <span class="token comment" spellcheck="true">// Always create a new Singleton instance</span>
+    getInstance<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+      instance <span class="token operator">=</span> <span class="token function">init</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token keyword">return</span> instance<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+<span class="token comment" spellcheck="true">// Usage:</span>
+
+<span class="token keyword">var</span> singleA <span class="token operator">=</span> mySingleton<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> singleB <span class="token operator">=</span> mySingleton<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> singleA<span class="token punctuation">.</span><span class="token function">getRandomNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">===</span> singleB<span class="token punctuation">.</span><span class="token function">getRandomNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+
+<span class="token keyword">var</span> badSingleA <span class="token operator">=</span> myBadSingleton<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> badSingleB <span class="token operator">=</span> myBadSingleton<span class="token punctuation">.</span><span class="token function">getInstance</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> badSingleA<span class="token punctuation">.</span><span class="token function">getRandomNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">!==</span> badSingleB<span class="token punctuation">.</span><span class="token function">getRandomNumber</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true</span>
+
+<span class="token comment" spellcheck="true">// Note: as we are working with random numbers, there is a</span>
+<span class="token comment" spellcheck="true">// mathematical possibility both numbers will be the same,</span>
+<span class="token comment" spellcheck="true">// however unlikely. The above example should otherwise still</span>
+<span class="token comment" spellcheck="true">// be valid.</span>
+</code></pre>
+<p>理由：</p>
+<p>单例模式的实现，重点是判断实例是否存在，若存在，则返回已存在的实例。</p>
 
   </div>
 </div>
@@ -145,8 +263,8 @@ if(isiOS){
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/13/draft-code-11/">« draft-code...</a></span>
-  <span class="right"><a href="#">无... »</a></span>
+  <span class="left"><a href="/2018/03/13/draft-code-11/">« 观察者模式 | 草稿...</a></span>
+  <span class="right"><a href="/2018/03/13/draft-code-12/">代理模式 | 草稿... »</a></span>
 </p>
 
 
