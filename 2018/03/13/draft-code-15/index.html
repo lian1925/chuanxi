@@ -78,7 +78,7 @@ if(isiOS){
         </span>
         <span>
             
-            <a href="#">
+            <a href="/2018/03/13/draft-code-16/">
               ⇒
             </a>
         </span>
@@ -91,15 +91,15 @@ if(isiOS){
         </P>
         <P>下一篇：
 
-                <a href="#">
-                    无
+                <a href="/2018/03/13/draft-code-16/">
+                    web安全 | 草稿
                 </a>
         </P>
     </div>
 </div>
 
 <div class="post">
-<h1>draft-code-15</h1>
+<h1>模块化 | 草稿</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -111,7 +111,141 @@ if(isiOS){
 
 
   <div class="page">
-      
+      <p>最近几年，我们可以选择的Javascript组件的生态系统一直在稳步增长。虽然陡增的选择范围是极好的，但当组件混合匹配使用时就会出现很尴尬的局面。开发新手们会很快发现不是所有组件都能彼此“和平相处”。</p>
+<p>为了解决这个问题，两种竞争关系的模块规范AMD和CommonJS问世了，它们允许开发者遵照一种约定的沙箱化和模块化的方式来写代码，这样就能避免“污染生态系统”。</p>
+<h2 id="AMD"><a href="#AMD" class="headerlink" title="AMD"></a>AMD</h2><p>Asynchronous Module Definition<br>RequireJS 是一个前端的模块化管理的工具库，遵循AMD规范，它的作者就是AMD规范的创始人 James Burke。所以说RequireJS是对AMD规范的阐述一点也不为过。</p>
+<p>随着RequireJS成为最流行的实现方式，异步模块规范（AMD）在前端界已经被广泛认同。</p>
+<p>下面是只依赖jquery的模块foo的代码：</p>
+<pre><code>//    文件名: foo.js
+define([&#39;jquery&#39;], function ($) {
+    //    方法
+    function myFunc(){};
+
+    //    暴露公共方法
+    return myFunc;
+});
+</code></pre><p>还有稍微复杂点的例子，下面的代码依赖了多个组件并且暴露多个方法:</p>
+<pre><code>//    文件名: foo.js
+define([&#39;jquery&#39;, &#39;underscore&#39;], function ($, _) {
+    //    方法
+    function a(){};    //    私有方法，因为没有被返回(见下面)
+    function b(){};    //    公共方法，因为被返回了
+    function c(){};    //    公共方法，因为被返回了
+
+    //    暴露公共方法
+    return {
+        b: b,
+        c: c
+    }
+});
+</code></pre><p>定义的第一个部分是一个依赖数组，第二个部分是回调函数，只有当依赖的组件可用时（像RequireJS这样的脚本加载器会负责这一部分，包括找到文件路径）回调函数才被执行。</p>
+<p>注意，依赖组件和变量的顺序是一一对应的（例如，jquery-&gt;$, underscore-&gt;_）。</p>
+<p>同时注意，我们可以用任意的变量名来表示依赖组件。假如我们把$改成$$，在函数体里面的所有对jQuery的引用都由$变成了$$。</p>
+<p>还要注意，最重要的是你不能在回调函数外面引用变量$和_，因为它相对其它代码是独立的。这正是模块化的目的所在！</p>
+<h2 id="CommonJS"><a href="#CommonJS" class="headerlink" title="CommonJS"></a>CommonJS</h2><p>如果你用Node写过东西的话，你可能会熟悉CommonJS的风格（node使用的格式与之相差无几）。因为有Browserify，它也一直被前端界广泛认同。</p>
+<p>就像前面的格式一样，下面是用CommonJS规范实现的foo模块的写法：</p>
+<pre><code>    //    文件名: foo.js
+    //    依赖
+    var $ = require(&#39;jquery&#39;);
+    //    方法
+    function myFunc(){};
+
+    //    暴露公共方法（一个）
+    module.exports = myFunc;
+</code></pre><p>还有更复杂的例子，下面的代码依赖了多个组件并且暴露多个方法：</p>
+<pre><code>    //    文件名: foo.js
+    var $ = require(&#39;jquery&#39;);
+    var _ = require(&#39;underscore&#39;);
+
+    //    methods
+    function a(){};    //    私有方法，因为它没在module.exports中 (见下面)
+    function b(){};    //    公共方法，因为它在module.exports中定义了
+    function c(){};    //    公共方法，因为它在module.exports中定义了
+
+    //    暴露公共方法
+    module.exports = {
+        b: b,
+        c: c
+    };
+</code></pre><p>UMD: 通用模块规范</p>
+<p>既然CommonJs和AMD风格一样流行，似乎缺少一个统一的规范。所以人们产生了这样的需求，希望有支持两种风格的“通用”模式，于是通用模块规范（UMD）诞生了。</p>
+<p>不得不承认，这个模式略难看，但是它兼容了AMD和CommonJS，同时还支持老式的“全局”变量规范：</p>
+<pre><code>    (function (root, factory) {
+        if (typeof define === &#39;function&#39; &amp;&amp; define.amd) {
+            // AMD
+            define([&#39;jquery&#39;], factory);
+        } else if (typeof exports === &#39;object&#39;) {
+            // Node, CommonJS之类的
+            module.exports = factory(require(&#39;jquery&#39;));
+        } else {
+            // 浏览器全局变量(root 即 window)
+            root.returnExports = factory(root.jQuery);
+        }
+    }(this, function ($) {
+        //    方法
+        function myFunc(){};
+
+        //    暴露公共方法
+        return myFunc;
+    }));
+</code></pre><p>保持跟上面例子一样的模式，下面是更复杂的例子，它依赖了多个组件并且暴露多个方法:</p>
+<pre><code>    (function (root, factory) {
+        if (typeof define === &#39;function&#39; &amp;&amp; define.amd) {
+            // AMD
+            define([&#39;jquery&#39;, &#39;underscore&#39;], factory);
+        } else if (typeof exports === &#39;object&#39;) {
+            // Node, CommonJS之类的
+            module.exports = factory(require(&#39;jquery&#39;), require(&#39;underscore&#39;));
+        } else {
+            // 浏览器全局变量(root 即 window)
+            root.returnExports = factory(root.jQuery, root._);
+        }
+    }(this, function ($, _) {
+        //    方法
+        function a(){};    //    私有方法，因为它没被返回 (见下面)
+        function b(){};    //    公共方法，因为被返回了
+        function c(){};    //    公共方法，因为被返回了
+
+        //    暴露公共方法
+        return {
+            b: b,
+            c: c
+        }
+    }));
+</code></pre><p>AMD模块以浏览器第一的原则发展，异步加载模块。<br>CommonJS模块以服务器第一原则发展，选择同步加载，它的模块无需包装(unwrapped modules)。<br>这迫使人们又想出另一个更通用的模式UMD （Universal Module Definition）。希望解决跨平台的解决方案。</p>
+<p>UMD先判断是否支持Node.js的模块（exports）是否存在，存在则使用Node.js模块模式。<br>在判断是否支持AMD（define是否存在），存在则使用AMD方式加载模块。</p>
+<p>(function (window, factory) {<br>    if (typeof exports === ‘object’) {</p>
+<pre><code>    module.exports = factory();
+} else if (typeof define === &#39;function&#39; &amp;&amp; define.amd) {
+
+    define(factory);
+} else {
+
+    window.eventUtil = factory();
+}
+</code></pre><p>})(this, function () {<br>    //module …<br>});</p>
+<p>##CMD和SeaJS<br>CMD是SeaJS 在推广过程中对模块定义的规范化产出</p>
+<p>对于依赖的模块AMD是提前执行，CMD是延迟执行。不过RequireJS从2.0开始，也改成可以延迟执行（根据写法不同，处理方式不通过）。CMD 推崇 as lazy as possible.</p>
+<p>CMD推崇依赖就近，AMD推崇依赖前置。</p>
+<p>//AMD<br>define([‘./a’,’./b’], function (a, b) {</p>
+<pre><code>//依赖一开始就写好
+a.test();
+b.test();
+</code></pre><p>});</p>
+<p>//CMD<br>define(function (requie, exports, module) {</p>
+<pre><code>//依赖可以就近书写
+var a = require(&#39;./a&#39;);
+a.test();
+
+...
+//软依赖
+if (status) {
+
+    var b = requie(&#39;./b&#39;);
+    b.test();
+}
+</code></pre><p>});</p>
+
   </div>
 </div>
 
@@ -133,7 +267,7 @@ if(isiOS){
 
 <p class="nav-foot">
   <span class="left"><a href="/2018/03/13/draft-code-14/">« mvp 模式 | 草...</a></span>
-  <span class="right"><a href="#">无... »</a></span>
+  <span class="right"><a href="/2018/03/13/draft-code-16/">web安全 | 草稿... »</a></span>
 </p>
 
 

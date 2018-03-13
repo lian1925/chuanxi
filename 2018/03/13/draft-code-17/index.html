@@ -72,38 +72,38 @@ if(isiOS){
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2018/03/13/draft-code-13/">
+            <a href="/2018/03/13/draft-code-16/">
               ⇐ 
             </a>
         </span>
         <span>
             
-            <a href="/2018/03/13/draft-code-15/">
+            <a href="/2018/03/13/draft-code-18/">
               ⇒
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2018/03/13/draft-code-13/">
-                    mvc模式 | 草稿
+                <a href="/2018/03/13/draft-code-16/">
+                    web安全 | 草稿
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2018/03/13/draft-code-15/">
-                    模块化 | 草稿
+                <a href="/2018/03/13/draft-code-18/">
+                    https | 安全
                 </a>
         </P>
     </div>
 </div>
 
 <div class="post">
-<h1>mvp 模式 | 草稿</h1>
+<h1>同源策略 | 安全</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
-    2018年03月13日 16:03
+    2018年03月13日 18:03
   </p>
 </div>
       
@@ -111,11 +111,25 @@ if(isiOS){
 
 
   <div class="page">
-      <p>mvp<br>model view presenter </p>
-<p>两幅图是不同的，但是对MVC的改进的思想却是一样的：切断的View和Model的联系，让View只和Presenter（原Controller）交互，减少在需求变化中需要维护的对象的数量。这种方式很符合我们的期待，因为我们倾向于：用更低的成本解决问题用更容易理解的方式解决问题</p>
-<p>MVVM<br>model view viewModel</p>
-<p>view 双向 viewmodel 双向 model<br>ViewModel大致上就是MVP的Presenter和MVC的Controller了，而View和ViewModel间没有了MVP的界面接口，而是直接交互，用数据“绑定”的形式让数据更新的事件不需要开发人员手动去编写特殊用例，而是自动地双向同步。数据绑定你可以认为是Observer模式或者是Publish/Subscribe模式，原理都是为了用一种统一的集中的方式实现频繁需要被实现的数据更新问题。比起MVP，MVVM不仅简化了业务与界面的依赖关系，还优化了数据频繁更新的解决方案，甚至可以说提供了一种有效的解决模式。至此，我们能理解为什么许多人认为MVVM是最好的一种模式，没有之一。但事实上，MVVM也是依赖于我们至今所讲的“特有的情境”。</p>
-
+      <p>1995年，同源政策由 Netscape 公司引入浏览器。目前，所有浏览器都实行这个政策。</p>
+<p>最初，它的含义是指，A网页设置的 Cookie，B网页不能打开，除非这两个网页”同源”。所谓”同源”指的是”三个相同”。</p>
+<p>协议相同<br>域名相同<br>端口相同<br>随着互联网的发展，”同源政策”越来越严格。目前，如果非同源，共有三种行为受到限制。</p>
+<p>（1） Cookie、LocalStorage 和 IndexDB 无法读取。</p>
+<p>（2） DOM 无法获得。</p>
+<p>（3） AJAX 请求不能发送。</p>
+<h2 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h2><p>JSONP是服务器与客户端跨源通信的常用方法。最大特点就是简单适用，老式浏览器全部支持，服务器改造非常小。</p>
+<p>它的基本思想是，网页通过添加一个<code>&lt;script&gt;</code>元素，向服务器请求JSON数据，这种做法不受同源政策限制；服务器收到请求后，将数据放在一个指定名字的回调函数里传回来。</p>
+<p>首先，网页动态插入<code>&lt;script&gt;</code>元素，由它向跨源网址发出请求。</p>
+<p>function addScriptTag(src) {<br>  var script = document.createElement(‘script’);<br>  script.setAttribute(“type”,”text/javascript”);<br>  script.src = src;<br>  document.body.appendChild(script);<br>}</p>
+<p>window.onload = function () {<br>  addScriptTag(‘<a href="http://example.com/ip?callback=foo" target="_blank" rel="external">http://example.com/ip?callback=foo</a>‘);<br>}</p>
+<p>function foo(data) {<br>  console.log(‘Your public IP address is: ‘ + data.ip);<br>};<br>上面代码通过动态添加<script>元素，向服务器example.com发出请求。注意，该请求的查询字符串有一个callback参数，用来指定回调函数的名字，这对于JSONP是必需的。</p>
+<p>服务器收到这个请求以后，会将数据放在回调函数的参数位置返回。</p>
+<p>foo({<br>  “ip”: “8.8.8.8”<br>});<br>由于<script>元素请求的脚本，直接作为代码运行。这时，只要浏览器定义了foo函数，该函数就会立即调用。作为参数的JSON数据被视为JavaScript对象，而不是字符串，因此避免了使用JSON.parse的步骤。</p>
+<h2 id="cors"><a href="#cors" class="headerlink" title="cors"></a>cors</h2><p>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。</p>
+<p>它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。</p>
+<p>CORS与JSONP的使用目的相同，但是比JSONP更强大。</p>
+<p>JSONP只支持GET请求，CORS支持所有类型的HTTP请求。JSONP的优势在于支持老式浏览器，以及可以向不支持CORS的网站请求数据。</p>
+</script></p>
   </div>
 </div>
 
@@ -128,7 +142,7 @@ if(isiOS){
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
     <li>作者：<a href="/">Lian</a></li>
-    <li>日期：2018年03月13日 16:03</li>
+    <li>日期：2018年03月13日 18:03</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
 </div>
@@ -136,8 +150,8 @@ if(isiOS){
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/13/draft-code-13/">« mvc模式 | 草稿...</a></span>
-  <span class="right"><a href="/2018/03/13/draft-code-15/">模块化 | 草稿... »</a></span>
+  <span class="left"><a href="/2018/03/13/draft-code-16/">« web安全 | 草稿...</a></span>
+  <span class="right"><a href="/2018/03/13/draft-code-18/">https | 安全... »</a></span>
 </p>
 
 
@@ -276,7 +290,7 @@ if(isiOS){
 
 
 <p id="info-meta" style="display:none;">
-  draft-code-14
+  draft-code-17
 </p>
 
 

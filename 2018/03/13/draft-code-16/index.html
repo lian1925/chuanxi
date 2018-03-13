@@ -72,38 +72,38 @@ if(isiOS){
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2018/03/13/draft-code-13/">
+            <a href="/2018/03/13/draft-code-15/">
               ⇐ 
             </a>
         </span>
         <span>
             
-            <a href="/2018/03/13/draft-code-15/">
+            <a href="/2018/03/13/draft-code-17/">
               ⇒
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2018/03/13/draft-code-13/">
-                    mvc模式 | 草稿
+                <a href="/2018/03/13/draft-code-15/">
+                    模块化 | 草稿
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2018/03/13/draft-code-15/">
-                    模块化 | 草稿
+                <a href="/2018/03/13/draft-code-17/">
+                    同源策略 | 安全
                 </a>
         </P>
     </div>
 </div>
 
 <div class="post">
-<h1>mvp 模式 | 草稿</h1>
+<h1>web安全 | 草稿</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
-    2018年03月13日 16:03
+    2018年03月13日 18:03
   </p>
 </div>
       
@@ -111,10 +111,14 @@ if(isiOS){
 
 
   <div class="page">
-      <p>mvp<br>model view presenter </p>
-<p>两幅图是不同的，但是对MVC的改进的思想却是一样的：切断的View和Model的联系，让View只和Presenter（原Controller）交互，减少在需求变化中需要维护的对象的数量。这种方式很符合我们的期待，因为我们倾向于：用更低的成本解决问题用更容易理解的方式解决问题</p>
-<p>MVVM<br>model view viewModel</p>
-<p>view 双向 viewmodel 双向 model<br>ViewModel大致上就是MVP的Presenter和MVC的Controller了，而View和ViewModel间没有了MVP的界面接口，而是直接交互，用数据“绑定”的形式让数据更新的事件不需要开发人员手动去编写特殊用例，而是自动地双向同步。数据绑定你可以认为是Observer模式或者是Publish/Subscribe模式，原理都是为了用一种统一的集中的方式实现频繁需要被实现的数据更新问题。比起MVP，MVVM不仅简化了业务与界面的依赖关系，还优化了数据频繁更新的解决方案，甚至可以说提供了一种有效的解决模式。至此，我们能理解为什么许多人认为MVVM是最好的一种模式，没有之一。但事实上，MVVM也是依赖于我们至今所讲的“特有的情境”。</p>
+      <p>开发者不可能确保自己的应用绝对无法被攻击，但是只要攻击我们的时候，黑客花费的成本远比他可以获取的利益大得多，黑客就不会去攻击。</p>
+<h2 id="网络劫持攻击"><a href="#网络劫持攻击" class="headerlink" title="网络劫持攻击"></a>网络劫持攻击</h2><p>很多的时候，我们的网站不是直接就访问到我们的服务器上的，中间会经过很多层代理，如果在某一个环节，数据被中间代理层的劫持者所截获，他们就能获取到使用你网站的用户的密码等保密数据。比如，我们的用户经常会在各种饭馆里面，连一些奇奇怪怪的wifi，如果这个wifi是黑客所建立的热点wifi，那么黑客就可以结果该用户收发的所有数据。这里，建议站长们网站都使用https进行加密。这样，就算网站的数据能被拿到，黑客也无法解开。</p>
+<p>如果你的网站还没有进行https加密的化，则在表单提交部分，最好进行非对称加密–即客户端加密，只有服务端能解开。这样中间的劫持者便无法获取加密内容的真实信息了。</p>
+<h2 id="控制台注入代码"><a href="#控制台注入代码" class="headerlink" title="控制台注入代码"></a>控制台注入代码</h2><p>不知道各位看官有没有注意到天猫官网控制台的警告信息，如图4.1所示，这是为什么呢？因为有的黑客会诱骗用户去往控制台里面粘贴东西（欺负小白用户不懂代码），比如可以在朋友圈贴个什么文章，说:”只要访问天猫，按下F12并且粘贴以下内容，则可以获得xx元礼品”之类的，那么有的用户真的会去操作，并且自己隐私被暴露了也不知道。</p>
+<p>##钓鱼<br>钓鱼也是一种非常古老的攻击方式了，其实并不太算前端攻击。可毕竟是页面级别的攻击，我们也来一起聊一聊。我相信很多人会有这样的经历，QQ群里面有人发什么兼职啦、什么自己要去国外了房子车子甩卖了，详情在我QQ空间里啦，之类的连接。打开之后发现一个QQ登录框，其实一看域名就知道不是QQ，不过做得非常像QQ登录，不明就里的用户们，就真的把用户名和密码输入了进去，结果没登录到QQ，用户名和密码却给人发过去了。<br>其实这种方式，在前端也有利用。下面，我们就来试试如果利用前端进行一次逼真的钓鱼。<br>1 首先，我们在xx空间里分享一篇文章，然后吸引别人去点击。效果如图5.1.1</p>
+<h2 id="CSRF攻击"><a href="#CSRF攻击" class="headerlink" title="CSRF攻击"></a>CSRF攻击</h2><p>2.1 什么是CSRF攻击？<br>CSRF攻击在百度百科中的解释是：<br>CSRF（Cross-site request forgery跨站请求伪造，也被称为“One Click Attack”或者Session Riding，通常缩写为CSRF或者XSRF，是一种对网站的恶意利用。<br>其实就是网站中的一些提交行为，被黑客利用，你在访问黑客的网站的时候，进行的操作，会被操作到其他网站上(如：你所使用的网络银行的网站)。</p>
+<p>2.2 如何攻击？<br>2.2.1 要合理使用post与get<br>通常我们会为了省事儿，把一些应当提交的数据，做成get请求。殊不知，这不仅仅是违反了http的标准而已，也同样会被黑客所利用。<br>比如，你开发的网站中，有一个购买商品的操作。你是这么开发的：</p>
+<h2 id="XSS攻击"><a href="#XSS攻击" class="headerlink" title="XSS攻击"></a>XSS攻击</h2><p>1.1 是什么？<br>百度百科中如是说道：<br>XSS是一种经常出现在web应用中的计算机安全漏洞，它允许恶意web用户将代码植入到提供给其它用户使用的页面中。<br>其实在web前端方面，可以简单的理解为一种javascript代码注入。举个例子，我们有个社交网站，允许大家相互访问空间，网站可能是这样做的：</p>
 
   </div>
 </div>
@@ -128,7 +132,7 @@ if(isiOS){
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
     <li>作者：<a href="/">Lian</a></li>
-    <li>日期：2018年03月13日 16:03</li>
+    <li>日期：2018年03月13日 18:03</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
 </div>
@@ -136,8 +140,8 @@ if(isiOS){
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/13/draft-code-13/">« mvc模式 | 草稿...</a></span>
-  <span class="right"><a href="/2018/03/13/draft-code-15/">模块化 | 草稿... »</a></span>
+  <span class="left"><a href="/2018/03/13/draft-code-15/">« 模块化 | 草稿</a></span>
+  <span class="right"><a href="/2018/03/13/draft-code-17/">同源策略 | 安全 »</a></span>
 </p>
 
 
@@ -276,7 +280,7 @@ if(isiOS){
 
 
 <p id="info-meta" style="display:none;">
-  draft-code-14
+  draft-code-16
 </p>
 
 
