@@ -78,7 +78,7 @@ if(isiOS){
         </span>
         <span>
             
-            <a href="#">
+            <a href="/2018/03/14/draft-event-8/">
               ⇒
             </a>
         </span>
@@ -91,8 +91,8 @@ if(isiOS){
         </P>
         <P>下一篇：
 
-                <a href="#">
-                    无
+                <a href="/2018/03/14/draft-event-8/">
+                    github DDOS | 攻击
                 </a>
         </P>
     </div>
@@ -111,7 +111,26 @@ if(isiOS){
 
 
   <div class="page">
-      
+      <p>1、什么是CSRF 攻击？</p>
+<p>答：</p>
+<p>跨站点请求伪造，Cross—Site Request Forgery。</p>
+<p>攻击者盗用了你的身份，以你的名义发送恶意请求，对服务器来说这个请求是完全合法的，比如购买商品。</p>
+<p>CSRF攻击攻击原理及过程如下：</p>
+<ol>
+<li>用户C打开浏览器，访问受信任网站A，输入用户名和密码请求登录网站A；<br>2.在用户信息通过验证后，网站A产生Cookie信息并返回给浏览器，此时用户登录网站A成功，可以正常发送请求到网站A；</li>
+<li>用户未退出网站A之前，在同一浏览器中，打开一个TAB页访问网站B；</li>
+<li>网站B接收到用户请求后，返回一些攻击性代码，并发出一个请求要求访问第三方站点A；</li>
+<li>浏览器在接收到这些攻击性代码后，根据网站B的请求，在用户不知情的情况下携带Cookie信息，向网站A发出请求。网站A并不知道该请求其实是由B发起的，所以会根据用户C的Cookie信息以C的权限处理该请求，导致来自网站B的恶意代码被执行。 </li>
+</ol>
+<p>2、如何防御？</p>
+<p>答：</p>
+<p>验证HTTP Referer字段，referer字段记录了HTTP请求的来源。</p>
+<p>携带token，或手机验证码</p>
+<p>3、什么是钓鱼？</p>
+<p>答：</p>
+<p>伪装网站，欺骗用户输入账号与密码。</p>
+<p>这种方式，开发者很难防范，只能加大宣传，提高网民的安全意识。</p>
+
   </div>
 </div>
 
@@ -133,7 +152,7 @@ if(isiOS){
 
 <p class="nav-foot">
   <span class="left"><a href="/2018/03/14/draft-code-31/">« XSS攻击 | 面试...</a></span>
-  <span class="right"><a href="#">无... »</a></span>
+  <span class="right"><a href="/2018/03/14/draft-event-8/">github DDO... »</a></span>
 </p>
 
 
