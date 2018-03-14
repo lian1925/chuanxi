@@ -1,11 +1,8 @@
+.confirm {
+  margin: 2rem; }
 
-.confirm{
-  margin: 2rem;
-}
-.confirm h2{
-  line-height: 220%;
-}
+.confirm h2 {
+  line-height: 220%; }
 
-.confirm p{
-  line-height: 220%;
-}
+.confirm p {
+  line-height: 220%; }

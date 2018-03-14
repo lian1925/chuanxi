@@ -1,10 +1,9 @@
-.list-time{
-  margin: 3rem 1rem 1rem 1rem;
-}
-.list-time h2{
-  margin-bottom: 1rem;
-}
-.list-time h2 span{
-  color:rgb(158, 154, 154);
-  font-size: 70%;
-}
+.list-time {
+  margin: 3rem 1rem 1rem 1rem; }
+
+.list-time h2 {
+  margin-bottom: 1rem; }
+
+.list-time h2 span {
+  color: #9e9a9a;
+  font-size: 70%; }
