@@ -46,8 +46,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/新概念2/">
-            新概念2
+          <a href="/tags/草稿/">
+            草稿
           </a>
       </span>
       
@@ -63,8 +63,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/新概念2/">
-              新概念2
+            <a href="/tags/草稿/">
+              草稿
             </a>
         </span>
       </p>
@@ -72,66 +72,73 @@ if(isiOS){
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2018/02/28/english-xin2-3/">
+            <a href="/2018/03/14/draft-code-28/">
               ⇐ 
             </a>
         </span>
         <span>
             
-            <a href="/2018/02/28/english-xin2-10/">
+            <a href="/2018/03/14/draft-code-30/">
               ⇒
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2018/02/28/english-xin2-3/">
-                    Lesson 3 Please send me a card
+                <a href="/2018/03/14/draft-code-28/">
+                    性能 | 面试
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2018/02/28/english-xin2-10/">
-                    Lesson 10 Not for jazz
+                <a href="/2018/03/14/draft-code-30/">
+                    安全 | 面试
                 </a>
         </P>
     </div>
 </div>
 
 <div class="post">
-<h1>Lesson 4 An exciting trip</h1>
+<h1>webpack | 性能</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
-    2018年02月28日 21:02
+    2018年03月14日 19:03
   </p>
 </div>
       
 
 
-<div id="aplayer1" class="aplayer"></div>
-
 
   <div class="page">
-      <p><img src="/static/en_xin/not_jazz.png" alt=""></p>
-<p>Lesson 4 An exciting trip 激动人心的旅行</p>
-<h2 id="课文"><a href="#课文" class="headerlink" title="课文"></a>课文</h2><p>I have just received a letter from my brother, Tim. </p>
-<p>He is in Australia. He has been there for six months. </p>
-<p>Tim is an engineer. </p>
-<p>He is working for a big firm and he has already visited a great number of different places in Australia. </p>
-<p>He has just bought an Australian car and has gone to Alice Springs, a small town in the centre of Australia. </p>
-<p>He will soon visit Darwin From there, he will fly to Perth. </p>
-<p>My brother has never been abroad before, so he is finding2 this trip very exciting.</p>
-<h2 id="课文注释"><a href="#课文注释" class="headerlink" title="课文注释"></a>课文注释</h2><p>1 He has been there for six months. 他在那儿已经住了6个月了。</p>
-<p>2 a great number of…, 许多…，用于修饰复数可数名词。</p>
-<p>3 in the centre of…, 在……中部。</p>
-<h2 id="参考译文"><a href="#参考译文" class="headerlink" title="参考译文"></a>参考译文</h2><p>我刚刚收到弟弟蒂姆的来信，他正在澳大利亚。</p>
-<p>他在那儿已经住了6个月了。</p>
-<p>蒂姆是个工程师，正在为一家大公司工作，并且已经去过澳大利亚的不少地方了。</p>
-<p>他刚买了一辆澳大利亚小汽车，现在去了澳大利亚中部的小镇艾利斯斯普林斯。</p>
-<p>他不久还将到达尔文去，从那里，他再飞往珀斯。</p>
-<p>我弟弟以前从未出过国，因此，他觉得这次旅行非常激动人心。</p>
-<p>(完)</p>
+      <p>webpack是当前最主流的前端模块打包工具。react 和 vue 均将其选为官方打包工具。</p>
+<p>1、webpack 打包容易出现哪些性能问题？</p>
+<p>答：</p>
+<p>构建速度慢，即使很小改动，也需要长时间才能看到效果</p>
+<p>基础库存在重复打包，复用率不高</p>
+<p>随着项目复杂度增加，工程模块的体积随之增大</p>
+<p>2、如何优化 webpack性能？</p>
+<p>答：</p>
+<p>从本身项目入手，检测代码结构，依赖使用是否合理</p>
+<p>从webpack自身的优化手段出发，看看哪些api没有做好优化配置</p>
+<p>从webpack自身的不足出发，做有针对性的扩展优化，进一步提升效率。</p>
+<p>此处，webpack提供了一个好用的可视化资源分析工具:webpack-bundle-analyzer<br>自动帮你计算出各个模块在你的项目找那个的依赖和分布情况。</p>
+<p>3、如何配置externals配置？</p>
+<p>答：</p>
+<p>在实际项目开发过程中，我们并不需要实时调试各种库的源码，这时可以考虑使用external选项了。</p>
+<p>external就是把我们的依赖资源声明为一个外部依赖，然后通过script外链脚本引入，避免了重复打包的尴尬。</p>
+<p>4、tree shaking</p>
+<p>答:</p>
+<p>我们的开发代码中，有时定义了一些代码，但在生产环境下并没有使用，这些代码块会增加打包容积，造成网页性能损耗。</p>
+<p>tree shaking是webpack提供一种，帮助我们消除js代码中的无关代码的一种机制。</p>
+<p>配置也很简单，安装uglifyjsplugin插件，并在webpack的配置文件中添加plugns的配置即可。</p>
+<p>5、代码分割</p>
+<p>答：</p>
+<p>代码分割，code splitting，是webpack最重要的功能之一。</p>
+<p>大致有三种方式：</p>
+<p>一，通过入口entry，手动分割代码</p>
+<p>二，通过 CommonsChunkPlugin，自动分割公用module</p>
+<p>三，在代码中使用<code>require.ensure</code>函数，手动分割代码。</p>
 
   </div>
 </div>
@@ -145,7 +152,7 @@ if(isiOS){
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
     <li>作者：<a href="/">Lian</a></li>
-    <li>日期：2018年02月28日 21:02</li>
+    <li>日期：2018年03月14日 19:03</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
 </div>
@@ -153,8 +160,8 @@ if(isiOS){
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/02/28/english-xin2-3/">« Lesson 3 P...</a></span>
-  <span class="right"><a href="/2018/02/28/english-xin2-10/">Lesson 10 ... »</a></span>
+  <span class="left"><a href="/2018/03/14/draft-code-28/">« 性能 | 面试</a></span>
+  <span class="right"><a href="/2018/03/14/draft-code-30/">安全 | 面试 »</a></span>
 </p>
 
 
@@ -293,12 +300,12 @@ if(isiOS){
 
 
 <p id="info-meta" style="display:none;">
-  Lesson 4 An exciting trip
+  draft-code-29
 </p>
 
 
 <p id="info-url" style="display:none;">
-  http://sound.tingroom.com/english96ad/lesson/nce22/259eafbebcacfdd.mp3
+  
 </p>
 
 <div class="footer">

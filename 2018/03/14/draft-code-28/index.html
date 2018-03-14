@@ -46,8 +46,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/新概念2/">
-            新概念2
+          <a href="/tags/草稿/">
+            草稿
           </a>
       </span>
       
@@ -63,8 +63,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/新概念2/">
-              新概念2
+            <a href="/tags/草稿/">
+              草稿
             </a>
         </span>
       </p>
@@ -72,66 +72,88 @@ if(isiOS){
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2018/02/28/english-xin2-3/">
+            <a href="/2018/03/14/draft-code-27/">
               ⇐ 
             </a>
         </span>
         <span>
             
-            <a href="/2018/02/28/english-xin2-10/">
+            <a href="/2018/03/14/draft-code-29/">
               ⇒
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2018/02/28/english-xin2-3/">
-                    Lesson 3 Please send me a card
+                <a href="/2018/03/14/draft-code-27/">
+                    基础 3 | 面试
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2018/02/28/english-xin2-10/">
-                    Lesson 10 Not for jazz
+                <a href="/2018/03/14/draft-code-29/">
+                    webpack | 性能
                 </a>
         </P>
     </div>
 </div>
 
 <div class="post">
-<h1>Lesson 4 An exciting trip</h1>
+<h1>性能 | 面试</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
-    2018年02月28日 21:02
+    2018年03月14日 18:03
   </p>
 </div>
       
 
 
-<div id="aplayer1" class="aplayer"></div>
-
 
   <div class="page">
-      <p><img src="/static/en_xin/not_jazz.png" alt=""></p>
-<p>Lesson 4 An exciting trip 激动人心的旅行</p>
-<h2 id="课文"><a href="#课文" class="headerlink" title="课文"></a>课文</h2><p>I have just received a letter from my brother, Tim. </p>
-<p>He is in Australia. He has been there for six months. </p>
-<p>Tim is an engineer. </p>
-<p>He is working for a big firm and he has already visited a great number of different places in Australia. </p>
-<p>He has just bought an Australian car and has gone to Alice Springs, a small town in the centre of Australia. </p>
-<p>He will soon visit Darwin From there, he will fly to Perth. </p>
-<p>My brother has never been abroad before, so he is finding2 this trip very exciting.</p>
-<h2 id="课文注释"><a href="#课文注释" class="headerlink" title="课文注释"></a>课文注释</h2><p>1 He has been there for six months. 他在那儿已经住了6个月了。</p>
-<p>2 a great number of…, 许多…，用于修饰复数可数名词。</p>
-<p>3 in the centre of…, 在……中部。</p>
-<h2 id="参考译文"><a href="#参考译文" class="headerlink" title="参考译文"></a>参考译文</h2><p>我刚刚收到弟弟蒂姆的来信，他正在澳大利亚。</p>
-<p>他在那儿已经住了6个月了。</p>
-<p>蒂姆是个工程师，正在为一家大公司工作，并且已经去过澳大利亚的不少地方了。</p>
-<p>他刚买了一辆澳大利亚小汽车，现在去了澳大利亚中部的小镇艾利斯斯普林斯。</p>
-<p>他不久还将到达尔文去，从那里，他再飞往珀斯。</p>
-<p>我弟弟以前从未出过国，因此，他觉得这次旅行非常激动人心。</p>
-<p>(完)</p>
+      <p>1、如何提升前端的性能问题？</p>
+<p>答：</p>
+<p>前端的性能问题可能多种多样，并不存在既定的套路。解决的原则是，具体分析影响性能的关键要素，并设法解决。</p>
+<p>要解决性能问题，我们首先得了解，从用户输入域名，到网站的内容加载完毕，这中间发生了哪些事情。</p>
+<pre class=" language-js"><code class="language-js"><span class="token number">1</span>、你在浏览器输入一个url
+
+<span class="token number">2</span>、浏览器通过域名获取ip
+
+这个过程是通过DNS完成的。
+首先，查找浏览器的DNS缓存记录，若有返回ip。
+若无，查找路由器的 DNS缓存记录，
+若无，从ISP的DNS服务器，递归搜索，直到找到ip
+
+<span class="token number">3</span>、浏览器通过ip，向web服务器发送HTTP请求，
+
+<span class="token number">4</span>、web服务器，收到请求，判断参数，进行处理，并给出应答。
+
+<span class="token number">5</span>、浏览器获得相应内容，并在页面正确显示。
+
+浏览器在显示过程中，发现需要获取其他的标签内容，如图片，js<span class="token punctuation">,</span> css，则继续发送请求，接收后正确显示。
+</code></pre>
+<p>第五步，称为页面的渲染过程。</p>
+<p>大致过程分成5步为：</p>
+<p>HTML代码转化成DOM<br>CSS代码转化成CSSOM（CSS Object Model）<br>结合DOM和CSSOM，生成一棵渲染树（包含每个节点的视觉信息）<br>生成布局（layout），即将所有渲染树的所有节点进行平面合成<br>将布局绘制（paint）在屏幕上</p>
+<p>“生成布局”（flow）和”绘制”（paint）这两步，合称为”渲染”（render）。</p>
+<p>构造dom树时，加载或执行js都会阻塞其进行；通过asyn和defer，可以解决阻塞问题。</p>
+<p>构造渲染树时，加载css会阻塞其进行；</p>
+<p>2、什么是重排和重绘？</p>
+<p>答：</p>
+<p>重新渲染，就需要重新生成布局和重新绘制。前者叫做”重排”（reflow），后者叫做”重绘”（repaint）。</p>
+<p>重排和重绘，非常耗费资源，是导致网页性能低下的根本原因。</p>
+<p>改善的几个技巧：</p>
+<p>1、DOM 的多个读操作（或多个写操作），应该放在一起。不要两个读操作之间，加入一个写操作。</p>
+<p>2、不要一条条地改变样式，而要通过改变class，或者csstext属性，一次性地改变样式。</p>
+<p>3、使用 cloneNode() 方法，在克隆的节点上进行操作，然后再用克隆的节点替换原始节点。</p>
+<p>3、如何提升首屏性能？</p>
+<p>答：</p>
+<p>提升网站性能，有个很重要的技巧，就是优化首页性能。<br>主要原则是，将可以延后加载的内容，尽量精简。<br>比如：图片按需加载；单页面应用，其他的不需要展示的页面，在打包阶段就需要隔离打包。</p>
+<p>4、减少请求大小有哪些方法？</p>
+<p>答：</p>
+<p>压缩 js css html 文件；</p>
+<p>图片压缩</p>
+<p>js css 按需加载</p>
 
   </div>
 </div>
@@ -145,7 +167,7 @@ if(isiOS){
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
     <li>作者：<a href="/">Lian</a></li>
-    <li>日期：2018年02月28日 21:02</li>
+    <li>日期：2018年03月14日 18:03</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
 </div>
@@ -153,8 +175,8 @@ if(isiOS){
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/02/28/english-xin2-3/">« Lesson 3 P...</a></span>
-  <span class="right"><a href="/2018/02/28/english-xin2-10/">Lesson 10 ... »</a></span>
+  <span class="left"><a href="/2018/03/14/draft-code-27/">« 基础 3 | 面试</a></span>
+  <span class="right"><a href="/2018/03/14/draft-code-29/">webpack |  »</a></span>
 </p>
 
 
@@ -293,12 +315,12 @@ if(isiOS){
 
 
 <p id="info-meta" style="display:none;">
-  Lesson 4 An exciting trip
+  draft-code-28
 </p>
 
 
 <p id="info-url" style="display:none;">
-  http://sound.tingroom.com/english96ad/lesson/nce22/259eafbebcacfdd.mp3
+  
 </p>
 
 <div class="footer">
