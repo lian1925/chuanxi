@@ -72,38 +72,38 @@ if(isiOS){
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2018/03/14/draft-event-7/">
+            <a href="/2018/03/14/draft-code-30/">
               ⇐ 
             </a>
         </span>
         <span>
             
-            <a href="/2018/03/14/draft-code-28/">
+            <a href="/2018/03/14/draft-code-32/">
               ⇒
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2018/03/14/draft-event-7/">
-                    感悟 | 行动
+                <a href="/2018/03/14/draft-code-30/">
+                    https | 面试
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2018/03/14/draft-code-28/">
-                    性能 | 面试
+                <a href="/2018/03/14/draft-code-32/">
+                    CSRF 攻击 | 面试
                 </a>
         </P>
     </div>
 </div>
 
 <div class="post">
-<h1>基础 3 | 面试</h1>
+<h1>XSS攻击 | 面试</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
-    2018年03月14日 17:03
+    2018年03月14日 20:03
   </p>
 </div>
       
@@ -111,31 +111,23 @@ if(isiOS){
 
 
   <div class="page">
-      <p>1、什么是retina屏？</p>
+      <p>XSS攻击：跨站脚本攻击(Cross-Site Scripting)</p>
+<p>1、什么是XSS攻击？</p>
 <p>答：</p>
-<p>开发时，我们一般安卓屏幕称为普通屏，ios称为retina屏，它们的主要区别在于设备像素比不同。<br>在普通屏幕下，1个css像素 对应 1个物理像素(1:1)。<br>在retina 屏幕下，1个css像素对应 4个物理像素(1:4)。</p>
-<p>2、什么是dpr?</p>
-<p>答：</p>
-<p>dpr,又称设备像素比，定义公式为：设备像素比 = 物理像素 / 设备独立像素</p>
-<p>可以通过window.devicePixelRatio获取到当前设备的dpr。</p>
-<p>3、图片响应式有什么解决方案？</p>
-<p>答：</p>
-<p>html5，推出了一个新属性，称为srcset，可以根据显示器分辨率智能加载合适的图片。<br>比如：</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>image<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>test-240.jpg<span class="token punctuation">"</span></span>   
-    <span class="token attr-name">srcset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>test-240.jpg 240w, test-480.jpg 480w, test-720.jpg 720w<span class="token punctuation">"</span></span> 
-    <span class="token attr-name">sizes</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>240px<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<p>XSS，全称为 cross-site scripting，跨站脚本攻击。它运行攻击者将恶意代码，植入提供到其他用户的页面中。</p>
+<p>一般情况下，XSS的攻击目标是为了盗取存储在客户端的cookie或者其他网站用于识别客户端身份的敏感信息。一旦获取到合法用户的信息后，攻击者甚至可以假冒合法用户与网站进行交互。</p>
+<p>比如：你有个社交网站，可以输入用户名，你故意输入：</p>
+<pre class=" language-js"><code class="language-js"><span class="token operator">&lt;</span>script<span class="token operator">></span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'haha'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
 </code></pre>
-<p>sizes = 240px，规定了图片的宽度，</p>
-<p>当dpr = 1, 则加载test-240.jpg，</p>
-<p>当dpr = 2，则加载test-480.jpg，</p>
-<p>当dpr = 3，则加载test-720.jpg</p>
-<p>4、什么是图片按需加载？</p>
+<p>网站在解析时，会当成脚本解析，而非简单的字符串。甚至黑客，可以将植入ajax，将用户的cookie发送至指定的url。</p>
+<p>2、如何防范？</p>
 <p>答：</p>
-<p>图片按需加载，指网页不提前加载图片，当用户需要看到图片时，才开始加载。</p>
-<p>实现原理是，先不设置src属性，等合适的时机，如DOM滚动到窗口，再将图片的真实url放在img的src属性上。</p>
-<p>优点时，图片往往很占带宽，当一时加载过多图片，将会影响性能。</p>
-<p>常用的开源方案有：jquery_lazy，依赖jquery库；<br>lazysizes，原生js实现。</p>
-<p>5、</p>
+<p>最简单的方法，是对用户的输入数据加以警惕，过滤掉特殊的字符，比如正则表达式，过滤邮箱地址。</p>
+<pre class=" language-js"><code class="language-js">
+<span class="token operator">/</span><span class="token operator">^</span><span class="token punctuation">[</span>a<span class="token operator">-</span>zA<span class="token operator">-</span>Z0<span class="token number">-9</span><span class="token punctuation">.</span><span class="token operator">!</span>#$<span class="token operator">%</span><span class="token operator">&amp;</span>’<span class="token operator">*</span><span class="token operator">+</span><span class="token operator">/</span><span class="token operator">=</span><span class="token operator">?</span><span class="token operator">^</span>_<span class="token template-string"><span class="token string">`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/
+1
+/^[a-zA-Z0-9.!#$%&amp;’*+/=?^_`</span></span><span class="token punctuation">{</span><span class="token operator">|</span><span class="token punctuation">}</span><span class="token operator">~</span><span class="token operator">-</span><span class="token punctuation">]</span><span class="token operator">+</span>@<span class="token punctuation">[</span>a<span class="token operator">-</span>zA<span class="token operator">-</span>Z0<span class="token number">-9</span><span class="token operator">-</span><span class="token punctuation">]</span><span class="token operator">+</span><span class="token punctuation">(</span><span class="token operator">?</span><span class="token punctuation">:</span>\<span class="token punctuation">.</span><span class="token punctuation">[</span>a<span class="token operator">-</span>zA<span class="token operator">-</span>Z0<span class="token number">-9</span><span class="token operator">-</span><span class="token punctuation">]</span><span class="token operator">+</span><span class="token punctuation">)</span><span class="token operator">*</span>$<span class="token operator">/</span>
+</code></pre>
 
   </div>
 </div>
@@ -149,7 +141,7 @@ if(isiOS){
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
     <li>作者：<a href="/">Lian</a></li>
-    <li>日期：2018年03月14日 17:03</li>
+    <li>日期：2018年03月14日 20:03</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
 </div>
@@ -157,8 +149,8 @@ if(isiOS){
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/14/draft-event-7/">« 感悟 | 行动</a></span>
-  <span class="right"><a href="/2018/03/14/draft-code-28/">性能 | 面试 »</a></span>
+  <span class="left"><a href="/2018/03/14/draft-code-30/">« https | 面试...</a></span>
+  <span class="right"><a href="/2018/03/14/draft-code-32/">CSRF 攻击 | ... »</a></span>
 </p>
 
 
@@ -297,7 +289,7 @@ if(isiOS){
 
 
 <p id="info-meta" style="display:none;">
-  draft-code-27
+  draft-code-31
 </p>
 
 

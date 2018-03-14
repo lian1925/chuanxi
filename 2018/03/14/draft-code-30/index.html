@@ -46,8 +46,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/草稿/">
-            草稿
+          <a href="/tags/程序员/">
+            程序员
           </a>
       </span>
       
@@ -63,8 +63,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/草稿/">
-              草稿
+            <a href="/tags/程序员/">
+              程序员
             </a>
         </span>
       </p>
@@ -78,7 +78,7 @@ if(isiOS){
         </span>
         <span>
             
-            <a href="#">
+            <a href="/2018/03/14/draft-code-31/">
               ⇒
             </a>
         </span>
@@ -91,15 +91,15 @@ if(isiOS){
         </P>
         <P>下一篇：
 
-                <a href="#">
-                    无
+                <a href="/2018/03/14/draft-code-31/">
+                    XSS攻击 | 面试
                 </a>
         </P>
     </div>
 </div>
 
 <div class="post">
-<h1>安全 | 面试</h1>
+<h1>https | 面试</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -111,7 +111,32 @@ if(isiOS){
 
 
   <div class="page">
-      
+      <p>1、什么是https?</p>
+<p>答：</p>
+<p>http使用了tcp协议进行通信。</p>
+<p>https的通信安全，是在http的基础上，增加了ssl/tls协议。</p>
+<p>http使用明文通信，主要有3方面风险：</p>
+<blockquote>
+<p>窃听风险，第三方可以截获通信内容<br>篡改风险，第三方可以修改通信内容<br>冒充风险，第三方可以冒充他人身份参与通信</p>
+</blockquote>
+<p>SSL/TLS协议，设计的初衷就是为了解决这三大风险：</p>
+<blockquote>
+<p>加密信息，防止第三方窃听<br>增加校验机制，一旦信息篡改，通信双方立刻察觉<br>分配身份证书，防止身份被冒充</p>
+</blockquote>
+<p>SSL/TLS协议的基本思路是 公钥加密：</p>
+<blockquote>
+<p>客户端先向服务器端索要公钥，然后用公钥加密信息，服务器收到密文后，用自己的私钥解密。</p>
+</blockquote>
+<p>这里有两个问题。<br>1、如何保证公钥不被篡改？</p>
+<blockquote>
+<p>解决方法：将公钥放在数字证书中。只要证书是可信的，公钥就是可信的。</p>
+</blockquote>
+<p>2、公钥加密计算量太大，如何减少耗用的时间？</p>
+<blockquote>
+<p>解决方法：每一次对话（session），客户端和服务器端都生成一个”对话密钥”（session key），用它来加密信息。由于”对话密钥”是对称加密，所以运算速度非常快，而服务器公钥只用于加密”对话密钥”本身，这样就减少了加密运算的消耗时间。</p>
+</blockquote>
+<p>SSL/TLS协议的基本过程是这样的：<br>（1） 客户端向服务器端索要并验证公钥。<br>（2） 双方协商生成”对话密钥”。<br>（3） 双方采用”对话密钥”进行加密通信。</p>
+
   </div>
 </div>
 
@@ -133,7 +158,7 @@ if(isiOS){
 
 <p class="nav-foot">
   <span class="left"><a href="/2018/03/14/draft-code-29/">« webpack | ...</a></span>
-  <span class="right"><a href="#">无... »</a></span>
+  <span class="right"><a href="/2018/03/14/draft-code-31/">XSS攻击 | 面试... »</a></span>
 </p>
 
 
