@@ -112,23 +112,28 @@ if(isiOS){
 
 
   <div class="page">
-      <p>摘自</p>
+      <h2 id="1-GitHub-遭-DDOS攻击"><a href="#1-GitHub-遭-DDOS攻击" class="headerlink" title="1 GitHub 遭 DDOS攻击"></a>1 GitHub 遭 DDOS攻击</h2><p>摘自</p>
 <blockquote>
 <p>GitHub 官方博客披露，它在 2018 年 2 月 28 日遭到峰值攻击流量高达 1.35Tbps 的 DDoS 攻击，导致 GitHub.com 在 17:21 到 17:26 UTC 之间无法访问，17:26 到 17:30 UTC 出现间歇性无法访问。攻击者利用了基于 memcached 的超放大攻击，这种方法能将攻击者的流量放大最高 5.1 万倍，相当于一字节能放大到 51KB。GitHub 称，攻击来自一千多不同的自治系统。它使用 ChatOps 改变 BGP 广播的方法抵御了攻击。攻击者发起了两波攻击，第一波的峰值流量 1.35Tbps，第二波 400Gbps，它的服务在 17:30 UTC 之后完全恢复。</p>
 </blockquote>
-<p>问：什么是DDOS?</p>
-<p>答：</p>
+<h2 id="2-什么是DDOS"><a href="#2-什么是DDOS" class="headerlink" title="2 什么是DDOS"></a>2 什么是DDOS</h2><p>答：</p>
 <p>DDOS是Distributed Denial of Service的简写，称为 分布式拒绝服务攻击。</p>
 <p>是指击者利用利用大量的请求造成资源过载，导致服务不可用。</p>
-<p>防御手段：</p>
-<p>针对ip+cookie，限制访问频率</p>
-<p>编写代码时，尽量实现优化，并合理使用缓存技术，减少数据库的读取操作。</p>
-<p>在这次攻击事件中，GitHub将服务移交给akamai，此时用户对GitHub的请求并没有直接进入GitHub，而是接入akamai。akamai对请求进行过滤筛选，正常的流量发回github，以便正常访问。</p>
+<h2 id="3-如何防御"><a href="#3-如何防御" class="headerlink" title="3 如何防御"></a>3 如何防御</h2><p>答：</p>
+<p>1、针对ip+cookie，限制访问频率</p>
+<p>2、编写代码时，尽量实现优化，并合理使用缓存技术，减少数据库的读取操作。</p>
+<p>3、在这次攻击事件中，GitHub将服务移交给akamai，此时用户对GitHub的请求并没有直接进入GitHub，而是接入akamai。akamai对请求进行过滤筛选，正常的流量发回github，以便正常访问。</p>
 <p>最后，在不到10分钟，便化解了此次危机。</p>
+<p>(完)</p>
 
   </div>
 </div>
 
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/03/14/draft-code-32/">« CSRF 攻击 | ...</a></span>
+  <span class="right"><a href="#">无... »</a></span>
+</p>
 
 <!-- 文档信息 -->
 <div class="post-foot">
@@ -144,11 +149,6 @@ if(isiOS){
 </div>
       
 
-
-<p class="nav-foot">
-  <span class="left"><a href="/2018/03/14/draft-code-32/">« CSRF 攻击 | ...</a></span>
-  <span class="right"><a href="#">无... »</a></span>
-</p>
 
 
 
