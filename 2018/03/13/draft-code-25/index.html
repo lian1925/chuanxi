@@ -86,13 +86,13 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/03/13/draft-code-24/">
-                    基础 | 面试
+                    基础 1 | 面试卷
                 </a>
         </P>
         <P>下一篇：
 
                 <a href="/2018/03/13/draft-code-26/">
-                    基础 3 | 面试
+                    基础 3 | 面试卷
                 </a>
         </P>
     </div>
@@ -100,7 +100,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>基础 2 | 面试</h1>
+<h1>基础 2 | 面试卷</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -112,8 +112,7 @@ if(isiOS){
 
 
   <div class="page">
-      <p>1、如何实现 水平垂直 居中？</p>
-<p>答：</p>
+      <h2 id="1、如何实现-水平垂直-居中？"><a href="#1、如何实现-水平垂直-居中？" class="headerlink" title="1、如何实现 水平垂直 居中？"></a>1、如何实现 水平垂直 居中？</h2><p>答：</p>
 <p>分两种情况，</p>
 <p>一种是高度与宽度已知，处理这种情况最直接的方式就是简单计算出上边距与左边距。</p>
 <p>第二种，高度与宽度未知，这种情况比较复杂，解决思路有两种：<br>利用 transform 移动。</p>
@@ -139,38 +138,35 @@ if(isiOS){
 
 <span class="token punctuation">}</span>
 </code></pre>
-<p>2、inline 、 block 和inline-block的区别？</p>
-<p>答：</p>
+<h2 id="2、inline-、-block-和inline-block的区别？"><a href="#2、inline-、-block-和inline-block的区别？" class="headerlink" title="2、inline 、 block 和inline-block的区别？"></a>2、inline 、 block 和inline-block的区别？</h2><p>答：</p>
 <p>inline元素嵌入行元素之间，宽度由内容决定，无法通过width指定。</p>
 <p>block，元素新起一行，可以设置宽度</p>
 <p>inline-block，从外面看是inline，嵌入行中；从外看，是block，可以通过width设定宽度。</p>
-<p>3、CSS中link和@import的区别？</p>
-<p>答：</p>
+<h2 id="3、CSS中link和-import的区别？"><a href="#3、CSS中link和-import的区别？" class="headerlink" title="3、CSS中link和@import的区别？"></a>3、CSS中link和@import的区别？</h2><p>答：</p>
 <p>一，link是XHTML标签，除了加载css，还有其他功能，如加载图片和 js;<br>import 是css语法，只能加载css</p>
 <p>二，link引用css，页面载入时同时加载操作；<br>import 则等页面完全载入后，才能加载。</p>
-<p>4、JavaScript的严格模式是什么？</p>
-<p>答：</p>
+<h2 id="4、JavaScript的严格模式是什么？"><a href="#4、JavaScript的严格模式是什么？" class="headerlink" title="4、JavaScript的严格模式是什么？"></a>4、JavaScript的严格模式是什么？</h2><p>答：</p>
 <p>使用严格模式时，在执行语句前加入</p>
 <pre class=" language-js"><code class="language-js"><span class="token string">"use strict"</span><span class="token punctuation">;</span>
 </code></pre>
 <p>最大的用途有3种：<br>一、消除JavaScript语法的一些不合理，不严格之处，减少怪异行为；</p>
 <p>二、消除代码运行的一些不安全之处；</p>
 <p>三、提高编译器效率，增加运行速度</p>
-<p>5、call和 apply 的区别？</p>
-<p>答：</p>
+<h2 id="5、call和-apply-的区别？"><a href="#5、call和-apply-的区别？" class="headerlink" title="5、call和 apply 的区别？"></a>5、call和 apply 的区别？</h2><p>答：</p>
 <p>两者作用一致，都是把函数fun1绑定到obj，这时候obj具备了该方法，可以当成自己的方法来调用。如果方法中有 <code>this</code>,指向obj.</p>
 <p>唯一区别是apply接受的是数组参数，call接受的是连续参数。</p>
 <pre class=" language-js"><code class="language-js">fun1<span class="token punctuation">.</span><span class="token function">call</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 fun1<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>obj<span class="token punctuation">,</span> <span class="token punctuation">[</span>arg1<span class="token punctuation">,</span> arg2<span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
+<p>(完)</p>
 
   </div>
 </div>
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/13/draft-code-24/">« 基础 | 面试</a></span>
-  <span class="right"><a href="/2018/03/13/draft-code-26/">基础 3 | 面试 »</a></span>
+  <span class="left"><a href="/2018/03/13/draft-code-24/">« 基础 1 | 面试卷...</a></span>
+  <span class="right"><a href="/2018/03/13/draft-code-26/">基础 3 | 面试卷... »</a></span>
 </p>
 
 <!-- 文档信息 -->

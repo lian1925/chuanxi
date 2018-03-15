@@ -92,7 +92,7 @@ if(isiOS){
         <P>下一篇：
 
                 <a href="/2018/03/14/draft-code-28/">
-                    性能 | 面试
+                    性能 2 | 面试卷
                 </a>
         </P>
     </div>
@@ -100,7 +100,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>基础 3 | 面试</h1>
+<h1>性能 1 | 面试卷</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -112,15 +112,12 @@ if(isiOS){
 
 
   <div class="page">
-      <p>1、什么是retina屏？</p>
-<p>答：</p>
+      <h2 id="1、什么是retina屏？"><a href="#1、什么是retina屏？" class="headerlink" title="1、什么是retina屏？"></a>1、什么是retina屏？</h2><p>答：</p>
 <p>开发时，我们一般安卓屏幕称为普通屏，ios称为retina屏，它们的主要区别在于设备像素比不同。<br>在普通屏幕下，1个css像素 对应 1个物理像素(1:1)。<br>在retina 屏幕下，1个css像素对应 4个物理像素(1:4)。</p>
-<p>2、什么是dpr?</p>
-<p>答：</p>
-<p>dpr,又称设备像素比，定义公式为：设备像素比 = 物理像素 / 设备独立像素</p>
+<h2 id="2、什么是dpr"><a href="#2、什么是dpr" class="headerlink" title="2、什么是dpr?"></a>2、什么是dpr?</h2><p>答：</p>
+<p>dpr，又称设备像素比，定义公式为：设备像素比 = 物理像素 / 设备独立像素</p>
 <p>可以通过window.devicePixelRatio获取到当前设备的dpr。</p>
-<p>3、图片响应式有什么解决方案？</p>
-<p>答：</p>
+<h2 id="3、图片响应式有什么解决方案？"><a href="#3、图片响应式有什么解决方案？" class="headerlink" title="3、图片响应式有什么解决方案？"></a>3、图片响应式有什么解决方案？</h2><p>答：</p>
 <p>html5，推出了一个新属性，称为srcset，可以根据显示器分辨率智能加载合适的图片。<br>比如：</p>
 <pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>img</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>image<span class="token punctuation">"</span></span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>test-240.jpg<span class="token punctuation">"</span></span>   
     <span class="token attr-name">srcset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>test-240.jpg 240w, test-480.jpg 480w, test-720.jpg 720w<span class="token punctuation">"</span></span> 
@@ -130,13 +127,14 @@ if(isiOS){
 <p>当dpr = 1, 则加载test-240.jpg，</p>
 <p>当dpr = 2，则加载test-480.jpg，</p>
 <p>当dpr = 3，则加载test-720.jpg</p>
-<p>4、什么是图片按需加载？</p>
-<p>答：</p>
+<h2 id="4、什么是图片按需加载？"><a href="#4、什么是图片按需加载？" class="headerlink" title="4、什么是图片按需加载？"></a>4、什么是图片按需加载？</h2><p>答：</p>
 <p>图片按需加载，指网页不提前加载图片，当用户需要看到图片时，才开始加载。</p>
 <p>实现原理是，先不设置src属性，等合适的时机，如DOM滚动到窗口，再将图片的真实url放在img的src属性上。</p>
-<p>优点时，图片往往很占带宽，当一时加载过多图片，将会影响性能。</p>
-<p>常用的开源方案有：jquery_lazy，依赖jquery库；<br>lazysizes，原生js实现。</p>
-<p>5、</p>
+<p>优点，由于图片往往很占带宽，当同时加载过多图片，将会影响性能。</p>
+<p>常用的开源方案有：</p>
+<p>1、jquery_lazy，依赖jquery库；</p>
+<p>2、lazysizes，原生js实现。</p>
+<p>(完)</p>
 
   </div>
 </div>
@@ -144,7 +142,7 @@ if(isiOS){
 
 <p class="nav-foot">
   <span class="left"><a href="/2018/03/14/draft-event-7/">« 感悟 | 行动</a></span>
-  <span class="right"><a href="/2018/03/14/draft-code-28/">性能 | 面试 »</a></span>
+  <span class="right"><a href="/2018/03/14/draft-code-28/">性能 2 | 面试卷 »</a></span>
 </p>
 
 <!-- 文档信息 -->

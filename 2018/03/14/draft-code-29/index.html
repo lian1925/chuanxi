@@ -86,13 +86,13 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/03/14/draft-code-28/">
-                    性能 | 面试
+                    性能 2 | 面试卷
                 </a>
         </P>
         <P>下一篇：
 
                 <a href="/2018/03/14/draft-code-30/">
-                    https | 面试
+                    安全 1 | 面试卷
                 </a>
         </P>
     </div>
@@ -100,7 +100,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>webpack | 性能</h1>
+<h1>webpack 1 | 面试卷</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -112,42 +112,42 @@ if(isiOS){
 
 
   <div class="page">
-      <p>webpack是当前最主流的前端模块打包工具。react 和 vue 均将其选为官方打包工具。</p>
-<p>1、webpack 打包容易出现哪些性能问题？</p>
-<p>答：</p>
+      <h2 id="1、什么是webpack？"><a href="#1、什么是webpack？" class="headerlink" title="1、什么是webpack？"></a>1、什么是webpack？</h2><p>答：</p>
+<p>webpack是当前最主流的前端模块打包工具。react 和 vue 均将其选为官方打包工具。</p>
+<h2 id="2、webpack-与-gulp、-grunt有何不同？"><a href="#2、webpack-与-gulp、-grunt有何不同？" class="headerlink" title="2、webpack 与 gulp、 grunt有何不同？"></a>2、webpack 与 gulp、 grunt有何不同？</h2><p>答：</p>
+<p>gulp，grunt，更偏向于前端构建工具，执行一些繁杂的task，如代码合并，js丑化等</p>
+<p>webpack，则属于模块化解决方案，当你的前端项目很复杂，用到很多库，或许还用到多种模块化规范，如cmd/amd/es6，webpack都可以正确识别，完成预编译模块化处理。</p>
+<h2 id="3、webpack-打包容易出现哪些性能问题？"><a href="#3、webpack-打包容易出现哪些性能问题？" class="headerlink" title="3、webpack 打包容易出现哪些性能问题？"></a>3、webpack 打包容易出现哪些性能问题？</h2><p>答：</p>
 <p>构建速度慢，即使很小改动，也需要长时间才能看到效果</p>
 <p>基础库存在重复打包，复用率不高</p>
 <p>随着项目复杂度增加，工程模块的体积随之增大</p>
-<p>2、如何优化 webpack性能？</p>
-<p>答：</p>
+<h2 id="4、如何优化-webpack性能？"><a href="#4、如何优化-webpack性能？" class="headerlink" title="4、如何优化 webpack性能？"></a>4、如何优化 webpack性能？</h2><p>答：</p>
 <p>从本身项目入手，检测代码结构，依赖使用是否合理</p>
 <p>从webpack自身的优化手段出发，看看哪些api没有做好优化配置</p>
 <p>从webpack自身的不足出发，做有针对性的扩展优化，进一步提升效率。</p>
 <p>此处，webpack提供了一个好用的可视化资源分析工具:webpack-bundle-analyzer<br>自动帮你计算出各个模块在你的项目找那个的依赖和分布情况。</p>
-<p>3、如何配置externals配置？</p>
-<p>答：</p>
+<h2 id="5、如何配置externals配置？"><a href="#5、如何配置externals配置？" class="headerlink" title="5、如何配置externals配置？"></a>5、如何配置externals配置？</h2><p>答：</p>
 <p>在实际项目开发过程中，我们并不需要实时调试各种库的源码，这时可以考虑使用external选项了。</p>
 <p>external就是把我们的依赖资源声明为一个外部依赖，然后通过script外链脚本引入，避免了重复打包的尴尬。</p>
-<p>4、tree shaking</p>
-<p>答:</p>
+<h2 id="6、tree-shaking"><a href="#6、tree-shaking" class="headerlink" title="6、tree shaking"></a>6、tree shaking</h2><p>答:</p>
 <p>我们的开发代码中，有时定义了一些代码，但在生产环境下并没有使用，这些代码块会增加打包容积，造成网页性能损耗。</p>
 <p>tree shaking是webpack提供一种，帮助我们消除js代码中的无关代码的一种机制。</p>
 <p>配置也很简单，安装uglifyjsplugin插件，并在webpack的配置文件中添加plugns的配置即可。</p>
-<p>5、代码分割</p>
-<p>答：</p>
+<h2 id="7、代码分割"><a href="#7、代码分割" class="headerlink" title="7、代码分割"></a>7、代码分割</h2><p>答：</p>
 <p>代码分割，code splitting，是webpack最重要的功能之一。</p>
 <p>大致有三种方式：</p>
 <p>一，通过入口entry，手动分割代码</p>
 <p>二，通过 CommonsChunkPlugin，自动分割公用module</p>
 <p>三，在代码中使用<code>require.ensure</code>函数，手动分割代码。</p>
+<p>(完)</p>
 
   </div>
 </div>
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/14/draft-code-28/">« 性能 | 面试</a></span>
-  <span class="right"><a href="/2018/03/14/draft-code-30/">https | 面试 »</a></span>
+  <span class="left"><a href="/2018/03/14/draft-code-28/">« 性能 2 | 面试卷...</a></span>
+  <span class="right"><a href="/2018/03/14/draft-code-30/">安全 1 | 面试卷... »</a></span>
 </p>
 
 <!-- 文档信息 -->

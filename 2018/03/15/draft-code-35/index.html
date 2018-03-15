@@ -72,27 +72,27 @@ if(isiOS){
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2018/03/14/draft-code-32/">
+            <a href="/2018/03/15/draft-code-34/">
               ⇐ 
             </a>
         </span>
         <span>
             
-            <a href="/2018/03/15/draft-code-33/">
+            <a href="/2018/03/15/draft-code-36/">
               ⇒
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2018/03/14/draft-code-32/">
-                    安全 3 | 面试卷
+                <a href="/2018/03/15/draft-code-34/">
+                    基础 5 | 面试卷
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2018/03/15/draft-code-33/">
-                    基础 4 | 面试卷
+                <a href="/2018/03/15/draft-code-36/">
+                    模块化 1 | 面试卷
                 </a>
         </P>
     </div>
@@ -100,11 +100,11 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>安全 4 | 面试卷</h1>
+<h1>基础 6 | 面试卷</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
-    2018年03月14日 22:03
+    2018年03月15日 15:03
   </p>
 </div>
 </div>
@@ -112,18 +112,15 @@ if(isiOS){
 
 
   <div class="page">
-      <h2 id="1-GitHub-遭-DDOS攻击"><a href="#1-GitHub-遭-DDOS攻击" class="headerlink" title="1 GitHub 遭 DDOS攻击"></a>1 GitHub 遭 DDOS攻击</h2><p>摘自</p>
-<blockquote>
-<p>GitHub 官方博客披露，它在 2018 年 2 月 28 日遭到峰值攻击流量高达 1.35Tbps 的 DDoS 攻击，导致 GitHub.com 在 17:21 到 17:26 UTC 之间无法访问，17:26 到 17:30 UTC 出现间歇性无法访问。攻击者利用了基于 memcached 的超放大攻击，这种方法能将攻击者的流量放大最高 5.1 万倍，相当于一字节能放大到 51KB。GitHub 称，攻击来自一千多不同的自治系统。它使用 ChatOps 改变 BGP 广播的方法抵御了攻击。攻击者发起了两波攻击，第一波的峰值流量 1.35Tbps，第二波 400Gbps，它的服务在 17:30 UTC 之后完全恢复。</p>
-</blockquote>
-<h2 id="2-什么是DDOS"><a href="#2-什么是DDOS" class="headerlink" title="2 什么是DDOS"></a>2 什么是DDOS</h2><p>答：</p>
-<p>DDOS是Distributed Denial of Service的简写，称为 分布式拒绝服务攻击。</p>
-<p>是指击者利用利用大量的请求造成资源过载，导致服务不可用。</p>
-<h2 id="3-如何防御"><a href="#3-如何防御" class="headerlink" title="3 如何防御"></a>3 如何防御</h2><p>答：</p>
-<p>1、针对ip+cookie，限制访问频率</p>
-<p>2、编写代码时，尽量实现优化，并合理使用缓存技术，减少数据库的读取操作。</p>
-<p>3、在这次攻击事件中，GitHub将服务移交给akamai，此时用户对GitHub的请求并没有直接进入GitHub，而是接入akamai。akamai对请求进行过滤筛选，正常的流量发回github，以便正常访问。</p>
-<p>最后，在不到10分钟，便化解了此次危机。</p>
+      <h2 id="1-什么是-MVP"><a href="#1-什么是-MVP" class="headerlink" title="1 什么是 MVP"></a>1 什么是 MVP</h2><p>答：</p>
+<p>mvp，全称为model view presenter。</p>
+<p>MVC顺着需求把UI相关的工作分化成了三份，这点经过实践证明无可厚非。但是它们的三角关系却被一些人认为带来了一些问题，当你有变化的时候你需要同时维护三个对象和三个交互，这显然让事情复杂化了。</p>
+<p>mvp的出现，目的是为了改进mvc。它试图切断的View和Model的联系，让View只和Presenter（原Controller）交互，减少在需求变化中需要维护的对象的数量。这种方式很符合我们的期待，因为我们倾向于：用更低的成本解决问题用更容易理解的方式解决问题</p>
+<h2 id="2-什么是MVVM"><a href="#2-什么是MVVM" class="headerlink" title="2 什么是MVVM"></a>2 什么是MVVM</h2><p>答：</p>
+<p>全称是model view viewModel。</p>
+<p>ViewModel大致上就是MVP的Presenter和MVC的Controller了，而View和ViewModel间没有了MVP的界面接口，而是直接交互，用数据“绑定”的形式让数据更新的事件不需要开发人员手动去编写特殊用例，而是自动地双向同步。</p>
+<p>数据绑定你可以认为是Observer模式或者是Publish/Subscribe模式，原理都是为了用一种统一的集中的方式实现频繁需要被实现的数据更新问题。</p>
+<p>比起MVP，MVVM不仅简化了业务与界面的依赖关系，还优化了数据频繁更新的解决方案，甚至可以说提供了一种有效的解决模式。</p>
 <p>(完)</p>
 
   </div>
@@ -131,8 +128,8 @@ if(isiOS){
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/14/draft-code-32/">« 安全 3 | 面试卷...</a></span>
-  <span class="right"><a href="/2018/03/15/draft-code-33/">基础 4 | 面试卷... »</a></span>
+  <span class="left"><a href="/2018/03/15/draft-code-34/">« 基础 5 | 面试卷...</a></span>
+  <span class="right"><a href="/2018/03/15/draft-code-36/">模块化 1 | 面试... »</a></span>
 </p>
 
 <!-- 文档信息 -->
@@ -143,7 +140,7 @@ if(isiOS){
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
     <li>作者：<a href="/">Lian</a></li>
-    <li>日期：2018年03月14日 22:03</li>
+    <li>日期：2018年03月15日 15:03</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
 </div>
@@ -286,7 +283,7 @@ if(isiOS){
 
 
 <p id="info-meta" style="display:none;">
-  draft-event-8
+  draft-code-35
 </p>
 
 

@@ -92,7 +92,7 @@ if(isiOS){
         <P>下一篇：
 
                 <a href="/2018/03/13/draft-code-25/">
-                    基础 2 | 面试
+                    基础 2 | 面试卷
                 </a>
         </P>
     </div>
@@ -100,7 +100,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>基础 | 面试</h1>
+<h1>基础 1 | 面试卷</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -112,16 +112,14 @@ if(isiOS){
 
 
   <div class="page">
-      <p>1、 == 与 === 有何不同？</p>
-<p>答：</p>
+      <h2 id="1、-与-有何不同？"><a href="#1、-与-有何不同？" class="headerlink" title="1、 == 与 === 有何不同？"></a>1、 == 与 === 有何不同？</h2><p>答：</p>
 <p>== 称为相等运算符，比较时，先将操作数转换成数值，再比较它们是否相等。</p>
 <p>=== 称为严格相等运算符，比较时，直接判断他们是否相等。</p>
 <p>比如：</p>
 <pre class=" language-js"><code class="language-js"><span class="token number">1</span> <span class="token operator">==</span> <span class="token boolean">true</span> <span class="token comment" spellcheck="true">// true</span>
 <span class="token number">1</span> <span class="token operator">===</span> <span class="token boolean">true</span> <span class="token comment" spellcheck="true">// false</span>
 </code></pre>
-<p>2、如何清除浮动？</p>
-<p>答：</p>
+<h2 id="2、如何清除浮动？"><a href="#2、如何清除浮动？" class="headerlink" title="2、如何清除浮动？"></a>2、如何清除浮动？</h2><p>答：</p>
 <p>大致有三种思路：</p>
 <p>一、为父元素设置高。</p>
 <p>二、在浮动元素后面添加元素,清除浮动。</p>
@@ -134,8 +132,7 @@ if(isiOS){
   <span class="token property">clear</span><span class="token punctuation">:</span> both<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>3、请解释一下什么闭包？</p>
-<p>答：</p>
+<h2 id="3、请解释一下什么闭包？"><a href="#3、请解释一下什么闭包？" class="headerlink" title="3、请解释一下什么闭包？"></a>3、请解释一下什么闭包？</h2><p>答：</p>
 <p>闭包，closure，指能够读取其他函数的内部变量的函数。</p>
 <p>比如：</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">f1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
@@ -153,15 +150,14 @@ if(isiOS){
 </code></pre>
 <p>闭包最大的用途有两个：<br>一、读取函数的内部变量；<br>二、让绑定的变量值始终保持在内存中。</p>
 <p>缺点是滥用闭包，造成内存消耗过度，出现性能问题，甚至导致内存泄漏。</p>
-<p>4、cookie，sessionStorage和localStorage的区别？</p>
-<p>答：</p>
+<h2 id="4、cookie，sessionStorage和localStorage的区别？"><a href="#4、cookie，sessionStorage和localStorage的区别？" class="headerlink" title="4、cookie，sessionStorage和localStorage的区别？"></a>4、cookie，sessionStorage和localStorage的区别？</h2><p>答：</p>
 <p>cookie，存储数据量小,不超过4k，可以设置存储时间，到期删除；</p>
 <p>sessionStorage临时存储数据，可以达到5m，离开当前页面数据删除。有意思的地方在于，它引入了 浏览器窗口 的概念，在同源的相同窗口，数据始终存在，即使刷新也不影响。只有在关闭页面时才会删除数据。</p>
 <p>localStorage，可以永久存储。</p>
 <p>另外，cookie的数据会自动的传递到服务器，服务器端也可以写cookie到客户端。<br>sessionStorage和localStorage不会自动把数据发给服务器，仅在本地保存。</p>
-<p>5、em 与 rem 的区别？</p>
-<p>答：</p>
+<h2 id="5、em-与-rem-的区别？"><a href="#5、em-与-rem-的区别？" class="headerlink" title="5、em 与 rem 的区别？"></a>5、em 与 rem 的区别？</h2><p>答：</p>
 <p>em 与 rem 都是计算相对单位。<br>不同之处在于：rem针对html根元素的font-size值，计算尺寸。<br>而 em 则相对父元素的font-size计算。</p>
+<p>(完)</p>
 
   </div>
 </div>
@@ -169,7 +165,7 @@ if(isiOS){
 
 <p class="nav-foot">
   <span class="left"><a href="/2018/03/13/draft-code-23/">« 重流与重绘 | 草稿...</a></span>
-  <span class="right"><a href="/2018/03/13/draft-code-25/">基础 2 | 面试... »</a></span>
+  <span class="right"><a href="/2018/03/13/draft-code-25/">基础 2 | 面试卷... »</a></span>
 </p>
 
 <!-- 文档信息 -->

@@ -690,8 +690,11 @@ body.pc h4 {
 .post h5,
 .post h6 {
   color: #159957;
-  font-weight: 300;
+  font-weight: 500;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+.post .page {
+  margin-bottom: 5rem; }
 
 .post-foot {
   /* // 文字 */
@@ -1109,7 +1112,7 @@ body.pc .entry-card h3 {
   border-radius: 5px; }
 
 .nav-foot {
-  margin: 1rem 1rem; }
+  margin: 2rem 1rem; }
 
 .nav-foot .left {
   float: left;
@@ -1126,7 +1129,7 @@ body.pc .entry-card h3 {
 .nav-foot a {
   color: #0366d6;
   line-height: 150%;
-  font-size: 1.8rem; }
+  font-size: 1.6rem; }
 
 p.nav-foot:after {
   content: "";

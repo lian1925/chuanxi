@@ -86,13 +86,13 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/03/14/draft-code-27/">
-                    基础 3 | 面试
+                    性能 1 | 面试卷
                 </a>
         </P>
         <P>下一篇：
 
                 <a href="/2018/03/14/draft-code-29/">
-                    webpack | 性能
+                    webpack 1 | 面试卷
                 </a>
         </P>
     </div>
@@ -100,7 +100,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>性能 | 面试</h1>
+<h1>性能 2 | 面试卷</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -112,57 +112,51 @@ if(isiOS){
 
 
   <div class="page">
-      <p>1、如何提升前端的性能问题？</p>
-<p>答：</p>
+      <h2 id="1、如何提升前端的性能问题？"><a href="#1、如何提升前端的性能问题？" class="headerlink" title="1、如何提升前端的性能问题？"></a>1、如何提升前端的性能问题？</h2><p>答：</p>
 <p>前端的性能问题可能多种多样，并不存在既定的套路。解决的原则是，具体分析影响性能的关键要素，并设法解决。</p>
 <p>要解决性能问题，我们首先得了解，从用户输入域名，到网站的内容加载完毕，这中间发生了哪些事情。</p>
-<pre class=" language-js"><code class="language-js"><span class="token number">1</span>、你在浏览器输入一个url
-
-<span class="token number">2</span>、浏览器通过域名获取ip
-
-这个过程是通过DNS完成的。
-首先，查找浏览器的DNS缓存记录，若有返回ip。
-若无，查找路由器的 DNS缓存记录，
-若无，从ISP的DNS服务器，递归搜索，直到找到ip
-
-<span class="token number">3</span>、浏览器通过ip，向web服务器发送HTTP请求，
-
-<span class="token number">4</span>、web服务器，收到请求，判断参数，进行处理，并给出应答。
-
-<span class="token number">5</span>、浏览器获得相应内容，并在页面正确显示。
-
-浏览器在显示过程中，发现需要获取其他的标签内容，如图片，js<span class="token punctuation">,</span> css，则继续发送请求，接收后正确显示。
-</code></pre>
-<p>第五步，称为页面的渲染过程。</p>
-<p>大致过程分成5步为：</p>
+<h2 id="2、从输入url到看到效果，中间发生了什么？"><a href="#2、从输入url到看到效果，中间发生了什么？" class="headerlink" title="2、从输入url到看到效果，中间发生了什么？"></a>2、从输入url到看到效果，中间发生了什么？</h2><p>答：</p>
+<p>1、你在浏览器输入一个url</p>
+<p>2、浏览器通过域名获取ip，这个过程是通过DNS完成的</p>
+<blockquote>
+<p>首先，查找浏览器的DNS缓存记录，若有返回ip<br>若无，查找路由器的 DNS缓存记录<br>若无，从ISP的DNS服务器根域名开始，递归搜索，直到找到ip</p>
+</blockquote>
+<p>3、浏览器通过ip，向web服务器发送HTTP请求，</p>
+<p>4、web服务器，收到请求，判断参数，进行处理，并给出应答。</p>
+<p>5、浏览器获得相应内容，并在页面正确显示。</p>
+<blockquote>
+<p>浏览器在显示过程中，发现需要获取其他的标签内容，如图片，js, css，则继续发送请求，接收后正确显示。</p>
+</blockquote>
+<h2 id="3、什么是web渲染？"><a href="#3、什么是web渲染？" class="headerlink" title="3、什么是web渲染？"></a>3、什么是web渲染？</h2><p>答：</p>
+<p>浏览器收到服务器返回的页面内容，至呈现页面效果，大致流程为5步：</p>
+<blockquote>
 <p>HTML代码转化成DOM<br>CSS代码转化成CSSOM（CSS Object Model）<br>结合DOM和CSSOM，生成一棵渲染树（包含每个节点的视觉信息）<br>生成布局（layout），即将所有渲染树的所有节点进行平面合成<br>将布局绘制（paint）在屏幕上</p>
+</blockquote>
 <p>“生成布局”（flow）和”绘制”（paint）这两步，合称为”渲染”（render）。</p>
 <p>构造dom树时，加载或执行js都会阻塞其进行；通过asyn和defer，可以解决阻塞问题。</p>
 <p>构造渲染树时，加载css会阻塞其进行；</p>
-<p>2、什么是重排和重绘？</p>
-<p>答：</p>
+<h2 id="4、什么是重排和重绘？"><a href="#4、什么是重排和重绘？" class="headerlink" title="4、什么是重排和重绘？"></a>4、什么是重排和重绘？</h2><p>答：</p>
 <p>重新渲染，就需要重新生成布局和重新绘制。前者叫做”重排”（reflow），后者叫做”重绘”（repaint）。</p>
 <p>重排和重绘，非常耗费资源，是导致网页性能低下的根本原因。</p>
 <p>改善的几个技巧：</p>
 <p>1、DOM 的多个读操作（或多个写操作），应该放在一起。不要两个读操作之间，加入一个写操作。</p>
 <p>2、不要一条条地改变样式，而要通过改变class，或者csstext属性，一次性地改变样式。</p>
 <p>3、使用 cloneNode() 方法，在克隆的节点上进行操作，然后再用克隆的节点替换原始节点。</p>
-<p>3、如何提升首屏性能？</p>
-<p>答：</p>
+<h2 id="5、如何提升首屏性能？"><a href="#5、如何提升首屏性能？" class="headerlink" title="5、如何提升首屏性能？"></a>5、如何提升首屏性能？</h2><p>答：</p>
 <p>提升网站性能，有个很重要的技巧，就是优化首页性能。<br>主要原则是，将可以延后加载的内容，尽量精简。<br>比如：图片按需加载；单页面应用，其他的不需要展示的页面，在打包阶段就需要隔离打包。</p>
-<p>4、减少请求大小有哪些方法？</p>
-<p>答：</p>
-<p>压缩 js css html 文件；</p>
-<p>图片压缩</p>
-<p>js css 按需加载</p>
+<h2 id="6、减少请求大小有哪些方法？"><a href="#6、减少请求大小有哪些方法？" class="headerlink" title="6、减少请求大小有哪些方法？"></a>6、减少请求大小有哪些方法？</h2><p>答：</p>
+<p>1、压缩 js css html 文件；</p>
+<p>2、压缩 图片；</p>
+<p>3、js css 按需加载。</p>
+<p>(完)</p>
 
   </div>
 </div>
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/14/draft-code-27/">« 基础 3 | 面试</a></span>
-  <span class="right"><a href="/2018/03/14/draft-code-29/">webpack |  »</a></span>
+  <span class="left"><a href="/2018/03/14/draft-code-27/">« 性能 1 | 面试卷...</a></span>
+  <span class="right"><a href="/2018/03/14/draft-code-29/">webpack 1 ... »</a></span>
 </p>
 
 <!-- 文档信息 -->

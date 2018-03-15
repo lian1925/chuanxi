@@ -86,13 +86,13 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/03/14/draft-code-30/">
-                    https | 面试
+                    安全 1 | 面试卷
                 </a>
         </P>
         <P>下一篇：
 
                 <a href="/2018/03/14/draft-code-32/">
-                    CSRF 攻击 | 面试
+                    安全 3 | 面试卷
                 </a>
         </P>
     </div>
@@ -100,7 +100,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>XSS攻击 | 面试</h1>
+<h1>安全 2 | 面试卷</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -121,8 +121,7 @@ if(isiOS){
 <p>网站在解析时，会当成脚本解析，而非简单的字符串。甚至黑客，可以将植入ajax，将用户的cookie发送至指定的url。</p>
 <h2 id="2-如何防范"><a href="#2-如何防范" class="headerlink" title="2 如何防范"></a>2 如何防范</h2><p>答：</p>
 <p>最简单的方法，是对用户的输入数据加以警惕，过滤掉特殊的字符，比如正则表达式，过滤邮箱地址。</p>
-<pre class=" language-js"><code class="language-js">
-<span class="token regex">/^[a-zA-Z0-9.!#$%&amp;’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/</span>
+<pre class=" language-js"><code class="language-js"><span class="token regex">/^[a-zA-Z0-9.!#$%&amp;’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/</span>
 </code></pre>
 <h2 id="3-什么是CSP"><a href="#3-什么是CSP" class="headerlink" title="3 什么是CSP"></a>3 什么是CSP</h2><p>答：</p>
 <p>Content Security Policy，又称内容安全政策，它是防御XSS攻击一种有效手段。</p>
@@ -135,8 +134,8 @@ if(isiOS){
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/14/draft-code-30/">« https | 面试...</a></span>
-  <span class="right"><a href="/2018/03/14/draft-code-32/">CSRF 攻击 | ... »</a></span>
+  <span class="left"><a href="/2018/03/14/draft-code-30/">« 安全 1 | 面试卷...</a></span>
+  <span class="right"><a href="/2018/03/14/draft-code-32/">安全 3 | 面试卷... »</a></span>
 </p>
 
 <!-- 文档信息 -->
