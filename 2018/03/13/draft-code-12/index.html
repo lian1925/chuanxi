@@ -46,8 +46,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/草稿/">
-            草稿
+          <a href="/tags/程序员/">
+            程序员
           </a>
       </span>
       
@@ -63,8 +63,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/草稿/">
-              草稿
+            <a href="/tags/程序员/">
+              程序员
             </a>
         </span>
       </p>
@@ -86,7 +86,7 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/03/13/draft-code-10/">
-                    设计模式 | 草稿
+                    单例 | 设计模式
                 </a>
         </P>
         <P>下一篇：
@@ -100,7 +100,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>代理模式 | 草稿</h1>
+<h1>代理 | 设计模式</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -112,19 +112,22 @@ if(isiOS){
 
 
   <div class="page">
-      <p>意图：为其他对象提供一种代理以控制对这个对象的访问。</p>
+      <h2 id="1-什么是设计模式"><a href="#1-什么是设计模式" class="headerlink" title="1 什么是设计模式"></a>1 什么是设计模式</h2><p>答：</p>
+<p>代理，则为其他对象提供一种代理以控制对这个对象的访问。</p>
 <p>在面向对象系统中，有些对象由于某些原因（比如对象创建开销很大，或者某些操作需要安全控制，或者需要进程外的访问），直接访问会给使用者或者系统结构带来很多麻烦，我们可以在访问此对象时加上一个对此对象的访问层。</p>
 <p>何时使用：想在访问一个类时做一些控制。</p>
 <p>如何解决：增加中间层。</p>
-<p>优点： 1、职责清晰。 2、高扩展性。 3、智能化。</p>
-<p>缺点： 1、由于在客户端和真实主题之间增加了代理对象，因此有些类型的代理模式可能会造成请求的处理速度变慢。 2、实现代理模式需要额外的工作，有些代理模式的实现非常复杂。</p>
-<p>简单实现：<br>当我们想要一个点击功能</p>
+<h2 id="2-优缺点"><a href="#2-优缺点" class="headerlink" title="2 优缺点"></a>2 优缺点</h2><p>优点： </p>
+<p>1、职责清晰。<br>2、高扩展性。<br>3、智能化。</p>
+<p>缺点： </p>
+<p>1、由于在客户端和真实主题之间增加了代理对象，因此有些类型的代理模式可能会造成请求的处理速度变慢。<br>2、实现代理模式需要额外的工作，有些代理模式的实现非常复杂。</p>
+<h2 id="3-示例讲解"><a href="#3-示例讲解" class="headerlink" title="3 示例讲解"></a>3 示例讲解</h2><p>1、当我们想要一个点击功能</p>
 <pre class=" language-js"><code class="language-js"><span class="token function">$</span><span class="token punctuation">(</span> <span class="token string">"button"</span> <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span> <span class="token string">"click"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token comment" spellcheck="true">// Within this function, "this" refers to the element that was clicked</span>
   <span class="token function">$</span><span class="token punctuation">(</span> <span class="token keyword">this</span> <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">addClass</span><span class="token punctuation">(</span> <span class="token string">"active"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>当我们想加一个延时功能</p>
+<p>2、当我们想加一个延时功能</p>
 <pre class=" language-js"><code class="language-js"><span class="token function">$</span><span class="token punctuation">(</span> <span class="token string">"button"</span> <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span> <span class="token string">"click"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">// "this" doesn't refer to our element!</span>
@@ -133,8 +136,8 @@ if(isiOS){
   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>这时，我们发现this指代变化了。</p>
-<p>解法是使用代理，</p>
+<p>3、这时，我们发现要遭，因为this指代变化了。</p>
+<p>4、此时的解法，使用代理模式。</p>
 <pre class=" language-js"><code class="language-js"><span class="token function">$</span><span class="token punctuation">(</span> <span class="token string">"button"</span> <span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span> <span class="token string">"click"</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
     <span class="token function">setTimeout</span><span class="token punctuation">(</span> $<span class="token punctuation">.</span><span class="token function">proxy</span><span class="token punctuation">(</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -146,7 +149,7 @@ if(isiOS){
     <span class="token comment" spellcheck="true">// is the value we want "this" to refer to.</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>jquery的代理源码</p>
+<h2 id="4-代码实现"><a href="#4-代码实现" class="headerlink" title="4 代码实现"></a>4 代码实现</h2><p>jquery的代理源码</p>
 <pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">// Bind a function to a context, optionally partially applying any</span>
 <span class="token comment" spellcheck="true">// arguments.</span>
 proxy<span class="token punctuation">:</span> <span class="token keyword">function</span><span class="token punctuation">(</span> fn<span class="token punctuation">,</span> context <span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -174,13 +177,14 @@ proxy<span class="token punctuation">:</span> <span class="token keyword">functi
   <span class="token keyword">return</span> proxy<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<p>(完)</p>
 
   </div>
 </div>
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/13/draft-code-10/">« 设计模式 | 草稿</a></span>
+  <span class="left"><a href="/2018/03/13/draft-code-10/">« 单例 | 设计模式</a></span>
   <span class="right"><a href="/2018/03/13/draft-code-13/">mvc模式 | 草稿 »</a></span>
 </p>
 

@@ -46,8 +46,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/草稿/">
-            草稿
+          <a href="/tags/程序员/">
+            程序员
           </a>
       </span>
       
@@ -63,8 +63,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/草稿/">
-              草稿
+            <a href="/tags/程序员/">
+              程序员
             </a>
         </span>
       </p>
@@ -86,13 +86,13 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/03/13/draft-code-11/">
-                    观察者模式 | 草稿
+                    观察者 | 模式设计
                 </a>
         </P>
         <P>下一篇：
 
                 <a href="/2018/03/13/draft-code-12/">
-                    代理模式 | 草稿
+                    代理 | 设计模式
                 </a>
         </P>
     </div>
@@ -100,7 +100,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>设计模式 | 草稿</h1>
+<h1>单例 | 设计模式</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -112,33 +112,15 @@ if(isiOS){
 
 
   <div class="page">
-      <h2 id="modules"><a href="#modules" class="headerlink" title="modules"></a>modules</h2><pre class=" language-js"><code class="language-js"><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-
-    <span class="token comment" spellcheck="true">// declare private variables and/or functions</span>
-
-    <span class="token keyword">return</span> <span class="token punctuation">{</span>
-      <span class="token comment" spellcheck="true">// declare public variables and/or functions</span>
-    <span class="token punctuation">}</span>
-
-<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<p>理由:</p>
-<p>定义模块的原则，在于使用立即函数 Immediately-Invoked-Function-Expressions (IIFE)，存储私有变量和方法，返回共有对象或方法。</p>
-<h2 id="单例模式"><a href="#单例模式" class="headerlink" title="单例模式"></a>单例模式</h2><p>摘自：</p>
-<pre class=" language-js"><code class="language-js">
-意图：保证一个类仅有一个实例，并提供一个访问它的全局访问点。
-
-主要解决：一个全局使用的类频繁地创建与销毁。
-
-何时使用：当您想控制实例数目，节省系统资源的时候。
-
-如何解决：判断系统是否已经有这个单例，如果有则返回，如果没有则创建。
-
-优点： <span class="token number">1</span>、在内存里只有一个实例，减少了内存的开销，尤其是频繁的创建和销毁实例（比如管理学院首页页面缓存）。 <span class="token number">2</span>、避免对资源的多重占用（比如写文件操作）。
-
-使用场景： <span class="token number">1</span>、要求生产唯一序列号。 <span class="token number">2</span>、WEB 中的计数器，不用每次刷新都在数据库里加一次，用单例先缓存起来。 <span class="token number">3</span>、创建的一个对象需要消耗的资源过多，比如 I<span class="token operator">/</span>O 与数据库的连接等。
-</code></pre>
-<pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> mySingleton <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <h2 id="1-什么是单例"><a href="#1-什么是单例" class="headerlink" title="1 什么是单例"></a>1 什么是单例</h2><p>答：</p>
+<p>单例，是保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
+<p>主要解决：一个全局使用的类频繁地创建与销毁。</p>
+<p>如何解决：判断系统是否已经有这个单例，如果有则返回，如果没有则创建。</p>
+<h2 id="2-适用场景"><a href="#2-适用场景" class="headerlink" title="2 适用场景"></a>2 适用场景</h2><p>答；</p>
+<p>1、要求生产唯一序列号。<br>2、WEB 中的计数器，不用每次刷新都在数据库里加一次，用单例先缓存起来。3、创建的一个对象需要消耗的资源过多，比如 I/O 与数据库的连接等。</p>
+<h2 id="3-优缺点"><a href="#3-优缺点" class="headerlink" title="3 优缺点"></a>3 优缺点</h2><p>优点：<br>1、在内存里只有一个实例，减少了内存的开销，尤其是频繁的创建和销毁实例（比如管理学院首页页面缓存）。<br>2、避免对资源的多重占用（比如写文件操作）。</p>
+<p>缺点：<br>1、违反了解耦的原则。</p>
+<h2 id="4-代码实现"><a href="#4-代码实现" class="headerlink" title="4 代码实现"></a>4 代码实现</h2><pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> mySingleton <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
   <span class="token comment" spellcheck="true">// Instance stores a reference to the Singleton</span>
   <span class="token keyword">var</span> instance<span class="token punctuation">;</span>
@@ -241,16 +223,15 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <span class="token comment" spellcheck="true">// however unlikely. The above example should otherwise still</span>
 <span class="token comment" spellcheck="true">// be valid.</span>
 </code></pre>
-<p>理由：</p>
-<p>单例模式的实现，重点是判断实例是否存在，若存在，则返回已存在的实例。</p>
+<p>(完)</p>
 
   </div>
 </div>
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/13/draft-code-11/">« 观察者模式 | 草稿...</a></span>
-  <span class="right"><a href="/2018/03/13/draft-code-12/">代理模式 | 草稿... »</a></span>
+  <span class="left"><a href="/2018/03/13/draft-code-11/">« 观察者 | 模式设计...</a></span>
+  <span class="right"><a href="/2018/03/13/draft-code-12/">代理 | 设计模式... »</a></span>
 </p>
 
 <!-- 文档信息 -->

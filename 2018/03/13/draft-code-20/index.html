@@ -46,8 +46,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/草稿/">
-            草稿
+          <a href="/tags/程序员/">
+            程序员
           </a>
       </span>
       
@@ -63,8 +63,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/草稿/">
-              草稿
+            <a href="/tags/程序员/">
+              程序员
             </a>
         </span>
       </p>
@@ -86,7 +86,7 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/03/13/draft-code-19/">
-                    兼容 | 草稿
+                    兼容 | 面试卷
                 </a>
         </P>
         <P>下一篇：
@@ -100,7 +100,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>适配 | 草稿</h1>
+<h1>适配 | 面试卷</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -117,16 +117,57 @@ if(isiOS){
 <blockquote>
 <p><a href="http://blog.csdn.net/hsany330/article/details/49593771" target="_blank" rel="external">http://blog.csdn.net/hsany330/article/details/49593771</a></p>
 </blockquote>
-<p>最后找到一个还算好用的方法：伪类 + transform<br>原理是把原先元素的 border 去掉，然后利用 :before 或者 :after 重做 border ，并 transform 的 scale 缩小一半，原先的元素相对定位，新做的 border 绝对定位</p>
-<p>单条 border<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>.hairlines li{<br>    position: relative;<br>    border:none;<br>}<br>.hairlines li:after{<br>    content: ‘’;<br>    position: absolute;<br>    left: 0;<br>    background: #000;<br>    width: 100%;<br>    height: 1px;<br>    -webkit-transform: scaleY(0.5);<br>            transform: scaleY(0.5);<br>    -webkit-transform-origin: 0 0;<br>            transform-origin: 0 0;<br>}<br>四条 border<br>1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15<br>16<br>17<br>18<br>19<br>20<br>.hairlines li{<br>    position: relative;<br>    margin-bottom: 20px;<br>    border:none;<br>}<br>.hairlines li:after{<br>    content: ‘’;<br>    position: absolute;<br>    top: 0;<br>    left: 0;<br>    border: 1px solid #000;<br>    -webkit-box-sizing: border-box;<br>    box-sizing: border-box;<br>    width: 200%;<br>    height: 200%;<br>    -webkit-transform: scale(0.5);<br>    transform: scale(0.5);<br>    -webkit-transform-origin: left top;<br>    transform-origin: left top;<br>}<br>样式使用的时候，也要结合 JS 代码，判断是否 Retina 屏</p>
-<p>1<br>2<br>3<br>if(window.devicePixelRatio &amp;&amp; devicePixelRatio &gt;= 2){<br>    document.querySelector(‘ul’).className = ‘hairlines’;<br>}<br>可以支持圆角，唯一的一点小缺陷是 <td> 用不了。</td></p>
+<h2 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h2><p>方案：伪类 + transform<br>原理是把原先元素的 border 去掉，然后利用 :before 或者 :after 重做 border ，并 transform 的 scale 缩小一半。</p>
+<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.hairlines</span> li</span><span class="token punctuation">{</span>
+    <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+    <span class="token property">border</span><span class="token punctuation">:</span>none<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector"><span class="token class">.hairlines</span> li<span class="token pseudo-element">:after</span></span><span class="token punctuation">{</span>
+    <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">;</span>
+    <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+    <span class="token property">left</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token property">background</span><span class="token punctuation">:</span> <span class="token hexcode">#000</span><span class="token punctuation">;</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">100%</span><span class="token punctuation">;</span>
+    <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">1</span>px<span class="token punctuation">;</span>
+    <span class="token property">-webkit-transform</span><span class="token punctuation">:</span> <span class="token function">scaleY</span><span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">scaleY</span><span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">-webkit-transform-origin</span><span class="token punctuation">:</span> <span class="token number">0</span> <span class="token number">0</span><span class="token punctuation">;</span>
+            <span class="token property">transform-origin</span><span class="token punctuation">:</span> <span class="token number">0</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="4条边框"><a href="#4条边框" class="headerlink" title="4条边框"></a>4条边框</h2><pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.hairlines</span> li</span><span class="token punctuation">{</span>
+    <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
+    <span class="token property">margin-bottom</span><span class="token punctuation">:</span> <span class="token number">20</span>px<span class="token punctuation">;</span>
+    <span class="token property">border</span><span class="token punctuation">:</span>none<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector"><span class="token class">.hairlines</span> li<span class="token pseudo-element">:after</span></span><span class="token punctuation">{</span>
+    <span class="token property">content</span><span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">;</span>
+    <span class="token property">position</span><span class="token punctuation">:</span> absolute<span class="token punctuation">;</span>
+    <span class="token property">top</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token property">left</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">1</span>px solid <span class="token hexcode">#000</span><span class="token punctuation">;</span>
+    <span class="token property">-webkit-box-sizing</span><span class="token punctuation">:</span> border-box<span class="token punctuation">;</span>
+    <span class="token property">box-sizing</span><span class="token punctuation">:</span> border-box<span class="token punctuation">;</span>
+    <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">200%</span><span class="token punctuation">;</span>
+    <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">200%</span><span class="token punctuation">;</span>
+    <span class="token property">-webkit-transform</span><span class="token punctuation">:</span> <span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">scale</span><span class="token punctuation">(</span><span class="token number">0.5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token property">-webkit-transform-origin</span><span class="token punctuation">:</span> left top<span class="token punctuation">;</span>
+    <span class="token property">transform-origin</span><span class="token punctuation">:</span> left top<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>样式使用的时候，也要结合 JS 代码，判断是否 Retina 屏</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">if</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span>devicePixelRatio <span class="token operator">&amp;&amp;</span> devicePixelRatio <span class="token operator">>=</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    document<span class="token punctuation">.</span><span class="token function">querySelector</span><span class="token punctuation">(</span><span class="token string">'ul'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>className <span class="token operator">=</span> <span class="token string">'hairlines'</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
 
   </div>
 </div>
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/13/draft-code-19/">« 兼容 | 草稿</a></span>
+  <span class="left"><a href="/2018/03/13/draft-code-19/">« 兼容 | 面试卷</a></span>
   <span class="right"><a href="/2018/03/13/draft-code-21/">性能 | 草稿 »</a></span>
 </p>
 

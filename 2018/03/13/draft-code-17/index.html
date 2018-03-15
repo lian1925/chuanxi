@@ -46,8 +46,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/草稿/">
-            草稿
+          <a href="/tags/程序员/">
+            程序员
           </a>
       </span>
       
@@ -63,8 +63,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/草稿/">
-              草稿
+            <a href="/tags/程序员/">
+              程序员
             </a>
         </span>
       </p>
@@ -100,7 +100,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>同源策略 | 安全</h1>
+<h1>同源 | 面试卷</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -112,25 +112,39 @@ if(isiOS){
 
 
   <div class="page">
-      <p>1995年，同源政策由 Netscape 公司引入浏览器。目前，所有浏览器都实行这个政策。</p>
+      <h2 id="1-什么是同源策略"><a href="#1-什么是同源策略" class="headerlink" title="1 什么是同源策略"></a>1 什么是同源策略</h2><p>答：</p>
 <p>最初，它的含义是指，A网页设置的 Cookie，B网页不能打开，除非这两个网页”同源”。所谓”同源”指的是”三个相同”。</p>
-<p>协议相同<br>域名相同<br>端口相同<br>随着互联网的发展，”同源政策”越来越严格。目前，如果非同源，共有三种行为受到限制。</p>
-<p>（1） Cookie、LocalStorage 和 IndexDB 无法读取。</p>
-<p>（2） DOM 无法获得。</p>
-<p>（3） AJAX 请求不能发送。</p>
-<h2 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h2><p>JSONP是服务器与客户端跨源通信的常用方法。最大特点就是简单适用，老式浏览器全部支持，服务器改造非常小。</p>
+<p>协议相同<br>域名相同<br>端口相同</p>
+<p>随着互联网的发展，”同源政策”越来越严格。目前，如果非同源，共有三种行为受到限制。</p>
+<p>Cookie、LocalStorage 和 IndexDB 无法读取。<br>DOM 无法获得。<br>AJAX 请求不能发送。</p>
+<h2 id="2-什么是JSONP"><a href="#2-什么是JSONP" class="headerlink" title="2 什么是JSONP"></a>2 什么是JSONP</h2><p>答：</p>
+<p>JSONP是服务器与客户端跨源通信的常用方法。最大特点就是简单适用，老式浏览器全部支持，服务器改造非常小。</p>
 <p>它的基本思想是，网页通过添加一个<code>&lt;script&gt;</code>元素，向服务器请求JSON数据，这种做法不受同源政策限制；服务器收到请求后，将数据放在一个指定名字的回调函数里传回来。</p>
 <p>首先，网页动态插入<code>&lt;script&gt;</code>元素，由它向跨源网址发出请求。</p>
-<p>function addScriptTag(src) {<br>  var script = document.createElement(‘script’);<br>  script.setAttribute(“type”,”text/javascript”);<br>  script.src = src;<br>  document.body.appendChild(script);<br>}</p>
-<p>window.onload = function () {<br>  addScriptTag(‘<a href="http://example.com/ip?callback=foo" target="_blank" rel="external">http://example.com/ip?callback=foo</a>‘);<br>}</p>
-<p>function foo(data) {<br>  console.log(‘Your public IP address is: ‘ + data.ip);<br>};<br>上面代码通过动态添加<script>元素，向服务器example.com发出请求。注意，该请求的查询字符串有一个callback参数，用来指定回调函数的名字，这对于JSONP是必需的。</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">addScriptTag</span><span class="token punctuation">(</span>src<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">var</span> script <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'script'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  script<span class="token punctuation">.</span><span class="token function">setAttribute</span><span class="token punctuation">(</span><span class="token string">"type"</span><span class="token punctuation">,</span><span class="token string">"text/javascript"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  script<span class="token punctuation">.</span>src <span class="token operator">=</span> src<span class="token punctuation">;</span>
+  document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>script<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+window<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">addScriptTag</span><span class="token punctuation">(</span><span class="token string">'http://example.com/ip?callback=foo'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Your public IP address is: '</span> <span class="token operator">+</span> data<span class="token punctuation">.</span>ip<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>上面代码通过动态添加<code>&lt;script&gt;</code>元素，向服务器example.com发出请求。注意，该请求的查询字符串有一个callback参数，用来指定回调函数的名字，这对于JSONP是必需的。</p>
 <p>服务器收到这个请求以后，会将数据放在回调函数的参数位置返回。</p>
-<p>foo({<br>  “ip”: “8.8.8.8”<br>});<br>由于<script>元素请求的脚本，直接作为代码运行。这时，只要浏览器定义了foo函数，该函数就会立即调用。作为参数的JSON数据被视为JavaScript对象，而不是字符串，因此避免了使用JSON.parse的步骤。</p>
-<h2 id="cors"><a href="#cors" class="headerlink" title="cors"></a>cors</h2><p>CORS是一个W3C标准，全称是”跨域资源共享”（Cross-origin resource sharing）。</p>
+<h2 id="3-什么是cors"><a href="#3-什么是cors" class="headerlink" title="3 什么是cors"></a>3 什么是cors</h2><p>答：</p>
+<p>Cross-origin resource sharing，全称是”跨域资源共享”。</p>
 <p>它允许浏览器向跨源服务器，发出XMLHttpRequest请求，从而克服了AJAX只能同源使用的限制。</p>
 <p>CORS与JSONP的使用目的相同，但是比JSONP更强大。</p>
 <p>JSONP只支持GET请求，CORS支持所有类型的HTTP请求。JSONP的优势在于支持老式浏览器，以及可以向不支持CORS的网站请求数据。</p>
-</script></p>
+<p>(完)</p>
+
   </div>
 </div>
 
