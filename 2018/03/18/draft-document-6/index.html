@@ -78,7 +78,7 @@ if(isiOS){
         </span>
         <span>
             
-            <a href="#">
+            <a href="/2018/03/18/draft-document-7/">
               &#8677;
             </a>
         </span>
@@ -91,8 +91,8 @@ if(isiOS){
         </P>
         <P>下一篇：
 
-                <a href="#">
-                    无
+                <a href="/2018/03/18/draft-document-7/">
+                    Vue router 2 | 阅读文档
                 </a>
         </P>
     </div>
@@ -100,7 +100,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>Vue router | 阅读文档</h1>
+<h1>Vue router 1 | 阅读文档</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -112,14 +112,93 @@ if(isiOS){
 
 
   <div class="page">
-      
+      <h2 id="vue-router"><a href="#vue-router" class="headerlink" title="vue-router"></a>vue-router</h2><p>当你要把 vue-router 添加进来，我们需要做的是，将组件(components)映射到路由(routes)，然后告诉 vue-router 在哪里渲染它们。</p>
+<h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1 安装"></a>1 安装</h2><pre class=" language-js"><code class="language-js">npm install vue<span class="token operator">-</span>router
+</code></pre>
+<p>如果在一个模块化工程中使用它，必须要通过 Vue.use() 明确地安装路由功能：</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">'vue'</span>
+<span class="token keyword">import</span> VueRouter <span class="token keyword">from</span> <span class="token string">'vue-router'</span>
+
+Vue<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>VueRouter<span class="token punctuation">)</span>
+</code></pre>
+<h2 id="2-应用"><a href="#2-应用" class="headerlink" title="2 应用"></a>2 应用</h2><p>1、HTML</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>https://unpkg.com/vue/dist/vue.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>https://unpkg.com/vue-router/dist/vue-router.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>app<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>Hello App!<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>
+    <span class="token comment" spellcheck="true">&lt;!-- 使用 router-link 组件来导航. --></span>
+    <span class="token comment" spellcheck="true">&lt;!-- 通过传入 `to` 属性指定链接. --></span>
+    <span class="token comment" spellcheck="true">&lt;!-- &lt;router-link> 默认会被渲染成一个 `&lt;a>` 标签 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-link</span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/foo<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Go to Foo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-link</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-link</span> <span class="token attr-name">to</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>/bar<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Go to Bar<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-link</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+  <span class="token comment" spellcheck="true">&lt;!-- 路由出口 --></span>
+  <span class="token comment" spellcheck="true">&lt;!-- 路由匹配到的组件将渲染在这里 --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>router-view</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>router-view</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>2、JavaScript</p>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">// 0. 如果使用模块化机制编程，导入Vue和VueRouter，要调用 Vue.use(VueRouter)</span>
+
+<span class="token comment" spellcheck="true">// 1. 定义（路由）组件。</span>
+<span class="token comment" spellcheck="true">// 可以从其他文件 import 进来</span>
+<span class="token keyword">const</span> Foo <span class="token operator">=</span> <span class="token punctuation">{</span> template<span class="token punctuation">:</span> <span class="token string">'&lt;div>foo&lt;/div>'</span> <span class="token punctuation">}</span>
+<span class="token keyword">const</span> Bar <span class="token operator">=</span> <span class="token punctuation">{</span> template<span class="token punctuation">:</span> <span class="token string">'&lt;div>bar&lt;/div>'</span> <span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// 2. 定义路由</span>
+<span class="token comment" spellcheck="true">// 每个路由应该映射一个组件。 其中"component" 可以是</span>
+<span class="token comment" spellcheck="true">// 通过 Vue.extend() 创建的组件构造器，</span>
+<span class="token comment" spellcheck="true">// 或者，只是一个组件配置对象。</span>
+<span class="token comment" spellcheck="true">// 我们晚点再讨论嵌套路由。</span>
+<span class="token keyword">const</span> routes <span class="token operator">=</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">{</span> path<span class="token punctuation">:</span> <span class="token string">'/foo'</span><span class="token punctuation">,</span> component<span class="token punctuation">:</span> Foo <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span> path<span class="token punctuation">:</span> <span class="token string">'/bar'</span><span class="token punctuation">,</span> component<span class="token punctuation">:</span> Bar <span class="token punctuation">}</span>
+<span class="token punctuation">]</span>
+
+<span class="token comment" spellcheck="true">// 3. 创建 router 实例，然后传 `routes` 配置</span>
+<span class="token comment" spellcheck="true">// 你还可以传别的配置参数, 不过先这么简单着吧。</span>
+<span class="token keyword">const</span> router <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">VueRouter</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  routes <span class="token comment" spellcheck="true">// （缩写）相当于 routes: routes</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// 4. 创建和挂载根实例。</span>
+<span class="token comment" spellcheck="true">// 记得要通过 router 配置参数注入路由，</span>
+<span class="token comment" spellcheck="true">// 从而让整个应用都有路由功能</span>
+<span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  router
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">$mount</span><span class="token punctuation">(</span><span class="token string">'#app'</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// 现在，应用已经启动了！</span>
+</code></pre>
+<p>3、通过注入路由，我们可以用 this.$router 来访问它，就像在任何组件里用 this.$router 访问当前路由一样。</p>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">// Home.vue</span>
+<span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">{</span>
+  computed<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    username <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// 我们很快就会看到 `params` 是什么</span>
+      <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$route<span class="token punctuation">.</span>params<span class="token punctuation">.</span>username
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  methods<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    goBack <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      window<span class="token punctuation">.</span>history<span class="token punctuation">.</span>length <span class="token operator">></span> <span class="token number">1</span>
+        <span class="token operator">?</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$router<span class="token punctuation">.</span><span class="token function">go</span><span class="token punctuation">(</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>$router<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">'/'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>(完)</p>
+
   </div>
 </div>
 
 
 <p class="nav-foot">
   <span class="left"><a href="/2018/03/18/draft-document-5/">« Vuex 5 | 阅...</a></span>
-  <span class="right"><a href="#">无... »</a></span>
+  <span class="right"><a href="/2018/03/18/draft-document-7/">Vue router... »</a></span>
 </p>
 
 <!-- 文档信息 -->
