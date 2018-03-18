@@ -78,7 +78,7 @@ if(isiOS){
         </span>
         <span>
             
-            <a href="#">
+            <a href="/2018/03/18/draft-document-6/">
               &#8677;
             </a>
         </span>
@@ -91,8 +91,8 @@ if(isiOS){
         </P>
         <P>下一篇：
 
-                <a href="#">
-                    无
+                <a href="/2018/03/18/draft-document-6/">
+                    Vue router | 阅读文档
                 </a>
         </P>
     </div>
@@ -112,14 +112,52 @@ if(isiOS){
 
 
   <div class="page">
-      
+      <h2 id="热加载"><a href="#热加载" class="headerlink" title="热加载"></a>热加载</h2><p>使用 webpack 的 Hot Module Replacement API，Vuex 支持在开发过程中热重载 mutation、module、action 和 getter。你也可以在 Browserify 中使用 browserify-hmr 插件。</p>
+<h3 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h3><p>对于 mutation 和模块，你需要使用 store.hotUpdate() 方法：</p>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">// store.js</span>
+<span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">'vue'</span>
+<span class="token keyword">import</span> Vuex <span class="token keyword">from</span> <span class="token string">'vuex'</span>
+<span class="token keyword">import</span> mutations <span class="token keyword">from</span> <span class="token string">'./mutations'</span>
+<span class="token keyword">import</span> moduleA <span class="token keyword">from</span> <span class="token string">'./modules/a'</span>
+
+Vue<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span>Vuex<span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> state <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> store <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vuex<span class="token punctuation">.</span>Store</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  state<span class="token punctuation">,</span>
+  mutations<span class="token punctuation">,</span>
+  modules<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    a<span class="token punctuation">:</span> moduleA
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span>module<span class="token punctuation">.</span>hot<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// 使 action 和 mutation 成为可热重载模块</span>
+  module<span class="token punctuation">.</span>hot<span class="token punctuation">.</span><span class="token function">accept</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'./mutations'</span><span class="token punctuation">,</span> <span class="token string">'./modules/a'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// 获取更新后的模块</span>
+    <span class="token comment" spellcheck="true">// 因为 babel 6 的模块编译格式问题，这里需要加上 `.default`</span>
+    <span class="token keyword">const</span> newMutations <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./mutations'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span>
+    <span class="token keyword">const</span> newModuleA <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./modules/a'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">default</span>
+    <span class="token comment" spellcheck="true">// 加载新模块</span>
+    store<span class="token punctuation">.</span><span class="token function">hotUpdate</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      mutations<span class="token punctuation">:</span> newMutations<span class="token punctuation">,</span>
+      modules<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        a<span class="token punctuation">:</span> newModuleA
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>(完)</p>
+
   </div>
 </div>
 
 
 <p class="nav-foot">
   <span class="left"><a href="/2018/03/18/draft-document-4/">« Vuex 4 | 阅...</a></span>
-  <span class="right"><a href="#">无... »</a></span>
+  <span class="right"><a href="/2018/03/18/draft-document-6/">Vue router... »</a></span>
 </p>
 
 <!-- 文档信息 -->
