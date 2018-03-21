@@ -114,11 +114,12 @@ if(isiOS){
   <div class="page">
       <h2 id="Extends-and-super-keywords"><a href="#Extends-and-super-keywords" class="headerlink" title="Extends and super keywords"></a>Extends and super keywords</h2><p>The extends keyword is used in class declarations or class expressions to create a class which is a child of another class (Ref: MDN). The subclass inherits all the properties of the superclass and additionally can add new properties or modify the inherited ones.</p>
 <p>The super keyword is used to call functions on an object’s parent, including its constructor.</p>
-<pre><code>super keyword must be used before the this keyword is used in constructor
-Invoking super() calls the parent class constructor. If you want to pass some arguments in a class&#39;s constructor to its parent&#39;s constructor, you call it with super(arguments).
-If the parent class have a method (even static) called X, you can use super.X() to call it in a child class.
-</code></pre><p>Sample Code</p>
-<pre class=" language-js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">Polygon</span> <span class="token punctuation">{</span>
+<ul>
+<li>super keyword must be used before the this keyword is used in constructor</li>
+<li>Invoking super() calls the parent class constructor. If you want to pass some arguments in a class’s constructor to its parent’s constructor, you call it with super(arguments).</li>
+<li>If the parent class have a method (even static) called X, you can use super.X() to call it in a child class.</li>
+</ul>
+<h2 id="1-Sample-Code"><a href="#1-Sample-Code" class="headerlink" title="1 Sample Code"></a>1 Sample Code</h2><pre class=" language-js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">Polygon</span> <span class="token punctuation">{</span>
   <span class="token function">constructor</span><span class="token punctuation">(</span>height<span class="token punctuation">,</span> width<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">'Polygon'</span><span class="token punctuation">;</span>
     <span class="token keyword">this</span><span class="token punctuation">.</span>height <span class="token operator">=</span> height<span class="token punctuation">;</span>
@@ -177,8 +178,8 @@ console<span class="token punctuation">.</span><span class="token function">log<
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/21/draft-code-js-13/">« Class 13 |...</a></span>
-  <span class="right"><a href="/2018/03/21/draft-code-js-12/">JavaScript... »</a></span>
+  <span class="left"><a href="/2018/03/21/draft-code-js-12/">« JavaScript...</a></span>
+  <span class="right"><a href="/2018/03/21/draft-code-js-15/">Async Awai... »</a></span>
 </p>
 
 <!-- 文档信息 -->

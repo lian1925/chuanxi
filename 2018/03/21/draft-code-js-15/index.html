@@ -92,7 +92,7 @@ if(isiOS){
         <P>下一篇：
 
                 <a href="/2018/03/21/draft-code-js-16/">
-                    Truthy / Falsy 16 | JavaScript
+                    Truthy | Falsy 16 | JavaScript
                 </a>
         </P>
     </div>
@@ -114,11 +114,13 @@ if(isiOS){
   <div class="page">
       <h2 id="Async-Await"><a href="#Async-Await" class="headerlink" title="Async Await"></a>Async Await</h2><p>In addition to Promises, there is a new syntax you might encounter to handle asynchronous code named async / await.</p>
 <p>The purpose of async/await functions is to simplify the behavior of using promises synchronously and to perform some behavior on a group of Promises. Just as Promises are similar to structured callbacks, async/await is similar to combining generators and promises. Async functions always return a Promise. (Ref: MDN)</p>
-<pre><code>Note : You must understand what promises are and how they work before trying to understand async / await since they rely on it.
-
-Note 2: await must be used in an async function, which means that you can&#39;t use await in the top level of our code since that is not inside an async function.
-</code></pre><p>Sample code</p>
-<pre class=" language-js"><code class="language-js"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">getGithubUser</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// async keyword allows usage of await in the function and means function returns a promise</span>
+<ul>
+<li><p>Note : You must understand what promises are and how they work before trying to understand async / await since they rely on it.</p>
+</li>
+<li><p>Note 2: await must be used in an async function, which means that you can’t use await in the top level of our code since that is not inside an async function.</p>
+</li>
+</ul>
+<h2 id="1-Sample-code"><a href="#1-Sample-code" class="headerlink" title="1 Sample code"></a>1 Sample code</h2><pre class=" language-js"><code class="language-js"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">getGithubUser</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// async keyword allows usage of await in the function and means function returns a promise</span>
   <span class="token keyword">const</span> response <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">fetch</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`https://api.github.com/users/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>username<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Execution is paused here until the Promise returned by fetch is resolved</span>
   <span class="token keyword">return</span> response<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -127,8 +129,7 @@ Note 2: await must be used in an async function, which means that you can&#39;t 
   <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>user <span class="token operator">=</span><span class="token operator">></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>user<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// logging user response - cannot use await syntax since this code isn't in async function</span>
   <span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span>err <span class="token operator">=</span><span class="token operator">></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// if an error is thrown in our async function, we will catch it here</span>
 </code></pre>
-<p>Explanation with sample code</p>
-<p>Async / Await is built on promises but they allow a more imperative style of code.</p>
+<h2 id="2-Explanation-with-sample-code"><a href="#2-Explanation-with-sample-code" class="headerlink" title="2 Explanation with sample code"></a>2 Explanation with sample code</h2><p>Async / Await is built on promises but they allow a more imperative style of code.</p>
 <p>The async operator marks a function as asynchronous and will always return a Promise. You can use the await operator in an async function to pause execution on that line until the returned Promise from the expression either resolves or rejects.</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">myFunc</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token comment" spellcheck="true">// we can use await operator because this function is async</span>
@@ -139,8 +140,10 @@ Note 2: await must be used in an async function, which means that you can&#39;t 
 </code></pre>
 <p>When the return statement of an async function is reached, the Promise is fulfilled with the value returned. If an error is thrown inside an async function, the Promise state will turn to rejected. If no value is returned from an async function, a Promise is still returned and resolves with no value when execution of the async function is complete.</p>
 <p>await operator is used to wait for a Promise to be fulfilled and can only be used inside an async function body. When encountered, the code execution is paused until the promise is fulfilled.</p>
-<pre><code>Note : fetch is a function that returns a Promise that allows to do an AJAX request
-</code></pre><p>Let’s see how we could fetch a github user with promises first:</p>
+<blockquote>
+<p>Note : fetch is a function that returns a Promise that allows to do an AJAX request</p>
+</blockquote>
+<p>Let’s see how we could fetch a github user with promises first:</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">getGithubUser</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token function">fetch</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`https://api.github.com/users/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>username<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>response <span class="token operator">=</span><span class="token operator">></span> response<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -161,41 +164,39 @@ Note 2: await must be used in an async function, which means that you can&#39;t 
 </code></pre>
 <p>async / await syntax is particularly convenient when you need to chain promises that are interdependent.</p>
 <p>For instance, if you need to get a token in order to be able to fetch a blog post on a database and then the author informations:</p>
-<pre><code>Note : await expressions needs to be wrapped in parentheses to call its resolved value&#39;s methods and properties on the same line.
-</code></pre><pre class=" language-js"><code class="language-js"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">fetchPostById</span><span class="token punctuation">(</span>postId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">const</span> token <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">'token_url'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>token<span class="token punctuation">;</span>
-  <span class="token keyword">const</span> post <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">fetch</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`/posts/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>postId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">?token=</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>token<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> author <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">await</span> <span class="token function">fetch</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`/users/</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>post<span class="token punctuation">.</span>authorId<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">`</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<blockquote>
+<p>Note : await expressions needs to be wrapped in parentheses to call its resolved value’s methods and properties on the same line.<br><code>``js
+async function fetchPostById(postId) {
+  const token = (await fetch(&#39;token_url&#39;)).json().token;
+  const post = (await fetch(</code>/posts/${postId}?token=${token}<code>)).json();
+  const author = (await fetch(</code>/users/${post.authorId}`)).json();</p>
+</blockquote>
+<p>  post.author = author;<br>  return post;<br>}</p>
+<p>fetchPostById(‘gzIrzeo64’)<br>  .then(post =&gt; console.log(post))<br>  .catch(err =&gt; console.log(err));</p>
+<pre><code>## 3 Error handling
 
-  post<span class="token punctuation">.</span>author <span class="token operator">=</span> author<span class="token punctuation">;</span>
-  <span class="token keyword">return</span> post<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+Unless we add try / catch blocks around await expressions, uncaught exceptions – regardless of whether they were thrown in the body of your async function or while it’s suspended during await – will reject the promise returned by the async function. Using the throw statement in an async function is the same as returning a Promise that rejects. (Ref: PonyFoo).
 
-<span class="token function">fetchPostById</span><span class="token punctuation">(</span><span class="token string">'gzIrzeo64'</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>post <span class="token operator">=</span><span class="token operator">></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>post<span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span>err <span class="token operator">=</span><span class="token operator">></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-</code></pre>
-<p>Error handling</p>
-<p>Unless we add try / catch blocks around await expressions, uncaught exceptions – regardless of whether they were thrown in the body of your async function or while it’s suspended during await – will reject the promise returned by the async function. Using the throw statement in an async function is the same as returning a Promise that rejects. (Ref: PonyFoo).</p>
-<pre><code>Note : Promises behave the same!
-</code></pre><p>With promises, here is how you would handle the error chain:</p>
-<pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// This promise will be rejected!</span>
-  <span class="token keyword">return</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span>res<span class="token punctuation">,</span> rej<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token function">rej</span><span class="token punctuation">(</span><span class="token string">"User not found !"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+&gt;Note : Promises behave the same!
 
-<span class="token keyword">function</span> <span class="token function">getAvatarByUsername</span><span class="token punctuation">(</span>userId<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">return</span> <span class="token function">getUser</span><span class="token punctuation">(</span>userId<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>user <span class="token operator">=</span><span class="token operator">></span> user<span class="token punctuation">.</span>avatar<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+With promises, here is how you would handle the error chain:
+```js
+function getUser() { // This promise will be rejected!
+  return new Promise((res, rej) =&gt; rej(&quot;User not found !&quot;));
+}
 
-<span class="token keyword">function</span> <span class="token function">getUserAvatar</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token keyword">return</span> <span class="token function">getAvatarByUsername</span><span class="token punctuation">(</span>username<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>avatar <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">(</span><span class="token punctuation">{</span> username<span class="token punctuation">,</span> avatar <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
+function getAvatarByUsername(userId) {
+  return getUser(userId).then(user =&gt; user.avatar);
+}
 
-<span class="token function">getUserAvatar</span><span class="token punctuation">(</span><span class="token string">'mbeaudru'</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>res <span class="token operator">=</span><span class="token operator">></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">)</span>
-  <span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span>err <span class="token operator">=</span><span class="token operator">></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// "User not found !"</span>
-</code></pre>
-<p>The equivalent with async / await:</p>
+function getUserAvatar(username) {
+  return getAvatarByUsername(username).then(avatar =&gt; ({ username, avatar }));
+}
+
+getUserAvatar(&#39;mbeaudru&#39;)
+  .then(res =&gt; console.log(res))
+  .catch(err =&gt; console.log(err)); // &quot;User not found !&quot;
+</code></pre><p>The equivalent with async / await:</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// The returned promise will be rejected!</span>
   <span class="token keyword">throw</span> <span class="token string">"User not found !"</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -220,8 +221,8 @@ Note 2: await must be used in an async function, which means that you can&#39;t 
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/21/draft-code-js-12/">« JavaScript...</a></span>
-  <span class="right"><a href="/2018/03/21/draft-code-js-16/">Truthy / F... »</a></span>
+  <span class="left"><a href="/2018/03/21/draft-code-js-14/">« Extends an...</a></span>
+  <span class="right"><a href="/2018/03/21/draft-code-js-16/">Truthy | F... »</a></span>
 </p>
 
 <!-- 文档信息 -->

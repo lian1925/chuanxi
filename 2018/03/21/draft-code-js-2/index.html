@@ -152,20 +152,22 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> double <span class="token operator">=</span> <span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> x <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Correct, returns x*2</span>
 </code></pre>
 <p>To do so, we only need to remove the brackets and the return keyword. That’s why it’s called an implicit return, the return keyword is not there, but this function will indeed return x * 2.</p>
-<pre><code>Note: If your function does not return a value (with side effects), it doesn&#39;t do an explicit nor an implicit return.
-</code></pre><p>Besides, if you want to implicitly return an object you must have parentheses around it since it will conflict with the block braces:</p>
+<blockquote>
+<p>Note: If your function does not return a value (with side effects), it doesn’t do an explicit nor an implicit return.</p>
+</blockquote>
+<p>Besides, if you want to implicitly return an object you must have parentheses around it since it will conflict with the block braces:</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> getPerson <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">(</span><span class="token punctuation">{</span> name<span class="token punctuation">:</span> <span class="token string">"Nick"</span><span class="token punctuation">,</span> age<span class="token punctuation">:</span> <span class="token number">24</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">getPerson</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// { name: "Nick", age: 24 } -- object implicitly returned by arrow function</span>
 </code></pre>
-<pre><code>Only one argument
-</code></pre><p>If your function only takes one parameter, you can omit the parentheses around it. If we take back the above double code:</p>
+<p>1、Only one argument</p>
+<p>If your function only takes one parameter, you can omit the parentheses around it. If we take back the above double code:</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> double <span class="token operator">=</span> <span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> x <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// this arrow function only takes one parameter</span>
 </code></pre>
 <p>Parentheses around the parameter can be avoided:</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> double <span class="token operator">=</span> x <span class="token operator">=</span><span class="token operator">></span> x <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// this arrow function only takes one parameter</span>
 </code></pre>
-<pre><code>No arguments
-</code></pre><p>When there is no argument provided to an arrow function, you need to provide parentheses, or it won’t be valid syntax.</p>
+<p>2、No arguments</p>
+<p>When there is no argument provided to an arrow function, you need to provide parentheses, or it won’t be valid syntax.</p>
 <pre class=" language-js"><code class="language-js">  <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// parentheses are provided, everything is fine</span>
     <span class="token keyword">const</span> x <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
     <span class="token keyword">return</span> x<span class="token punctuation">;</span>
@@ -176,7 +178,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
     <span class="token keyword">return</span> x<span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 </code></pre>
-<p>this reference</p>
+<p>3、this reference</p>
 <p>To understand this subtlety introduced with arrow functions, you must know how this behaves in JavaScript.</p>
 <p>In an arrow function, this is equal to the this value of the enclosing execution context. What it means is that an arrow function doesn’t create a new this, it grabs it from its surrounding instead.</p>
 <p>Without arrow function, if you wanted to access a variable from this in a function inside a function, you had to use the that = this or self = this trick.</p>
@@ -214,7 +216,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 
 <p class="nav-foot">
   <span class="left"><a href="/2018/03/21/draft-code-js-19/">« Static Met...</a></span>
-  <span class="right"><a href="/2018/03/21/draft-code-js-3/">Function d... »</a></span>
+  <span class="right"><a href="/2018/03/21/draft-code-js-20/">draft-code... »</a></span>
 </p>
 
 <!-- 文档信息 -->

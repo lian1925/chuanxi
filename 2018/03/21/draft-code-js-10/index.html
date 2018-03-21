@@ -92,7 +92,7 @@ if(isiOS){
         <P>下一篇：
 
                 <a href="/2018/03/21/draft-code-js-11/">
-                    Imports / Exports 11 | JavaScript
+                    Imports | Exports 11 | JavaScript
                 </a>
         </P>
     </div>
@@ -113,8 +113,10 @@ if(isiOS){
 
   <div class="page">
       <h2 id="Tagged-template-literals"><a href="#Tagged-template-literals" class="headerlink" title="Tagged template literals"></a>Tagged template literals</h2><p>Template tags are functions that can be prefixed to a template literal. When a function is called this way, the first parameter is an array of the strings that appear between the template’s interpolated variables, and the subsequent parameters are the interpolated values. Use a spread operator … to capture all of them. (Ref: MDN).</p>
-<pre><code>Note : A famous library named styled-components heavily relies on this feature.
-</code></pre><p>Below is a toy example on how they work.</p>
+<blockquote>
+<p>Note : A famous library named styled-components heavily relies on this feature.</p>
+</blockquote>
+<p>Below is a toy example on how they work.</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">highlight</span><span class="token punctuation">(</span>strings<span class="token punctuation">,</span> <span class="token operator">...</span>values<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">const</span> interpolation <span class="token operator">=</span> strings<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>prev<span class="token punctuation">,</span> current<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> prev <span class="token operator">+</span> current <span class="token operator">+</span> <span class="token punctuation">(</span>values<span class="token punctuation">.</span>length <span class="token operator">?</span> <span class="token string">"&lt;mark>"</span> <span class="token operator">+</span> values<span class="token punctuation">.</span><span class="token function">shift</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">"&lt;/mark>"</span> <span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -149,7 +151,7 @@ comma<span class="token template-string"><span class="token string">`I like </sp
 
 <p class="nav-foot">
   <span class="left"><a href="#">« 无</a></span>
-  <span class="right"><a href="/2018/03/21/draft-code-js-9/">Template l »</a></span>
+  <span class="right"><a href="/2018/03/21/draft-code-js-1/">Variable 1 »</a></span>
 </p>
 
 <!-- 文档信息 -->

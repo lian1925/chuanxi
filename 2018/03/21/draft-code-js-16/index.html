@@ -100,7 +100,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>Truthy / Falsy 16 | JavaScript</h1>
+<h1>Truthy | Falsy 16 | JavaScript</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -114,29 +114,31 @@ if(isiOS){
   <div class="page">
       <h2 id="Truthy-Falsy"><a href="#Truthy-Falsy" class="headerlink" title="Truthy / Falsy"></a>Truthy / Falsy</h2><p>In JavaScript, a truthy or falsy value is a value that is being casted into a boolean when evaluated in a boolean context. An example of boolean context would be the evaluation of an if condition:</p>
 <p>Every value will be casted to true unless they are equal to:</p>
-<pre><code>false
-0
-&quot;&quot; (empty string)
-null
-undefined
-NaN
-</code></pre><p>Here are examples of boolean context:</p>
-<pre><code>if condition evaluation
-</code></pre><pre class=" language-js"><code class="language-js"><span class="token keyword">if</span> <span class="token punctuation">(</span>myVar<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+<ul>
+<li>false</li>
+<li>0</li>
+<li>“” (empty string)</li>
+<li>null</li>
+<li>undefined</li>
+<li>NaN</li>
+</ul>
+<p>Here are examples of boolean context:</p>
+<p>1、if condition evaluation</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">if</span> <span class="token punctuation">(</span>myVar<span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
 </code></pre>
 <p>myVar can be any first-class citizen (variable, function, boolean) but it will be casted into a boolean because it’s evaluated in a boolean context.</p>
-<pre><code>After logical NOT ! operator
-</code></pre><p>This operator returns false if its single operand can be converted to true; otherwise, returns true.</p>
+<p>2、After logical NOT ! operator</p>
+<p>This operator returns false if its single operand can be converted to true; otherwise, returns true.</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">!</span><span class="token number">0</span> <span class="token comment" spellcheck="true">// true -- 0 is falsy so it returns true</span>
 <span class="token operator">!</span><span class="token operator">!</span><span class="token number">0</span> <span class="token comment" spellcheck="true">// false -- 0 is falsy so !0 returns true so !(!0) returns false</span>
 <span class="token operator">!</span><span class="token operator">!</span><span class="token string">""</span> <span class="token comment" spellcheck="true">// false -- empty string is falsy so NOT (NOT false) equals false</span>
 </code></pre>
-<pre><code>With the Boolean object constructor
-</code></pre><pre class=" language-js"><code class="language-js"><span class="token keyword">new</span> <span class="token class-name">Boolean</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// false</span>
+<p>3、With the Boolean object constructor</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">new</span> <span class="token class-name">Boolean</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// false</span>
 <span class="token keyword">new</span> <span class="token class-name">Boolean</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// true</span>
 </code></pre>
-<pre><code>In a ternary evaluation
-</code></pre><pre class=" language-js"><code class="language-js">myVar <span class="token operator">?</span> <span class="token string">"truthy"</span> <span class="token punctuation">:</span> <span class="token string">"falsy"</span>
+<p>4、In a ternary evaluation</p>
+<pre class=" language-js"><code class="language-js">myVar <span class="token operator">?</span> <span class="token string">"truthy"</span> <span class="token punctuation">:</span> <span class="token string">"falsy"</span>
 </code></pre>
 <p>myVar is evaluated in a boolean context.</p>
 <p>Be careful when comparing 2 values. The object values (that should be cast to true) is not being casted to Boolean but it forced to convert into a primitive value one using ToPrimitives specification. Internally, when an object is compared to Boolean value like [] == true, it does [].toString() == true so…</p>

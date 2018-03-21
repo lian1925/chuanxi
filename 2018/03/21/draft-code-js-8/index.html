@@ -126,10 +126,12 @@ fetchingPosts
 </code></pre>
 <h2 id="Explanation"><a href="#Explanation" class="headerlink" title="Explanation"></a>Explanation</h2><p>When you do an Ajax request the response is not synchronous because you want a resource that takes some time to come. It even may never come if the resource you have requested is unavailable for some reason (404).</p>
 <p>To handle that kind of situation, ES2015 has given us promises. Promises can have three different states:</p>
-<pre><code>Pending
-Fulfilled
-Rejected
-</code></pre><p>Let’s say we want to use promises to handle an Ajax request to fetch the resource X.<br>Create the promise</p>
+<ul>
+<li>Pending</li>
+<li>Fulfilled</li>
+<li>Rejected</li>
+</ul>
+<p>Let’s say we want to use promises to handle an Ajax request to fetch the resource X.<br>Create the promise</p>
 <p>We firstly are going to create a promise. We will use the jQuery get method to do our Ajax request to X.</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> xFetcherPromise <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span> <span class="token comment" spellcheck="true">// Create promise using "new" keyword and store it into a variable</span>
   <span class="token keyword">function</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// Promise constructor takes a function parameter which has resolve and reject parameters itself</span>
@@ -163,7 +165,7 @@ Rejected
 
 <p class="nav-foot">
   <span class="left"><a href="/2018/03/21/draft-code-js-7/">« Object pro...</a></span>
-  <span class="right"><a href="/2018/03/21/draft-code-js-18/">Generators... »</a></span>
+  <span class="right"><a href="/2018/03/21/draft-code-js-9/">Template l... »</a></span>
 </p>
 
 <!-- 文档信息 -->

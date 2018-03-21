@@ -100,7 +100,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>Imports / Exports 11 | JavaScript</h1>
+<h1>Imports | Exports 11 | JavaScript</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -113,8 +113,8 @@ if(isiOS){
 
   <div class="page">
       <h2 id="Imports-Exports"><a href="#Imports-Exports" class="headerlink" title="Imports / Exports"></a>Imports / Exports</h2><p>ES6 modules are used to access variables or functions in a module explicitly exported by the modules it imports.</p>
-<p>I highly recommend to take a look at MDN resources on import/export (see external resources below), it is both straightforward and complete.<br>Explanation with sample code<br>Named exports</p>
-<p>Named exports are used to export several values from a module.</p>
+<p>I highly recommend to take a look at MDN resources on import/export (see external resources below), it is both straightforward and complete.</p>
+<h2 id="1-Named-exports"><a href="#1-Named-exports" class="headerlink" title="1 Named exports"></a>1 Named exports</h2><p>Named exports are used to export several values from a module.</p>
 <pre><code>Note : You can only name-export first-class citizens that have a name.
 </code></pre><pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">// mathConstants.js</span>
 <span class="token keyword">export</span> <span class="token keyword">const</span> pi <span class="token operator">=</span> <span class="token number">3.14</span><span class="token punctuation">;</span>
@@ -139,8 +139,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <p>Besides, you can do aliases but the syntax is different from the one used in destructuring:</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> foo <span class="token keyword">as</span> bar <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'myFile.js'</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// foo is imported and injected into a new bar variable</span>
 </code></pre>
-<p>Default import / export</p>
-<p>Concerning the default export, there is only a single default export per module. A default export can be a function, a class, an object or anything else. This value is considered the “main” exported value since it will be the simplest to import. Ref: MDN</p>
+<h2 id="2-Default-import-export"><a href="#2-Default-import-export" class="headerlink" title="2 Default import / export"></a>2 Default import / export</h2><p>Concerning the default export, there is only a single default export per module. A default export can be a function, a class, an object or anything else. This value is considered the “main” exported value since it will be the simplest to import. Ref: MDN</p>
 <pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">// coolNumber.js</span>
 <span class="token keyword">const</span> ultimateNumber <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">;</span>
 <span class="token keyword">export</span> <span class="token keyword">default</span> ultimateNumber<span class="token punctuation">;</span>
@@ -170,8 +169,8 @@ console<span class="token punctuation">.</span><span class="token function">log<
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/21/draft-code-js-9/">« Template l...</a></span>
-  <span class="right"><a href="/2018/03/21/draft-code-js-13/">Class 13 |... »</a></span>
+  <span class="left"><a href="/2018/03/21/draft-code-js-1/">« Variable 1...</a></span>
+  <span class="right"><a href="/2018/03/21/draft-code-js-12/">JavaScript... »</a></span>
 </p>
 
 <!-- 文档信息 -->

@@ -86,7 +86,7 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/03/21/draft-code-js-16/">
-                    Truthy / Falsy 16 | JavaScript
+                    Truthy | Falsy 16 | JavaScript
                 </a>
         </P>
         <P>下一篇：
@@ -112,10 +112,8 @@ if(isiOS){
 
 
   <div class="page">
-      <h2 id="Anamorphisms-and-Catamorphisms"><a href="#Anamorphisms-and-Catamorphisms" class="headerlink" title="Anamorphisms and Catamorphisms"></a>Anamorphisms and Catamorphisms</h2><p>Anamorphisms</p>
-<p>Anamorphisms are functions that map from some object to a more complex structure containing the type of the object. It is the process of unfolding a simple structure into a more complex one. Consider unfolding an integer to a list of integers. The integer is our initial object and the list of integers is the more complex structure.</p>
-<p>Sample code</p>
-<pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">downToOne</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <h2 id="Anamorphisms-and-Catamorphisms"><a href="#Anamorphisms-and-Catamorphisms" class="headerlink" title="Anamorphisms and Catamorphisms"></a>Anamorphisms and Catamorphisms</h2><h2 id="1-Short-explanation-Anamorphisms"><a href="#1-Short-explanation-Anamorphisms" class="headerlink" title="1 Short explanation Anamorphisms"></a>1 Short explanation Anamorphisms</h2><p>Anamorphisms are functions that map from some object to a more complex structure containing the type of the object. It is the process of unfolding a simple structure into a more complex one. Consider unfolding an integer to a list of integers. The integer is our initial object and the list of integers is the more complex structure.</p>
+<h2 id="2-Sample-code"><a href="#2-Sample-code" class="headerlink" title="2 Sample code"></a>2 Sample code</h2><pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">downToOne</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">const</span> list <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 
   <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> n<span class="token punctuation">;</span> i <span class="token operator">></span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token operator">--</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -128,10 +126,8 @@ if(isiOS){
 <span class="token function">downToOne</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
   <span class="token comment" spellcheck="true">//=> [ 5, 4, 3, 2, 1 ]</span>
 </code></pre>
-<p>Catamorphisms</p>
-<p>Catamorphisms are the opposite of Anamorphisms, in that they take objects of more complex structure and fold them into simpler structures. Take the following example product which take a list of integers and returns a single integer.</p>
-<p>Sample code</p>
-<pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">product</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<h2 id="3-Short-explanation-Catamorphisms"><a href="#3-Short-explanation-Catamorphisms" class="headerlink" title="3 Short explanation Catamorphisms"></a>3 Short explanation Catamorphisms</h2><p>Catamorphisms are the opposite of Anamorphisms, in that they take objects of more complex structure and fold them into simpler structures. Take the following example product which take a list of integers and returns a single integer.</p>
+<h2 id="4-Sample-code"><a href="#4-Sample-code" class="headerlink" title="4 Sample code"></a>4 Sample code</h2><pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">product</span><span class="token punctuation">(</span>list<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">let</span> product <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
 
   <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> n <span class="token keyword">of</span> list<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -149,8 +145,8 @@ if(isiOS){
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/21/draft-code-js-16/">« Truthy / F...</a></span>
-  <span class="right"><a href="/2018/03/21/draft-code-js-20/">draft-code... »</a></span>
+  <span class="left"><a href="/2018/03/21/draft-code-js-16/">« Truthy | F...</a></span>
+  <span class="right"><a href="/2018/03/21/draft-code-js-18/">Generators... »</a></span>
 </p>
 
 <!-- 文档信息 -->

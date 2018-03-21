@@ -112,9 +112,8 @@ if(isiOS){
 
 
   <div class="page">
-      <h2 id="Static-Methods"><a href="#Static-Methods" class="headerlink" title="Static Methods"></a>Static Methods</h2><p>Short explanation</p>
-<p>The static keyword is used in classes to declare static methods. Static methods are functions in a class that belongs to the class object and are not available to any instance of that class.<br>Sample code</p>
-<pre class=" language-js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">Repo</span><span class="token punctuation">{</span>
+      <h2 id="Static-Methods"><a href="#Static-Methods" class="headerlink" title="Static Methods"></a>Static Methods</h2><h2 id="1-Short-explanation"><a href="#1-Short-explanation" class="headerlink" title="1 Short explanation"></a>1 Short explanation</h2><p>The static keyword is used in classes to declare static methods. Static methods are functions in a class that belongs to the class object and are not available to any instance of that class.</p>
+<h2 id="2-Sample-code"><a href="#2-Sample-code" class="headerlink" title="2 Sample code"></a>2 Sample code</h2><pre class=" language-js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">Repo</span><span class="token punctuation">{</span>
   <span class="token keyword">static</span> <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token string">"Repo name is modern-js-cheatsheet"</span>
   <span class="token punctuation">}</span>
@@ -126,8 +125,8 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <span class="token keyword">let</span> r <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Repo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// Uncaught TypeError: repo.getName is not a function</span>
 </code></pre>
-<p>Detailed explanation</p>
-<p>Static methods can be called within another static method by using the this keyword, this doesn’t work for non-static methods though. Non-static methods cannot directly access static methods using the this keyword.<br>Calling other static methods from a static method.</p>
+<h2 id="3-Detailed-explanation"><a href="#3-Detailed-explanation" class="headerlink" title="3 Detailed explanation"></a>3 Detailed explanation</h2><p>Static methods can be called within another static method by using the this keyword, this doesn’t work for non-static methods though. Non-static methods cannot directly access static methods using the this keyword.</p>
+<p>1、Calling other static methods from a static method.</p>
 <p>To call a static method from another static method, the this keyword can be used like so;</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">Repo</span><span class="token punctuation">{</span>
   <span class="token keyword">static</span> <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -141,10 +140,12 @@ console<span class="token punctuation">.</span><span class="token function">log<
 
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>Repo<span class="token punctuation">.</span><span class="token function">modifyName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// Repo name is modern-js-cheatsheet-added-this</span>
 </code></pre>
-<p>Calling static methods from non-static methods.</p>
+<p>2、Calling static methods from non-static methods.</p>
 <p>Non-static methods can call static methods in 2 ways;</p>
-<pre><code>Using the class name.
-</code></pre><p>To get access to a static method from a non-static method we use the class name and call the static method like a property. e.g ClassName.StaticMethodName</p>
+<ul>
+<li>Using the class name.</li>
+</ul>
+<p>To get access to a static method from a non-static method we use the class name and call the static method like a property. e.g ClassName.StaticMethodName</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">Repo</span><span class="token punctuation">{</span>
   <span class="token keyword">static</span> <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token string">"Repo name is modern-js-cheatsheet"</span>
@@ -159,8 +160,10 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <span class="token keyword">let</span> r <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Repo</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span><span class="token function">useName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// Repo name is modern-js-cheatsheet and it contains some really important stuff</span>
 </code></pre>
-<pre><code>Using the constructor
-</code></pre><p>Static methods can be called as properties on the constructor object.</p>
+<ul>
+<li>Using the constructor</li>
+</ul>
+<p>Static methods can be called as properties on the constructor object.</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">Repo</span><span class="token punctuation">{</span>
   <span class="token keyword">static</span> <span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token keyword">return</span> <span class="token string">"Repo name is modern-js-cheatsheet"</span>
@@ -182,7 +185,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/21/draft-code-js-1/">« Variable 1...</a></span>
+  <span class="left"><a href="/2018/03/21/draft-code-js-13/">« Class 13 |...</a></span>
   <span class="right"><a href="/2018/03/21/draft-code-js-2/">Arrow func... »</a></span>
 </p>
 
