@@ -989,15 +989,15 @@ form .hint {
   background-color: rgba(27, 31, 35, 0.1);
   border-radius: 0.5rem;
   padding: 0.5rem 0.7rem;
-  font-size: 2rem;
+  font-size: 1.8rem;
   line-height: 3rem;
   /* box-shadow: snow 0px 0 0.1rem 0.1rem inset; */
   /* line-height: 3rem; */ }
 
 .list-cate span.selected a {
-  color: #0366d6;
+  color: #15cc57;
   font-weight: 500;
-  font-size: 2rem;
+  font-size: 1.6rem;
   line-height: 3rem; }
 
 .item-list-post li {
