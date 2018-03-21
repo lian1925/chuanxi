@@ -603,6 +603,9 @@ body h4 {
   word-wrap: break-word;
   word-break: break-all; }
 
+.page pre {
+  margin-left: 1.2rem; }
+
 .page blockquote p a {
   color: #383838;
   font-size: 1.4rem; }
@@ -626,7 +629,12 @@ body h4 {
 .page ul li {
   line-height: 30px;
   font-size: 1.6rem;
-  margin-left: 0.8rem; }
+  color: #393A34;
+  font-family: Arial, Helvetica, sans-serif;
+  list-style-type: square; }
+
+.page ul {
+  margin-left: 2.4rem; }
 
 .page p > a {
   color: blue; }

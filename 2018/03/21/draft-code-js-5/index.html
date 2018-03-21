@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.2">
+  <title>
+    小沙丘的网络漫游记
+  </title>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/编程/">
+            编程
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/编程/">
+              编程
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/03/21/draft-code-js-4/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/03/21/draft-code-js-6/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/03/21/draft-code-js-4/">
+                    Destructuring objects and arrays 4 | JavaScript
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/03/21/draft-code-js-6/">
+                    Spread operator 6 | JavaScript
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>Array methods 5 | JavaScript</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年03月21日 17:03
+  </p>
+</div>
+</div>
+
+
+
+  <div class="page">
+      <h2 id="Array-methods-map-filter-reduce"><a href="#Array-methods-map-filter-reduce" class="headerlink" title="Array methods - map / filter / reduce"></a>Array methods - map / filter / reduce</h2><p>Map, filter and reduce are array methods that are coming from a programming paradigm named functional programming.</p>
+<p>To sum it up:</p>
+<ul>
+<li>Array.prototype.map() takes an array, does something on its elements and returns an array with the transformed elements.</li>
+<li>Array.prototype.filter() takes an array, decides element by element if it should keep it or not and returns an array with the kept elements only</li>
+<li>Array.prototype.reduce() takes an array and aggregates the elements into a single value (which is returned)</li>
+</ul>
+<p>I recommend to use them as much as possible in following the principles of functional programming because they are composable, concise and elegant.</p>
+<p>With those three methods, you can avoid the use of for and forEach loops in most situations. When you are tempted to do a for loop, try to do it with map, filter and reduce composed. You might struggle to do it at first because it requires you to learn a new way of thinking, but once you’ve got it things get easier.<br>Sample code</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> numbers <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> doubledNumbers <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>n <span class="token operator">=</span><span class="token operator">></span> n <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [0, 2, 4, 6, 8, 10, 12]</span>
+<span class="token keyword">const</span> evenNumbers <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>n <span class="token operator">=</span><span class="token operator">></span> n <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [0, 2, 4, 6]</span>
+<span class="token keyword">const</span> sum <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>prev<span class="token punctuation">,</span> next<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> prev <span class="token operator">+</span> next<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 21</span>
+</code></pre>
+<p>Compute total grade sum for students with grades 10 or above by composing map, filter and reduce:</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> students <span class="token operator">=</span> <span class="token punctuation">[</span>
+  <span class="token punctuation">{</span> name<span class="token punctuation">:</span> <span class="token string">"Nick"</span><span class="token punctuation">,</span> grade<span class="token punctuation">:</span> <span class="token number">10</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span> name<span class="token punctuation">:</span> <span class="token string">"John"</span><span class="token punctuation">,</span> grade<span class="token punctuation">:</span> <span class="token number">15</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span> name<span class="token punctuation">:</span> <span class="token string">"Julia"</span><span class="token punctuation">,</span> grade<span class="token punctuation">:</span> <span class="token number">19</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span> name<span class="token punctuation">:</span> <span class="token string">"Nathalie"</span><span class="token punctuation">,</span> grade<span class="token punctuation">:</span> <span class="token number">9</span> <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+<span class="token keyword">const</span> aboveTenSum <span class="token operator">=</span> students
+  <span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>student <span class="token operator">=</span><span class="token operator">></span> student<span class="token punctuation">.</span>grade<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// we map the students array to an array of their grades</span>
+  <span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>grade <span class="token operator">=</span><span class="token operator">></span> grade <span class="token operator">>=</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// we filter the grades array to keep those 10 or above</span>
+  <span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>prev<span class="token punctuation">,</span> next<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> prev <span class="token operator">+</span> next<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// we sum all the grades 10 or above one by one</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>aboveTenSum<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 44 -- 10 (Nick) + 15 (John) + 19 (Julia), Nathalie below 10 is ignored</span>
+</code></pre>
+<p>Explanation</p>
+<p>Let’s consider the following array of numbers for our examples:</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> numbers <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+Array<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> doubledNumbers <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> n <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>doubledNumbers<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [0, 2, 4, 6, 8, 10, 12]</span>
+</code></pre>
+<p>What’s happening here? We are using .map on the numbers array, the map is iterating on each element of the array and passes it to our function. The goal of the function is to produce and return a new value from the one passed so that map can replace it.</p>
+<p>Let’s extract this function to make it more clear, just for this once:</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> doubleN <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> n <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> doubledNumbers <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>doubleN<span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>doubledNumbers<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [0, 2, 4, 6, 8, 10, 12]</span>
+</code></pre>
+<p>Note : You will frequently encounter this method used in combination with arrow functions</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> doubledNumbers <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>n <span class="token operator">=</span><span class="token operator">></span> n <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>doubledNumbers<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [0, 2, 4, 6, 8, 10, 12]</span>
+</code></pre>
+<p>numbers.map(doubleN) produces [doubleN(0), doubleN(1), doubleN(2), doubleN(3), doubleN(4), doubleN(5), doubleN(6)] which is equal to [0, 2, 4, 6, 8, 10, 12].</p>
+<pre><code>Note: If you do not need to return a new array and just want to do a loop that has side effects, you might just want to use a for / forEach loop instead of a map.
+</code></pre><pre class=" language-js"><code class="language-js">Array<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">const</span> evenNumbers <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> n <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// true if "n" is par, false if "n" isn't</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>evenNumbers<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [0, 2, 4, 6]</span>
+
+Note <span class="token punctuation">:</span> You will frequently encounter <span class="token keyword">this</span> method used <span class="token keyword">in</span> combination <span class="token keyword">with</span> arrow functions
+
+<span class="token keyword">const</span> evenNumbers <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span>n <span class="token operator">=</span><span class="token operator">></span> n <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>evenNumbers<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// [0, 2, 4, 6]</span>
+</code></pre>
+<p>We are using .filter on the numbers array, filter is iterating on each element of the array and passes it to our function. The goal of the function is to return a boolean that will determine whether the current value will be kept or not. Filter then returns the array with only the kept values.<br>Array.prototype.reduce()</p>
+<p>The reduce method goal is to reduce all elements of the array it iterates on into a single value. How it aggregates those elements is up to you.</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> sum <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span>
+  <span class="token keyword">function</span><span class="token punctuation">(</span>acc<span class="token punctuation">,</span> n<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> acc <span class="token operator">+</span> n<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token number">0</span> <span class="token comment" spellcheck="true">// accumulator variable value at first iteration step</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>sum<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 21</span>
+</code></pre>
+<p>Note : You will frequently encounter this method used in combination with arrow functions</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> sum <span class="token operator">=</span> numbers<span class="token punctuation">.</span><span class="token function">reduce</span><span class="token punctuation">(</span><span class="token punctuation">(</span>acc<span class="token punctuation">,</span> n<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> acc <span class="token operator">+</span> n<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>sum<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// 21</span>
+</code></pre>
+<p>Just like for .map and .filter methods, .reduce is applied on an array and takes a function as the first parameter.</p>
+<p>This time though, there are changes:</p>
+<pre><code>.reduce takes two parameters
+</code></pre><p>The first parameter is a function that will be called at each iteration step.</p>
+<p>The second parameter is the value of the accumulator variable (acc here) at the first iteration step (read next point to understand).</p>
+<pre><code>Function parameters
+</code></pre><p>The function you pass as the first parameter of .reduce takes two parameters. The first one (acc here) is the accumulator variable, whereas the second parameter (n) is the current element.</p>
+<p>The accumulator variable is equal to the return value of your function at the previous iteration step. At the first step of the iteration, acc is equal to the value you passed as .reduce second parameter.<br>At first iteration step</p>
+<p>acc = 0 because we passed in 0 as the second parameter for reduce</p>
+<p>n = 0 first element of the number array</p>
+<p>Function returns acc + n –&gt; 0 + 0 –&gt; 0<br>At second iteration step</p>
+<p>acc = 0 because it’s the value the function returned at the previous iteration step</p>
+<p>n = 1 second element of the number array</p>
+<p>Function returns acc + n –&gt; 0 + 1 –&gt; 1<br>At third iteration step</p>
+<p>acc = 1 because it’s the value the function returned at the previous iteration step</p>
+<p>n = 2 third element of the number array</p>
+<p>Function returns acc + n –&gt; 1 + 2 –&gt; 3<br>At fourth iteration step</p>
+<p>acc = 3 because it’s the value the function returned at the previous iteration step</p>
+<p>n = 3 fourth element of the number array</p>
+<p>Function returns acc + n –&gt; 3 + 3 –&gt; 6<br>[…] At last iteration step</p>
+<p>acc = 15 because it’s the value the function returned at the previous iteration step</p>
+<p>n = 6 last element of the number array</p>
+<p>Function returns acc + n –&gt; 15 + 6 –&gt; 21</p>
+<p>As it is the last iteration step, .reduce returns 21.</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/03/21/draft-code-js-4/">« Destructur...</a></span>
+  <span class="right"><a href="/2018/03/21/draft-code-js-6/">Spread ope... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年03月21日 17:03</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  draft-code-js-5
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+
