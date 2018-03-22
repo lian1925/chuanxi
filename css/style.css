@@ -1112,13 +1112,13 @@ body.pc .entry-card h3 {
 
 .button .submit-button {
   margin: 3rem 0.5rem;
-  width: 5rem;
+  width: 7rem;
   padding: 0.2rem 3rem;
   text-align: center;
   font-size: 1.6rem;
   line-height: 1.4;
   background: rgba(27, 31, 35, 0.1);
-  color: orange;
+  color: black;
   text-shadow: 1px 1px 0px #eeeeee;
   border-radius: 5px; }
 
