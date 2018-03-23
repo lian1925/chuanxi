@@ -396,7 +396,7 @@ body {
   font-size: 60%;
   color: #111111;
   /* // 宽高 */
-  background-color: #f5f5d5; }
+  background-color: #fafbfc; }
 
 body.pc {
   font-size: 62.5%; }
@@ -449,7 +449,7 @@ body.pc #header p {
   line-height: 3rem; }
 
 #header a {
-  color: orange; }
+  color: #0366d6; }
 
 p {
   font-size: 1.6rem; }
@@ -475,7 +475,7 @@ body .asset-nav {
   /* background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #aad2f0), color-stop(1, #8bc1ed) );
     background: -moz-linear-gradient( center top, #aad2f0 5%, #8bc1ed 100% );
     background-color: #aad2f0; */
-  background-color: #e0dfcc; }
+  background-color: #f6f8fa; }
 
 body .entry-categories {
   display: inline-block;
@@ -492,7 +492,7 @@ body .entry-categories {
   display: inline-block; }
 
 body div.asset-nav .entry-categories a {
-  color: orange; }
+  color: #0366d6; }
 
 body .entry-location-mobile {
   display: inline-block;
@@ -506,7 +506,7 @@ body .entry-location-mobile a {
   margin: 0.7em 0.8em;
   line-height: 180%;
   font-size: 1.8rem;
-  color: orange; }
+  color: #0366d6; }
 
 body .asset-nav:after {
   content: "\0020";
@@ -577,7 +577,6 @@ body h4 {
 .title-post .post-meta p {
   color: #556677;
   font-size: 1.6rem;
-  margin-top: 1rem;
   line-height: 180%;
   margin-left: 0.8rem; }
 
@@ -587,7 +586,7 @@ body h4 {
   display: inline-block;
   font-weight: 500;
   /* background-color: #f5f2f0; */
-  background-color: #f3f3e0;
+  background-color: #f6f8fa;
   border-radius: 0.5rem;
   margin: 1rem 0.3rem;
   width: 92%;
@@ -599,7 +598,7 @@ body h4 {
   color: #383838;
   border: 1px dashed #c1c1c1;
   border-radius: 0.5rem;
-  background: #e0dfcc;
+  background: #f6f8fa;
   display: block;
   word-wrap: break-word;
   word-break: break-all; }
@@ -613,7 +612,7 @@ body h4 {
 
 .page blockquote {
   margin-bottom: 1.5rem;
-  background: #e0dfcc;
+  background: #f6f8fa;
   padding-bottom: 1rem; }
 
 .page p {
@@ -651,7 +650,7 @@ body h4 {
   font-weight: 500;
   font-size: 1.6rem;
   line-height: 180%;
-  background-color: pink;
+  background-color: rgba(27, 31, 35, 0.1);
   border-radius: 0.5rem;
   padding: 0.1rem 0.5rem;
   /* text-shadow: 0 1px 1px snow; */ }
@@ -723,7 +722,7 @@ body.pc h4 {
   /* background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #aad2f0), color-stop(1, #8bc1ed) );
   background: -moz-linear-gradient( center top, #aad2f0 5%, #8bc1ed 100% );
   background-color: #AAD2F0; */
-  background-color: #e0dfcc; }
+  background-color: #f6f8fa; }
 
 .post-foot h3 {
   border-bottom: 1px solid gray;
@@ -744,7 +743,7 @@ body.pc h4 {
   line-height: 220%; }
 
 .post-foot ul li * {
-  color: orange; }
+  color: #0366d6; }
 
 .footer {
   clear: both;
@@ -757,7 +756,7 @@ body.pc h4 {
   /* width: 90%; */ }
 
 .footer a {
-  color: orange;
+  color: #0366d6;
   font-size: 1.6rem; }
 
 #index-bg .footer {
@@ -791,7 +790,7 @@ form textarea {
   margin-top: 0;
   line-height: 1.4;
   padding: 0.4rem 0.3rem;
-  background-color: #f5f4df;
+  background-color: #f6f8fa;
   font-size: 1.4rem;
   width: 17rem; }
 
@@ -862,7 +861,7 @@ form .hint {
   margin: 0.5rem 3rem 0.5rem 0.5rem; }
 
 .tip-post .post-cate a {
-  color: #159957; }
+  color: #0366d6; }
 
 .tip-post .content {
   margin: 1rem;
@@ -870,7 +869,7 @@ form .hint {
   clear: both; }
 
 .tip-post .read-more a {
-  color: #159957;
+  color: #0366d6;
   margin: 1.5rem;
   font-size: 1.6rem;
   line-height: 220%; }
@@ -889,7 +888,7 @@ form .hint {
   margin: 5rem 1rem 1rem 1rem; }
 
 .list-post a.read-more {
-  color: #159957;
+  color: #0366d6;
   margin: 1.5rem;
   font-size: 1.6rem;
   line-height: 220%; }
@@ -907,7 +906,7 @@ form .hint {
   background: -moz-linear-gradient( center top, #DEEBF7 5%, #DEEBF7 100% );
   background-color: #DEEBF7; */
   border: 1px solid #dcdcdc;
-  background-color: #e0dfcc; }
+  background-color: #f6f8fa; }
 
 .list-tag h2 {
   margin: 0rem;
@@ -941,7 +940,7 @@ form .hint {
   /* // 背景 */
   /* background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e9edf0), color-stop(1, #bdcbd6) );
   background: -moz-linear-gradient( center top, #d2d5d8 5%, #cbd9e5 100% ); */
-  background-color: #e0dfcc; }
+  background-color: #f6f8fa; }
 
 .tip-truth h3 {
   border-bottom: 1px solid gray;
@@ -975,7 +974,7 @@ form .hint {
   /* // 背景 */
   /* background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e9edf0), color-stop(1, #bdcbd6) );
   background: -moz-linear-gradient( center top, #d2d5d8 5%, #cbd9e5 100% ); */
-  background-color: #e0dfcc; }
+  background-color: #f6f8fa; }
 
 .list-cate h3 {
   border-bottom: 1px solid gray;
@@ -1117,9 +1116,8 @@ body.pc .entry-card h3 {
   text-align: center;
   font-size: 1.6rem;
   line-height: 1.4;
-  background: rgba(27, 31, 35, 0.1);
-  color: black;
-  text-shadow: 1px 1px 0px #eeeeee;
+  background: orangered;
+  color: white;
   border-radius: 5px; }
 
 .nav-foot {
@@ -1138,7 +1136,7 @@ body.pc .entry-card h3 {
   padding: 0.5rem; }
 
 .nav-foot a {
-  color: orange;
+  color: #0366d6;
   line-height: 150%;
   font-size: 1.6rem; }
 
