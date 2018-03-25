@@ -146,10 +146,9 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <p>This portion of code:</p>
 <pre class=" language-js"><code class="language-js">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>myVar<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// undefined -- no error raised</span>
 <span class="token keyword">var</span> myVar <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
-
-is understood at execution like<span class="token punctuation">:</span>
-
-<span class="token keyword">var</span> myVar<span class="token punctuation">;</span>
+</code></pre>
+<p>is understood at execution like:</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> myVar<span class="token punctuation">;</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>myVar<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// undefined -- no error raised</span>
 myVar <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
 </code></pre>
