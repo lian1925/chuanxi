@@ -1,0 +1,428 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3">
+  <title>
+    小沙丘的网络漫游记
+  </title>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/js/">
+            js
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/js/">
+              js
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/03/26/poetry-lunyu-20/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/03/26/draft-code-not-know-js-3/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/03/26/poetry-lunyu-20/">
+                    尧曰篇 20 | 论语
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/03/26/draft-code-not-know-js-3/">
+                    Function vs. Block Scope 3
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>Lexical Scope 2 | You-Dont-Know-JS</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年03月26日 16:03
+  </p>
+</div>
+</div>
+
+
+
+  <div class="page">
+      <h2 id="Lexical-Scope"><a href="#Lexical-Scope" class="headerlink" title="Lexical Scope"></a>Lexical Scope</h2><p>In Chapter 1, we defined “scope” as the set of rules that govern how the Engine can look up a variable by its identifier name and find it, either in the current Scope, or in any of the Nested Scopes it’s contained within.</p>
+<p>There are two predominant models for how scope works. The first of these is by far the most common, used by the vast majority of programming languages. It’s called Lexical Scope, and we will examine it in-depth. The other model, which is still used by some languages (such as Bash scripting, some modes in Perl, etc.) is called Dynamic Scope.</p>
+<p>Dynamic Scope is covered in Appendix A. I mention it here only to provide a contrast with Lexical Scope, which is the scope model that JavaScript employs.</p>
+<h2 id="Lex-time"><a href="#Lex-time" class="headerlink" title="Lex-time"></a>Lex-time</h2><p>As we discussed in Chapter 1, the first traditional phase of a standard language compiler is called lexing (aka, tokenizing). If you recall, the lexing process examines a string of source code characters and assigns semantic meaning to the tokens as a result of some stateful parsing.</p>
+<p>It is this concept which provides the foundation to understand what lexical scope is and where the name comes from.</p>
+<p>To define it somewhat circularly, lexical scope is scope that is defined at lexing time. In other words, lexical scope is based on where variables and blocks of scope are authored, by you, at write time, and thus is (mostly) set in stone by the time the lexer processes your code.</p>
+<blockquote>
+<p>Note: We will see in a little bit there are some ways to cheat lexical scope, thereby modifying it after the lexer has passed by, but these are frowned upon. It is considered best practice to treat lexical scope as, in fact, lexical-only, and thus entirely author-time in nature.</p>
+</blockquote>
+<p>Let’s consider this block of code:</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">var</span> b <span class="token operator">=</span> a <span class="token operator">*</span> <span class="token number">2</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">function</span> <span class="token function">bar</span><span class="token punctuation">(</span>c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">bar</span><span class="token punctuation">(</span>b <span class="token operator">*</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">foo</span><span class="token punctuation">(</span> <span class="token number">2</span> <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 2 4 12</span>
+</code></pre>
+<p>There are three nested scopes inherent in this code example. It may be helpful to think about these scopes as bubbles inside of each other.<br><img src="https://github.com/getify/You-Dont-Know-JS/blob/master/scope%20%26%20closures/fig2.png" alt=""></p>
+<p>Bubble 1 encompasses the global scope, and has just one identifier in it: foo.</p>
+<p>Bubble 2 encompasses the scope of foo, which includes the three identifiers: a, bar and b.</p>
+<p>Bubble 3 encompasses the scope of bar, and it includes just one identifier: c.</p>
+<p>Scope bubbles are defined by where the blocks of scope are written, which one is nested inside the other, etc. In the next chapter, we’ll discuss different units of scope, but for now, let’s just assume that each function creates a new bubble of scope.</p>
+<p>The bubble for bar is entirely contained within the bubble for foo, because (and only because) that’s where we chose to define the function bar.</p>
+<p>Notice that these nested bubbles are strictly nested. We’re not talking about Venn diagrams where the bubbles can cross boundaries. In other words, no bubble for some function can simultaneously exist (partially) inside two other outer scope bubbles, just as no function can partially be inside each of two parent functions.</p>
+<h2 id="Look-ups"><a href="#Look-ups" class="headerlink" title="Look-ups"></a>Look-ups</h2><p>The structure and relative placement of these scope bubbles fully explains to the Engine all the places it needs to look to find an identifier.</p>
+<p>In the above code snippet, the Engine executes the console.log(..) statement and goes looking for the three referenced variables a, b, and c. It first starts with the innermost scope bubble, the scope of the bar(..) function. It won’t find a there, so it goes up one level, out to the next nearest scope bubble, the scope of foo(..). It finds a there, and so it uses that a. Same thing for b. But c, it does find inside of bar(..).</p>
+<p>Had there been a c both inside of bar(..) and inside of foo(..), the console.log(..) statement would have found and used the one in bar(..), never getting to the one in foo(..).</p>
+<p>Scope look-up stops once it finds the first match. The same identifier name can be specified at multiple layers of nested scope, which is called “shadowing” (the inner identifier “shadows” the outer identifier). Regardless of shadowing, scope look-up always starts at the innermost scope being executed at the time, and works its way outward/upward until the first match, and stops.</p>
+<p>Note: Global variables are also automatically properties of the global object (window in browsers, etc.), so it is possible to reference a global variable not directly by its lexical name, but instead indirectly as a property reference of the global object.</p>
+<pre class=" language-js"><code class="language-js">window<span class="token punctuation">.</span>a
+</code></pre>
+<p>This technique gives access to a global variable which would otherwise be inaccessible due to it being shadowed. However, non-global shadowed variables cannot be accessed.</p>
+<p>No matter where a function is invoked from, or even how it is invoked, its lexical scope is only defined by where the function was declared.</p>
+<p>The lexical scope look-up process only applies to first-class identifiers, such as the a, b, and c. If you had a reference to foo.bar.baz in a piece of code, the lexical scope look-up would apply to finding the foo identifier, but once it locates that variable, object property-access rules take over to resolve the bar and baz properties, respectively.</p>
+<h2 id="Cheating-Lexical"><a href="#Cheating-Lexical" class="headerlink" title="Cheating Lexical"></a>Cheating Lexical</h2><p>If lexical scope is defined only by where a function is declared, which is entirely an author-time decision, how could there possibly be a way to “modify” (aka, cheat) lexical scope at run-time?</p>
+<p>JavaScript has two such mechanisms. Both of them are equally frowned-upon in the wider community as bad practices to use in your code. But the typical arguments against them are often missing the most important point: cheating lexical scope leads to poorer performance.</p>
+<p>Before I explain the performance issue, though, let’s look at how these two mechanisms work.</p>
+<p>eval<br>The eval(..) function in JavaScript takes a string as an argument, and treats the contents of the string as if it had actually been authored code at that point in the program. In other words, you can programmatically generate code inside of your authored code, and run the generated code as if it had been there at author time.</p>
+<p>Evaluating eval(..) (pun intended) in that light, it should be clear how eval(..) allows you to modify the lexical scope environment by cheating and pretending that author-time (aka, lexical) code was there all along.</p>
+<p>On subsequent lines of code after an eval(..) has executed, the Engine will not “know” or “care” that the previous code in question was dynamically interpreted and thus modified the lexical scope environment. The Engine will simply perform its lexical scope look-ups as it always does.</p>
+<p>Consider the following code:</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span>str<span class="token punctuation">,</span> a<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">eval</span><span class="token punctuation">(</span> str <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// cheating!</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> a<span class="token punctuation">,</span> b <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> b <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+
+<span class="token function">foo</span><span class="token punctuation">(</span> <span class="token string">"var b = 3;"</span><span class="token punctuation">,</span> <span class="token number">1</span> <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 1 3</span>
+</code></pre>
+<p>The string “var b = 3;” is treated, at the point of the eval(..) call, as code that was there all along. Because that code happens to declare a new variable b, it modifies the existing lexical scope of foo(..). In fact, as mentioned above, this code actually creates variable b inside of foo(..) that shadows the b that was declared in the outer (global) scope.</p>
+<p>When the console.log(..) call occurs, it finds both a and b in the scope of foo(..), and never finds the outer b. Thus, we print out “1 3” instead of “1 2” as would have normally been the case.</p>
+<p>Note: In this example, for simplicity’s sake, the string of “code” we pass in was a fixed literal. But it could easily have been programmatically created by adding characters together based on your program’s logic. eval(..) is usually used to execute dynamically created code, as dynamically evaluating essentially static code from a string literal would provide no real benefit to just authoring the code directly.</p>
+<p>By default, if a string of code that eval(..) executes contains one or more declarations (either variables or functions), this action modifies the existing lexical scope in which the eval(..) resides. Technically, eval(..) can be invoked “indirectly”, through various tricks (beyond our discussion here), which causes it to instead execute in the context of the global scope, thus modifying it. But in either case, eval(..) can at runtime modify an author-time lexical scope.</p>
+<p>Note: eval(..) when used in a strict-mode program operates in its own lexical scope, which means declarations made inside of the eval() do not actually modify the enclosing scope.</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span>str<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token string">"use strict"</span><span class="token punctuation">;</span>
+   <span class="token function">eval</span><span class="token punctuation">(</span> str <span class="token punctuation">)</span><span class="token punctuation">;</span>
+   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> a <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ReferenceError: a is not defined</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">foo</span><span class="token punctuation">(</span> <span class="token string">"var a = 2"</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>There are other facilities in JavaScript which amount to a very similar effect to eval(..). setTimeout(..) and setInterval(..) can take a string for their respective first argument, the contents of which are evaluated as the code of a dynamically-generated function. This is old, legacy behavior and long-since deprecated. Don’t do it!</p>
+<p>The new Function(..) function constructor similarly takes a string of code in its last argument to turn into a dynamically-generated function (the first argument(s), if any, are the named parameters for the new function). This function-constructor syntax is slightly safer than eval(..), but it should still be avoided in your code.</p>
+<p>The use-cases for dynamically generating code inside your program are incredibly rare, as the performance degradations are almost never worth the capability.</p>
+<p>with<br>The other frowned-upon (and now deprecated!) feature in JavaScript which cheats lexical scope is the with keyword. There are multiple valid ways that with can be explained, but I will choose here to explain it from the perspective of how it interacts with and affects lexical scope.</p>
+<p>with is typically explained as a short-hand for making multiple property references against an object without repeating the object reference itself each time.</p>
+<p>For example:</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span>
+    a<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    b<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    c<span class="token punctuation">:</span> <span class="token number">3</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// more "tedious" to repeat "obj"</span>
+obj<span class="token punctuation">.</span>a <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+obj<span class="token punctuation">.</span>b <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+obj<span class="token punctuation">.</span>c <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// "easier" short-hand</span>
+<span class="token keyword">with</span> <span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    a <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+    b <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
+    c <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>However, there’s much more going on here than just a convenient short-hand for object property access. Consider:</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">with</span> <span class="token punctuation">(</span>obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        a <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> o1 <span class="token operator">=</span> <span class="token punctuation">{</span>
+    a<span class="token punctuation">:</span> <span class="token number">3</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">var</span> o2 <span class="token operator">=</span> <span class="token punctuation">{</span>
+    b<span class="token punctuation">:</span> <span class="token number">3</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token function">foo</span><span class="token punctuation">(</span> o1 <span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> o1<span class="token punctuation">.</span>a <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 2</span>
+
+<span class="token function">foo</span><span class="token punctuation">(</span> o2 <span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> o2<span class="token punctuation">.</span>a <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// undefined</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span> a <span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 2 -- Oops, leaked global!</span>
+</code></pre>
+<p>In this code example, two objects o1 and o2 are created. One has an a property, and the other does not. The foo(..) function takes an object reference obj as an argument, and calls with (obj) { .. } on the reference. Inside the with block, we make what appears to be a normal lexical reference to a variable a, an LHS reference in fact (see Chapter 1), to assign to it the value of 2.</p>
+<p>When we pass in o1, the a = 2 assignment finds the property o1.a and assigns it the value 2, as reflected in the subsequent console.log(o1.a) statement. However, when we pass in o2, since it does not have an a property, no such property is created, and o2.a remains undefined.</p>
+<p>But then we note a peculiar side-effect, the fact that a global variable a was created by the a = 2 assignment. How can this be?</p>
+<p>The with statement takes an object, one which has zero or more properties, and treats that object as if it is a wholly separate lexical scope, and thus the object’s properties are treated as lexically defined identifiers in that “scope”.</p>
+<p>Note: Even though a with block treats an object like a lexical scope, a normal var declaration inside that with block will not be scoped to that with block, but instead the containing function scope.</p>
+<p>While the eval(..) function can modify existing lexical scope if it takes a string of code with one or more declarations in it, the with statement actually creates a whole new lexical scope out of thin air, from the object you pass to it.</p>
+<p>Understood in this way, the “scope” declared by the with statement when we passed in o1 was o1, and that “scope” had an “identifier” in it which corresponds to the o1.a property. But when we used o2 as the “scope”, it had no such a “identifier” in it, and so the normal rules of LHS identifier look-up (see Chapter 1) occurred.</p>
+<p>Neither the “scope” of o2, nor the scope of foo(..), nor the global scope even, has an a identifier to be found, so when a = 2 is executed, it results in the automatic-global being created (since we’re in non-strict mode).</p>
+<p>It is a strange sort of mind-bending thought to see with turning, at runtime, an object and its properties into a “scope” with “identifiers”. But that is the clearest explanation I can give for the results we see.</p>
+<p>Note: In addition to being a bad idea to use, both eval(..) and with are affected (restricted) by Strict Mode. with is outright disallowed, whereas various forms of indirect or unsafe eval(..) are disallowed while retaining the core functionality.</p>
+<h2 id="Performance"><a href="#Performance" class="headerlink" title="Performance"></a>Performance</h2><p>Both eval(..) and with cheat the otherwise author-time defined lexical scope by modifying or creating new lexical scope at runtime.</p>
+<p>So, what’s the big deal, you ask? If they offer more sophisticated functionality and coding flexibility, aren’t these good features? No.</p>
+<p>The JavaScript Engine has a number of performance optimizations that it performs during the compilation phase. Some of these boil down to being able to essentially statically analyze the code as it lexes, and pre-determine where all the variable and function declarations are, so that it takes less effort to resolve identifiers during execution.</p>
+<p>But if the Engine finds an eval(..) or with in the code, it essentially has to assume that all its awareness of identifier location may be invalid, because it cannot know at lexing time exactly what code you may pass to eval(..) to modify the lexical scope, or the contents of the object you may pass to with to create a new lexical scope to be consulted.</p>
+<p>In other words, in the pessimistic sense, most of those optimizations it would make are pointless if eval(..) or with are present, so it simply doesn’t perform the optimizations at all.</p>
+<p>Your code will almost certainly tend to run slower simply by the fact that you include an eval(..) or with anywhere in the code. No matter how smart the Engine may be about trying to limit the side-effects of these pessimistic assumptions, there’s no getting around the fact that without the optimizations, code runs slower.</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="#">« 无</a></span>
+  <span class="right"><a href="#">无 »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年03月26日 16:03</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  draft-code-not-know-js-2
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+
