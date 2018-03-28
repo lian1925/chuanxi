@@ -640,8 +640,7 @@ body h4 {
   color: blue; }
 
 .page p > a > img {
-  border-radius: 2rem;
-  border: 2px solid rgba(0, 0, 0, 0.25);
+  border-radius: 0.5rem;
   max-width: 90%; }
 
 .page p code,
@@ -704,6 +703,18 @@ body.pc h4 {
   font-weight: 500;
   padding-left: 0.3rem;
   margin-top: 1.5rem; }
+
+table tr {
+  background-color: #fff;
+  border-top: 1px solid #c6cbd1; }
+
+table td {
+  padding: 6px 13px;
+  border: 1px solid #dfe2e5; }
+
+.page pre {
+  width: 95%;
+  overflow: auto; }
 
 .post-foot {
   /* // 文字 */
