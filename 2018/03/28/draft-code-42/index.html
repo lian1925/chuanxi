@@ -112,14 +112,12 @@ if(isiOS){
 
 
   <div class="page">
-      <p><br></p>
-<p align="center"><br><img src="https://i.imgur.com/bYwl7Vf.png" alt="Learn Regex"><br></p><br><br><br>## 翻译:<br><br><em> <a href="README.md">English</a>
-</em> <a href="README-es.md">Español</a><br><em> <a href="README-fr.md">Français</a>
-</em> <a href="README-cn.md">中文版</a><br><em> <a href="README-ja.md">日本語</a>
-</em> <a href="README-ko.md">한국어</a><br><em> <a href="README-tr.md">Turkish</a>
-</em> <a href="README-gr.md">Greek</a><br><em> <a href="README-hu.md">Magyar</a>
-</em> <a href="README-pl.md">Polish</a><br><br>## 什么是正则表达式?<br><br>&gt; 正则表达式是一组由字母和符号组成的特殊文本, 它可以用来从文本中找出满足你想要的格式的句子.<br><br><br>一个正则表达式是在一个主体字符串中从左到右匹配字符串时的一种样式.<br>“Regular expression”这个词比较拗口, 我们常使用缩写的术语”regex”或”regexp”.<br>正则表达式可以从一个基础字符串中根据一定的匹配模式替换文本中的字符串、验证表单、提取字符串等等.<br><br>想象你正在写一个应用, 然后你想设定一个用户命名的规则, 让用户名包含字符,数字,下划线和连字符,以及限制字符的个数,好让名字看起来没那么丑.<br>我们使用以下正则表达式来验证一个用户名:<br><br><br><br><br><p align="center"><br>  <img src="./img/regexp-en.png" alt="Regular expression"><br></p>
-
+      <h2 id="什么是正则表达式"><a href="#什么是正则表达式" class="headerlink" title="什么是正则表达式?"></a>什么是正则表达式?</h2><blockquote>
+<p>正则表达式是一组由字母和符号组成的特殊文本, 它可以用来从文本中找出满足你想要的格式的句子.</p>
+</blockquote>
+<p>一个正则表达式是在一个主体字符串中从左到右匹配字符串时的一种样式.<br>“Regular expression”这个词比较拗口, 我们常使用缩写的术语”regex”或”regexp”.<br>正则表达式可以从一个基础字符串中根据一定的匹配模式替换文本中的字符串、验证表单、提取字符串等等.</p>
+<p>想象你正在写一个应用, 然后你想设定一个用户命名的规则, 让用户名包含字符,数字,下划线和连字符,以及限制字符的个数,好让名字看起来没那么丑.<br>我们使用以下正则表达式来验证一个用户名:</p>
+<p><img src="https://github.com/zeeshanu/learn-regex/raw/master/img/regexp-en.png" alt=""></p>
 <p>以上的正则表达式可以接受 <code>john_doe</code>, <code>jo-hn_doe</code>, <code>john12_as</code>.<br>但不匹配<code>Jo</code>, 因为它包含了大写的字母而且太短了.</p>
 <h1 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h1><ul>
 <li><a href="#1-基本匹配">1. 基本匹配</a></li>
