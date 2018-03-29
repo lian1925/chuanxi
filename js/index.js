@@ -25,3 +25,20 @@ var index_bg = document.getElementById('index-bg');
 if (index_bg != null) {
   backgroundImage();
 }
+try{
+
+  　　top.location.hostname;
+  
+  　　if (top.location.hostname != window.location.hostname) {
+  
+  　　　　top.location.href =window.location.href;
+  
+  　　}
+  
+  }
+  
+  catch(e){
+  
+  　　top.location.href = window.location.href;
+  
+  }
