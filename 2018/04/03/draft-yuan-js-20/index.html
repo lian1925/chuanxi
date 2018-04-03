@@ -46,8 +46,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/读书/">
-            读书
+          <a href="/tags/前端/">
+            前端
           </a>
       </span>
       
@@ -63,8 +63,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/读书/">
-              读书
+            <a href="/tags/前端/">
+              前端
             </a>
         </span>
       </p>
@@ -72,27 +72,27 @@ if(isiOS){
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2018/03/04/poetry-zhugeliang2/">
+            <a href="/2018/04/03/draft-yuan-js-19/">
             &#8676;
             </a>
         </span>
         <span>
             
-            <a href="/2018/03/04/poetry-sushi1/">
+            <a href="#">
               &#8677;
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2018/03/04/poetry-zhugeliang2/">
-                    出师表 | 三国.诸葛亮
+                <a href="/2018/04/03/draft-yuan-js-19/">
+                    严格模式
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2018/03/04/poetry-sushi1/">
-                    前赤壁赋 | 宋.苏轼
+                <a href="#">
+                    无
                 </a>
         </P>
     </div>
@@ -100,11 +100,11 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>诫子书 | 三国.诸葛亮</h1>
+<h1>Source Map</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
-    2018年03月04日 11:03
+    2018年04月03日 10:04
   </p>
 </div>
 </div>
@@ -112,21 +112,41 @@ if(isiOS){
 
 
   <div class="page">
-      <h2 id="三国-诸葛亮-著"><a href="#三国-诸葛亮-著" class="headerlink" title="三国 诸葛亮 著"></a>三国 诸葛亮 著</h2><p>夫君子之行，静以修身，俭以养德。</p>
-<p>非<code>淡泊</code>无以<code>明志</code>，非<code>宁静</code>无以<code>致远</code>。</p>
-<p>夫学须静也，才须学也。</p>
-<p>非<code>学</code>无以广才，非<code>志</code>无以成学。</p>
-<p>淫慢则不能励精，险躁则不能冶性。</p>
-<p>年与时驰，意与日去，遂成枯落，多不接世，悲守穷庐，将复何及！ </p>
-<p>(完)</p>
+      <p>这是2.0版之前的最后一个新版本，有很多新功能，其中一个就是支持Source Map。</p>
+<p>访问 <a href="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js，打开压缩后的版本，滚动到底部，你可以看到最后一行是这样的：" target="_blank" rel="external">http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js，打开压缩后的版本，滚动到底部，你可以看到最后一行是这样的：</a></p>
+<pre class=" language-js"><code class="language-js">　　<span class="token comment" spellcheck="true">//@ sourceMappingURL=jquery.min.map</span>
+</code></pre>
+<p>这就是Source Map。它是一个独立的map文件，与源码在同一个目录下，你可以点击进去，看看它的样子。</p>
+<p>这是一个很有用的功能，本文将详细讲解这个功能。</p>
+<h2 id="一、从源码转换讲起"><a href="#一、从源码转换讲起" class="headerlink" title="一、从源码转换讲起"></a>一、从源码转换讲起</h2><p>JavaScript脚本正变得越来越复杂。大部分源码（尤其是各种函数库和框架）都要经过转换，才能投入生产环境。</p>
+<p>常见的源码转换，主要是以下三种情况：</p>
+<p>　　（1）压缩，减小体积。比如jQuery 1.9的源码，压缩前是252KB，压缩后是32KB。</p>
+<p>　　（2）多个文件合并，减少HTTP请求数。</p>
+<p>　　（3）其他语言编译成JavaScript。最常见的例子就是CoffeeScript。</p>
+<p>这三种情况，都使得实际运行的代码不同于开发代码，除错（debug）变得困难重重。</p>
+<p>通常，JavaScript的解释器会告诉你，第几行第几列代码出错。但是，这对于转换后的代码毫无用处。举例来说，jQuery 1.9压缩后只有3行，每行3万个字符，所有内部变量都改了名字。你看着报错信息，感到毫无头绪，根本不知道它所对应的原始位置。</p>
+<p>这就是Source map想要解决的问题。</p>
+<h2 id="二、什么是Source-map"><a href="#二、什么是Source-map" class="headerlink" title="二、什么是Source map"></a>二、什么是Source map</h2><p>简单说，Source map就是一个信息文件，里面储存着位置信息。也就是说，转换后的代码的每一个位置，所对应的转换前的位置。</p>
+<p>有了它，出错的时候，除错工具将直接显示原始代码，而不是转换后的代码。这无疑给开发者带来了很大方便。</p>
+<h2 id="三、如何启用Source-map"><a href="#三、如何启用Source-map" class="headerlink" title="三、如何启用Source map"></a>三、如何启用Source map</h2><p>正如前文所提到的，只要在转换后的代码尾部，加上一行就可以了。</p>
+<pre class=" language-js"><code class="language-js">　　<span class="token comment" spellcheck="true">//@ sourceMappingURL=/path/to/file.js.map</span>
+</code></pre>
+<p>map文件可以放在网络上，也可以放在本地文件系统。</p>
+<p>四、如何生成Source map</p>
+<p>最常用的方法是使用Google的Closure编译器。</p>
+<p>生成命令的格式如下：</p>
+<p>　　java -jar compiler.jar \<br>　　　　–js script.js \<br>　　　　–create_source_map ./script-min.js.map \<br>　　　　–source_map_format=V3 \<br>　　　　–js_output_file script-min.js</p>
+<p>各个参数的意义如下：</p>
+<p>　　- js： 转换前的代码文件<br>　　- create_source_map： 生成的source map文件<br>　　- source_map_format：source map的版本，目前一律采用V3。<br>　　- js_output_file： 转换后的代码文件。</p>
+<p>其他的生成方法可以参考这篇文章。</p>
 
   </div>
 </div>
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/04/poetry-zhugeliang1/">« 隆中对 | 三国.诸...</a></span>
-  <span class="right"><a href="/2018/03/04/poetry-sushi7/">江城子·乙卯正月二十... »</a></span>
+  <span class="left"><a href="/2018/04/03/draft-yuan-js-19/">« 严格模式</a></span>
+  <span class="right"><a href="#">无 »</a></span>
 </p>
 
 <!-- 文档信息 -->
@@ -137,7 +157,7 @@ if(isiOS){
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
     <li>作者：<a href="/">Lian</a></li>
-    <li>日期：2018年03月04日 11:03</li>
+    <li>日期：2018年04月03日 10:04</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
 </div>
@@ -280,7 +300,7 @@ if(isiOS){
 
 
 <p id="info-meta" style="display:none;">
-  poetry-zhugeliang3
+  draft-yuan-js-20
 </p>
 
 
