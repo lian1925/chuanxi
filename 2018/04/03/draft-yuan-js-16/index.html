@@ -1,0 +1,330 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3">
+  <title>
+    小沙丘的网络漫游记
+  </title>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/前端/">
+            前端
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/前端/">
+              前端
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/04/03/draft-yuan-js-15/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/04/03/draft-yuan-js-17/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/04/03/draft-yuan-js-15/">
+                    模块的写法
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/04/03/draft-yuan-js-17/">
+                    require.js的用法
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>AMD规范</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年04月03日 00:04
+  </p>
+</div>
+</div>
+
+
+
+  <div class="page">
+      <h2 id="八、CommonJS"><a href="#八、CommonJS" class="headerlink" title="八、CommonJS"></a>八、CommonJS</h2><p>2009年，美国程序员Ryan Dahl创造了node.js项目，将javascript语言用于服务器端编程。</p>
+<p>这标志”Javascript模块化编程”正式诞生。因为老实说，在浏览器环境下，没有模块也不是特别大的问题，毕竟网页程序的复杂性有限；但是在服务器端，一定要有模块，与操作系统和其他应用程序互动，否则根本没法编程。</p>
+<p>node.js的模块系统，就是参照CommonJS规范实现的。在CommonJS中，有一个全局性方法require()，用于加载模块。假定有一个数学模块math.js，就可以像下面这样加载。</p>
+<pre class=" language-js"><code class="language-js">　　<span class="token keyword">var</span> math <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'math'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>然后，就可以调用模块提供的方法：</p>
+<pre class=" language-js"><code class="language-js">　　<span class="token keyword">var</span> math <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'math'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　math<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 5</span>
+</code></pre>
+<p>因为这个系列主要针对浏览器编程，不涉及node.js，所以对CommonJS就不多做介绍了。我们在这里只要知道，require()用于加载模块就行了。</p>
+<h2 id="九、浏览器环境"><a href="#九、浏览器环境" class="headerlink" title="九、浏览器环境"></a>九、浏览器环境</h2><p>有了服务器端模块以后，很自然地，大家就想要客户端模块。而且最好两者能够兼容，一个模块不用修改，在服务器和浏览器都可以运行。</p>
+<p>但是，由于一个重大的局限，使得CommonJS规范不适用于浏览器环境。还是上一节的代码，如果在浏览器中运行，会有一个很大的问题，你能看出来吗？</p>
+<pre class=" language-js"><code class="language-js">　　<span class="token keyword">var</span> math <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'math'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　math<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>第二行math.add(2, 3)，在第一行require(‘math’)之后运行，因此必须等math.js加载完成。也就是说，如果加载时间很长，整个应用就会停在那里等。</p>
+<p>这对服务器端不是一个问题，因为所有的模块都存放在本地硬盘，可以同步加载完成，等待时间就是硬盘的读取时间。但是，对于浏览器，这却是一个大问题，因为模块都放在服务器端，等待时间取决于网速的快慢，可能要等很长时间，浏览器处于”假死”状态。</p>
+<p>因此，浏览器端的模块，不能采用”同步加载”（synchronous），只能采用”异步加载”（asynchronous）。这就是AMD规范诞生的背景。</p>
+<h2 id="十、AMD"><a href="#十、AMD" class="headerlink" title="十、AMD"></a>十、AMD</h2><p>AMD是”Asynchronous Module Definition”的缩写，意思就是”异步模块定义”。它采用异步方式加载模块，模块的加载不影响它后面语句的运行。所有依赖这个模块的语句，都定义在一个回调函数中，等到加载完成之后，这个回调函数才会运行。</p>
+<p>AMD也采用require()语句加载模块，但是不同于CommonJS，它要求两个参数：</p>
+<pre class=" language-js"><code class="language-js"><span class="token function">　　require</span><span class="token punctuation">(</span><span class="token punctuation">[</span>module<span class="token punctuation">]</span><span class="token punctuation">,</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>第一个参数[module]，是一个数组，里面的成员就是要加载的模块；第二个参数callback，则是加载成功之后的回调函数。如果将前面的代码改写成AMD形式，就是下面这样：</p>
+<pre class=" language-js"><code class="language-js"><span class="token function">　　require</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'math'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>math<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+　　　　math<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>math.add()与math模块加载不是同步的，浏览器不会发生假死。所以很显然，AMD比较适合浏览器环境。</p>
+<p>目前，主要有两个Javascript库实现了AMD规范：require.js和curl.js。本系列的第三部分，将通过介绍require.js，进一步讲解AMD的用法，以及如何将模块化编程投入实战。</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/04/03/draft-yuan-js-15/">« 模块的写法</a></span>
+  <span class="right"><a href="/2018/04/03/draft-yuan-js-17/">require.js »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年04月03日 00:04</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  draft-yuan-js-16
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

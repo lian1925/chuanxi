@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3">
+  <title>
+    小沙丘的网络漫游记
+  </title>
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/前端/">
+            前端
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/前端/">
+              前端
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/04/02/draft-yuan-js-12/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/04/03/draft-yuan-js-14/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/04/02/draft-yuan-js-12/">
+                    Javascript文件加载
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/04/03/draft-yuan-js-14/">
+                    XMLHttpRequest
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>文件上传</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年04月03日 00:04
+  </p>
+</div>
+</div>
+
+
+
+  <div class="page">
+      <p>HTML5提供了一系列新的浏览器API，使得文件上传有可能出现革命性变化。英国程序员Remy Sharp总结了这些新的接口，本文在他的文章基础上，讨论如何采用HTML5的API，对文件上传进行渐进式增强，实现以下功能：</p>
+<p>　　* iframe上传</p>
+<p>　　* ajax上传</p>
+<p>　　* 进度条</p>
+<p>　　* 文件预览</p>
+<p>　　* 拖放上传</p>
+<h2 id="一、传统形式"><a href="#一、传统形式" class="headerlink" title="一、传统形式"></a>一、传统形式</h2><p>让我们从最基本的开始。</p>
+<p>文件上传的传统形式，是使用表单元素file：</p>
+<pre class=" language-js"><code class="language-js">　　<span class="token operator">&lt;</span>form id<span class="token operator">=</span><span class="token string">"upload-form"</span> action<span class="token operator">=</span><span class="token string">"upload.php"</span> method<span class="token operator">=</span><span class="token string">"post"</span> enctype<span class="token operator">=</span><span class="token string">"multipart/form-data"</span> <span class="token operator">></span>
+
+　　　　<span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">"file"</span> id<span class="token operator">=</span><span class="token string">"upload"</span> name<span class="token operator">=</span><span class="token string">"upload"</span> <span class="token operator">/</span><span class="token operator">></span> <span class="token operator">&lt;</span>br <span class="token operator">/</span><span class="token operator">></span>
+
+　　　　<span class="token operator">&lt;</span>input type<span class="token operator">=</span><span class="token string">"submit"</span> value<span class="token operator">=</span><span class="token string">"Upload"</span> <span class="token operator">/</span><span class="token operator">></span>
+
+　　<span class="token operator">&lt;</span><span class="token operator">/</span>form<span class="token operator">></span>
+</code></pre>
+<h2 id="二、iframe上传"><a href="#二、iframe上传" class="headerlink" title="二、iframe上传"></a>二、iframe上传</h2><p>传统的表单上传，属于”同步上传”。也就是说，点击上传按钮后，网页”锁死”，用户只能等待上传结束，然后浏览器刷新，跳到表单的action属性指定的网址。</p>
+<p>有没有办法”异步上传”，在网页不重载的情况下，完成整个上传过程呢？</p>
+<p>在HTML5没有出现之前，只能使用iframe做到这一点。用户点击submit时，动态插入一个iframe元素（以下代码使用了jQuery函数库）。</p>
+<pre class=" language-js"><code class="language-js">　　<span class="token keyword">var</span> form <span class="token operator">=</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">"#upload-form"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　form<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'submit'</span><span class="token punctuation">,</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+　　　　<span class="token comment" spellcheck="true">// 此处动态插入iframe元素</span>
+
+　　<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>插入iframe的代码如下：</p>
+<pre class=" language-js"><code class="language-js">　　<span class="token keyword">var</span> seed <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">floor</span><span class="token punctuation">(</span>Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">*</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　<span class="token keyword">var</span> id <span class="token operator">=</span> <span class="token string">"uploader-frame-"</span> <span class="token operator">+</span> seed<span class="token punctuation">;</span>
+
+　　<span class="token keyword">var</span> callback <span class="token operator">=</span> <span class="token string">"uploader-cb-"</span> <span class="token operator">+</span> seed<span class="token punctuation">;</span>
+
+　　<span class="token keyword">var</span> iframe <span class="token operator">=</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token string">'&lt;iframe id="'</span><span class="token operator">+</span>id<span class="token operator">+</span><span class="token string">'" name="'</span><span class="token operator">+</span>id<span class="token operator">+</span><span class="token string">'" style="display:none;">'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　<span class="token keyword">var</span> url <span class="token operator">=</span> form<span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">'action'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　form<span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">'target'</span><span class="token punctuation">,</span> id<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span>iframe<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">'action'</span><span class="token punctuation">,</span> url <span class="token operator">+</span> <span class="token string">'?iframe='</span> <span class="token operator">+</span> callback<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>最后一行，有两个地方值得注意。首先，它为表单添加target属性，指向动态插入的iframe窗口，这使得上传结束后，服务器将结果返回iframe窗口，所以当前页面就不会跳转了。其次，它在action属性指定的上传网址的后面，添加了一个参数，使得服务器知道回调函数的名称。这样就能将服务器返回的信息，从iframe窗口传到上层页面。</p>
+<p>服务器（upload.php）返回的信息，应该是如下形式：</p>
+<pre class=" language-js"><code class="language-js">　　<span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">"text/javascript"</span><span class="token operator">></span>
+
+　　　　window<span class="token punctuation">.</span>top<span class="token punctuation">.</span>window<span class="token punctuation">[</span><span class="token string">'callback'</span><span class="token punctuation">]</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　<span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
+</code></pre>
+<p>然后，在当前网页定义回调函数：</p>
+<pre class=" language-js"><code class="language-js">　　window<span class="token punctuation">[</span>callback<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>data<span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+　　　　console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'received callback:'</span><span class="token punctuation">,</span> data<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　iframe<span class="token punctuation">.</span><span class="token function">remove</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//removing iframe</span>
+
+　　　　form<span class="token punctuation">.</span><span class="token function">removeAttr</span><span class="token punctuation">(</span><span class="token string">'target'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　form<span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">'action'</span><span class="token punctuation">,</span> url<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　window<span class="token punctuation">[</span>callback<span class="token punctuation">]</span> <span class="token operator">=</span> undefined<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//removing callback</span>
+
+　　<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="三、ajax上传"><a href="#三、ajax上传" class="headerlink" title="三、ajax上传"></a>三、ajax上传</h2><p>HTML5提出了XMLHttpRequest对象的第二版，从此ajax能够上传文件了。这是真正的”异步上传”，是将来的主流。上一节的iframe上传，可以用作老式浏览器的替代方案。</p>
+<p>ajax上传代码，放在表单的submit事件回调函数中：</p>
+<pre class=" language-js"><code class="language-js">　　form<span class="token punctuation">.</span><span class="token function">on</span><span class="token punctuation">(</span><span class="token string">'submit'</span><span class="token punctuation">,</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+　　　　<span class="token comment" spellcheck="true">// 此处进行ajax上传</span>
+
+　　<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>我们主要用的是FormData对象，它能够构建类似表单的键值对。</p>
+<pre class=" language-js"><code class="language-js">　　<span class="token comment" spellcheck="true">// 检查是否支持FormData</span>
+　　<span class="token keyword">if</span><span class="token punctuation">(</span>window<span class="token punctuation">.</span>FormData<span class="token punctuation">)</span> <span class="token punctuation">{</span>　
+
+　　　　<span class="token keyword">var</span> formData <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FormData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　<span class="token comment" spellcheck="true">// 建立一个upload表单项，值为上传的文件</span>
+　　　　formData<span class="token punctuation">.</span><span class="token function">append</span><span class="token punctuation">(</span><span class="token string">'upload'</span><span class="token punctuation">,</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'upload'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>files<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　<span class="token keyword">var</span> xhr <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">XMLHttpRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　xhr<span class="token punctuation">.</span><span class="token function">open</span><span class="token punctuation">(</span><span class="token string">'POST'</span><span class="token punctuation">,</span> <span class="token function">$</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">attr</span><span class="token punctuation">(</span><span class="token string">'action'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　<span class="token comment" spellcheck="true">// 定义上传完成后的回调函数</span>
+　　　　xhr<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+　　　　　　<span class="token keyword">if</span> <span class="token punctuation">(</span>xhr<span class="token punctuation">.</span>status <span class="token operator">===</span> <span class="token number">200</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+　　　　　　　　console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'上传成功'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　　　<span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+
+　　　　　　　　console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'出错了'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　　　<span class="token punctuation">}</span>
+
+　　　　<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+　　　　xhr<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>formData<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="四、进度条"><a href="#四、进度条" class="headerlink" title="四、进度条"></a>四、进度条</h2><p>XMLHttpRequest第二版还定义了一个progress事件，可以用来制作进度条。</p>
+<p>首先，在页面中放置一个HTML元素progress。</p>
+<pre class=" language-js"><code class="language-js">　　<span class="token operator">&lt;</span>progress id<span class="token operator">=</span><span class="token string">"uploadprogress"</span> min<span class="token operator">=</span><span class="token string">"0"</span> max<span class="token operator">=</span><span class="token string">"100"</span> value<span class="token operator">=</span><span class="token string">"0"</span><span class="token operator">></span><span class="token number">0</span><span class="token operator">&lt;</span><span class="token operator">/</span>progress<span class="token operator">></span>
+</code></pre>
+<p>然后，定义progress事件的回调函数。</p>
+<pre class=" language-js"><code class="language-js">　　xhr<span class="token punctuation">.</span>upload<span class="token punctuation">.</span>onprogress <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+　　　　<span class="token keyword">if</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>lengthComputable<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+　　　　　　<span class="token keyword">var</span> complete <span class="token operator">=</span> <span class="token punctuation">(</span>event<span class="token punctuation">.</span>loaded <span class="token operator">/</span> event<span class="token punctuation">.</span>total <span class="token operator">*</span> <span class="token number">100</span> <span class="token operator">|</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　　　<span class="token keyword">var</span> progress <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'uploadprogress'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　　　progress<span class="token punctuation">.</span>value <span class="token operator">=</span> progress<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> complete<span class="token punctuation">;</span>
+
+　　　　<span class="token punctuation">}</span>
+
+　　<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>注意，progress事件不是定义在xhr，而是定义在xhr.upload，因为这里需要区分下载和上传，下载也有一个progress事件。</p>
+<h2 id="五、图片预览"><a href="#五、图片预览" class="headerlink" title="五、图片预览"></a>五、图片预览</h2><p>如果上传的是图片文件，利用File API，我们可以做一个图片文件的预览。这里主要用到FileReader对象。</p>
+<pre class=" language-js"><code class="language-js">　　<span class="token comment" spellcheck="true">// 检查是否支持FileReader对象</span>
+　　<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> FileReader <span class="token operator">!=</span> <span class="token string">'undefined'</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+　　　　<span class="token keyword">var</span> acceptedTypes <span class="token operator">=</span> <span class="token punctuation">{</span>
+　　　　　　<span class="token string">'image/png'</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+　　　　　　<span class="token string">'image/jpeg'</span><span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+　　　　　　<span class="token string">'image/gif'</span><span class="token punctuation">:</span> <span class="token boolean">true</span>
+　　　　<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+　　　　<span class="token keyword">if</span> <span class="token punctuation">(</span>acceptedTypes<span class="token punctuation">[</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'upload'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>files<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">.</span>type<span class="token punctuation">]</span> <span class="token operator">===</span> <span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+　　　　　　<span class="token keyword">var</span> reader <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">FileReader</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　　　reader<span class="token punctuation">.</span>onload <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+　　　　　　　　<span class="token keyword">var</span> image <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Image</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　　　　　image<span class="token punctuation">.</span>src <span class="token operator">=</span> event<span class="token punctuation">.</span>target<span class="token punctuation">.</span>result<span class="token punctuation">;</span>
+
+　　　　　　　　image<span class="token punctuation">.</span>width <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+
+　　　　　　　　document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>image<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　　　<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+　　　　reader<span class="token punctuation">.</span><span class="token function">readAsDataURL</span><span class="token punctuation">(</span>document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'upload'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>files<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　<span class="token punctuation">}</span>
+
+　　<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="六、拖放上传"><a href="#六、拖放上传" class="headerlink" title="六、拖放上传"></a>六、拖放上传</h2><p>最后，利用HTML5的拖放功能，实现拖放上传。</p>
+<p>先在页面中放置一个容器，用来接收拖放的文件。</p>
+<pre class=" language-js"><code class="language-js">　　<span class="token operator">&lt;</span>div id<span class="token operator">=</span><span class="token string">"holder"</span><span class="token operator">></span><span class="token operator">&lt;</span><span class="token operator">/</span>div<span class="token operator">></span>
+</code></pre>
+<p>对它设置样式：</p>
+<pre class=" language-js"><code class="language-js">　　#holder <span class="token punctuation">{</span>
+　　　　border<span class="token punctuation">:</span> 10px dashed #ccc<span class="token punctuation">;</span>
+　　　　width<span class="token punctuation">:</span> 300px<span class="token punctuation">;</span>
+　　　　min<span class="token operator">-</span>height<span class="token punctuation">:</span> 300px<span class="token punctuation">;</span>
+　　　　margin<span class="token punctuation">:</span> 20px auto<span class="token punctuation">;</span>
+　　<span class="token punctuation">}</span>
+
+　　#holder<span class="token punctuation">.</span>hover <span class="token punctuation">{</span>
+　　　　border<span class="token punctuation">:</span> 10px dashed #0c0<span class="token punctuation">;</span>
+　　<span class="token punctuation">}</span>
+</code></pre>
+<p>拖放文件的代码，主要是定义dragover、dragend和drop这三个事件。</p>
+<pre class=" language-js"><code class="language-js">　　<span class="token comment" spellcheck="true">// 检查浏览器是否支持拖放上传。</span>
+　　<span class="token keyword">if</span><span class="token punctuation">(</span><span class="token string">'draggable'</span> <span class="token keyword">in</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'span'</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+
+　　　　<span class="token keyword">var</span> holder <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'holder'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　holder<span class="token punctuation">.</span>ondragover <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">this</span><span class="token punctuation">.</span>className <span class="token operator">=</span> <span class="token string">'hover'</span><span class="token punctuation">;</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+　　　　holder<span class="token punctuation">.</span>ondragend <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">this</span><span class="token punctuation">.</span>className <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span> <span class="token keyword">return</span> <span class="token boolean">false</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+　　　　holder<span class="token punctuation">.</span>ondrop <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>event<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+　　　　　　event<span class="token punctuation">.</span><span class="token function">preventDefault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+　　　　　　<span class="token keyword">this</span><span class="token punctuation">.</span>className <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+
+　　　　　　<span class="token keyword">var</span> files <span class="token operator">=</span> event<span class="token punctuation">.</span>dataTransfer<span class="token punctuation">.</span>files<span class="token punctuation">;</span>
+
+　　　　　　<span class="token comment" spellcheck="true">// do something with files</span>
+
+　　　　<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+　　<span class="token punctuation">}</span>
+</code></pre>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/04/02/draft-yuan-js-12/">« Javascript...</a></span>
+  <span class="right"><a href="/2018/04/03/draft-yuan-js-14/">XMLHttpReq... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年04月03日 00:04</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  draft-yuan-js-13
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+
