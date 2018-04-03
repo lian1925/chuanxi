@@ -78,7 +78,7 @@ if(isiOS){
         </span>
         <span>
             
-            <a href="#">
+            <a href="/2018/04/03/draft-yuan-js-21/">
               &#8677;
             </a>
         </span>
@@ -91,8 +91,8 @@ if(isiOS){
         </P>
         <P>下一篇：
 
-                <a href="#">
-                    无
+                <a href="/2018/04/03/draft-yuan-js-21/">
+                    有限状态机
                 </a>
         </P>
     </div>
@@ -139,6 +139,40 @@ if(isiOS){
 <p>各个参数的意义如下：</p>
 <p>　　- js： 转换前的代码文件<br>　　- create_source_map： 生成的source map文件<br>　　- source_map_format：source map的版本，目前一律采用V3。<br>　　- js_output_file： 转换后的代码文件。</p>
 <p>其他的生成方法可以参考这篇文章。</p>
+<h2 id="五、Source-map的格式"><a href="#五、Source-map的格式" class="headerlink" title="五、Source map的格式"></a>五、Source map的格式</h2><p>打开Source map文件，它大概是这个样子：</p>
+<pre class=" language-js"><code class="language-js">　　<span class="token punctuation">{</span>
+　　　　version <span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+　　　　file<span class="token punctuation">:</span> <span class="token string">"out.js"</span><span class="token punctuation">,</span>
+　　　　sourceRoot <span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+　　　　sources<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"foo.js"</span><span class="token punctuation">,</span> <span class="token string">"bar.js"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+　　　　names<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"src"</span><span class="token punctuation">,</span> <span class="token string">"maps"</span><span class="token punctuation">,</span> <span class="token string">"are"</span><span class="token punctuation">,</span> <span class="token string">"fun"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+　　　　mappings<span class="token punctuation">:</span> <span class="token string">"AAgBC,SAAQ,CAAEA"</span>
+　　<span class="token punctuation">}</span>
+</code></pre>
+<p>整个文件就是一个JavaScript对象，可以被解释器读取。它主要有以下几个属性：</p>
+<p>　　- version：Source map的版本，目前为3。</p>
+<p>　　- file：转换后的文件名。</p>
+<p>　　- sourceRoot：转换前的文件所在的目录。如果与转换前的文件在同一目录，该项为空。</p>
+<p>　　- sources：转换前的文件。该项是一个数组，表示可能存在多个文件合并。</p>
+<p>　　- names：转换前的所有变量名和属性名。</p>
+<p>　　- mappings：记录位置信息的字符串，下文详细介绍。</p>
+<h2 id="六、mappings属性"><a href="#六、mappings属性" class="headerlink" title="六、mappings属性"></a>六、mappings属性</h2><p>下面才是真正有趣的部分：两个文件的各个位置是如何一一对应的。</p>
+<p>关键就是map文件的mappings属性。这是一个很长的字符串，它分成三层。</p>
+<p>　　第一层是行对应，以分号（;）表示，每个分号对应转换后源码的一行。所以，第一个分号前的内容，就对应源码的第一行，以此类推。</p>
+<p>　　第二层是位置对应，以逗号（,）表示，每个逗号对应转换后源码的一个位置。所以，第一个逗号前的内容，就对应该行源码的第一个位置，以此类推。</p>
+<p>　　第三层是位置转换，以VLQ编码表示，代表该位置对应的转换前的源码位置。</p>
+<p>举例来说，假定mappings属性的内容如下：</p>
+<p>　　mappings:”AAAAA,BBBBB;CCCCC”</p>
+<p>就表示，转换后的源码分成两行，第一行有两个位置，第二行有一个位置。</p>
+<h2 id="七、位置对应的原理"><a href="#七、位置对应的原理" class="headerlink" title="七、位置对应的原理"></a>七、位置对应的原理</h2><p>每个位置使用五位，表示五个字段。</p>
+<p>从左边算起，</p>
+<p>　　- 第一位，表示这个位置在（转换后的代码的）的第几列。</p>
+<p>　　- 第二位，表示这个位置属于sources属性中的哪一个文件。</p>
+<p>　　- 第三位，表示这个位置属于转换前代码的第几行。</p>
+<p>　　- 第四位，表示这个位置属于转换前代码的第几列。</p>
+<p>　　- 第五位，表示这个位置属于names属性中的哪一个变量。</p>
+<p>有几点需要说明。首先，所有的值都是以0作为基数的。其次，第五位不是必需的，如果该位置没有对应names属性中的变量，可以省略第五位。再次，每一位都采用VLQ编码表示；由于VLQ编码是变长的，所以每一位可以由多个字符构成。</p>
+<p>如果某个位置是AAAAA，由于A在VLQ编码中表示0，因此这个位置的五个位实际上都是0。它的意思是，该位置在转换后代码的第0列，对应sources属性中第0个文件，属于转换前代码的第0行第0列，对应names属性中的第0个变量。</p>
 
   </div>
 </div>
@@ -146,7 +180,7 @@ if(isiOS){
 
 <p class="nav-foot">
   <span class="left"><a href="/2018/04/03/draft-yuan-js-19/">« 严格模式</a></span>
-  <span class="right"><a href="#">无 »</a></span>
+  <span class="right"><a href="/2018/04/03/draft-yuan-js-21/">有限状态机 »</a></span>
 </p>
 
 <!-- 文档信息 -->
