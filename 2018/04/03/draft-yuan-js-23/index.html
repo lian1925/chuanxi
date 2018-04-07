@@ -112,7 +112,7 @@ if(isiOS){
 
 
   <div class="page">
-      <h2 id="二、回调函数的概念"><a href="#二、回调函数的概念" class="headerlink" title="二、回调函数的概念"></a>二、回调函数的概念</h2><p>JavaScript 语言对异步编程的实现，就是回调函数。所谓回调函数，就是把任务的第二段单独写在一个函数里面，等到重新执行这个任务的时候，就直接调用这个函数。它的英语名字 callback，直译过来就是”重新调用”。</p>
+      <h2 id="一、回调函数的概念"><a href="#一、回调函数的概念" class="headerlink" title="一、回调函数的概念"></a>一、回调函数的概念</h2><p>JavaScript 对异步编程的实现，就是回调函数。所谓回调函数，就是把任务的第二段单独写在一个函数里面，等到重新执行这个任务的时候，就直接调用这个函数。</p>
 <p>读取文件进行处理，是这样写的。</p>
 <pre class=" language-js"><code class="language-js">fs<span class="token punctuation">.</span><span class="token function">readFile</span><span class="token punctuation">(</span><span class="token string">'/etc/passwd'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>err<span class="token punctuation">,</span> data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">if</span> <span class="token punctuation">(</span>err<span class="token punctuation">)</span> <span class="token keyword">throw</span> err<span class="token punctuation">;</span>
@@ -121,7 +121,7 @@ if(isiOS){
 </code></pre>
 <p>上面代码中，readFile 函数的第二个参数，就是回调函数，也就是任务的第二段。等到操作系统返回了 /etc/passwd 这个文件以后，回调函数才会执行。</p>
 <p>一个有趣的问题是，为什么 Node.js 约定，回调函数的第一个参数，必须是错误对象err（如果没有错误，该参数就是 null）？原因是执行分成两段，在这两段之间抛出的错误，程序无法捕捉，只能当作参数，传入第二段。</p>
-<p>三、Promise<br>回调函数本身并没有问题，它的问题出现在多个回调函数嵌套。假定读取A文件之后，再读取B文件，代码如下。</p>
+<h2 id="二、Promise"><a href="#二、Promise" class="headerlink" title="二、Promise"></a>二、Promise</h2><p>回调函数本身并没有问题，它的问题在于多个回调函数嵌套。假定读取A文件之后，再读取B文件，代码如下。</p>
 <pre class=" language-js"><code class="language-js">fs<span class="token punctuation">.</span><span class="token function">readFile</span><span class="token punctuation">(</span>fileA<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>err<span class="token punctuation">,</span> data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   fs<span class="token punctuation">.</span><span class="token function">readFile</span><span class="token punctuation">(</span>fileB<span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>err<span class="token punctuation">,</span> data<span class="token punctuation">)</span> <span class="token punctuation">{</span>
     <span class="token comment" spellcheck="true">// ...</span>
@@ -129,7 +129,7 @@ if(isiOS){
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>不难想象，如果依次读取多个文件，就会出现多重嵌套。代码不是纵向发展，而是横向发展，很快就会乱成一团，无法管理。这种情况就称为”回调函数噩梦”（callback hell）。</p>
-<p>Promise就是为了解决这个问题而提出的。它不是新的语法功能，而是一种新的写法，允许将回调函数的横向加载，改成纵向加载。采用Promise，连续读取多个文件，写法如下。</p>
+<p>Promise就是为了解决这个问题而提出的。它不是新的语法功能，而是一种新的写法，允许将回调函数的横向描述，改成纵向描述。采用Promise，连续读取多个文件，写法如下。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> readFile <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'fs-readfile-promise'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token function">readFile</span><span class="token punctuation">(</span>fileA<span class="token punctuation">)</span>
@@ -150,11 +150,11 @@ if(isiOS){
 <p>可以看到，Promise 的写法只是回调函数的改进，使用then方法以后，异步任务的两段执行看得更清楚了，除此以外，并无新意。</p>
 <p>Promise 的最大问题是代码冗余，原来的任务被Promise 包装了一下，不管什么操作，一眼看去都是一堆 then，原来的语义变得很不清楚。</p>
 <p>那么，有没有更好的写法呢？</p>
-<p>四、协程<br>传统的编程语言，早有异步编程的解决方案（其实是多任务的解决方案）。其中有一种叫做”协程”（coroutine），意思是多个线程互相协作，完成异步任务。</p>
+<h2 id="三、协程"><a href="#三、协程" class="headerlink" title="三、协程"></a>三、协程</h2><p>传统的编程语言，早有异步编程的解决方案（其实是多任务的解决方案）。其中有一种叫做”协程”（coroutine），意思是多个线程互相协作，完成异步任务。</p>
 <p>协程有点像函数，又有点像线程。它的运行流程大致如下。</p>
 <p>第一步，协程A开始执行。</p>
 <p>第二步，协程A执行到一半，进入暂停，执行权转移到协程B。</p>
-<p>第三步，（一段时间后）协程B交还执行权。</p>
+<p>第三步，（一段时间后）协程B归还执行权。</p>
 <p>第四步，协程A恢复执行。</p>
 <p>上面流程的协程A，就是异步任务，因为它分成两段（或多段）执行。</p>
 <p>举例来说，读取文件的协程写法如下。</p>
@@ -166,7 +166,7 @@ if(isiOS){
 </code></pre>
 <p>上面代码的函数 asyncJob 是一个协程，它的奥妙就在其中的 yield 命令。它表示执行到此处，执行权将交给其他协程。也就是说，yield命令是异步两个阶段的分界线。</p>
 <p>协程遇到 yield 命令就暂停，等到执行权返回，再从暂停的地方继续往后执行。它的最大优点，就是代码的写法非常像同步操作，如果去除yield命令，简直一模一样。</p>
-<p>五、Generator函数的概念<br>Generator 函数是协程在 ES6 的实现，最大特点就是可以交出函数的执行权（即暂停执行）。</p>
+<h2 id="四、Generator函数的概念"><a href="#四、Generator函数的概念" class="headerlink" title="四、Generator函数的概念"></a>四、Generator函数的概念</h2><p>Generator 函数是协程在 ES6 的实现，最大特点就是可以交出函数的执行权（即暂停执行）。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">gen</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">{</span>
   <span class="token keyword">var</span> y <span class="token operator">=</span> <span class="token keyword">yield</span> x <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">;</span>
   <span class="token keyword">return</span> y<span class="token punctuation">;</span>
@@ -180,7 +180,7 @@ g<span class="token punctuation">.</span><span class="token function">next</span
 </code></pre>
 <p>上面代码中，调用 Generator 函数，会返回一个内部指针（即遍历器 ）g 。这是 Generator 函数不同于普通函数的另一个地方，即执行它不会返回结果，返回的是指针对象。调用指针 g 的 next 方法，会移动内部指针（即执行异步任务的第一段），指向第一个遇到的 yield 语句，上例是执行到 x + 2 为止。</p>
 <p>换言之，next 方法的作用是分阶段执行 Generator 函数。每次调用 next 方法，会返回一个对象，表示当前阶段的信息（ value 属性和 done 属性）。value 属性是 yield 语句后面表达式的值，表示当前阶段的值；done 属性是一个布尔值，表示 Generator 函数是否执行完毕，即是否还有下一个阶段。</p>
-<p>六、Generator 函数的数据交换和错误处理<br>Generator 函数可以暂停执行和恢复执行，这是它能封装异步任务的根本原因。除此之外，它还有两个特性，使它可以作为异步编程的完整解决方案：函数体内外的数据交换和错误处理机制。</p>
+<h2 id="五、Generator-函数的数据交换和错误处理"><a href="#五、Generator-函数的数据交换和错误处理" class="headerlink" title="五、Generator 函数的数据交换和错误处理"></a>五、Generator 函数的数据交换和错误处理</h2><p>Generator 函数可以暂停执行和恢复执行，这是它能封装异步任务的根本原因。除此之外，它还有两个特性，使它可以作为异步编程的完整解决方案：函数体内外的数据交换和错误处理机制。</p>
 <p>next 方法返回值的 value 属性，是 Generator 函数向外输出数据；next 方法还可以接受参数，这是向 Generator 函数体内输入数据。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">gen</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span><span class="token punctuation">{</span>
   <span class="token keyword">var</span> y <span class="token operator">=</span> <span class="token keyword">yield</span> x <span class="token operator">+</span> <span class="token number">2</span><span class="token punctuation">;</span>
@@ -208,7 +208,7 @@ g<span class="token punctuation">.</span><span class="token keyword">throw</span
 <span class="token comment" spellcheck="true">// 出错了</span>
 </code></pre>
 <p>上面代码的最后一行，Generator 函数体外，使用指针对象的 throw 方法抛出的错误，可以被函数体内的 try … catch 代码块捕获。这意味着，出错的代码与处理错误的代码，实现了时间和空间上的分离，这对于异步编程无疑是很重要的。</p>
-<p>七、Generator 函数的用法<br>下面看看如何使用 Generator 函数，执行一个真实的异步任务。</p>
+<h2 id="六、Generator-函数的用法"><a href="#六、Generator-函数的用法" class="headerlink" title="六、Generator 函数的用法"></a>六、Generator 函数的用法</h2><p>下面看看如何使用 Generator 函数，执行一个真实的异步任务。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> fetch <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'node-fetch'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">function</span><span class="token operator">*</span> <span class="token function">gen</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
