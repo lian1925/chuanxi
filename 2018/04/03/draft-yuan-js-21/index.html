@@ -150,7 +150,7 @@ if(isiOS){
 　　<span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>可以看到，有限状态机的写法，逻辑清晰，表达力强，有利于封装事件。一个对象的状态越多、发生的事件越多，就越适合采用有限状态机的写法。</p>
-<p>另外，JavaScript语言是一种异步操作特别多的语言，常用的解决方法是指定回调函数，但这样会造成代码结构混乱、难以测试和除错等问题。有限状态机提供了更好的办法：把异步操作与对象的状态改变挂钩，当异步操作结束的时候，发生相应的状态改变，由此再触发其他操作。这要比回调函数、事件监听、发布/订阅等解决方案，在逻辑上更合理，更易于降低代码的复杂度。</p>
+<p>另外，JavaScript是一种异步操作特别多的语言，常用的解决方法是指定回调函数，但这样会造成代码结构混乱、难以测试和除错等问题。有限状态机提供了更好的办法：把异步操作与对象的状态改变挂钩，当异步操作结束的时候，发生相应的状态改变，由此再触发其他操作。这要比回调函数、事件监听、发布/订阅等解决方案，在逻辑上更合理，更易于降低代码的复杂度。</p>
 <p>下面介绍一个有限状态机的函数库Javascript Finite State Machine。这个库非常好懂，可以帮助我们加深理解，而且功能一点都不弱。</p>
 <p>该库提供一个全局对象StateMachine，使用该对象的create方法，可以生成有限状态机的实例。</p>
 <pre class=" language-js"><code class="language-js">　<span class="token keyword">var</span> fsm <span class="token operator">=</span> StateMachine<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
