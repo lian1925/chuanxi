@@ -130,7 +130,7 @@ if(isiOS){
 　　<span class="token punctuation">}</span>
 </code></pre>
 <p>怎样才能使”猫”继承”动物”呢？</p>
-<h2 id="一、-构造函数绑定"><a href="#一、-构造函数绑定" class="headerlink" title="一、 构造函数绑定"></a>一、 构造函数绑定</h2><p>第一种方法也是最简单的方法，使用call或apply方法，将父对象的构造函数绑定在子对象上，即在子对象构造函数中加一行：</p>
+<h2 id="一、-构造函数绑定"><a href="#一、-构造函数绑定" class="headerlink" title="一、 构造函数绑定"></a>一、 构造函数绑定</h2><p>第一种方法也是最简单的方法，使用call或apply方法，将父对象的构造函数绑定在子对象上</p>
 <pre class=" language-js"><code class="language-js">　　<span class="token keyword">function</span> <span class="token function">Cat</span><span class="token punctuation">(</span>name<span class="token punctuation">,</span>color<span class="token punctuation">)</span><span class="token punctuation">{</span>
 
 　　　　Animal<span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> arguments<span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -145,8 +145,7 @@ if(isiOS){
 
 <span class="token function">　　alert</span><span class="token punctuation">(</span>cat1<span class="token punctuation">.</span>species<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 动物</span>
 </code></pre>
-<p>二、 prototype模式</p>
-<p>第二种方法更常见，使用prototype属性。</p>
+<h2 id="二、-prototype模式"><a href="#二、-prototype模式" class="headerlink" title="二、 prototype模式"></a>二、 prototype模式</h2><p>第二种方法更常见，使用prototype属性。</p>
 <p>如果”猫”的prototype对象，指向一个Animal的实例，那么所有”猫”的实例，就能继承Animal了。</p>
 <pre class=" language-js"><code class="language-js">　　Cat<span class="token punctuation">.</span>prototype <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Animal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -234,7 +233,8 @@ if(isiOS){
 
 <span class="token function">　　alert</span><span class="token punctuation">(</span>cat1<span class="token punctuation">.</span>species<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 动物</span>
 </code></pre>
-<h2 id="五、-拷贝继承"><a href="#五、-拷贝继承" class="headerlink" title="五、 拷贝继承"></a>五、 拷贝继承</h2><p>上面是采用prototype对象，实现继承。我们也可以换一种思路，纯粹采用”拷贝”方法实现继承。简单说，如果把父对象的所有属性和方法，拷贝进子对象，不也能够实现继承吗？这样我们就有了第五种方法。</p>
+<h2 id="五、-拷贝继承"><a href="#五、-拷贝继承" class="headerlink" title="五、 拷贝继承"></a>五、 拷贝继承</h2><p>上面是采用prototype对象，实现继承。我们也可以换一种思路，纯粹采用”拷贝”方法实现继承。</p>
+<p>简单说，如果把父对象的所有属性和方法，拷贝进子对象，不也能够实现继承吗？这样我们就有了第五种方法。</p>
 <p>首先，还是把Animal的所有不变属性，都放到它的prototype对象上。</p>
 <pre class=" language-js"><code class="language-js">　　<span class="token keyword">function</span> <span class="token function">Animal</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span><span class="token punctuation">}</span>
 

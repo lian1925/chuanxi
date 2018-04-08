@@ -132,7 +132,7 @@ if(isiOS){
 </code></pre>
 <p>上面的getViewport函数就可以返回浏览器窗口的高和宽。使用的时候，有三个地方需要注意：</p>
 <p>1）这个函数必须在页面加载完成后才能运行，否则document对象还没生成，浏览器会报错。</p>
-<p>2）大多数情况下，都是document.documentElement.clientWidth返回正确值。但是，在IE6的quirks模式中，document.body.clientWidth返回正确的值，因此函数中加入了对文档模式的判断。</p>
+<p>2）大多数情况下，document.documentElement.clientWidth会返回正确值。但是，在IE6的quirks模式中，document.body.clientWidth返回正确的值，因此函数中加入了对文档模式的判断。</p>
 <p>3）clientWidth和clientHeight都是只读属性，不能对它们赋值。</p>
 <h2 id="获取网页元素的绝对位置"><a href="#获取网页元素的绝对位置" class="headerlink" title="获取网页元素的绝对位置"></a>获取网页元素的绝对位置</h2><p>网页元素的绝对位置，指该元素的左上角相对于整张网页左上角的坐标。这个绝对位置要通过计算才能得到。</p>
 <p>首先，每个元素都有offsetTop和offsetLeft属性，表示该元素的左上角与父容器（offsetParent对象）左上角的距离。所以，只需要将这两个值进行累加，就可以得到该元素的绝对坐标。</p>

@@ -113,7 +113,7 @@ if(isiOS){
 
   <div class="page">
       <p>最近，国内开始流行另一种流氓行为：使用框架（Frame），将你的网页嵌入它的网页中。</p>
-<p>比如，有一家网站号称自己是”口碑聚合门户”，提供全国各个网上论坛的精华内容。但是，其实它就是用框架抓取他人的网页，然后在上面加上自己的广告和站标，这同盗版书商有何不同？！</p>
+<p>比如，有一家网站号称自己是”口碑聚合门户”，提供全国各个网上论坛的精华内容。但是，其实它是用框架抓取他人的网页，然后在上面加上自己的广告和站标，这同盗版书商有何不同？！</p>
 <h2 id="迭代1"><a href="#迭代1" class="headerlink" title="迭代1"></a>迭代1</h2><p>我写了一段很简单的javascript代码，大家只要将它放入网页源码的头部，那些流氓就没有办法使用你的网页了。</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">&lt;</span>script type<span class="token operator">=</span><span class="token string">"text/javascript"</span><span class="token operator">></span>
 
@@ -123,19 +123,19 @@ top<span class="token punctuation">.</span>location<span class="token punctuatio
 
 <span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
 </code></pre>
-<h2 id="迭代2"><a href="#迭代2" class="headerlink" title="迭代2"></a>迭代2</h2><p>这里有一个问题：使用后，任何人都无法再把你的网页嵌入框架了，包括你自己在内。</p>
-<p>于是，我今天就在考虑，有没有一种方法，使得我的网页只能被嵌入我自己的框架，而不是别人的框架？</p>
-<p>表面上看，这个问题很简单。只要做一个判断：当前框架和顶层框架的一级域名是否相同，如果答案是否，就做了一个URL重定向。</p>
+<h2 id="迭代2"><a href="#迭代2" class="headerlink" title="迭代2"></a>迭代2</h2><p>这里有一个问题：使用后，任何人都无法把你的网页嵌入框架，包括你自己。</p>
+<p>于是，我今天就在考虑，有没有一种方法，使得我的网页只能被嵌入我自己的框架？</p>
+<p>表面上看，这个问题很简单。只要做一个判断：当前框架和顶层框架的一级域名是否相同，如果答案为否，就做了一个URL重定向。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">if</span> <span class="token punctuation">(</span>top<span class="token punctuation">.</span>location<span class="token punctuation">.</span>hostname <span class="token operator">!=</span> window<span class="token punctuation">.</span>location<span class="token punctuation">.</span>hostname<span class="token punctuation">)</span> <span class="token punctuation">{</span>
 
 　　top<span class="token punctuation">.</span>location<span class="token punctuation">.</span>href <span class="token operator">=</span> window<span class="token punctuation">.</span>location<span class="token punctuation">.</span>href<span class="token punctuation">;</span>
 
 <span class="token punctuation">}</span>
 </code></pre>
-<p>浏览器会提示代码出错！</p>
-<p>因为它们跨域（cross-domain）了，浏览器的安全政策不允许222.com的网页操作111.com的网页，反之亦然。IE把这种错误叫做”没有权限”。进一步说，浏览器甚至不允许你查看top.location.hostname，跨域情况下，一看到这个对象，就直接报错。</p>
+<p>但是，浏览器会提示代码出错！</p>
+<p>因为它们跨域（cross-domain）了，浏览器的安全政策不允许一个域名的网页操作另一个域名的网页，反之亦然。IE把这种错误叫做”没有权限”。进一步说，浏览器甚至不允许你查看top.location.hostname，跨域情况下，一看到这个对象，就直接报错。</p>
 <p>那么，代码应该如何修改？</p>
-<p>事实上，这提示我们，只要查看top.location.hostname是否报错就可以了。如果报错了，表明存在跨域，就对top对象进行URL重导向；如果不报错，表明不存在跨域（或者未使用框架），就不采取操作。</p>
+<p>事实上，这提示我们，只要查看top.location.hostname是否报错就可以了。如果报错了，表明存在跨域，就对top对象进行URL重导向；如果不报错，表明不存在跨域（即未使用框架），就不采取操作。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">try</span><span class="token punctuation">{</span>
 
 　　top<span class="token punctuation">.</span>location<span class="token punctuation">.</span>hostname<span class="token punctuation">;</span>
@@ -149,7 +149,7 @@ top<span class="token punctuation">.</span>location<span class="token punctuatio
 <span class="token punctuation">}</span>
 </code></pre>
 <h2 id="迭代3"><a href="#迭代3" class="headerlink" title="迭代3"></a>迭代3</h2><p>这样写已经正确了，在IE和Firefox中可以正确运行。但是，Chrome浏览器会出现错误，不知为何，在跨域情况下，Chrome对top.location.hostname不报错！</p>
-<p>没办法，只能为了Chrome，再加一段补充代码。</p>
+<p>没办法，只能单独为Chrome，加一段补充代码。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">try</span><span class="token punctuation">{</span>
 
 　　top<span class="token punctuation">.</span>location<span class="token punctuation">.</span>hostname<span class="token punctuation">;</span>

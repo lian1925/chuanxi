@@ -112,10 +112,10 @@ if(isiOS){
 
 
   <div class="page">
-      <p>闭包（closure）是Javascript语言的一个难点，也是它的特色，很多高级应用都要依靠闭包实现。</p>
+      <p>闭包（closure）是Javascript的一个难点，也是它的特色，很多高级应用需要依赖闭包实现。</p>
 <h2 id="变量的作用域"><a href="#变量的作用域" class="headerlink" title="变量的作用域"></a>变量的作用域</h2><p>要理解闭包，首先必须理解Javascript特殊的变量作用域。</p>
 <p>变量的作用域无非就是两种：全局变量和局部变量。</p>
-<p>Javascript语言的特殊之处，就在于函数内部可以直接读取全局变量。</p>
+<p>Javascript的特殊之处，在于函数内部可以直接读取全局变量。</p>
 <pre class=" language-js"><code class="language-js">　　<span class="token keyword">var</span> n<span class="token operator">=</span><span class="token number">999</span><span class="token punctuation">;</span>
 
 　　<span class="token keyword">function</span> <span class="token function">f1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
@@ -124,14 +124,14 @@ if(isiOS){
 
 <span class="token function">　　f1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 999</span>
 </code></pre>
-<p>另一方面，在函数外部自然无法读取函数内的局部变量。</p>
+<p>另一方面，在函数外部无法读取函数内的局部变量。</p>
 <pre class=" language-js"><code class="language-js">　　<span class="token keyword">function</span> <span class="token function">f1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
 　　　　<span class="token keyword">var</span> n<span class="token operator">=</span><span class="token number">999</span><span class="token punctuation">;</span>
 　　<span class="token punctuation">}</span>
 
 <span class="token function">　　alert</span><span class="token punctuation">(</span>n<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error</span>
 </code></pre>
-<p>这里有一个地方需要注意，函数内部声明变量的时候，一定要使用var命令。如果不用的话，你实际上声明了一个全局变量！</p>
+<p>这里有一个地方需要注意，函数内部声明变量时，一定要使用var命令。如果不用的话，你实际上声明了一个全局变量！</p>
 <pre class=" language-js"><code class="language-js">　　<span class="token keyword">function</span> <span class="token function">f1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
 　　　　n<span class="token operator">=</span><span class="token number">999</span><span class="token punctuation">;</span>
 　　<span class="token punctuation">}</span>
@@ -157,8 +157,8 @@ if(isiOS){
 
 <span class="token function">　　result</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 999</span>
 </code></pre>
-<p>它的最大用处有两个，一个是前面提到的可以读取函数内部的变量，另一个就是让这些变量的值始终保持在内存中。</p>
-<p>由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题</p>
+<p>它最大的用处有两个，一个是前面提到的可以读取函数内部的变量，另一个就是让这些变量的值始终保持在内存中。</p>
+<p>由于闭包会使得函数中的变量都被保存在内存中，内存消耗很大，所以不能滥用闭包，否则会造成网页的性能问题。</p>
 
   </div>
 </div>

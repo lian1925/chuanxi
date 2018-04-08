@@ -112,7 +112,8 @@ if(isiOS){
 
 
   <div class="page">
-      <h2 id="情况一：纯粹的函数调用"><a href="#情况一：纯粹的函数调用" class="headerlink" title="情况一：纯粹的函数调用"></a>情况一：纯粹的函数调用</h2><p>这是函数的最通常用法，属于全局性调用，因此this就代表全局对象Global。</p>
+      <p>// 不读</p>
+<h2 id="情况一：纯粹的函数调用"><a href="#情况一：纯粹的函数调用" class="headerlink" title="情况一：纯粹的函数调用"></a>情况一：纯粹的函数调用</h2><p>这是函数的最通常用法，属于全局性调用，因此this就代表全局对象Global。</p>
 <pre class=" language-js"><code class="language-js">　　<span class="token keyword">var</span> x <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
 
 　　<span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
@@ -151,7 +152,7 @@ if(isiOS){
 
 <span class="token function">　　alert</span><span class="token punctuation">(</span>o<span class="token punctuation">.</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 1</span>
 </code></pre>
-<h2 id="情况四-apply调用"><a href="#情况四-apply调用" class="headerlink" title="情况四 apply调用"></a>情况四 apply调用</h2><p>apply()是函数对象的一个方法，它的作用是改变函数的调用对象，它的第一个参数就表示改变后的调用这个函数的对象。因此，this指的就是这第一个参数。</p>
+<h2 id="情况四-apply调用"><a href="#情况四-apply调用" class="headerlink" title="情况四 apply调用"></a>情况四 apply调用</h2><p>apply()是函数对象的一个方法，它的作用是改变函数的调用对象，它的第一个参数表示改变后的调用对象。this指的就是这第一个参数。</p>
 <pre class=" language-js"><code class="language-js">　　<span class="token keyword">var</span> x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
 
 　　<span class="token keyword">function</span> <span class="token function">test</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
