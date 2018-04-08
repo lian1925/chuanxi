@@ -110,6 +110,8 @@ if(isiOS){
 </div>
 
 
+<div id="aplayer1" class="aplayer"></div>
+
 
   <div class="page">
       <p>今天要介绍的是，对象之间的”继承”的五种方法。</p>
@@ -183,7 +185,7 @@ if(isiOS){
 
 　　Animal<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>species <span class="token operator">=</span> <span class="token string">"动物"</span><span class="token punctuation">;</span>
 </code></pre>
-<p>然后，将Cat的prototype对象，然后指向Animal的prototype对象，这样就完成了继承。</p>
+<p>然后，将Cat的prototype对象指向Animal的prototype对象，这样就完成了继承。</p>
 <pre class=" language-js"><code class="language-js">　　Cat<span class="token punctuation">.</span>prototype <span class="token operator">=</span> Animal<span class="token punctuation">.</span>prototype<span class="token punctuation">;</span>
 
 　　Cat<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>constructor <span class="token operator">=</span> Cat<span class="token punctuation">;</span>
@@ -431,7 +433,7 @@ if(isiOS){
 
 
 <p id="info-url" style="display:none;">
-  
+  http://www.liangyl.com/sound/构造函数的继承.m4a
 </p>
 
 <div class="footer">
