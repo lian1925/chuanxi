@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  
+  <title>课3 数字运算 | Python | 小沙丘的网络漫游记</title>
+ 
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/python/">
+            python
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/python/">
+              python
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2017/11/07/python-code-2/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2017/11/08/node-code/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2017/11/07/python-code-2/">
+                    课2 注释和#号 | Python
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2017/11/08/node-code/">
+                    课0 准备工作
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>课3 数字运算 | Python</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2017年11月07日 10:11
+  </p>
+</div>
+</div>
+
+
+
+  <div class="page">
+      <p>每一种编程语言都会包含进行数学运算的方法。很多程序员喜欢用数学吓唬编程世界外面的人，他们经常撒谎说他们是数学天才，其实他们根本不是。让我们见识一下python的数学运算。<br><a id="more"></a><br>本课将会学习很多数学运算符号，让我们看看他们是什么？你要一边写，一边念，直到自己念烦为止。<br><code>+</code> 加号<br><code>-</code> 减号<br><code>*</code> 星号，代表乘法<br><code>/</code> 斜杠，代表除法<br><code>%</code> 百分号，代表除余<br><code>&lt;</code> 小于号<br><code>&gt;</code> 大于号<br><code>&lt;=</code> 小于等于号<br><code>&gt;=</code> 大于等于号</p>
+<h2 id="代码练习"><a href="#代码练习" class="headerlink" title="代码练习"></a>代码练习</h2><p>接下来的代码练习将让你学会注释。<br>打开atom,新建一个文件，命名为lesson3.py,输入下面的代码：</p>
+<pre class=" language-python"><code class="language-python">
+<span class="token keyword">print</span> <span class="token string">"I will now count my chickens:"</span>
+<span class="token keyword">print</span> <span class="token string">"Hens"</span><span class="token punctuation">,</span> <span class="token number">25</span> <span class="token operator">+</span> <span class="token number">30</span> <span class="token operator">/</span> <span class="token number">6</span>
+<span class="token keyword">print</span> <span class="token string">"Roosters"</span><span class="token punctuation">,</span> <span class="token number">100</span> <span class="token operator">-</span> <span class="token number">25</span> <span class="token operator">*</span> <span class="token number">3</span> <span class="token operator">%</span> <span class="token number">4</span>
+<span class="token keyword">print</span> <span class="token string">"Now I will count the eggs:"</span>
+<span class="token keyword">print</span> <span class="token number">3</span> <span class="token operator">+</span> <span class="token number">2</span> <span class="token operator">+</span> <span class="token number">1</span> <span class="token operator">-</span> <span class="token number">5</span> <span class="token operator">+</span> <span class="token number">4</span> <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">-</span> <span class="token number">1</span> <span class="token operator">/</span> <span class="token number">4</span> <span class="token operator">+</span> <span class="token number">6</span>
+<span class="token keyword">print</span> <span class="token string">"Is it true that 3 + 2 &lt; 5 - 7?"</span> <span class="token number">10</span>
+<span class="token keyword">print</span> <span class="token number">3</span> <span class="token operator">+</span> <span class="token number">2</span> <span class="token operator">&lt;</span> <span class="token number">5</span> <span class="token operator">-</span> <span class="token number">7</span>
+<span class="token keyword">print</span> <span class="token string">"What is 3 + 2?"</span><span class="token punctuation">,</span> <span class="token number">3</span> <span class="token operator">+</span> <span class="token number">2</span>
+<span class="token keyword">print</span> <span class="token string">"What is 5 - 7?"</span><span class="token punctuation">,</span> <span class="token number">5</span> <span class="token operator">-</span> <span class="token number">7</span>
+<span class="token keyword">print</span> <span class="token string">"Oh, that's why it's False."</span>
+<span class="token keyword">print</span> <span class="token string">"How about some more."</span>
+<span class="token keyword">print</span> <span class="token string">"Is it greater?"</span><span class="token punctuation">,</span> <span class="token number">5</span> <span class="token operator">></span> <span class="token operator">-</span><span class="token number">2</span>
+<span class="token keyword">print</span> <span class="token string">"Is it greater or equal?"</span><span class="token punctuation">,</span> <span class="token number">5</span> <span class="token operator">>=</span> <span class="token operator">-</span><span class="token number">2</span>
+<span class="token keyword">print</span> <span class="token string">"Is it less or equal?"</span><span class="token punctuation">,</span> <span class="token number">5</span> <span class="token operator">&lt;=</span> <span class="token operator">-</span><span class="token number">2</span>
+</code></pre>
+<h2 id="你应该看到的结果"><a href="#你应该看到的结果" class="headerlink" title="你应该看到的结果"></a>你应该看到的结果</h2><p>$ python lesson3.py<br>I will now count my chickens:<br>Hens 30<br>Roosters 97<br>Now I will count the eggs:<br>7<br>Is it true that 3 + 2 &lt; 5 - 7?<br>False<br>What is 3 + 2? 5<br>What is 5 - 7? -2<br>Oh, that’s why it’s False.<br>How about some more.<br>Is it greater? True<br>Is it greater or equal? True<br>Is it less or equal? False<br>$</p>
+<h2 id="加分项"><a href="#加分项" class="headerlink" title="加分项"></a>加分项</h2><p>1、在每一行用#加上注释，说明一下这行的作用<br>2、使用前面学习的运算符号，把python当计算器玩玩</p>
+<h2 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h2><p>1、为什么 / 除法算出来的结果比实际小？<br>其实不是没算对，而是它把小数部分省略了，试试 7 / 4 与 7.0 / 4.0 比较一下，你就能看出不同了。</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2017/11/07/python-code-1/">« 课1 第一个程序 |...</a></span>
+  <span class="right"><a href="/2017/11/07/python-code-2/">课2 注释和#号 |... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2017年11月07日 10:11</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  课3 数字运算 | Python
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+
