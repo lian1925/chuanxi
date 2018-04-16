@@ -120,7 +120,7 @@ if(isiOS){
 <p>比如：你有个社交网站，可以输入用户名，你故意输入：</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">&lt;</span>script<span class="token operator">></span><span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'haha'</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token operator">&lt;</span><span class="token operator">/</span>script<span class="token operator">></span>
 </code></pre>
-<p>网站在解析时，会当成脚本解析，而非简单的字符串。甚至黑客，可以将植入ajax，将用户的cookie发送至指定的url。</p>
+<p>网站在解析时，会当成脚本解析，而非简单的字符串。甚至黑客，可以植入ajax，将用户的cookie发送至指定的url。</p>
 <h2 id="2-如何防范"><a href="#2-如何防范" class="headerlink" title="2 如何防范"></a>2 如何防范</h2><p>答：</p>
 <p>最简单的方法，是对用户的输入数据加以警惕，过滤掉特殊的字符，比如正则表达式，过滤邮箱地址。</p>
 <pre class=" language-js"><code class="language-js"><span class="token regex">/^[a-zA-Z0-9.!#$%&amp;’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/</span>

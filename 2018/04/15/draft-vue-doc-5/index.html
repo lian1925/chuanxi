@@ -1,0 +1,413 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  
+  <title>Class 与 Style 绑定 | 小沙丘的网络漫游记</title>
+ 
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/Vue/">
+            Vue
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/Vue/">
+              Vue
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/04/15/draft-vue-doc-3/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/04/15/draft-vue-doc-6/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/04/15/draft-vue-doc-3/">
+                    计算属性和侦听器
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/04/15/draft-vue-doc-6/">
+                    条件渲染
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>Class 与 Style 绑定</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年04月15日 13:04
+  </p>
+</div>
+</div>
+
+
+
+  <div class="page">
+      <p>操作元素的 class 列表和内联样式是数据绑定的一个常见需求。因为它们都是属性，所以我们可以用 <code>v-bind</code> 处理它们：只需要通过表达式计算出字符串结果即可。不过，字符串拼接麻烦且易错。因此，在将 <code>v-bind</code> 用于 <code>class</code> 和 <code>style</code> 时，Vue.js 做了专门的增强。表达式结果的类型除了字符串之外，还可以是对象或数组。</p>
+<h2 id="绑定-HTML-Class"><a href="#绑定-HTML-Class" class="headerlink" title="绑定 HTML Class"></a>绑定 HTML Class</h2><h3 id="对象语法"><a href="#对象语法" class="headerlink" title="对象语法"></a>对象语法</h3><p>我们可以传给 <code>v-bind:class</code> 一个对象，以动态地切换 class：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name"><span class="token namespace">v-bind:</span>class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{ active: isActive }<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>上面的语法表示 <code>active</code> 这个 class 存在与否将取决于数据属性 <code>isActive</code> 的 <a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Truthy" target="_blank" rel="external">truthiness</a>。</p>
+<p>你可以在对象中传入更多属性来动态切换多个 class。此外，<code>v-bind:class</code> 指令也可以与普通的 class 属性共存。当有如下模板:</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>static<span class="token punctuation">"</span></span>
+     <span class="token attr-name"><span class="token namespace">v-bind:</span>class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{ active: isActive, <span class="token punctuation">'</span>text-danger<span class="token punctuation">'</span>: hasError }<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>和如下 data：</p>
+<pre class=" language-js"><code class="language-js">data<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  isActive<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  hasError<span class="token punctuation">:</span> <span class="token boolean">false</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>结果渲染为：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>static active<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>当 <code>isActive</code> 或者 <code>hasError</code> 变化时，class 列表将相应地更新。例如，如果 <code>hasError</code> 的值为 <code>true</code>，class 列表将变为 <code>&quot;static active text-danger&quot;</code>。</p>
+<p>绑定的数据对象不必内联定义在模板里：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name"><span class="token namespace">v-bind:</span>class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>classObject<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<pre class=" language-js"><code class="language-js">data<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  classObject<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    active<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token string">'text-danger'</span><span class="token punctuation">:</span> <span class="token boolean">false</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>渲染的结果和上面一样。我们也可以在这里绑定一个返回对象的<a href="computed.html">计算属性</a>。这是一个常用且强大的模式：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name"><span class="token namespace">v-bind:</span>class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>classObject<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<pre class=" language-js"><code class="language-js">data<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  isActive<span class="token punctuation">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+  error<span class="token punctuation">:</span> <span class="token keyword">null</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span>
+computed<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  classObject<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">{</span>
+      active<span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>isActive <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span><span class="token keyword">this</span><span class="token punctuation">.</span>error<span class="token punctuation">,</span>
+      <span class="token string">'text-danger'</span><span class="token punctuation">:</span> <span class="token keyword">this</span><span class="token punctuation">.</span>error <span class="token operator">&amp;&amp;</span> <span class="token keyword">this</span><span class="token punctuation">.</span>error<span class="token punctuation">.</span>type <span class="token operator">===</span> <span class="token string">'fatal'</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="数组语法"><a href="#数组语法" class="headerlink" title="数组语法"></a>数组语法</h3><p>我们可以把一个数组传给 <code>v-bind:class</code>，以应用一个 class 列表：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name"><span class="token namespace">v-bind:</span>class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>[activeClass, errorClass]<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<pre class=" language-js"><code class="language-js">data<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  activeClass<span class="token punctuation">:</span> <span class="token string">'active'</span><span class="token punctuation">,</span>
+  errorClass<span class="token punctuation">:</span> <span class="token string">'text-danger'</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>渲染为：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>active text-danger<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>如果你也想根据条件切换列表中的 class，可以用三元表达式：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name"><span class="token namespace">v-bind:</span>class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>[isActive ? activeClass : <span class="token punctuation">'</span><span class="token punctuation">'</span>, errorClass]<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>这样写将始终添加 <code>errorClass</code>，但是只有在 <code>isActive</code> 是 truthy<sup><a href="#footnote-1">[1]</a></sup> 时才添加 <code>activeClass</code>。</p>
+<p>不过，当有多个条件 class 时这样写有些繁琐。所以在数组语法中也可以使用对象语法：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name"><span class="token namespace">v-bind:</span>class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>[{ active: isActive }, errorClass]<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<h3 id="用在组件上"><a href="#用在组件上" class="headerlink" title="用在组件上"></a>用在组件上</h3><blockquote>
+<p>这个章节假设你已经对 <a href="components.html">Vue 组件</a>有一定的了解。当然你也可以先跳过这里，稍后再回过头来看。</p>
+</blockquote>
+<p>当在一个自定义组件上使用 <code>class</code> 属性时，这些类将被添加到该组件的根元素上面。这个元素上已经存在的类不会被覆盖。</p>
+<p>例如，如果你声明了这个组件：</p>
+<pre class=" language-js"><code class="language-js">Vue<span class="token punctuation">.</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token string">'my-component'</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+  template<span class="token punctuation">:</span> <span class="token string">'&lt;p class="foo bar">Hi&lt;/p>'</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>然后在使用它的时候添加一些 class：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-component</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>baz boo<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-component</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>HTML 将被渲染为:</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foo bar baz boo<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Hi<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>对于带数据绑定 class 也同样适用：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>my-component</span> <span class="token attr-name"><span class="token namespace">v-bind:</span>class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>{ active: isActive }<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>my-component</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>当 <code>isActive</code> 为 truthy<sup><a href="#footnote-1">[1]</a></sup> 时，HTML 将被渲染成为：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foo bar active<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Hi<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+</code></pre>
+<h2 id="绑定内联样式"><a href="#绑定内联样式" class="headerlink" title="绑定内联样式"></a>绑定内联样式</h2><h3 id="对象语法-1"><a href="#对象语法-1" class="headerlink" title="对象语法"></a>对象语法</h3><p><code>v-bind:style</code> 的对象语法十分直观——看着非常像 CSS，但其实是一个 JavaScript 对象。CSS 属性名可以用驼峰式 (camelCase) 或短横线分隔 (kebab-case，记得用单引号括起来) 来命名：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name"><span class="token namespace">v-bind:</span></span><span class="token style-attr language-css"><span class="token attr-name"><span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token punctuation">{</span> <span class="token property">color</span><span class="token punctuation">:</span> activeColor, <span class="token property">fontSize</span><span class="token punctuation">:</span> fontSize + <span class="token string">'px'</span> <span class="token punctuation">}</span></span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<pre class=" language-js"><code class="language-js">data<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  activeColor<span class="token punctuation">:</span> <span class="token string">'red'</span><span class="token punctuation">,</span>
+  fontSize<span class="token punctuation">:</span> <span class="token number">30</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>直接绑定到一个样式对象通常更好，这会让模板更清晰：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name"><span class="token namespace">v-bind:</span></span><span class="token style-attr language-css"><span class="token attr-name"><span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value">styleObject</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<pre class=" language-js"><code class="language-js">data<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  styleObject<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    color<span class="token punctuation">:</span> <span class="token string">'red'</span><span class="token punctuation">,</span>
+    fontSize<span class="token punctuation">:</span> <span class="token string">'13px'</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>同样的，对象语法常常结合返回对象的计算属性使用。</p>
+<h3 id="数组语法-1"><a href="#数组语法-1" class="headerlink" title="数组语法"></a>数组语法</h3><p><code>v-bind:style</code> 的数组语法可以将多个样式对象应用到同一个元素上：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name"><span class="token namespace">v-bind:</span></span><span class="token style-attr language-css"><span class="token attr-name"><span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value">[baseStyles, overridingStyles]</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<h3 id="自动添加前缀"><a href="#自动添加前缀" class="headerlink" title="自动添加前缀"></a>自动添加前缀</h3><p>当 <code>v-bind:style</code> 使用需要添加<a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Vendor_Prefix" target="_blank" rel="external">浏览器引擎前缀</a>的 CSS 属性时，如 <code>transform</code>，Vue.js 会自动侦测并添加相应的前缀。</p>
+<h3 id="多重值"><a href="#多重值" class="headerlink" title="多重值"></a>多重值</h3><blockquote>
+<p>2.3.0+</p>
+</blockquote>
+<p>从 2.3.0 起你可以为 <code>style</code> 绑定中的属性提供一个包含多个值的数组，常用于提供多个带前缀的值，例如：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">:</span><span class="token style-attr language-css"><span class="token attr-name"><span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token punctuation">{</span> <span class="token property">display</span><span class="token punctuation">:</span> [<span class="token string">'-webkit-box'</span>, <span class="token string">'-ms-flexbox'</span>, <span class="token string">'flex'</span>] <span class="token punctuation">}</span></span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>这样写只会渲染数组中最后一个被浏览器支持的值。在本例中，如果浏览器支持不带浏览器前缀的 flexbox，那么就只会渲染 <code>display: flex</code>。</p>
+<p><small><br><strong>译者注</strong><br><a id="footnote-1"></a>[1] truthy 不是 <code>true</code>，详见 <a href="https://developer.mozilla.org/zh-CN/docs/Glossary/Truthy" target="_blank" rel="external">MDN</a> 的解释。<br></small></p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/04/15/draft-vue-doc-8/">« 事件处理</a></span>
+  <span class="right"><a href="/2018/04/15/draft-vue-doc-9/">表单输入绑定 »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年04月15日 13:04</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  draft-vue-doc-5
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

@@ -1,0 +1,401 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  
+  <title>Vue 实例 | 小沙丘的网络漫游记</title>
+ 
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/Vue/">
+            Vue
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/Vue/">
+              Vue
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/04/09/draft-youkelili-1/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/04/15/draft-vue-doc-2/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/04/09/draft-youkelili-1/">
+                    入门 | 尤克里里
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/04/15/draft-vue-doc-2/">
+                    模板语法
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>Vue 实例</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年04月15日 08:04
+  </p>
+</div>
+</div>
+
+
+
+  <div class="page">
+      <h2 id="创建一个-Vue-实例"><a href="#创建一个-Vue-实例" class="headerlink" title="创建一个 Vue 实例"></a>创建一个 Vue 实例</h2><p>每个 <code>Vue 应用</code>都<code>是通过</code>用 <code>Vue</code> <code>函数``创建</code>一个新的 <strong>Vue 实例</strong>开始的：</p>
+<p>vue 应用是从创建 Vue实例开始的，Vue实例是通过Vue函数创建的。</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> vm <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// 选项</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>虽然没有完全遵循 <a href="https://zh.wikipedia.org/wiki/MVVM" target="_blank" rel="external">MVVM 模型</a>，但是 Vue 的设计也受到了它的启发。因此在文档中经常会使用 <code>vm</code> 这个变量名表示 Vue 实例，这里 VM 是 viewModel的缩写。</p>
+<p>当创建一个 Vue 实例时，你可以传入一个<strong>选项对象</strong>。</p>
+<p>一个 Vue 应用由一个通过 <code>new Vue</code> 创建的<strong>根 Vue 实例</strong>，加上可选的嵌套的、可复用的组件树组成。</p>
+<p>举个例子，一个 todo 应用可以是这样的：</p>
+<pre><code>根实例
+└─ TodoList
+   ├─ TodoItem
+   │  ├─ DeleteTodoButton
+   │  └─ EditTodoButton
+   └─ TodoListFooter
+      ├─ ClearTodosButton
+      └─ TodoListStatistics
+</code></pre><h2 id="数据与方法"><a href="#数据与方法" class="headerlink" title="数据与方法"></a>数据与方法</h2><p>当一个 Vue 实例被创建时，它向 <code>data</code> 对象加入相应的属性。当属性值改变时，视图将会产生“响应”，即匹配更新为新的值。</p>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">// 我们的数据对象</span>
+<span class="token keyword">var</span> data <span class="token operator">=</span> <span class="token punctuation">{</span> a<span class="token punctuation">:</span> <span class="token number">1</span> <span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// 该对象被加入到一个 Vue 实例中</span>
+<span class="token keyword">var</span> vm <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  data<span class="token punctuation">:</span> data
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true">// 获得这个实例上的属性</span>
+<span class="token comment" spellcheck="true">// 返回源数据中对应的字段</span>
+vm<span class="token punctuation">.</span>a <span class="token operator">==</span> data<span class="token punctuation">.</span>a <span class="token comment" spellcheck="true">// => true</span>
+
+<span class="token comment" spellcheck="true">// 设置属性也会影响到原始数据</span>
+vm<span class="token punctuation">.</span>a <span class="token operator">=</span> <span class="token number">2</span>
+data<span class="token punctuation">.</span>a <span class="token comment" spellcheck="true">// => 2</span>
+
+<span class="token comment" spellcheck="true">// ……反之亦然</span>
+data<span class="token punctuation">.</span>a <span class="token operator">=</span> <span class="token number">3</span>
+vm<span class="token punctuation">.</span>a <span class="token comment" spellcheck="true">// => 3</span>
+</code></pre>
+<p>值得注意的是：只有当实例被创建时 <code>data</code> 中存在的属性才是<strong>响应式</strong>的。</p>
+<p>也就是说如果你添加一个新的属性，比如：</p>
+<pre class=" language-js"><code class="language-js">vm<span class="token punctuation">.</span>b <span class="token operator">=</span> <span class="token string">'hi'</span>
+</code></pre>
+<p>那么对 <code>b</code> 的改动将不会触发任何视图的更新。如果你知道你会在晚些时候需要一个属性，但是一开始它为空或不存在，那么你仅需要设置一些初始值。比如：</p>
+<pre class=" language-js"><code class="language-js">data<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+  newTodoText<span class="token punctuation">:</span> <span class="token string">''</span><span class="token punctuation">,</span>
+  visitCount<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  hideCompletedTodos<span class="token punctuation">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+  todos<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  error<span class="token punctuation">:</span> <span class="token keyword">null</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>这里唯一的例外是使用 <code>Object.freeze()</code>，这会阻止修改现有的属性，也意味着响应系统无法再<em>追踪</em>变化。</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span>
+  foo<span class="token punctuation">:</span> <span class="token string">'bar'</span>
+<span class="token punctuation">}</span>
+
+Object<span class="token punctuation">.</span><span class="token function">freeze</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span>
+
+<span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  el<span class="token punctuation">:</span> <span class="token string">'#app'</span><span class="token punctuation">,</span>
+  data<span class="token punctuation">:</span> obj
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>app<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>{{ foo }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+  <span class="token comment" spellcheck="true">&lt;!-- 这里的 `foo` 不会更新！ --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name"><span class="token namespace">v-on:</span>click</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>foo <span class="token punctuation">=</span> <span class="token punctuation">'</span>baz<span class="token punctuation">'</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>Change it<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>除了数据属性，Vue 实例还暴露了一些有用的实例属性与方法。它们都有前缀 <code>$</code>，以便与用户定义的属性区分开来。例如：</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> data <span class="token operator">=</span> <span class="token punctuation">{</span> a<span class="token punctuation">:</span> <span class="token number">1</span> <span class="token punctuation">}</span>
+<span class="token keyword">var</span> vm <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  el<span class="token punctuation">:</span> <span class="token string">'#example'</span><span class="token punctuation">,</span>
+  data<span class="token punctuation">:</span> data
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+
+vm<span class="token punctuation">.</span>$data <span class="token operator">===</span> data <span class="token comment" spellcheck="true">// => true</span>
+vm<span class="token punctuation">.</span>$el <span class="token operator">===</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'example'</span><span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// => true</span>
+
+<span class="token comment" spellcheck="true">// $watch 是一个实例方法</span>
+vm<span class="token punctuation">.</span><span class="token function">$watch</span><span class="token punctuation">(</span><span class="token string">'a'</span><span class="token punctuation">,</span> <span class="token keyword">function</span> <span class="token punctuation">(</span>newValue<span class="token punctuation">,</span> oldValue<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token comment" spellcheck="true">// 这个回调将在 `vm.a` 改变后调用</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<h2 id="实例生命周期钩子"><a href="#实例生命周期钩子" class="headerlink" title="实例生命周期钩子"></a>实例生命周期钩子</h2><p>每个 Vue 实例在被创建时要经过一系列的初始化过程，如：设置数据监听、编译模板、将实例挂载到 DOM 并在数据变化时更新 DOM 等。</p>
+<p>同时在这个过程中也会运行一些叫做<strong>生命周期钩子</strong>的函数，这给了用户在不同阶段添加自己的代码的机会。</p>
+<p>比如 <a href="../api/#created"><code>created</code></a> 钩子可以用来在一个实例被创建之后执行代码：</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">new</span> <span class="token class-name">Vue</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  data<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    a<span class="token punctuation">:</span> <span class="token number">1</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  created<span class="token punctuation">:</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// `this` 指向 vm 实例</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'a is: '</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>a<span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token comment" spellcheck="true">// => "a is: 1"</span>
+</code></pre>
+<p>也有一些其它的钩子，在实例生命周期的不同阶段被调用，如 <a href="../api/#mounted"><code>mounted</code></a>、<a href="../api/#updated"><code>updated</code></a> 和 <a href="../api/#destroyed"><code>destroyed</code></a>。生命周期钩子的 <code>this</code> 上下文指向调用它的 Vue 实例。</p>
+<p class="tip">不要在选项属性或回调上使用<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank" rel="external">箭头函数</a>，比如 <code>created: () =&gt; console.log(this.a)</code> 或 <code>vm.$watch(&#39;a&#39;, newValue =&gt; this.myMethod())</code>。因为箭头函数是和父级上下文绑定在一起的，<code>this</code> 不会是如你所预期的 Vue 实例，经常导致 <code>Uncaught TypeError: Cannot read property of undefined</code> 或 <code>Uncaught TypeError: this.myMethod is not a function</code> 之类的错误。</p>
+
+<h2 id="生命周期图示"><a href="#生命周期图示" class="headerlink" title="生命周期图示"></a>生命周期图示</h2><p>下图展示了实例的生命周期。你不需要立马弄明白所有的东西，不过随着你的不断学习和使用，它的参考价值会越来越高。</p>
+<p><img src="https://cn.vuejs.org/images/lifecycle.png" alt="Vue 实例生命周期"></p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/04/15/draft-vue-doc-10/">« 组件</a></span>
+  <span class="right"><a href="/2018/04/15/draft-vue-doc-6/">条件渲染 »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年04月15日 08:04</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  draft-vue-doc-1
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+
