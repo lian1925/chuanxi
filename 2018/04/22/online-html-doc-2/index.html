@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>元素与结构 2 | HTML | 小沙丘的网络漫游记</title>
+  <title>根元素和结构 2 | HTML | 小沙丘的网络漫游记</title>
  
 <link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
 <body>
@@ -102,7 +102,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>元素与结构 2 | HTML</h1>
+<h1>根元素和结构 2 | HTML</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -129,21 +129,15 @@ if(isiOS){
   
   
   <div class="page">
-      <h2 id="html元素-elements"><a href="#html元素-elements" class="headerlink" title="html元素(elements)"></a>html元素(elements)</h2><p>html文档由元素组合而成。什么是html元素？我们来看个示例</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>My cat is very grumpy<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+      <h2 id="HTML结构"><a href="#HTML结构" class="headerlink" title="HTML结构"></a>HTML结构</h2><p>HTML的整体结构是非常简单清晰的。它由一层层的HTML元素嵌套而成。</p>
+<h2 id="根元素"><a href="#根元素" class="headerlink" title="根元素"></a>根元素</h2><p>首先是HTML元素，它包裹了整个完整的网页，故HTML元素又被称为根元素。</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
 </code></pre>
-<p>我们的HTML元素有3个组成部分：开始标签，结束标签，内容。<br>1、开始标签：以<code>&lt;</code>开头，以<code>&gt;</code>结束，标签中的第一个单词，是标签的名称，描述它的功能。接下来的其他单词，是标签的属性，用于描述标签的行为。<br>2、结束标签：以<code>&lt;/</code>开头，以<code>&gt;</code>结束。大多数标签是成对存在的，良好的编程习惯，是不能忘了写结束标签。如：省略</p><p>元素的结束标签，就是很多前端程序员容易犯的错误。<br>3、内容：包含在开始标签和结束标签中的内容，很多时候是文本。<br>示例：</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>main<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>My cat <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-</code></pre>
-<p>嵌套元素<br>你可以把元素放在其他元素之中，我们称之为嵌套。我们一般称嵌套在外面的元素称为父元素，里面的元素称为子元素。注意，子元素的开始标签和结束标签都被包含在父元素里头。<br>我们来看个例子</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>My cat is <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span><span class="token punctuation">></span></span>very<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">></span></span> grumpy.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-</code></pre>
-<p>在这个例子中，p元素嵌套了strong元素，表示对very这个单词进行强调。</p>
-<p>HTML元素有2两种重要的分类：<br>1、块级元素：该元素在页面中以块状方式呈现，即相对于前面的内容，它会另起一行，其后的内容也会被挤到下一行展现。常见的块级元素有：div,p<br>2、内联元素：通常出现在块级元素内部（嵌套），并包裹文档内容的小部分。它一个显著特性就是元素不换行。常见的内联元素有：a，span</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>My cat is <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>very<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span> grumpy.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-</code></pre>
-<h2 id="HTML结构"><a href="#HTML结构" class="headerlink" title="HTML结构"></a>HTML结构</h2><p>HTML的整体结构是非常简单清晰的。首先是HTML元素，它包裹了整个完整的网页，故HTML元素又被称为根元素。<br>head元素，网页的头部，主要包含一些网站属性信息，如：标题，字符集，css样式等。<br>body元素，网页的主体，你访问网页时，看到的所有内容，包括文本，图片，音频等内容，都是在主体定义的。</p>
-<p>html-&gt;(head+body)</p>
+<p>如果把网页比作洋葱，一层包一层，那<html>标签就是洋葱最外层的皮， <html> 元素是一张网页的根元素，所以其他所有元素都是是此元素的后代。</html></html></p>
+<h2 id="组成"><a href="#组成" class="headerlink" title="组成"></a>组成</h2><p>HTML文档结构用最简单的表述如下：<br>html-&gt;(head+body)</p>
+<p>head元素，网页的头部，主要包含一些网站属性信息，如：标题，字符集，css样式等。<br>body元素，网页的主体，你访问网页时，看到的所有内容，包括文本，图片，音频等内容，都是在主体定义的。</p>
 
   </div>
 </div>
@@ -151,7 +145,7 @@ if(isiOS){
 
 <p class="nav-foot">
   <span class="left"><a href="/2018/04/22/online-html-doc-1/">« 起步 1 | HTM...</a></span>
-  <span class="right"><a href="/2018/04/24/online-html-doc-3/">注释 3 | HTM... »</a></span>
+  <span class="right"><a href="/2018/04/27/online-html-doc-2-1/">HTML 元素 2.... »</a></span>
 </p>
 
 <!-- 文档信息 -->

@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>flow | 工具 | 小沙丘的网络漫游记</title>
+  <title>HTML 元素 2.1 | HTML | 小沙丘的网络漫游记</title>
  
 <link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
 <body>
@@ -48,8 +48,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/草稿/">
-            草稿
+          <a href="/tags/在线/">
+            在线
           </a>
       </span>
       
@@ -65,8 +65,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/草稿/">
-              草稿
+            <a href="/tags/在线/">
+              在线
             </a>
         </span>
       </p>
@@ -74,27 +74,27 @@ if(isiOS){
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2018/03/12/draft-code-9/">
+            <a href="/2018/04/25/online-vscode-doc-2/">
             &#8676;
             </a>
         </span>
         <span>
             
-            <a href="/2018/03/12/draft-event-2/">
+            <a href="#">
               &#8677;
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2018/03/12/draft-code-9/">
-                    代码检查 | 方法
+                <a href="/2018/04/25/online-vscode-doc-2/">
+                    高级 2 | 代码编辑器
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2018/03/12/draft-event-2/">
-                    拖地 | 段子
+                <a href="#">
+                    无
                 </a>
         </P>
     </div>
@@ -102,11 +102,11 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>flow | 工具</h1>
+<h1>HTML 元素 2.1 | HTML</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
-    2018年03月12日 09:03
+    2018年04月27日 17:04
   </p>
 </div>
 </div>
@@ -115,28 +115,18 @@ if(isiOS){
 
   
   <div class="page">
-      <p>flow</p>
-<p>Adds static typing to JavaScript to improve developer productivity and code quality.<br>为JavaScript添加静态类型检查，提升开发者生产效率和代码质量。</p>
-<p>摘自：</p>
-<blockquote>
-<p><a href="https://github.com/facebook/flow/" target="_blank" rel="external">https://github.com/facebook/flow/</a></p>
-</blockquote>
-<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><pre class=" language-js"><code class="language-js">The recommended way to install Flow is via the flow<span class="token operator">-</span>bin npm <span class="token keyword">package</span><span class="token punctuation">.</span> Adding flow<span class="token operator">-</span>bin to your project's <span class="token keyword">package</span><span class="token punctuation">.</span>json<span class="token punctuation">:</span>
-
-provides a smoother upgrade experience<span class="token punctuation">,</span> since the correct version <span class="token keyword">of</span> Flow is automatically used based on the revision you check out
-installs Flow <span class="token keyword">as</span> part <span class="token keyword">of</span> your existing npm install workflow
-lets you use different versions <span class="token keyword">of</span> Flow on different projects
-npm install <span class="token operator">--</span>save<span class="token operator">-</span>dev flow<span class="token operator">-</span>bin
-node_modules<span class="token operator">/</span><span class="token punctuation">.</span>bin<span class="token operator">/</span>flow
+      <h2 id="html元素-elements"><a href="#html元素-elements" class="headerlink" title="html元素(elements)"></a>html元素(elements)</h2><p>html文档由元素组合而成。什么是html元素？我们来看个示例</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>My cat is very grumpy<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
 </code></pre>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><pre class=" language-js"><code class="language-js">Getting started <span class="token keyword">with</span> flow is <span class="token keyword">super</span> easy<span class="token punctuation">.</span>
-
-Initialize Flow by running the following command <span class="token keyword">in</span> the root <span class="token keyword">of</span> your project
-flow init
-Add the following to the top <span class="token keyword">of</span> all the files you want to typecheck
-<span class="token comment" spellcheck="true">/* @flow */</span>
-Run and see the magic happen
-flow check
+<p>我们的HTML元素有3个组成部分：开始标签，结束标签，内容。<br>1、开始标签：以<code>&lt;</code>开头，以<code>&gt;</code>结束，标签中的第一个单词，是标签的名称，描述它的功能。接下来的其他单词，是标签的属性，用于描述标签的行为。<br>2、结束标签：以<code>&lt;/</code>开头，以<code>&gt;</code>结束。大多数标签是成对存在的，良好的编程习惯，是不能忘了写结束标签。如：省略</p><p>元素的结束标签，就是很多前端程序员容易犯的错误。<br>3、内容：包含在开始标签和结束标签中的内容，很多时候是文本。<br>示例：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>main<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>My cat <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+</code></pre>
+<h2 id="嵌套元素"><a href="#嵌套元素" class="headerlink" title="嵌套元素"></a>嵌套元素</h2><p>你可以把元素放在其他元素之中，我们称之为嵌套。我们一般称嵌套在外面的元素称为父元素，里面的元素称为子元素。注意，子元素的开始标签和结束标签都被包含在父元素里头。<br>我们来看个例子</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>My cat is <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span><span class="token punctuation">></span></span>very<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">></span></span> grumpy.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>在这个例子中，p元素嵌套了strong元素，表示对very这个单词进行强调。</p>
+<p>HTML元素有2两种重要的分类：<br>1、块级元素：该元素在页面中以块状方式呈现，即相对于前面的内容，它会另起一行，其后的内容也会被挤到下一行展现。常见的块级元素有：div,p<br>2、内联元素：通常出现在块级元素内部（嵌套），并包裹文档内容的小部分。它一个显著特性就是元素不换行。常见的内联元素有：a，span</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>My cat is <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>very<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span> grumpy.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
 </code></pre>
 
   </div>
@@ -144,8 +134,8 @@ flow check
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/13/draft-think-1/">« 感悟 | 草稿</a></span>
-  <span class="right"><a href="/2018/03/19/draft-store-api-2/">餐馆 | api »</a></span>
+  <span class="left"><a href="/2018/04/22/online-html-doc-2/">« 根元素和结构 2 |...</a></span>
+  <span class="right"><a href="/2018/04/24/online-html-doc-3/">注释 3 | HTM... »</a></span>
 </p>
 
 <!-- 文档信息 -->
@@ -156,7 +146,7 @@ flow check
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
     <li>作者：<a href="/">Lian</a></li>
-    <li>日期：2018年03月12日 09:03</li>
+    <li>日期：2018年04月27日 17:04</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
 </div>
@@ -299,7 +289,7 @@ flow check
 
 
 <p id="info-meta" style="display:none;">
-  draft-tools-1
+  online-html-doc-2-1
 </p>
 
 
