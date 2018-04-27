@@ -115,21 +115,22 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="html元素-elements"><a href="#html元素-elements" class="headerlink" title="html元素(elements)"></a>html元素(elements)</h2><p>html文档由元素组合而成。什么是html元素？我们来看个示例</p>
+      <h2 id="1-html元素-elements"><a href="#1-html元素-elements" class="headerlink" title="1 html元素(elements)"></a>1 html元素(elements)</h2><p>什么是html元素？<br>html元素是组成HTML文档的基本单位。也就是说，整个HTML文档是由多种元素组合而成。</p>
+<p>我们来看个示例。</p>
 <pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>My cat is very grumpy<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
 </code></pre>
-<p>我们的HTML元素有3个组成部分：开始标签，结束标签，内容。</p>
+<h3 id="2-元素的组成"><a href="#2-元素的组成" class="headerlink" title="2 元素的组成"></a>2 元素的组成</h3><p>我们的HTML元素有3个组成部分：开始标签，结束标签，内容。</p>
 <p>1、开始标签：以<code>&lt;</code>开头，以<code>&gt;</code>结束，标签中的第一个单词，是标签的名称，描述它的功能。接下来的其他单词，是标签的属性，用于描述标签的行为。</p>
 <p>2、结束标签：以<code>&lt;/</code>开头，以<code>&gt;</code>结束。大多数标签是成对存在的，良好的编程习惯，是不能忘了写结束标签。如：省略</p><p>元素的结束标签，就是很多前端程序员容易犯的错误。</p>
 <p>3、内容：包含在开始标签和结束标签中的内容，很多时候是文本。<br>示例：</p>
 <pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>main<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>My cat <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
 </code></pre>
-<h2 id="嵌套元素"><a href="#嵌套元素" class="headerlink" title="嵌套元素"></a>嵌套元素</h2><p>你可以把元素放在其他元素之中，我们称之为嵌套。我们一般称嵌套在外面的元素称为父元素，里面的元素称为子元素。注意，子元素的开始标签和结束标签都被包含在父元素里头。</p>
+<h2 id="3-嵌套元素"><a href="#3-嵌套元素" class="headerlink" title="3 嵌套元素"></a>3 嵌套元素</h2><p>你可以把元素放在其他元素之中，我们称之为嵌套。我们一般称嵌套在外面的元素称为父元素，里面的元素称为子元素。注意，子元素的开始标签和结束标签都被包含在父元素里头。</p>
 <p>我们来看个例子</p>
 <pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>My cat is <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>strong</span><span class="token punctuation">></span></span>very<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>strong</span><span class="token punctuation">></span></span> grumpy.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
 </code></pre>
 <p>在这个例子中，p元素嵌套了strong元素，表示对very这个单词进行强调。</p>
-<h2 id="分类"><a href="#分类" class="headerlink" title="分类"></a>分类</h2><p>HTML元素有2两种重要的分类：</p>
+<h2 id="4-分类"><a href="#4-分类" class="headerlink" title="4 分类"></a>4 分类</h2><p>HTML元素有两种重要的分类：</p>
 <p>1、块级元素：该元素在页面中以块状方式呈现，即相对于前面的内容，它会另起一行，其后的内容也会被挤到下一行展现。常见的块级元素有：div,p</p>
 <p>2、内联元素：通常出现在块级元素内部（嵌套），并包裹文档内容的小部分。它一个显著特性就是元素不换行。常见的内联元素有：a，span</p>
 <pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>My cat is <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token punctuation">></span></span>very<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span> grumpy.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
