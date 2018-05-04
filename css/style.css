@@ -933,6 +933,11 @@ form .hint {
 .list-tag ul li a {
   color: black; }
 
+.list-tag ul li a span {
+  color: rgba(0, 0, 0, 0.5);
+  font-size: 1.4rem;
+  font-weight: 100; }
+
 .tip-truth {
   /* // 文字 */
   text-shadow: 1px 1px 0px #eeeeee;
