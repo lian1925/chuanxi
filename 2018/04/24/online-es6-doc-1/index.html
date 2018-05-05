@@ -115,17 +115,21 @@ if(isiOS){
 
   
   <div class="page">
-      <p>在JavaScript中，声明变量有3种方式：var let const。其中var和let声明变量，而const声明常量。</p>
-<h2 id="1-var"><a href="#1-var" class="headerlink" title="1 var"></a>1 var</h2><p>1、var 是声明的变量，其作用域属于函数作用域。</p>
-<pre class=" language-js"><code class="language-js">
-
-<span class="token keyword">function</span> <span class="token function">myFunction</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <p>做过饭的同学可能都知道，烹饪时，我们需要准备一些容器，如碗，盘，碟等，用来盛放做菜的材料。</p>
+<p>程序员在编程时，同样需要一些容器，用来存放我们的数据。<br>这些容器就是变量，它可以存放简单数据，如：数字，字符串，布尔值等；也可以存放复杂数据，如：对象，数组等；甚至它还可以存放函数。</p>
+<p>变量的使用有两种方式，第一种，声明，它用于告诉程序我这里有个变量，将会存放些数据，但是现在还没决定好放什么。<br>如：var a;</p>
+<p>第二种，赋值，它用于往变量内存放具体的值。<br>a = 1 </p>
+<p>另外，声明与赋值是可以结合一起的。<br>如： var a = 1;</p>
+<p>在JavaScript中，声明变量有3种方式：var let const。其中var和let声明变量，而const声明常量。</p>
+<h2 id="1-var"><a href="#1-var" class="headerlink" title="1 var"></a>1 var</h2><p>1、var是以前JavaScript开发最为常用的关键词。 它声明的变量，其作用域属于函数作用域。</p>
+<p>函数作用域是一个很重要的概念，它是说在函数内部声明的变量，只能在函数内使用，在函数外则无法访问。</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">myFunction</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">var</span> myVar <span class="token operator">=</span> <span class="token string">"Nick"</span><span class="token punctuation">;</span>
   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>myVar<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// "Nick" - myVar is accessible inside the function</span>
 <span class="token punctuation">}</span>
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>myVar<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Throws a ReferenceError, myVar is not accessible outside the function.</span>
 </code></pre>
-<p>2、var 声明的变量，具备声明提升的特性。</p>
+<p>2、var 声明的变量，具备声明提升的特性。<br>声明提升是说，程序编译阶段，自动将变量的声明放到顶部。</p>
 <pre class=" language-js"><code class="language-js">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>myVar<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// undefined -- no error raised</span>
 <span class="token keyword">var</span> myVar <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
 </code></pre>
@@ -135,7 +139,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 myVar <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="2-let"><a href="#2-let" class="headerlink" title="2 let"></a>2 let</h2><p>let 是 es6 新引入的声明变量方法。它与var类似，两者声明的变量都支持重新赋值。</p>
-<p>1、let声明的变量，其作用域属于块作用域。</p>
+<p>1、let声明的变量，其作用域属于块作用域。<br>在这里，块指的是大括号包含的范围。</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">myFunction</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">let</span> myVar <span class="token operator">=</span> <span class="token string">"Nick"</span><span class="token punctuation">;</span>
   <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -191,7 +195,7 @@ person <span class="token operator">=</span> <span class="token punctuation">[</
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/04/24/online-css-doc-9/">« 背景 9 | CSS...</a></span>
+  <span class="left"><a href="/2018/05/05/online-es6-doc-0/">« 搭建nodeJs环境...</a></span>
   <span class="right"><a href="/2018/04/24/online-es6-doc-2/">箭头函数 2 | E... »</a></span>
 </p>
 
