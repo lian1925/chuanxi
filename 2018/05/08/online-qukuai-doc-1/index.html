@@ -115,67 +115,106 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1 概述"></a>1 概述</h2><p>一个真正的的点对点的电子现金，应该允许从发起方直接在线支付给对方，不需要通过第三方的金融服务机构。</p>
-<p>现有的数字签名技术虽然提供了部分解决方案，但如果还需要经过一个可以信任的第三方机构来防止电子现金的“双重支付”，那就丧失了电子现金给人类带来的最大好处。</p>
-<p>我们针对电子现金会出现的“双重支付”问题，用点对点的网络技术提供了一个解决方案。</p>
-<p>该网络通过给交易记录打上时间戳，并通过哈希对其加密，然后将其并入一个不断增长的哈希记录所组成的链条文件中，以此形成一个新的交易记录，这个哈希记录链条文件（以下简称链条文件）是由一个需要证明工作量的系统网路所提供存储和计算服务的。</p>
-<p>没有基于工作量证明的系统网络来重新完成所有的工作量证明，一个已经形成的记录是不能被修改的。基于工作量证明的系统理念，最长的链条文件不仅仅是提供这些工作量序列事件记录的证据，而且它也是由最大的CPU处理能力池产生的。只要由计算机节点控制的大部分CPU处理能力不联合攻击网络本身，它们的处理能力将超过攻击者，并生成最大的链条文件。</p>
-<p>这个网络它自身需要最简单的结构，以方便信息包尽最大努力广播给网络上的计算机节点，同时计算机节点只需要接受它们离开时工作量网络的产生的数据链，它也可以随时加入和离开网络。</p>
-<h2 id="2-介绍"><a href="#2-介绍" class="headerlink" title="2 介绍"></a>2 介绍</h2><p>互联网商业的电子支付已经发展到了几乎都需要专有的金融机构来提供第三方信任来处理的阶段。虽然大部分交易，系统都能工作的足够好，但它还是需要面对基于信任的基础模型带来的天生的缺点。 </p>
-<p>自从金融机构不可避免的开始调解纠纷，完全而不可撤销的交易就不能真正的实现。调解成本增加了交易成本，限制了实际可行交易的最小规模，同时彻底切断了为日常小额交易提供服务的可能性，广义上的成本让系统失去了为不可撤销类型的服务提供不可撤销支付的能力。因为用户有撤销支付的可能性，所以需要某个时间段内连续性的信任，这导致商家必须防备他们的客户，骚扰他们以为了得到更多的他们不再需要的信息。不可避免的，一定比例下的欺诈性交易是可以接受的。虽然使用物理货币可以避免这些成本和支付的不确定性，但是没有商家在不通过可信任的三方的沟通渠道前提下去支付。</p>
-<p>这就是为什么需要一个基于加密证明的电子支付系统取代原来的基于信任的基础模型，允许任意两个希望交易的双方不通过基于信任的第三方来直接支付。经过计算的无效交易将自动被撤销，以保护卖家远离欺诈，常规附带条件的契约，将被机械化的执行，将保护买家变得很简单。这篇论文中，我们提供了一个基于点对点的分布式时间戳服务器去生成基于时间序列的交易订单的计算证明方案，从而解决双重支付问题。只要诚实的节点全体所控制的CPU计算能力的总和，大于联合攻击节点计算能力组的总和，该系统就是安全的。</p>
-<h2 id="3-交易"><a href="#3-交易" class="headerlink" title="3 交易"></a>3 交易</h2><p>我们首先定义一个电子货币就是一个包含了一串数字签名的链。每一个币交易者通过用哈希技术对上一个交易信息和下一个拥有者的公共密钥两者进行加密，然后进行数字签名，最后将这些信息添加到这枚电子货币的末尾。下一个收款人通过私有密钥与链里的公有密钥进行签名验证，以确认自己是链也就是这枚电子货币的拥有者。</p>
-<p><img src="https://pic1.zhimg.com/80/v2-c166dc08c595ad4c97d2217f5b24be5a_hd.jpg" alt=""></p>
-<p>当然这个流程的问题在于，收款人还是不能验证币的某位拥有者是否对这个货币进行了双重花费，通常的解决办法是引入一个值得信任的中心权威，或者造币厂来检查每一笔交易的是否被双重花费。每一笔交易结束后，货币必须由造币厂回收以发行一个新的货币，只有从造币厂直接发行的货币才会被信任为没有被双重花费。这个解决方案的灾难之处是，整个金钱系统依靠某家公司来运营造币厂，就像银行一样，每一笔交易不得不通过它们。</p>
-<p>我们需要用一个方法来让收款人知道货币的上一个拥有者没有在更早的任何一个交易里签名授权以导致双重花费。我们的目的是，去计算以前的交易，我们不需要关心之后的交易是否对其进行双重花费。唯一的方法是知道之前所有的交易，才会确认交易不存在。基于造币厂的模型，造币厂知道所有的交易，同时决定哪一个交易请求第一时间到达。在没有可信任的三方下完成这个目的，交易必须公开发布，我们需要一个系统的每个参与者，都同意一个它们已经接受到的单一的订单历史。收款人需要通过主要节点认同它们已经第一时间收到了这笔交易来证明每一笔交易。</p>
-<h2 id="4-时间戳服务器"><a href="#4-时间戳服务器" class="headerlink" title="4 时间戳服务器"></a>4 时间戳服务器</h2><p>我们的解决方案从一个时间戳服务器开始，一个时间戳服务器对一组已经被时间戳标示过的数据块进行哈希加密，然后广泛公开发布这个哈希，就像新闻或者以前的论坛发帖一样。明显的，为了进入哈希里，时间戳证明了数据在这个时间是必须必定存在的，每个时间戳包含了上一个交易的时间戳在它的哈希里，以后每次交易的时间戳都对上一个进行了加强，以此形成了一个链。<br><img src="https://pic3.zhimg.com/80/v2-37badca48371771c635badb60ff7e126_hd.jpg" alt=""></p>
-<h2 id="5-工作量证明"><a href="#5-工作量证明" class="headerlink" title="5 工作量证明"></a>5 工作量证明</h2><p>我们将需要使用工作量证明系统，在点对点的基础之上构建一个分布式的时间戳服务器，和adam back提出的的哈希现金很像，而不是以前的新闻组及论坛的机制。当数据被哈希加密后，工作量证明用安全散列算法sha-256对一个数据的哈希值进行检查。哈希从一定数量的0字节开始，检查的平均工作量随着0的字节的数量增长而呈指数增长，而校验只需要执行一次哈希操作。</p>
-<p>为了我们的时间戳网络可行，我们增加一个不会被重复的随机数进到数据块内并执行一定的工作量来找到它，这个数据块的的哈希已经包含已经所需数量的0字节。CPU处理能力一经被证明它满足了所需的工作量，不重做所有的工作，这个数据块将不能被修改。随后的数据块被链接在其最后，修改数据块的信息需要把其后所有的数据块的工作量重做。</p>
-<p><img src="https://pic2.zhimg.com/80/v2-28414fe4b1b1d51718777f8329ed24f4_hd.jpg" alt=""><br>这个工作量系统也解决了集体决策谁代表大多数的问题。如果大多数是基于一个IP地址一票的机制，它将被能分配大量IP地址的人所破坏，工作量证明是基于一CPU一票的。大多数决策被最长的链代表，也代表了最大工作量效果的投入。如果大多数CPU被诚实节点控制，诚实链将最快速的增长，超过任何竞争的链。 修改一个过去的块，一个攻击者将不得不把块和之后所有的块里所有的工作量重做，然后追上超过诚实节点的工作。我们随后将展示一个慢速攻击者追上随后的数据块的可能性随数据块的增加呈指数增加。</p>
-<p>为了抵偿硬件增加的速度和节点运行时的变化的收益，工作量证明将被一个移动平均值来确定，即每小时平均生成的数据块数。如果它们生成的太快，难度也在增加。</p>
-<h2 id="6-网络"><a href="#6-网络" class="headerlink" title="6 网络"></a>6 网络</h2><p>运行这个网络的步骤如下：</p>
-<p>1 新的交易被广播给所有节点</p>
-<p>2 每一个节点收集新的交易写进一个数据块</p>
-<p>3 每个节点发现这个数据块的工作量的难度</p>
-<p>4 当一个节点证明了它的工作量，它将广播这个数据块给所有的节点。</p>
-<p>5 节点接受这个数据块，只有数据块中所有的交易都是有生效和没有被支付过的，节点才会接受这个数据块。</p>
-<p>6 节点通过创建下一个数据块在数据链上，同时把发送节点数据块的哈希作为创建数据块的上一个哈希，表示它们接受了这个数据块。</p>
-<p>节点始终认为最长的数据链是正确的，会一直在上面延展。如果两个节点一起广播不同版本的数据块，一些节点先接收到一个或者另一个。在这个例子里，它们会先在第一个接收的数据块上开始工作，但是储存另一个作为下一个分支，防止它变的更长。当工作量证明网络发现其中一个分支变的更长，在短链上工作的节点会切换到更长的链上，其所属关系也会被打断，</p>
-<p>新的交易广播不需要到达所有节点，它们只需要尽可能到达多的节点，它们将被整合进数据块中。数据块广播也容忍丢弃信息。如果一个节点没有收到一个数据块，它将持续请求它，直到它接受到下一个数据块，并相信它是丢失的那个。</p>
-<h2 id="7-激励"><a href="#7-激励" class="headerlink" title="7 激励"></a>7 激励</h2><p>根据规则，在数据块里的第一个交易是一个特定的交易,它创建了一个新的货币，由这个数据块的创建者拥有。这给支持网络的节点添加了一个激励，同时提供一个在整个循环里分布式发行货币的方法，没有中心权威去影响它们。稳定的、数量不断增加的新货币和挖金人花费资源添加黄金进如黄金循环系统一样。在这个例子里，处理器时间和电力是所需要花费的资源。</p>
-<p>激励也可以通过交易费用获得。如果交易的一个输出值小于输入址，差值就是交易费，它作为激励被被添加进包含这个交易的数据块。整个循环的货币数量已经被预先设定，同时交易费作为交易的激励可以完全避免通货膨胀。</p>
-<p>激励也可以有助于节点保持诚实。如果一个贪婪的攻击者有能力集合很多处理器能力超过诚实的节点，他要么选择从自己的交易里欺诈他人，要么使用它生成新的货币。他应该发现遵守规则获利更多，这样的规则有利于他联合其他人赚取新货币，超过了他削弱这个系统和损害自身的财富健康的有效性。</p>
-<h2 id="8-回收磁盘空间"><a href="#8-回收磁盘空间" class="headerlink" title="8 回收磁盘空间"></a>8 回收磁盘空间</h2><p>一个货币里最后的交易已经被足够多的数据块覆盖，那么这个支付交易之前的数据可以不再被使用以节省磁盘空间。为了在不打断数据块的哈希前提下促进它。交易被哈希进默克尔树（Merkle Tree），这样只这个数据块哈希的根需要被包含进来，老的数据块可以被压缩进树的接下的分支而拔除。内部的哈希不需要被存储。</p>
-<p><img src="https://pic4.zhimg.com/80/v2-bf8a01b065143cf7e590f26f1d4a26af_hd.jpg" alt=""></p>
-<p>一个不含交易信息的数据块头部大概80字节。如果我们支持每十分钟生成一个数据块。80字节<em>6</em>24*365=4.2M/每年。2008年，每个通用的计算机都有2G内存。根据摩尔定律预测，每年增长1.2GB,数据头都被存储进内存也不是问题。</p>
-<h2 id="9-简化的支付验证"><a href="#9-简化的支付验证" class="headerlink" title="9 简化的支付验证"></a>9 简化的支付验证</h2><p>不需要运行一个完整的网路节点也可以认证支付，一个用户仅仅需要保存工作量网络的最长数据链的数据块头部的复本，他可通过在网络节点上排队等待直到他相信他自己已经得到了最长的链，并且包含交易的数据块已经被默克尔分支连接上。他不能检查他自己的交易，但是通过连接到链的某个位置，他能看到网络节点已经接受了这个数据，并且其后增加的数据块也证明网络节点已经接受了它。</p>
-<p><img src="https://pic3.zhimg.com/80/v2-55c953b5fe1f00f96d5daeef9ab02f8b_hd.jpg" alt=""></p>
-<p>例如，这个支付验证依靠尽可能诚实的节点控制网络，但是如果网络被一个拥有大量算力的攻击者控制，它是会容易受到攻击的。当网络节点可以确认它们自身的交易，这个简单的方法可以被一个攻击者的编造的交易来欺骗，只要攻击者拥有超过网络的算力。当网络节点侦测到一个无效的数据块，一个策略会保护反对者，他们将会从网络节点接收到警告，促使软件的用户去下载整个数据块，以确认被警告交易的一致性。支付频繁的商家还可以去运行它们自己的节点，以获得更独立的安全和更快的确认。</p>
-<h2 id="10-合并和拆分数据"><a href="#10-合并和拆分数据" class="headerlink" title="10 合并和拆分数据"></a>10 合并和拆分数据</h2><p>尽管它可以控制单个货币的交易，但针对交易的每一分钱分开处理是很笨的方法。交易包含的多个输入和输出，应该允许数值的拆分和合并。通常要么就是从上一个更大的交易里单一输入，要么就是把多个输入合并成更小的数字，同时最多只有两个输出，一个负责支付，一个负责找零，如果有，则返回给发送者。</p>
-<p><img src="https://pic2.zhimg.com/80/v2-530a9dbcd9271efbda788e9997f502bf_hd.jpg" alt=""></p>
-<p>这里需要注意的是输出端。一个交易从几个交易而来，同时这些交易从更多交易而来，这不是问题。这里永远不需要去展开一个交易的历史完整复本。</p>
-<h2 id="11-隐私"><a href="#11-隐私" class="headerlink" title="11 隐私"></a>11 隐私</h2><p>传统银行的模式是给合作伙伴有限的访问权限，同时通过一个被信任的第三方来调用，以来查看一定级别的隐私。除了这个方法，维护隐私还需要通过打断信息流的一些地方，通过匿名的公共密钥，以公开需要的所有的交易。公众可以看到某人发送给其他人的数字，但是没有交易人的信息，这个很像股票交易所的信息发布级别，公众记录了单比的交易的时间和规模，但是不知道谁交易的。</p>
-<p><img src="https://pic3.zhimg.com/80/v2-6b3e38232c50357ead9b6ebe6155db5c_hd.jpg" alt=""></p>
-<p>作为一个额外的防火墙，同一个拥有者的每一比新交易可以连接一对新的配对密钥。一些连接还是不可避免的包含多个交易的输入，这必须暴露同一个拥有者过去的其他输入，这个风险是如果拥有者的密钥被暴露了，连接将暴露属于同一拥有者的其他交易。</p>
-<h2 id="12-计算"><a href="#12-计算" class="headerlink" title="12 计算"></a>12 计算</h2><p>我们假设一个场景，一个攻击者试图去生成一个更快的链以替代诚实的链。甚至如果它完成的比较彻底，它抛开这个系统去随意改变，例如凭空创造一个值或者拿走从不属于他的钱，节点不会接受一个无效的支付交易，诚实节点将永远不会接受包含他们的链。一个攻击者能做的仅仅是可以努力去改变他自己的交易，以从他最近的支付里把钱拿回来。</p>
-<p>诚实链和攻击链的之间比赛的特征是一个二项分布的随机漫步。成功的事件是诚实的节点被一个数据块扩展，它的领先增加一个点，失败的事件是攻击者的链扩展一个数据块，差距减少一个点。</p>
-<p>攻击者从一个给定的赤字追上成功的可能性和赌徒破产问题相似。假设一个赌徒从一个赤字开始拥有无限的信用，同时无限尝试的次数去赌以达到盈亏平衡。我们可以计算他达到盈亏平衡的可能性，那也就是一个攻击者追上诚实的链。如下所示。</p>
+      <h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1 概述"></a>1 概述</h2><p>本文提出了一种完全通过点对点技术实现的电子现金系统，它使得在线支付能够直接由一方发起并支付给另外一方，中间不需要通过任何的金融机构。虽然数字签名（Digital signatures）部分解决了这个问题，但是如果仍然需要第三方的支持才能防止双重支付（double-spending）的话，那么这种系统也就失去了存在的价值。我们(we)在此提出一种解决方案，使现金系统在点对点的环境下运行，并防止双重支付问题。该网络通过随机散列（hashing）对全部交易加上时间戳（timestamps），将它们合并入一个不断延伸的基于随机散列的工作量证明（proof-of-work）的链条作为交易记录，除非重新完成全部的工作量证明，形成的交易记录将不可更改。最长的链条不仅将作为被观察到的事件序列（sequence）的证明，而且被看做是来自CPU计算能力最大的池（pool）。只要大多数的CPU计算能力都没有打算合作起来对全网进行攻击，那么诚实的节点将会生成最长的、超过攻击者的链条。这个系统本身需要的基础设施非常少。信息尽最大努力在全网传播即可，节点(nodes)可以随时离开和重新加入网络，并将最长的工作量证明链条作为在该节点离线期间发生的交易的证明。</p>
+<h2 id="2-简介"><a href="#2-简介" class="headerlink" title="2 简介"></a>2 简介</h2><p>互联网上的贸易，几乎都需要借助金融机构作为可资信赖的第三方来处理电子支付信息。虽然这类系统在绝大多数情况下都运作良好，但是这类系统仍然内生性地受制于“基于信用的模式”(trust based model)的弱点。我们无法实现完全不可逆的交易，因为金融机构总是不可避免地会出面协调争端。而金融中介的存在，也会增加交易的成本，并且限制了实际可行的最小交易规模，也限制了日常的小额支付交易。并且潜在的损失还在于，很多商品和服务本身是无法退货的，如果缺乏不可逆的支付手段，互联网的贸易就大大受限。因为有潜在的退款的可能，就需要交易双方拥有信任。而商家也必须提防自己的客户，因此会向客户索取完全不必要的个人信息。而实际的商业行为中，一定比例的欺诈性客户也被认为是不可避免的，相关损失视作销售费用处理。而在使用物理现金的情况下，这些销售费用和支付问题上的不确定性却是可以避免的，因为此时没有第三方信用中介的存在。</p>
+<p>所以，我们非常需要这样一种电子支付系统，它基于密码学原理而不基于信用，使得任何达成一致的双方，能够直接进行支付，从而不需要第三方中介的参与。杜绝回滚(reverse)支付交易的可能，这就可以保护特定的卖家免于欺诈；而对于想要保护买家的人来说，在此环境下设立通常的第三方担保机制也可谓轻松加愉快。在这篇论文中，我们(we)将提出一种通过点对点分布式的时间戳服务器来生成依照时间前后排列并加以记录的电子交易证明，从而解决双重支付问题。只要诚实的节点所控制的计算能力的总和，大于有合作关系的(cooperating)攻击者的计算能力的总和，该系统就是安全的。</p>
+<h2 id="3-交易-Transactions"><a href="#3-交易-Transactions" class="headerlink" title="3 交易(Transactions)"></a>3 交易(Transactions)</h2><p>我们定义，一枚电子货币（an electronic coin）是这样的一串数字签名：每一位所有者通过对前一次交易和下一位拥有者的公钥(Public key) 签署一个随机散列的数字签名，并将这个签名附加在这枚电子货币的末尾，电子货币就发送给了下一位所有者。而收款人通过对签名进行检验，就能够验证该链条的所有者。</p>
+<p><img src="http://7fvhfe.com1.z0.glb.clouddn.com/wp-content/uploads/2013/11/11.png" alt=""></p>
+<p>该过程的问题在于，收款人将难以检验，之前的某位所有者，是否对这枚电子货币进行了双重支付。通常的解决方案，就是引入信得过的第三方权威，或者类似于造币厂(mint)的机构，来对每一笔交易进行检验，以防止双重支付。在每一笔交易结束后，这枚电子货币就要被造币厂回收，而造币厂将发行一枚新的电子货币；而只有造币厂直接发行的电子货币，才算作有效，这样就能够防止双重支付。可是该解决方案的问题在于，整个货币系统的命运完全依赖于运作造币厂的公司，因为每一笔交易都要经过该造币厂的确认，而该造币厂就好比是一家银行。 我们需要收款人有某种方法，能够确保之前的所有者没有对更早发生的交易实施签名。从逻辑上看，为了达到目的，实际上我们需要关注的只是于本交易之前发生的交易，而不需要关注这笔交易发生之后是否会有双重支付的尝试。为了确保某一次交易是不存在的，那么唯一的方法就是获悉之前发生过的所有交易。在造币厂模型里面，造币厂获悉所有的交易，并且决定了交易完成的先后顺序。如果想要在电子系统中排除第三方中介机构，那么交易信息就应当被公开宣布（publicly announced）[1] ，我们需要整个系统内的所有参与者，都有唯一公认的历史交易序列。收款人需要确保在交易期间绝大多数的节点都认同该交易是首次出现。</p>
+<h2 id="4-时间戳服务器"><a href="#4-时间戳服务器" class="headerlink" title="4 时间戳服务器"></a>4 时间戳服务器</h2><p>本解决方案首先提出一个“时间戳服务器”。时间戳服务器通过对以区块(block)形式存在的一组数据实施随机散列而加上时间戳，并将该随机散列进行广播，就像在新闻或世界性新闻组网络（Usenet）的发帖一样[2][3][4][5] 。显然，该时间戳能够证实特定数据必然于某特定时间是的确存在的，因为只有在该时刻存在了才能获取相应的随机散列值。每个时间戳应当将前一个时间戳纳入其随机散列值中，每一个随后的时间戳都对之前的一个时间戳进行增强(reinforcing)，这样就形成了一个链条（Chain）。</p>
+<p><img src="http://7fvhfe.com1.z0.glb.clouddn.com/wp-content/uploads/2013/11/21.png" alt=""></p>
+<h2 id="5-工作量证明（Proof-of-Work）"><a href="#5-工作量证明（Proof-of-Work）" class="headerlink" title="5 工作量证明（Proof-of-Work）"></a>5 工作量证明（Proof-of-Work）</h2><p>为了在点对点的基础上构建一组分散化的时间戳服务器，仅仅像报纸或世界性新闻网络组一样工作是不够的，我们还需要一个类似于亚当•柏克（Adam Back）提出的哈希现金（Hashcash）[6] 。在进行随机散列运算时，工作量证明机制引入了对某一个特定值的扫描工作，比方说SHA-256下，随机散列值以一个或多个0开始。那么随着0的数目的上升, 找到这个解所需要的工作量将呈指数增长，而对结果进行检验则仅需要一次随机散列运算。</p>
+<p>我们在区块中补增一个随机数(Nonce)，这个随机数要使得该给定区块的随机散列值出现了所需的那么多个0。我们通过反复尝试来找到这个随机数，直到找到为止，这样我们就构建了一个工作量证明机制。只要该CPU耗费的工作量能够满足该工作量证明机制，那么除非重新完成相当的工作量，该区块的信息就不可更改。由于之后的区块是链接在该区块之后的，所以想要更改该区块中的信息，就还需要重新完成之后所有区块的全部工作量。</p>
+<p><img src="http://7fvhfe.com1.z0.glb.clouddn.com/wp-content/uploads/2013/11/31.png" alt=""></p>
+<p>同时，该工作量证明机制还解决了在集体投票表决时，谁是大多数的问题。如果决定大多数的方式是基于IP地址的，一IP地址一票，那么如果有人拥有分配大量IP地址的权力，则该机制就被破坏了。而工作量证明机制的本质则是一CPU一票。“大多数”的决定表达为最长的链，因为最长的链包含了最大的工作量。如果大多数的CPU为诚实的节点控制，那么诚实的链条将以最快的速度延长，并超越其他的竞争链条。如果想要对业已出现的区块进行修改，攻击者必须重新完成该区块的工作量外加该区块之后所有区块的工作量，并最终赶上和超越诚实节点的工作量。我们将在后文证明，设想一个较慢的攻击者试图赶上随后的区块，那么其成功概率将呈指数化递减。</p>
+<p>另一个问题是，硬件的运算速度在高速增长，而节点参与网络的程度则会有所起伏。为了解决这个问题，工作量证明的难度(the proof-of-work difficulty)将采用移动平均目标的方法来确定，即令难度指向令每小时生成区块的速度为某一个预定的平均数。如果区块生成的速度过快，那么难度就会提高。</p>
+<h2 id="6-网络"><a href="#6-网络" class="headerlink" title="6 网络"></a>6 网络</h2><p>运行该网络的步骤如下：</p>
+<p>1) 新的交易向全网进行广播；<br>2) 每一个节点都将收到的交易信息纳入一个区块中；<br>3) 每个节点都尝试在自己的区块中找到一个具有足够难度的工作量证明；<br>4) 当一个节点找到了一个工作量证明，它就向全网进行广播；<br>5) 当且仅当包含在该区块中的所有交易都是有效的且之前未存在过的，其他节点才认同该区块的有效性；<br>6) 其他节点表示他们接受该区块，而表示接受的方法，则是在跟随该区块的末尾，制造新的区块以延长该链条，而将被接受区块的随机散列值视为先于新区快的随机散列值。<br>节点始终都将最长的链条视为正确的链条，并持续工作和延长它。如果有两个节点同时广播不同版本的新区块，那么其他节点在接收到该区块的时间上将存在先后差别。当此情形，他们将在率先收到的区块基础上进行工作，但也会保留另外一个链条，以防后者变成最长的链条。该僵局（tie）的打破要等到下一个工作量证明被发现，而其中的一条链条被证实为是较长的一条，那么在另一条分支链条上工作的节点将转换阵营，开始在较长的链条上工作。</p>
+<p>所谓“新的交易要广播”，实际上不需要抵达全部的节点。只要交易信息能够抵达足够多的节点，那么他们将很快被整合进一个区块中。而区块的广播对被丢弃的信息是具有容错能力的。如果一个节点没有收到某特定区块，那么该节点将会发现自己缺失了某个区块，也就可以提出自己下载该区块的请求。</p>
+<h2 id="7-激励"><a href="#7-激励" class="headerlink" title="7 激励"></a>7 激励</h2><p>我们约定如此：每个区块的第一笔交易进行特殊化处理，该交易产生一枚由该区块创造者拥有的新的电子货币。这样就增加了节点支持该网络的激励，并在没有中央集权机构发行货币的情况下，提供了一种将电子货币分配到流通领域的一种方法。这种将一定数量新货币持续增添到货币系统中的方法，非常类似于耗费资源去挖掘金矿并将黄金注入到流通领域。此时，CPU的时间和电力消耗就是消耗的资源。</p>
+<p>另外一个激励的来源则是交易费（transaction fees）。如果某笔交易的输出值小于输入值，那么差额就是交易费，该交易费将被增加到该区块的激励中。只要既定数量的电子货币已经进入流通，那么激励机制就可以逐渐转换为完全依靠交易费，那么本货币系统就能够免于通货膨胀。</p>
+<p>激励系统也有助于鼓励节点保持诚实。如果有一个贪婪的攻击者能够调集比所有诚实节点加起来还要多的CPU计算力，那么他就面临一个选择：要么将其用于诚实工作产生新的电子货币，或者将其用于进行二次支付攻击。那么他就会发现，按照规则行事、诚实工作是更有利可图的。因为该等规则使得他能够拥有更多的电子货币，而不是破坏这个系统使得其自身财富的有效性受损。</p>
+<h2 id="8-回收硬盘空间"><a href="#8-回收硬盘空间" class="headerlink" title="8 回收硬盘空间"></a>8 回收硬盘空间</h2><p>如果最近的交易已经被纳入了足够多的区块之中，那么就可以丢弃该交易之前的数据，以回收硬盘空间。为了同时确保不损害区块的随机散列值，交易信息被随机散列时，被构建成一种Merkle树（Merkle tree）[7] 的形态，使得只有根(root)被纳入了区块的随机散列值。通过将该树（tree）的分支拔除（stubbing）的方法，老区块就能被压缩。而内部的随机散列值是不必保存的。</p>
+<p><img src="http://7fvhfe.com1.z0.glb.clouddn.com/wp-content/uploads/2013/11/41.png" alt=""></p>
+<p>不含交易信息的区块头（Block header）大小仅有80字节。如果我们设定区块生成的速率为每10分钟一个，那么每一年产生的数据位4.2MB。（80 bytes 6 24 * 365 = 4.2MB）。2008年，PC系统通常的内存容量为2GB，按照摩尔定律的预言，即使将全部的区块头存储于内存之中都不是问题。</p>
+<h2 id="9-简化的支付确认（Simplified-Payment-Verification）"><a href="#9-简化的支付确认（Simplified-Payment-Verification）" class="headerlink" title="9 简化的支付确认（Simplified Payment Verification）"></a>9 简化的支付确认（Simplified Payment Verification）</h2><p>在不运行完整网络节点的情况下，也能够对支付进行检验。一个用户需要保留最长的工作量证明链条的区块头的拷贝，它可以不断向网络发起询问，直到它确信自己拥有最长的链条，并能够通过merkle的分支通向它被加上时间戳并纳入区块的那次交易。节点想要自行检验该交易的有效性原本是不可能的，但通过追溯到链条的某个位置，它就能看到某个节点曾经接受过它，并且于其后追加的区块也进一步证明全网曾经接受了它。</p>
+<p><img src="http://7fvhfe.com1.z0.glb.clouddn.com/wp-content/uploads/2013/11/5.png" alt=""></p>
+<p>当此情形，只要诚实的节点控制了网络，检验机制就是可靠的。但是，当全网被一个计算力占优的攻击者攻击时，将变得较为脆弱。因为网络节点能够自行确认交易的有效性，只要攻击者能够持续地保持计算力优势，简化的机制会被攻击者焊接的（fabricated）交易欺骗。那么一个可行的策略就是，只要他们发现了一个无效的区块，就立刻发出警报，收到警报的用户将立刻开始下载被警告有问题的区块或交易的完整信息，以便对信息的不一致进行判定。对于日常会发生大量收付的商业机构，可能仍会希望运行他们自己的完整节点，以保持较大的独立完全性和检验的快速性。<br><img src="http://7fvhfe.com1.z0.glb.clouddn.com/wp-content/uploads/2013/11/7.png" alt=""></p>
+<h2 id="10-价值的组合与分割（Combining-and-Splitting-Value）"><a href="#10-价值的组合与分割（Combining-and-Splitting-Value）" class="headerlink" title="10 价值的组合与分割（Combining and Splitting Value）"></a>10 价值的组合与分割（Combining and Splitting Value）</h2><p>虽然可以单个单个地对电子货币进行处理，但是对于每一枚电子货币单独发起一次交易将是一种笨拙的办法。为了使得价值易于组合与分割，交易被设计为可以纳入多个输入和输出。一般而言是某次价值较大的前次交易构成的单一输入，或者由某几个价值较小的前次交易共同构成的并行输入，但是输出最多只有两个：一个用于支付，另一个用于找零（如有）。</p>
+<p>需要指出的是，当一笔交易依赖于之前的多笔交易时，这些交易又各自依赖于多笔交易，但这并不存在任何问题。因为这个工作机制并不需要展开检验之前发生的所有交易历史。</p>
+<h2 id="11-隐私（Privacy）"><a href="#11-隐私（Privacy）" class="headerlink" title="11 隐私（Privacy）"></a>11 隐私（Privacy）</h2><p><img src="http://7fvhfe.com1.z0.glb.clouddn.com/wp-content/uploads/2013/11/6.png" alt=""><br>传统的造币厂模型为交易的参与者提供了一定程度的隐私保护，因为试图向可信任的第三方索取交易信息是严格受限的。但是如果将交易信息向全网进行广播，就意味着这样的方法失效了。但是隐私依然可以得到保护：将公钥保持为匿名。公众得知的信息仅仅是有某个人将一定数量的货币发所给了另外一个人，但是难以将该交易同特定的人联系在一起，也就是说，公众难以确信，这些人究竟是谁。这同股票交易所发布的信息是类似的，股票交易发生的时间、交易量是记录在案且可供查询的，但是交易双方的身份信息却不予透露。</p>
+<p>作为额外的预防措施，使用者可以让每次交易都生成一个新的地址，以确保这些交易不被追溯到一个共同的所有者。但是由于并行输入的存在，一定程度上的追溯还是不可避免的，因为并行输入表明这些货币都属于同一个所有者。此时的风险在于，如果某个人的某一个公钥被确认属于他，那么就可以追溯出此人的其它很多交易。</p>
+<h2 id="12-计算"><a href="#12-计算" class="headerlink" title="12 计算"></a>12 计算</h2><p>设想如下场景：一个攻击者试图比诚实节点产生链条更快地制造替代性区块链。即便它达到了这一目的，但是整个系统也并非就此完全受制于攻击者的独断意志了，比方说凭空创造价值，或者掠夺本不属于攻击者的货币。这是因为节点将不会接受无效的交易，而诚实的节点永远不会接受一个包含了无效信息的区块。一个攻击者能做的，最多是更改他自己的交易信息，并试图拿回他刚刚付给别人的钱。</p>
+<p>诚实链条和攻击者链条之间的竞赛，可以用二叉树随机漫步（Binomial Random Walk)来描述。成功事件定义为诚实链条延长了一个区块，使其领先性+1，而失败事件则是攻击者的链条被延长了一个区块，使得差距-1。</p>
+<p>攻击者成功填补某一既定差距的可能性，可以近似地看做赌徒破产问题（Gambler’s Ruin problem）。假定一个赌徒拥有无限的透支信用，然后开始进行潜在次数为无穷的赌博，试图填补上自己的亏空。那么我们可以计算他填补上亏空的概率，也就是该攻击者赶上诚实链条，如下所示[8] ：</p>
 <p>p = 诚实节点发现下一个数据块的可能性</p>
 <p>q = 攻击者发现下一个数据块的可能性</p>
 <p>qz = 攻击者尝试从z数据块以后追上的可能性</p>
-<p><img src="https://pic1.zhimg.com/80/v2-5601de656d8c08e995d15f99790e728f_hd.jpg" alt=""><br>我们假设p&gt;q,可能性随着攻击者追上数据块的增加呈指数下降，随着概率和他做对，如果他不能在早期幸运的赶上，越往后，他的机会会变的很渺茫。</p>
-<p>我们现在思考需要等待多久才能确认这个发送者不能改变交易。我们假设这个发送者是个攻击者，他想使接收者相信他已经把钱付给了他，然后过一会，他把钱再付给他自己。当发生时，接受者将接收到警告，但是发送者希望它迟些发生。</p>
-<p>接收者在签名前生成一个新的配对密钥然后把很快把公钥给了发送者。这防止发送者在这个时间点前准备一个数据块链并开始持续的工作，直到他幸运的跑到前面，然后在这时执行这个交易。交易一经发出，不诚实的发送者就已经开始在一个并行包含了他交易的替代版本的链上秘密工作。</p>
-<p>接收者等待直到这个交易已经被添加进一个数据块同时Z数据块已经被链接在它的后面。他不知道攻击者已经制造的数据块进展的准确数字，但是假设诚实的数据块按每个数据块的期望的平均值生成，攻击者可能的进展的期望值将呈柏松分布。</p>
-<p><img src="https://pic2.zhimg.com/80/v2-4a7232c96d4acf3dcaca4e99661aa516_hd.jpg" alt=""><br>为了得到攻击者在这时追上的概率，我们用柏松分布密度乘以他可能在这个点上追上可能的概率的进展数：</p>
-<p><img src="https://pic4.zhimg.com/80/v2-ddcb071e665d40bedd01466955a93db8_hd.jpg" alt=""></p>
-<p>重新整理避免分布无限循环的尾部求和</p>
-<p><img src="https://pic3.zhimg.com/80/v2-3a1e4e9e85aaab4e06756a5cea18e060_hd.jpg" alt=""></p>
-<p>转换到C代码…<br><img src="https://pic4.zhimg.com/80/v2-074cb561055612ec018c3761481c6712_hd.jpg" alt=""></p>
-<p>运行一些结果，我们可以看到随着z值的增加，概率呈指数下降。</p>
-<p><img src="https://pic3.zhimg.com/80/v2-2cf2bdda3adabb6bc3d9d54e7ea7d67b_hd.jpg" alt=""></p>
-<p>求解 P 小于 0.1%…<br><img src="https://pic4.zhimg.com/80/v2-0908fdc4ab5535f840e60a1ecc488894_hd.jpg" alt=""></p>
-<h2 id="13-结论"><a href="#13-结论" class="headerlink" title="13 结论"></a>13 结论</h2><p>我们已经提出了一个不需要基于第三方信任的电子交易系统。我们从常用的包含数字签名的货币框架开始，虽然它提供了强大的控制力，但是在防止双重支付方面做的不完整。为了解决这个问题，我们提出了一个依靠工作量证明的点对点网络，用其记录一个公共的交易历史，如果诚实的节点控制了主要的处理能力，那么经过计算，攻击者希望修改记录的努力将变的不切实际。这个网络简单且具备鲁棒性。所有网络上的节点仅需要一点点的协调。它们不需要被认证，信息不需要路由到任何特别的地方，仅仅需要尽最佳效果传播。只需要接受它们离开时工作量网络的产生的数据链,计算节点可以随时加入和离开网络。它们用处理器能力投票，通过在数据块上扩展新的数据，以表示对数据块有效性的赞同，拒绝在数据块上扩展以拒绝无效数据块。任何需要的规则和奖励已经被整合进这个一致的机制且强制执行。</p>
+<p><img src="https://pic1.zhimg.com/80/v2-5601de656d8c08e995d15f99790e728f_hd.jpg" alt=""><br>假定p&gt;q，那么攻击成功的概率就因为区块数的增长而呈现指数化下降。由于概率是攻击者的敌人，如果他不能幸运且快速地获得成功，那么他获得成功的机会随着时间的流逝就变得愈发渺茫。那么我们考虑一个收款人需要等待多长时间，才能足够确信付款人已经难以更改交易了。我们假设付款人是一个支付攻击者，希望让收款人在一段时间内相信他已经付过款了，然后立即将支付的款项重新支付给自己。虽然收款人届时会发现这一点，但为时已晚。</p>
+<p>收款人生成了新的一对密钥组合，然后只预留一个较短的时间将公钥发送给付款人。这将可以防止以下情况：付款人预先准备好一个区块链然后持续地对此区块进行运算，直到运气让他的区块链超越了诚实链条，方才立即执行支付。当此情形，只要交易一旦发出，攻击者就开始秘密地准备一条包含了该交易替代版本的平行链条。</p>
+<p>然后收款人将等待交易出现在首个区块中，然后在等到z个区块链接其后。此时，他仍然不能确切知道攻击者已经进展了多少个区块，但是假设诚实区块将耗费平均预期时间以产生一个区块，那么攻击者的潜在进展就是一个泊松分布，分布的期望值为：<br><img src="http://7fvhfe.com1.z0.glb.clouddn.com/wp-content/uploads/2013/11/image022.png" alt=""></p>
+<p>当此情形，为了计算攻击者追赶上的概率，我们将攻击者取得进展区块数量的泊松分布的概率密度，乘以在该数量下攻击者依然能够追赶上的概率。</p>
+<p><img src="http://7fvhfe.com1.z0.glb.clouddn.com/wp-content/uploads/2013/11/pq2.png" alt=""></p>
+<p>化为如下形式，避免对无限数列求和：</p>
+<p><img src="http://7fvhfe.com1.z0.glb.clouddn.com/wp-content/uploads/2013/11/pq3.png" alt=""></p>
+<p>写为如下C语言代码：</p>
+<pre class=" language-c"><code class="language-c"><span class="token macro property">#<span class="token directive keyword">include</span> double AttackerSuccessProbability(double q, int z)</span>
+<span class="token punctuation">{</span>
+    <span class="token keyword">double</span> p <span class="token operator">=</span> <span class="token number">1.0</span> <span class="token operator">-</span> q<span class="token punctuation">;</span>
+    <span class="token keyword">double</span> lambda <span class="token operator">=</span> z <span class="token operator">*</span> <span class="token punctuation">(</span>q <span class="token operator">/</span> p<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">double</span> sum <span class="token operator">=</span> <span class="token number">1.0</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span> i<span class="token punctuation">,</span> k<span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span>k <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> k <span class="token operator">&lt;=</span> z<span class="token punctuation">;</span> k<span class="token operator">++</span><span class="token punctuation">)</span>
+    <span class="token punctuation">{</span>
+        <span class="token keyword">double</span> poisson <span class="token operator">=</span> <span class="token function">exp</span><span class="token punctuation">(</span><span class="token operator">-</span>lambda<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span>i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span> i <span class="token operator">&lt;=</span> k<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span>
+            poisson <span class="token operator">*</span><span class="token operator">=</span> lambda <span class="token operator">/</span> i<span class="token punctuation">;</span>
+        sum <span class="token operator">-</span><span class="token operator">=</span> poisson <span class="token operator">*</span> <span class="token punctuation">(</span><span class="token number">1</span> <span class="token operator">-</span> <span class="token function">pow</span><span class="token punctuation">(</span>q <span class="token operator">/</span> p<span class="token punctuation">,</span> z <span class="token operator">-</span> k<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> sum<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>对其进行运算，我们可以得到如下的概率结果，发现概率对z值呈指数下降。</p>
+<p>当q=0.1时</p>
+<pre class=" language-js"><code class="language-js">z<span class="token operator">=</span><span class="token number">0</span> P<span class="token operator">=</span><span class="token number">1.0000000</span>
+z<span class="token operator">=</span><span class="token number">1</span> P<span class="token operator">=</span><span class="token number">0.2045873</span>
+z<span class="token operator">=</span><span class="token number">2</span> P<span class="token operator">=</span><span class="token number">0.0509779</span>
+z<span class="token operator">=</span><span class="token number">3</span> P<span class="token operator">=</span><span class="token number">0.0131722</span>
+z<span class="token operator">=</span><span class="token number">4</span> P<span class="token operator">=</span><span class="token number">0.0034552</span>
+z<span class="token operator">=</span><span class="token number">5</span> P<span class="token operator">=</span><span class="token number">0.0009137</span>
+z<span class="token operator">=</span><span class="token number">6</span> P<span class="token operator">=</span><span class="token number">0.0002428</span>
+z<span class="token operator">=</span><span class="token number">7</span> P<span class="token operator">=</span><span class="token number">0.0000647</span>
+z<span class="token operator">=</span><span class="token number">8</span> P<span class="token operator">=</span><span class="token number">0.0000173</span>
+z<span class="token operator">=</span><span class="token number">9</span> P<span class="token operator">=</span><span class="token number">0.0000046</span>
+z<span class="token operator">=</span><span class="token number">10</span> P<span class="token operator">=</span><span class="token number">0.0000012</span>
+
+当q<span class="token operator">=</span><span class="token number">0.3</span>时
+z<span class="token operator">=</span><span class="token number">0</span> P<span class="token operator">=</span><span class="token number">1.0000000</span>
+z<span class="token operator">=</span><span class="token number">5</span> P<span class="token operator">=</span><span class="token number">0.1773523</span>
+z<span class="token operator">=</span><span class="token number">10</span> P<span class="token operator">=</span><span class="token number">0.0416605</span>
+z<span class="token operator">=</span><span class="token number">15</span> P<span class="token operator">=</span><span class="token number">0.0101008</span>
+z<span class="token operator">=</span><span class="token number">20</span> P<span class="token operator">=</span><span class="token number">0.0024804</span>
+z<span class="token operator">=</span><span class="token number">25</span> P<span class="token operator">=</span><span class="token number">0.0006132</span>
+z<span class="token operator">=</span><span class="token number">30</span> P<span class="token operator">=</span><span class="token number">0.0001522</span>
+z<span class="token operator">=</span><span class="token number">35</span> P<span class="token operator">=</span><span class="token number">0.0000379</span>
+z<span class="token operator">=</span><span class="token number">40</span> P<span class="token operator">=</span><span class="token number">0.0000095</span>
+z<span class="token operator">=</span><span class="token number">45</span> P<span class="token operator">=</span><span class="token number">0.0000024</span>
+z<span class="token operator">=</span><span class="token number">50</span> P<span class="token operator">=</span><span class="token number">0.0000006</span>
+</code></pre>
+<p>求解令P&lt;0.1%的z值：</p>
+<p>为使P&lt;0.001，则</p>
+<pre class=" language-js"><code class="language-js">q<span class="token operator">=</span><span class="token number">0.10</span> z<span class="token operator">=</span><span class="token number">5</span>
+q<span class="token operator">=</span><span class="token number">0.15</span> z<span class="token operator">=</span><span class="token number">8</span>
+q<span class="token operator">=</span><span class="token number">0.20</span> z<span class="token operator">=</span><span class="token number">11</span>
+q<span class="token operator">=</span><span class="token number">0.25</span> z<span class="token operator">=</span><span class="token number">15</span>
+q<span class="token operator">=</span><span class="token number">0.30</span> z<span class="token operator">=</span><span class="token number">24</span>
+q<span class="token operator">=</span><span class="token number">0.35</span> z<span class="token operator">=</span><span class="token number">41</span>
+q<span class="token operator">=</span><span class="token number">0.40</span> z<span class="token operator">=</span><span class="token number">89</span>
+q<span class="token operator">=</span><span class="token number">0.45</span> z<span class="token operator">=</span><span class="token number">340</span>
+</code></pre>
+<h2 id="13-结论"><a href="#13-结论" class="headerlink" title="13 结论"></a>13 结论</h2><p>我们在此提出了一种不需要信用中介的电子支付系统。我们首先讨论了通常的电子货币的电子签名原理，虽然这种系统为所有权提供了强有力的控制，但是不足以防止双重支付。为了解决这个问题，我们提出了一种采用工作量证明机制的点对点网络来记录交易的公开信息，只要诚实的节点能够控制绝大多数的CPU计算能力，就能使得攻击者事实上难以改变交易记录。该网络的强健之处在于它结构上的简洁性。节点之间的工作大部分是彼此独立的，只需要很少的协同。每个节点都不需要明确自己的身份，由于交易信息的流动路径并无任何要求，所以只需要尽其最大努力传播即可。节点可以随时离开网络，而想重新加入网络也非常容易，因为只需要补充接收离开期间的工作量证明链条即可。节点通过自己的CPU计算力进行投票，表决他们对有效区块的确认，他们不断延长有效的区块链来表达自己的确认，并拒绝在无效的区块之后延长区块以表示拒绝。本框架包含了一个P2P电子货币系统所需要的全部规则和激励措施。</p>
+<p>注释</p>
+<p>W Dai（戴伟）,a scheme for a group of untraceable digital pseudonyms to pay each other with money and to enforce contracts amongst themselves without outside help（一种能够借助电子假名在群体内部相互支付并迫使个体遵守规则且不需要外界协助的电子现金机制）, “B-money”, <a href="http://www.weidai.com/bmoney.txt" target="_blank" rel="external">http://www.weidai.com/bmoney.txt</a>, 1998↵<br>H. Massias, X.S. Avila, and J.-J. Quisquater, “Design of a secure timestamping service with minimal trust requirements,”（在最小化信任的基础上设计一种时间戳服务器） In 20th Symposium on Information Theory in the Benelux, May 1999.↵<br>S. Haber, W.S. Stornetta, “How to time-stamp a digital document,” （怎样为电子文件添加时间戳）In Journal of Cryptology, vol 3, No.2, pages 99-111, 1991.↵<br>D. Bayer, S. Haber, W.S. Stornetta, “Improving the efficiency and reliability of digital time-stamping,”（提升电子时间戳的效率和可靠性） In Sequences II: Methods in Communication, Security and Computer Science, pages 329-334, 1993.↵<br>S. Haber, W.S. Stornetta, “Secure names for bit-strings,”（比特字串的安全命名） In Proceedings of the 4th ACM Conference on Computer and Communications Security, pages 28-35, April 1997. on Computer and Communications Security, pages 28-35, April 1997.↵<br>A. Back, “Hashcash – a denial of service counter-measure,”（哈希现金——拒绝服务式攻击的克制方法）<a href="http://www.hashcash.org/papers/hashcash.pdf" target="_blank" rel="external">http://www.hashcash.org/papers/hashcash.pdf</a>, 2002.↵<br>R.C. Merkle, “Protocols for public key cryptosystems,” （公钥密码系统的协议）In Proc. 1980 Symposium on Security and Privacy, IEEE Computer Society, pages 122-133, April 1980. S. Haber, W.S. Stornetta, “Secure names for bit-strings,”（比特字串安全命名） In Proceedings of the 4th ACM Conference on Computer and Communications Security, pages 28-35, April 1997. on Computer and Communications Security, pages 28-35, April 1997. H. Massias, X.S. Avila, and J.-J. Quisquater, “Design of a secure timestamping service with minimal trust requirements,”（在最小化信任的条件下设计一种时间戳服务器） In 20th Symposium on Information Theory in the Benelux, May 1999.↵<br>W. Feller, “An introduction to probability theory and its applications,” （概率学理论与应用导论）1957</p>
 
   </div>
 </div>
