@@ -1,0 +1,309 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>慎用HD Wallets 24 | 小沙丘的网络漫游记</title>
+ 
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/区块链/">
+            区块链
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/区块链/">
+              区块链
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/13/online-qukuai-doc-23/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/13/online-qukuai-doc-25/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/13/online-qukuai-doc-23/">
+                    分分钟搞懂 HD 钱包 23
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/13/online-qukuai-doc-25/">
+                    比特币官方钱包 25
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>慎用HD Wallets 24</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月13日 18:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>现在我们都该明白，无论怎样强调随机对于比特币的重要性都不为过，随机的确称得上是比特币的“命根子”。<br>在过去的几篇文章中，小太已经介绍过了一些因随机问题可能导致私钥暴漏的情况，今天，我再跟大家聊聊分层确定性（Hierarchical Deterministic）钱包。</p>
+<p>HD Wallets因其“只需要一个主（根）私钥，就能生成海量子私钥”这个特性广受欢迎，在过去的一年里，越来越多的钱包解决方案和比特币企业开始支持或采用HD模型来进行私钥管理，可是，大部分人并未意识到其中可能存在的潜在风险。（本文不讨论HD的原理，有兴趣的童鞋可参阅《分分钟搞懂HD钱包》及 BIP32 规范中的相关说明）</p>
+<p>HD模型的最大优点是不使用私钥就能生成大量的由您掌握的地址，其原理就在于直接通过主公钥就可以生成任意数量的子公钥，整个过程无需访问主私钥。这个特性有如下好处：</p>
+<p>1、备份容易，只需备份主私钥，新增地址无需再次备份私钥；<br>2、保证主私钥的冷存储，无论新增多少个地址，仅需主公钥就能完成，无需主私钥介入；<br>3、方便的第三方审计，只需给第三方机构或会计提供主公钥，他就可以看到所有下级地址的交易，但又不能花费任何币（因为没有子私钥）；<br>因为HD模型的这些好处，钱包解决方案和比特币企业就可以很方便的进行私钥管理。比如说，电子商务网站或交易所就可以在网站服务器上存放主公钥，然后按需新增子地址，对每个用户、每个商品甚至每笔交易都使用一个全新的比特币地址，而整个过程不会涉及冷存储的主私钥；再比如说，个人可以冷存储主私钥，在热设备上存放主公钥，就能方便的生成任意数量的地址，满足自己不断新增地址而又无需备份私钥的需求。</p>
+<p>但这些好处其实是有代价的，因为HD模型有一个天生的“缺陷”（无论是Type1、Type2、还是遵循BIP32规范的确定性钱包），那就是只要暴漏任何一个子私钥，再加上主公钥，就能反推出主私钥，这是“致命”的。<br>也就是说，对于企业或个人，如果您使用HD模型管理私钥，出于方便的增加地址及第三方审计等目的，主公钥往往暴漏在外（主公钥的安全级别当然要远低于主私钥）。大家可能会认为，我们只要能安全的保管好私钥就足够了（比如说绝对冷存储主私钥，离线的使用子私钥签名交易等），但通过前几篇文章，您就该明白，如果使用了不够安全的随机数，签名交易也有可能会暴漏私钥。对于非HD解决方案来说，一个有问题的签名最多只会暴漏一个私钥，而在HD模型的情况下，任何一个子私钥的暴漏，都有可能导致主私钥的暴漏，最严重的情况下，整个树状的分层模型会整个崩塌，企业或个人的比特币资产也会全部丢失，这就是HD模型的最大风险。</p>
+<p>HD模型的“安全”与“易用”其实是个悖论，为了易用，我们希望无论新增多少个地址都无需备份私钥，这就需要热的（泄露概率高）主公钥，而为了安全，又必须保护好主公钥，否则任何一个子私钥的泄露，都能反推出主私钥。这显然是个矛盾，而如果发生潜在的随机数问题，又会放大这种矛盾。因此，在这里，我特别提醒大家谨慎使用HD模型。</p>
+<p>比特币的安全就在于随机，我们希望随机的生成一个个比特币私钥用来存币，希望使用随机的k值来签名交易。而HD Wallets的模型其实是基于一个唯一的（根）随机数来确定性的构建了整个分层级的、树状的私钥大厦（私钥和私钥间有着确定性的计算关系）。这座大厦，在没有遇到任何问题的时候，看起来也许是固若金汤，但任何一个小问题（如r值问题、内鬼盗窃等）的发生，都有可能导致整个大厦的崩塌。<br>这也许就是传说中的“千里之堤毁于蚁穴”吧！</p>
+<p>最后，再说一句，尽量使用不相关（随机）的私钥解决方案吧，这才是比特币之本，比特币企业和个人应谨慎使用HD Wallets。</p>
+<p>小太关于随机这个系列的文章就暂告一段落了，必须再次提醒大家，随着安全专家和黑客对k值更为深入的分析，因不安全随机数导致的丢币未来可能会越来越多，如果企业和个人采用了HD方案，甚至有可能会放大这种灾难，随机理应引起业内人士的足够重视。<br>看完这几篇文章，有人可能会担心“比特币到底安不安全？”。在这里，小太可以很负责的告诉您，直到今天（及可预计的未来），比特币很安全，比特币所依赖的椭圆曲线签名算法（ECDSA）也很安全，不安全的是一些有问题随机数生成器或技术解决方案，这些都与比特币无关。</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/13/online-qukuai-doc-23/">« 分分钟搞懂 HD 钱...</a></span>
+  <span class="right"><a href="/2018/05/13/online-qukuai-doc-25/">比特币官方钱包 25... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月13日 18:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-qukuai-doc-24
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

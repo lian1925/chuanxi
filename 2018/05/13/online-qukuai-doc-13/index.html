@@ -1,0 +1,324 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>交易 13 | 比特币 | 小沙丘的网络漫游记</title>
+ 
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/区块链/">
+            区块链
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/区块链/">
+              区块链
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/13/online-qukuai-doc-12/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/13/online-qukuai-doc-14/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/13/online-qukuai-doc-12/">
+                    脚本冻结资金 12 | 比特币
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/13/online-qukuai-doc-14/">
+                    椭圆曲线 14
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>交易 13 | 比特币</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月13日 13:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>比特币协议中最重要的部分就是交易，比特币协议其他的部分也都是为了确保交易的生成、广播、验证和打包而实现的。</p>
+<h2 id="原始交易"><a href="#原始交易" class="headerlink" title="原始交易"></a>原始交易</h2><p>比特币的交易是以字节的形式存在块中的，使用bitcoin-cli命令可以获得一个原始的交易数据。例如：</p>
+<pre class=" language-bash"><code class="language-bash">bitcoin-cli getrawtransaction 2eb0e06af852f049f7dc641f740ded17a11cde138fd3d3d3c4a078649c053260
+</code></pre>
+<p>会得到一个完整的原始交易数据：</p>
+<pre class=" language-bash"><code class="language-bash">010000000112255d3c<span class="token punctuation">..</span>.88ac00000000
+</code></pre>
+<p>得到的原始交易是经过hex处理的，并没有显示为原始字节。从上面的hex字符串也并不能看到有用的信息（如果想查看json格式的交易可以查看api).<br>原始的交易数据并不能直观地体现交易的具体内容，如何才能得到具体的交易内容呢？借助这个例子可以详细的分析下交易结构和原始数据解析。先看下交易的数据结构。</p>
+<h2 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h2><p>一个完整的交易由以下的元素构成的：</p>
+<p>版本 version<br>输入 tx_in<br>输出 tx_out<br>锁定时间 lock_time<br>其中交易的输入和输出有可能是一个或多个，上面所说的交易就有一个输入和两个输出。</p>
+<p>版本(version)是明确一笔交易参照的规则，除非有重大升级的情况下，版本号基本无变化，是比较固定的一个值。</p>
+<p>交易的锁定时间是被该交易被加到区块的最早时间，在大多数的情况下他的值都是0，表示需要立即被加入区块中。如果锁定时间大于0而小于5亿，它的值就表示区块高度。如果大于5亿就表示一个Unix时间戳。</p>
+<p>上面所描述的交易构成又是如何在原始交易里面体现的呢？这就需要对原始交易进行拆解，看下交易结构如何在原始交易中定义的：</p>
+<p>描述    长度    原始字段<br>版本    4    01000000<br>交易输入的个数    1+    01<br>交易输入    41+    12255……ffffffff 2<br>输出的个数    1+    02<br>交易输出    9+    00e1f…988ac3<br>锁定时间    4    00000000<br>通过上面的表格可以看到一个原始交易是如何存储交易的。原始交易中除了包括交易所需要的数据之外，因为交易的输入和输出有可能会出现多个，所以原始交易还需要额外的字段用来描述交易的输入、输出个数，输入、输出的个数并不是固定的，因此用来描述个数使用的是变长整数（VarInt），他的目的是在节省空间的情况下能够存储足够使用的整数。<br>这里描述了一个交易的数据结构以及他在原始交易中如何存储的，但是并没有拆解出具体的输入、输出内容。下面就对输入、输出进行详细的拆解，先从输入开始。</p>
+<h2 id="交易输入"><a href="#交易输入" class="headerlink" title="交易输入"></a>交易输入</h2><p>一个交易的输入是由下面的元素组成：</p>
+<p>引用交易的hash<br>引用交易的索引<br>解锁脚本<br>那么交易输入又是如何在原始交易里面进行存储的呢？从上面的分析我们可以知道该例子交易中只有一个交易的输入。下面就是从原始交易中解析下交易的输入：</p>
+<p>描述    长度    原始字段<br>前置交易hash    32    12255…ae4<br>前置交易的索引    4    01000000<br>解锁脚本长度    1+    8a<br>解锁脚本    ？    4730…eae5<br>序列    4    ffffffff<br>这里获取到的hash和网站上面显示的hash并一致，这是因为字节序的存储和读取的方式不一致造成的，即大端和小端模式：</p>
+<p>网络协议规定接收到第一个字节是高字节，存放在低地址，所以发送时会首先去低地址取数据的高字节<br>而在比特币的存储中hash是做为一个整数存储的，因此在取hash时候需要从低地址开始获取。<br>而解锁脚本的长度也是未知的，就需要使用一个可变整形用来表示解锁脚本的长度。对于交易脚本的拆解会在以后的文章中进行。<br>通过上面表格的描述就可以从一个交易中拆解出它的输入了，下面继续对交易输出进行拆解。</p>
+<h2 id="交易输出"><a href="#交易输出" class="headerlink" title="交易输出"></a>交易输出</h2><p>一个交易的输出是由下面的元素组成的：</p>
+<p>输出金额<br>输出脚本<br>那交易的输出在原始交易中又是如何存储的呢？从上面的交易拆解中可以知道该例子交易是有两个输出，这里只需要针对第一个输出进行拆解即可：</p>
+<p>描述    长度    原始字段<br>value 单位是1聪    8    00e1f50500000000<br>锁定脚本长度    1+    19<br>锁定脚本    ？    76a9147072795a259b38bf476e053852ab85221ba9467b88ac<br>注意输出的金额也涉及到大端传输的问题，解析的时候需要从低地址开始读取。</p>
+<p>这里并没有对锁定脚本进行拆解，所以还看不到输出的地址，对于一个比特币交易来说，交易本身是不用关心输出的地址，交易只需要关心锁定脚本，当使用的时候能使用使用正确的解锁脚本即可动用比特币。关于交易脚本会在以后的内容里详细的介绍。</p>
+<p>交易本身的数据结构并不没有交易费的概念，每笔交易的手续费是使用总输入-总输出计算得到的，所以在交易的数据结构中没有体现。</p>
+<p>总结，一个原始的交易包含了一个交易所需要的所有数据，他们按照比特币协议规定的规则进行存储。在交易生成，验证的时候也需要按照xiang’tong</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/13/online-qukuai-doc-12/">« 脚本冻结资金 12 ...</a></span>
+  <span class="right"><a href="/2018/05/13/online-qukuai-doc-14/">椭圆曲线 14... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月13日 13:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-qukuai-doc-13
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

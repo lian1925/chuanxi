@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>闪电网络 16 | 小沙丘的网络漫游记</title>
+ 
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/区块链/">
+            区块链
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/区块链/">
+              区块链
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/13/online-qukuai-doc-15/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/13/online-qukuai-doc-17/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/13/online-qukuai-doc-15/">
+                    哈希函数 15
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/13/online-qukuai-doc-17/">
+                    隔离验证 17
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>闪电网络 16</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月13日 14:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>闪电网络的实施建立在若干BIP得以实施的基础上，比如隔离见证等等。随着社区开发工作的持续进行，障碍已被陆续扫清，闪电网络软件目前已接近正式发布状态。</p>
+<p>闪电网络的原始论文非常难懂，很大一部分困难可能来自作者使用的图例的形式不够直观，且缺乏明确的说明。笔者将尝试使用一套新的图例，希望能够极大降低理解难度。</p>
+<p>本文将详细剖析闪电网络所用交易结构，但不能完全代替原始论文。</p>
+<p><img src="http://cdn.8btc.com/wp-content/uploads/2016/06/Snip20160612_96.png" alt=""><br>图1 比特币交易图例</p>
+<p>图1展示了一个拥有2个输入、3个输出、保存在链下的比特币交易记录，以下逐一说明其中要素。</p>
+<p>圆角矩形代表“交易”，用不同的底色区分交易持有者，本文一律用玫红色表示Alice，浅蓝色表示Bob。圆角矩形的边框用细实线勾勒，表示该笔交易并未公布在区块链上。</p>
+<p>论文中每笔交易都有一个名称，虽然比特币交易结构并没有这样一个字段。我们选择将交易名称写在圆角矩形上半部，上图中“txnName”就是这个名称。</p>
+<p>闪电网络需要在比特币交易结构中的sequence字段和locktime字段填入适当的值，将其写在圆角矩形的下半部，如上图中的“seq = 1000”。<br>“0.55、0.35、0.3、0.4、0.2”都是交易输出金额。虽然“0.55和0.35”边上的箭头代表交易输入，但交易输入一定是另一交易的输出，所以这样表达仍然合理。</p>
+<p>“0.3、0.4、0.2”边上的箭头代表交易输出。“#0, #1, #2”代表输出序号。</p>
+<p>金额为0.3的交易输出旁边写有“（B）”，表示该笔交易输出需用B的私钥解锁。</p>
+<p>金额为0.55的交易输入旁边写有“（C）”，意思一样，表示需动用C的私钥解锁对应交易输出。在“（C）”的右上方打有一钩（√），表示对应解锁条件已就绪。此钩颜色是绿色，表示此解锁脚本在交易拥有者拿到手时就已就绪。</p>
+<p>“（A, B, H(R)）”代表一个特殊的解锁条件，需要同时提供A和B的私钥签名，并且需要提供一个合适的R，令其哈希值等于预设的H(R)值，才能解锁交易输出。图中A、B右上角都打有绿色的钩，表明对应解锁条件已就绪。H(R)右上角没有任何钩，表明合适的R尚未出现。</p>
+<p>接下来我们为这笔交易提供正确的R值，并将就绪后的交易在区块链上公布，对应图例就变成这样：<br><img src="http://cdn.8btc.com/wp-content/uploads/2016/06/Snip20160612_97.png" alt=""></p>
+<p>图2 解锁R并公布在区块链上的交易</p>
+<p>注意H(R)右上方出现了红色的钩，表明对应解锁条件变为就绪。圆角矩形框的边框变成宽实线，表明这笔交易已公布在区块链上。 </p>
+<p><img src="http://cdn.8btc.com/wp-content/uploads/2016/06/Snip20160612_98.png" alt=""></p>
+<p>图3 互斥的交易</p>
+<p>闪电网络允许在链下并存多个消费同一交易输出的不同交易。如果将这些交易都发布到区块链上，显然只有其中一个交易能够生效，其他交易都因为不能双花被拒绝了。上图用一个带“X”的圆圈表达了C1a、C1b的互斥关系。</p>
+<p>HTLC中会使用IF…ELSE…ENDIF结构的加锁脚本，就长这样子：<br><img src="http://cdn.8btc.com/wp-content/uploads/2016/06/Snip20160612_99.png" alt=""></p>
+<p>图4 IF…ELSE…ENDIF脚本</p>
+<p>其中一个分支通过提供Alice2、Bob2的签名和R解锁，另一个分支只需提供Alice1、Bob2的签名就可以解锁。为特别表明此处用到了IF结构，在图例中我们会在表达互斥的带“X”圆圈旁边加注“if”，就像下图一样：<br><img src="http://cdn.8btc.com/wp-content/uploads/2016/06/Snip20160612_100.png" alt=""><br>图5 if语句带来的互斥交易</p>
+<h2 id="2-RSMC剖析"><a href="#2-RSMC剖析" class="headerlink" title="2. RSMC剖析"></a>2. RSMC剖析</h2><p>2.1 通道建立<br><img src="http://cdn.8btc.com/wp-content/uploads/2016/06/Snip20160612_101.png" alt=""></p>
+<p>图6 通道建立</p>
+<p>通道建立只需要双方在链下准备一套类似上图的交易结构，完成后仅将funding交易发布到区块链上（注意粗实线的边框）。上图中的A代表Alice,B代表Bob。</p>
+<p>虽然本例中双方都向通道注资0.5 BTC，但其实各自注入多少都是可以的，不强求相等或大于0。</p>
+<p>之所以要完全准备就绪这套交易结构后才能发布funding交易，是为了避免先发布funding交易后一方拒绝配合完成其余交易的准备活动。由于funding交易唯一的输出要求同时使用A/B双方的私钥签字才能提取，一方拒绝配合签名将导致这部分资金永久无法支取。所以合理的顺序是先准备就绪全套交易，再发布funding交易。</p>
+<p>上图中，交易C1a虽然为Alice持有（玫红底色），但其输入解锁脚本中B已就绪，因此这条交易记录实际上是Bob准备好后给到Alice的，因为除了Bob没人能够做到这一点。C1b的输入解锁脚本中A也已就绪，说明交易记录C1b是Alice准备好后给到Bob的。</p>
+<p>图中，交易RD1a和RD1b上都标注了“seq=1000”，这是比特币交易结构的一个最新特性，sequence字段如此设置后，交易RD1a只能在包含其父交易C1a的区块得到1000个确认后才能被收录。</p>
+<p>2.2 单方面终止通道<br>通道建立后，Alice或Bob随时可以选择单方面终止通道并取回资金，发起方将受到延迟提款的惩罚。 </p>
+<p><img src="http://cdn.8btc.com/wp-content/uploads/2016/06/Snip20160612_102.png" alt=""><br>图7 Alice单方面终止通道</p>
+<p>Alice单方面终止通道的方式如下：Alice为C1a和RD1a的输入解锁脚本用自己的私钥签名，并在区块链上发布交易C1a。由于RD1a的seq = 1000，他必须等待C1a被收录并得到1000个确认后才能发布交易RD1a，因此他需要等上10,000分钟（约7天）才能通过RD1a取回自己的款。对Bob来说，他只需要在区块链上看到C1a发布，随时可以用自己的私钥动用C1a的0号输出的资金。最终双方都得到0.5 BTC，funding交易的输出被提取一空，通道终止。</p>
+<p>图中用粗黑有向线条表达了区块链上实际的资金流向。</p>
+<p>2.3 微支付及旧版本废止<br>在双方各占0.5 BTC的基础上，Alice向Bob支付0.1 BTC，双方余额应该调整为Alice 0.4 BTC，Bob 0.6 BTC。</p>
+<p>为此需要创建余额的新版本，然后废止余额的旧版本。由于比特币的交易由一个个离散的utxo构成，也没有多余的字段存放“版本号”，所以是迂回地通过经济手段来达到实际废止的效果。 </p>
+<p><img src="http://cdn.8btc.com/wp-content/uploads/2016/06/Snip20160612_103.png" alt=""></p>
+<p>图8 微支付：创建新版本余额</p>
+<p>创建余额的新版本很简单，双方完全不动区块链上的funding交易，在链下按上图另外创建一套反映新余额的交易。很清楚，现在Alice实际控制0.4 BTC而Bob实际控制0.6 BTC，等价于Alice支付Bob 0.1 BTC。注意为便于区分，交易名称都改变了。</p>
+<p>作废旧版本的余额非常有技巧，方法是在旧版本交易的基础上增加几个作恶惩戒交易，效果上类似发誓：“我要是拿这个旧版本去区块链上提款，你就把我的那份拿走！”，只不过这个誓言是决定可以生效的。<br><img src="http://cdn.8btc.com/wp-content/uploads/2016/06/Snip20160612_104.png" alt=""><br>图9 微支付：作废旧版本余额</p>
+<p>C1a, C1b, RD1a, RD1b都是旧版本余额用到的交易。作废这堆交易的方式是构造一对新的交易BR1a和BR1b，并准备就绪其输入解锁脚本所需全部签名。上图中，红色虚线框中的两笔交易是在原来基础上新增构建的。<br><img src="http://cdn.8btc.com/wp-content/uploads/2016/06/Snip20160612_105.png" alt=""><br>图10 微支付：惩罚措施</p>
+<p>在图9的基础上，如果Alice希望通过在区块链上通过发布旧版本余额对应的交易来逆转刚才支付给Bob的0.1 BTC，她将受到惩罚，原理见上图。</p>
+<p>Alice为C1a的输入解锁脚本补上自己的签名，发布到区块链上。因为交易RD1a有seq=1000的属性设定，所以Alice暂时还不能发布RD1a。但Bob将看到承诺作废的C1a被放出，为保护自身利益，Bob可以立刻在区块链上发布交易BR1a，因为BR1a的父交易已被放出，且BR1a的输入解锁脚本早已就绪，所以BR1a可以马上生效，于是Bob一共可以拿走1.0 BTC，企图作恶的Alice偷鸡不成。</p>
+<p>正常情况下，Alice只要不在区块链上发布C1a，虽然Bob拥有输入解锁脚本完全就绪的BR1a，因为其父交易C1a并未发布，Bob也无法发布BR1a。这说明只要一方安分守己，就无需担心惩罚措施。</p>
+<h2 id="3-HTLC剖析"><a href="#3-HTLC剖析" class="headerlink" title="3. HTLC剖析"></a>3. HTLC剖析</h2><p>3.1 初始化HTLC<br><img src="http://cdn.8btc.com/wp-content/uploads/2016/06/Snip20160612_106.png" alt=""><br>图11 HTLC的初始化</p>
+<p>图11给出的是一个简单的HTLC示例，其所反映的通道余额划分是：有0.9 BTC以无条件余额划分的形式在Alice和Bob之间分割，Alice占0.4 BTC，Bob占0.5 BTC。Alice向Bob有条件支付0.1 BTC，如果Bob能于3天内（实际是以区块链高度代表的未来某时）之前提供合适的R，Bob就能得到这笔钱，反之这笔钱仍然回到Alice账上。</p>
+<p>这里的“&gt; 3 days”是利用locktime字段的最新扩展实现的。和“seq=1000”的区别在于：locktime指定的是一个高度绝对值，而sequence指定的是相对父交易所在区块高度的相对值。</p>
+<p>由于要在一个通道上同时反映无条件余额划分和有条件支付，所以交易结构变得相当复杂。图10中，C2a, RD2a, D2a, C2b, RD2b, D2b通过RSMC实现无条件余额划分，最下方的6笔交易专门用于HTLC支付。</p>
+<p>3.2 条件支付的两种结果</p>
+<p><img src="http://cdn.8btc.com/wp-content/uploads/2016/06/Snip20160612_107.png" alt=""><br>图12 HTLC：Bob及时提交R</p>
+<p>如果Bob能够在3天内及时提交R，他可以如图11所示，准备好一系列交易的输入解锁脚本（注意图中红色的“√”）后将C2b、RD2b、HE1b及HERD1b交易发布到区块链上，拿走0.5+0.1 BTC。Alice此时只能跟着发布交易D2b拿走自己的0.4 BTC，通道终止。<br>也可以不终止通道，关键在于只要Bob离线告知Alice他拥有适当的R，且双方愿意达成新版本的余额划分，那么只需要新建一个Alice 0.4 BTC、Bob 0.6 BTC的新版本余额并废止旧版本，效果上就等于这0.1 BTC的条件支付已经达成。 </p>
+<p><img src="http://cdn.8btc.com/wp-content/uploads/2016/06/Snip20160612_108.png" alt=""><br>图13 HTLC: 超时退款</p>
+<p>如果直到超时Bob仍不能提供正确的R值，Alice可以如图12所示，通过用自己的私钥准备各交易的输入解锁脚本并发布交易到区块链上，最终取回这0.1 BTC（注意图中红色的“√”），。在此方式下，最终Alice拿到0.5 BTC，Bob拿到0.5 BTC。和图11完全类似，也可以采用新建版本余额的方式，无需终止通道。</p>
+<p>2.3 作废旧版本与违约惩罚</p>
+<p>建立新版本余额快照后，就应该作废旧版本。和之前作废旧版本的思路类似，在通道中还包含HTLC合约的情况下，依然靠新增若干作恶惩戒交易的方式作废旧版本。 </p>
+<p><img src="http://cdn.8btc.com/wp-content/uploads/2016/06/Snip20160612_109.png" alt=""><br>图14 作废旧版本余额</p>
+<p>图14中用红色虚线框出的部分就是新增的“作恶惩戒交易”。<br><img src="http://cdn.8btc.com/wp-content/uploads/2016/06/Snip20160612_110.png" alt=""></p>
+<p>图15 惩戒交易示意</p>
+<p>在图15中，假设HT1a交易已经超时，但以C2a为根的全部交易都已通过惩戒交易予以作废。如果此时Alice想作恶，她将C2a、RD2a、HT1a及HTRD1a的输入解锁脚本用自己的私钥准备就绪后（注意图中红“√”），将交易C2a和交易HT1a在区块链上公开。由于seq字段的限制，她不能立刻公开交易RD2a和HTRD1a，这样就使得Bob有机会发现Alice企图作恶并能够通过公布BR2a和HTBR1a交易的方式予以惩戒。发出这对交易后，通道中的全部资金将都归Bob所有。</p>
+<p>图15中虽然没有用上惩戒交易HBR1a，但该交易并不多余。理由是：如果Alice在区块链上公布了交易C2a但故意不公布交易HT1a，倘若Bob手头没有HBR1a，也不知道秘密R，Bob将无法获得这0.1 BTC。有了惩戒交易HBR1a之后，即使Alice不公布交易HT1a，只要C2a公布，Bob也可以通过HBR1a顺利提取这0.1 BTC。</p>
+<p>只提供HBR1a、不提供HTBR1a也是不行的。因为万一Alice选择的是解锁并公布交易HT1a，并且抢在Bob之前消费了C2a的#2输出，Bob拥有的HBR1a交易就无法生效了，而此时虽然HTRD1a交易要等上1000个确认才能公布，Bob也没有任何手段来利用这1000个块的确认时间来阻止Alice提取这0.1 BTC。</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/13/online-qukuai-doc-15/">« 哈希函数 15</a></span>
+  <span class="right"><a href="/2018/05/13/online-qukuai-doc-17/">隔离验证 17 »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月13日 14:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-qukuai-doc-16
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

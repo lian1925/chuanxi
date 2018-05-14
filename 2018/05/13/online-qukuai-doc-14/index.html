@@ -1,0 +1,317 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>椭圆曲线 14 | 小沙丘的网络漫游记</title>
+ 
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/区块链/">
+            区块链
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/区块链/">
+              区块链
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/13/online-qukuai-doc-13/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/13/online-qukuai-doc-15/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/13/online-qukuai-doc-13/">
+                    交易 13 | 比特币
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/13/online-qukuai-doc-15/">
+                    哈希函数 15
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>椭圆曲线 14</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月13日 13:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>EC就是椭圆曲线，是一个数学上的概念，注意并不是椭圆。ECC是基于椭圆曲线的公私钥密码体系，ECDSA就是这个密码体系下的签名(与验证)算法。DH是两个人名字首字母缩写，因为他们首次发明了在敌意网络环境下安全的利用公私钥加密算法协商出对称加密密钥的方法， 可参考 这个维基页面 。ECDH就是利用椭圆曲线公私钥密码体系来交换对称加密密钥的方法。IES用于文件或者磁盘加密，是一种混合公私钥密码和对称加密方法的块加密系统， 可参考 另一个维基页面 ,其原理与DH密码交换相同。KDF是指一个生成密钥(私钥)的函数。</p>
+<p>关于ECC和ECDH，可以看这两个Youtube视频:</p>
+<p>Elliptic Curve Cryptography Overview 以及 Elliptic Curve Cryptography &amp; Diffie-Hellman 。</p>
+<h2 id="参数与标准"><a href="#参数与标准" class="headerlink" title="参数与标准"></a>参数与标准</h2><p>椭圆曲线本身是数学模型，而曲线的参数在使用的时候需要公开并且一致，否则多方无法参与(张三用A曲线而李四用B曲线是没法对话的)。选择什么样的参数才能安全又高效呢？</p>
+<p>SECG 组织(Standards for Efficient Cryptography Group)给出了相关标准，包括</p>
+<p>SEC-1 椭圆曲线密码学<br>SEC-2 椭圆曲线密码学推荐的域参数<br>SEC-4 暂时忽略，我也不知道是啥<br>SEC-2里面给出了各种参数，并且每一组参数给出了一个命名，这样在使用的时候，通过名称就确定了参数。例如secp256k1就是比特币率先采用的一组参数，在加密货币领域十分流行。</p>
+<h2 id="开源实现"><a href="#开源实现" class="headerlink" title="开源实现"></a>开源实现</h2><p>openssl<br>openssl 是著名的C库和命令行工具箱，实现了各种密码学的函数，包括椭圆曲线。 参考 openssl中ECC命令行操作 可以了解到Openssl命令行 的ECC密钥管理和ECDH以及ECDSA算法的使用。本文列出一些，读者可以照做，加深认识。需要注意的是，Mac OS上自带openssl太旧，需要使用 Homebrew 安装的版本。</p>
+<p>openssl genpkey -genparam -algorithm ec -pkeyopt ec_paramgen_curve:secp256k1<br>生成了PEM格式的椭圆曲线域参数文件到标准输出。</p>
+<p>openssl genpkey -genparam -algorithm ec -pkeyopt ec_paramgen_curve:secp256k1 -out secp256k1.param<br>生成了PEM格式的椭圆曲线域参数文件到 secp256k1.param 文件里面。</p>
+<p>openssl genpkey -paramfile secp256k1.param -out my.key<br>利用参数文件生成PEM格式(明文)的私钥文件。</p>
+<p>openssl genpkey -aes256 -paramfile secp256k1.param -out my.key<br>利用参数文件生成AES加密的私钥文件，即使文件泄露，黑客没有密码也无法使用私钥。</p>
+<p>openssl pkey -in my.key -text -noout<br>查看密钥。</p>
+<p>openssl dgst -sign my.key -sha512 file-to-be-signed -out signature-file<br>生成签名文件。</p>
+<p>openssl ec -in my.key -pubout -out pub.pem<br>私钥转公钥文件。</p>
+<p>openssl dgst -verify pub.pem  -sha512 -signature signature-file  file-to-be-signed<br>公钥验证签名。</p>
+<p>eccrypto<br>eccrypto 是一个Javascript上的ECC库，特点如下:</p>
+<p>同时支持浏览器和Nodejs, API相同。<br>支持哪种椭圆曲线？ secp256k1。<br>如果浏览器支持，使用W3C正在制定WebCrypto标准。<br>如果可能，使用Nodejs内置的Crypto模块。<br>CryptoCoinJS<br>CryptoCoinJS 是一个项目组，创建了多个用于加密货币的Javascript项目，其中的 Ecurve 项目是一个通用的ECC库，支持各种参数的椭圆曲线。</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/13/online-qukuai-doc-13/">« 交易 13 | 比特...</a></span>
+  <span class="right"><a href="/2018/05/13/online-qukuai-doc-15/">哈希函数 15... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月13日 13:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-qukuai-doc-14
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

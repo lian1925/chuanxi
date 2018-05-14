@@ -1,0 +1,321 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>分层确定性多重签名 22 | 小沙丘的网络漫游记</title>
+ 
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/区块链/">
+            区块链
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/区块链/">
+              区块链
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/13/online-qukuai-doc-21/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/13/online-qukuai-doc-23/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/13/online-qukuai-doc-21/">
+                    SPV、SPV节点和SPV钱包 21
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/13/online-qukuai-doc-23/">
+                    分分钟搞懂 HD 钱包 23
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>分层确定性多重签名 22</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月13日 18:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>HD 模型自是不必多说，Multisig （多重签名）则还得讲讲。<br>关于 MultiSig（多重签名），小太还是那句话，从原理角度上讲，多重签名本身并不复杂，简单来说，一句话就够了：<br>“用 m 把钥匙生成一个多重签名的地址，需要其中的 n 把钥匙才能花费这个地址上的比特币，m &gt;= n，这就是 n/m 的多重签名”<br>比如说，我们见过了2/2 、2/3的多重签名，也曾有人设计过1/7的多重签名，它们的原理其实都一样，您都可以尝试着直接套用上面的那句话，把这些方案简单说清楚。</p>
+<p>多重签名的重点，并不在于您是否使用了“多重签名”这个词，而在于您这几把钥匙（私钥）的管理方式，管得好就安全，管得不好则甚至还有可能不如普通的比特币地址。这几把钥匙是“如何生成？如何使用？如何保管？”的，对这些问题的回答，才能真正决定您所采用的多重签名解决方案是好是坏，仅仅是“多重签名”这几个字是远远不够的。</p>
+<p>比如说，您可以在一个统一的“地点”（比如说，一部手机、一台电脑或者是某个网站的一个页面上）生成多把钥匙来构成一个多重签名的地址，相比起同样在这部手机、这台电脑、这个网站的这个页面上生成一把钥匙来构成一个普通的比特币地址，安全性到底又能提高多少呢？</p>
+<p>再比如说，这几把钥匙都是用怎样的随机数算法生成的？谁拥有着管理权（网站、用户）？存储在什么地方？如何备份？如何加密？如何认证用户身份？等等。所有这些问题都会影响到多重签名解决方案的安全性。</p>
+<p>从上面的论述，可以看出，对于多重签名来说，重点不在于“概念”，而在于“使用方式”。如何正确的实现多重签名解决方案，在尽可能保证用户易用的同时让用户能享受多重签名所能带来的安全和扩展功能，这就需要认真设计，来尽可能的回答好上述可能影响安全性的问题。</p>
+<p>因此，我们才会基于比太之前的“冷热”模型，设计出 HDM 这个混合了 HD 和 Multisig 技术的解决方案，这样就能比较好避免一些 HD 和 Multisig 中的潜在不足，并且能规避之前所提到的 HD 模型先天缺陷，让用户能在尽享 HD 模型的易用的同时，又能获得多重签名的安全及扩展功能。</p>
+<p>首先，比太的 HDM 模型是2/3的多重签名（2/3的优点很多，小太在这里就不在赘述了），HDM 的2/3，与普通多重签名的区别就在于，构成多重签名的三把钥匙，都是用 HD 模型来生成的。<br>也就是说，你可以想象成有3个 HD 的种子（根私钥），可以生成3个系列的子私钥，然后使用对应的子私钥拼出多重签名的地址。</p>
+<p><img src="http://cdn.8btc.com/wp-content/uploads/2015/01/TdjempL.jpg" alt=""><br>对应于比太的 HDM 模型来说，3个 HD 种子（遵循 BIP32/BIP44 规范）分别是：</p>
+<p>1、冷钱包种子（HDM Cold Seed）；<br>2、热钱包种子（HDM Hot Seed）；<br>3、服务器种子（HDM Server Seed）；</p>
+<p>用户使用比太钱包，在冷钱包上生成 HDM 冷种子，在热钱包上生成 HDM 热种子，再绑定 HDM 服务器种子，即可实现 2/3 的多重签名。</p>
+<p>上述模型中，绑定 HDM 服务器的 API 接口需要有用户的注册、登录及授权模型的（传统网站的用户体系需要依赖于邮箱注册、手机绑定、谷歌二次验证等），比太的 HDM 模型则是使用了 BitID 相关的技术，通过使用 HDM 冷种子来完成 API 的授权与绑定，这样，用户只需要备份 HDM 冷种子，就能确保资产安全。</p>
+<p>采用这种方式设计出来的 HDM 模型，基本上就能回答上述多重签名管理方式上的相关问题了，比如说：</p>
+<p>1、用户的 HDM 冷热种子，均是在用户自己的日常手机和备用手机（运行着比太的冷热钱包版本）上生成的，均基于了极随机（XRANDOM）这个真随机数生成器的解决方案，无论是随机性、安全性都非常高；</p>
+<p>2、用户只需使用 HDM Hot 热钱包和 HDM Server 即可完成日常支付，大部分情况下并不需要使用 HDM Cold 冷钱包；</p>
+<p>3、用户只需备份一个 HDM 冷种子（可以是 BIP39 格式的24个单词，或者是冷种子加密二维码），而且只需备份一次，无论未来会生成多少个新的多重签名地址，都不需要重新可进行备份；</p>
+<p>4、用户拥有着冷、热两把钥匙的管理权，HDM 服务器仅为用户提供一个服务器种子，满足匹配多重签名地址及签名交易的需求，用户敏感信息（子私钥等），无论加密与否，均不会出现在 HDM 服务器上，这是比太 HDM 模型与其他大部分多重签名网站的本质区别，多重签名相关操作如组合多重签名地址、准备交易、收集签名、广播交易等，均在用户的 HDM 热钱包上完成；</p>
+<p>5、冷、热、服务器之间，不传递任何的子私钥或者上一级（Account）公钥，因此，完全无任何泄漏风险。比如说，用户无法获得服务器的任何子私钥和上一级公钥，服务器也无法获得用户的，用户冷热钱包之间也无子私钥和上一级公钥信息，绝对隔绝了各级之间的信息访问，也在一定程度上避免了 HD 模型的潜在风险；</p>
+<p>6、我们是比较早就全面实现了 RFC6979 签名算法的钱包解决方案，从这个角度上讲，比太在签名交易方面本就比大部分解决方案更加安全，而且在 HDM 模型下，因签名暴露私钥，进而导致用户丢失资产的概率则更低（特别说明：HDM 冷钥匙基本上不用于签名交易，仅用于恢复，因此，冷钥匙更无暴露风险）；</p>
+<p>通过上述描述，大家就应该能看出 HDM 能给用户带来的潜在好处了，它能让用户在尽享 HD 的易用的同时，还能回避 HD 的先天缺陷，同时还能获得 Multisig 的安全及可能的功能扩展。</p>
+<p>出于冷热钱包模型的设计（HDM 冷和热），当前用户试用比太 HDM 解决方案时，需要准备两部手机（一部日常手机运行 HDM 热钱包，一部备用手机运行 HDM 冷钱包）。可能有用户会觉得两部手机比较麻烦，但总的说来，只需备份一个 HDM 冷种子，就能在非常安全的情况下，方便的生成非常多的多重签名地址，轻松使用多重签名来发送和接收比特币，这一点代价还是值得的。</p>
+<p>未来，我们还会考虑基于当前的 HDM 模型设计一些扩展功能，满足部分用户仅使用一部手机就能尝试 HDM 的需求，以及考虑如何更好的满足企业潜在的 HDM 扩充需求。</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/13/online-qukuai-doc-21/">« SPV、SPV节点和...</a></span>
+  <span class="right"><a href="/2018/05/13/online-qukuai-doc-23/">分分钟搞懂 HD 钱... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月13日 18:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-qukuai-doc-22
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+
