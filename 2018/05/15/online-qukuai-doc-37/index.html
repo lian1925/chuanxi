@@ -1,0 +1,350 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>什么是矿工、加密货币、矿池生态系统 37 | 小沙丘的网络漫游记</title>
+ 
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/区块链/">
+            区块链
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/区块链/">
+              区块链
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/15/online-qukuai-doc-36/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="#">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/15/online-qukuai-doc-36/">
+                    什么是区块链 36
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="#">
+                    无
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>什么是矿工、加密货币、矿池生态系统 37</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月15日 08:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>所谓挖矿就是让电脑执行特定程序，迭代找出某个值nonce代入符合HashFunction（TXs+nonce）&lt; TargetDifficulty的解来给自己「挖出」一些加密货币。Bitcoin用的函数是两次的SHA256，而Ethereum则是使用自己发明的Ethash算法。</p>
+<p>挖矿的本质就像买乐透，尽管内存块奖励是先抢先赢，算力强的矿工也只是「较有机会」挖到矿，小矿工理论上仍能取得成比例的报酬。但随着全世界的人不断不断的投入资源、建置更多的挖矿设备，现在以个人之力挖到矿的机率已经非常非常小。</p>
+<p>以Ethereum为例，一张中高阶显卡每秒可以做三千万次Hash，但挖到矿平均需要一千两百兆次的尝试（2017/7/16），算起来平均要1.26年才会挖到一次，普通矿工根本没办法承受如此不稳定的收入。</p>
+<p>凭个人之力挖矿太看天吃饭，矿工们合起来建造了矿池。</p>
+<p>基本上，矿池要解决的是矿工收入不稳定的问题，它把散落的运算资源整合起来一起挖矿，挖到之后再按照每个矿工的贡献比例分钱下去，概念上就像集资包牌买乐透，用众人之力把收入的机率分布摊平。此外，矿池负责维护节点运作，矿工可以专心在运算上，也降低了挖矿的成本，矿池则收取少量手续费。</p>
+<p>理想的矿池和矿工之间的分工大致是这样：矿池藉由连接内存块链网络的节点接收交易信息，产生待打包的内存块广播给矿工，并分配每个矿工负责寻找nonce的范围。通常矿池会设定一个比较低的门坎，可能是实际target difficulty的1/1000000，矿工找到符合的nonce就回报给矿池，矿池验算后就记录为一个share，再用每个矿工提交的share估算贡献比例。因为矿工已经筛选出一些不错的nonce，矿池可以很容易的从中找出够小的值去符合真正挖矿的标准，层层过滤的过程和淘金矿倒有几分相似。</p>
+<p>就像跟人包牌买乐透怕被独吞一样，难道矿池不担心矿工把可以挖到矿的nonce私藏，只把挖不到但符合share标准的nonce交出来混钱吗？答案是否定的，因为在开始挖矿之前，我们要先决定好的那个TXs交易纪录内存块里面，就会标示这个块的miner是谁，所以当矿工对着矿池给好的数据做运算，找出来的valid share就具有专一性，即使矿工真的找到某个符合Hash（“TX”+nonce）&lt;TargetDifficulty的值想要自己私藏拿去领赏，最后仍是矿池会收到钱，这个矿工还会少一个share，理论上没有动机这么做。</p>
+<p>矿池不担心矿工卷款潜逃，但要如何公平地分配收益仍是个困难的问题。目前比较常见的分润模式有：PPS（Pay Per Share），PPLNS（Pay Per Last N Share），RBPPS（Round Base Pay Per Share）三种，各有优缺点和不同的风险承担角色。</p>
+<p>采PPS模式的矿池会在矿工每次提交share的时候立刻认列，是最简单好懂的模式。每个share的价格是预先决定并动态调整的，相当于矿池「买」了这个share，矿工的收入稳定，而实际挖到的块多寡则由矿池概括承受，所以通常会抽取较高的手续费。</p>
+<p>相较之下，PPLNS模式只会在矿池确定有收入的时候才发钱。每次挖到矿会参照矿工前一段时间的share数分配收益，波动由矿工和矿池共同承担，通常会用随时间递减的权重计算，收入较为平滑，但实作上会比较复杂一点。</p>
+<p>至于RBPPS则完全由矿工承担风险，它像PPS一样实时认列，但不直接发钱，而是登记为一个share，每次挖到块称为一个round，再依照这个round期间你占的share比例分润，矿工收益完全看矿池出块是否稳定。</p>
+<p>因为实作起来简单，RBPPS是目前许多开源矿池采用的模式，但也存在着一些问题，对总算力低的矿池而言出块间隔长短并不稳定，随着矿工们的share持续累积，继续挖矿的收益期望值会随着分母上升而递减，矿工有经济诱因在很久没出块时切到其他矿池挖矿，等本来的矿池出块后再切回来，但如果每个矿工都这么做，矿池就停摆了。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">import</span> random
+
+selfshare <span class="token operator">=</span> <span class="token number">0.0</span>
+totalshare <span class="token operator">=</span> <span class="token number">0.0</span>
+x<span class="token operator">=</span><span class="token number">0.9</span>
+y<span class="token operator">=</span><span class="token number">0.09</span>
+z<span class="token operator">=</span><span class="token number">0.01</span>
+selfreward<span class="token operator">=</span><span class="token number">0.0</span>
+poolreward<span class="token operator">=</span><span class="token number">0.0</span>
+
+<span class="token keyword">for</span> i <span class="token keyword">in</span> range<span class="token punctuation">(</span><span class="token number">10000</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> totalshare <span class="token operator">&lt;=</span><span class="token number">1</span><span class="token punctuation">:</span>
+        selfshare<span class="token operator">+=</span>z
+        totalshare<span class="token operator">+=</span><span class="token punctuation">(</span>y<span class="token operator">+</span>z<span class="token punctuation">)</span>
+        <span class="token keyword">if</span> random<span class="token punctuation">.</span>random<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&lt;</span><span class="token number">0.1</span><span class="token punctuation">:</span>
+            selfreward<span class="token operator">+=</span><span class="token number">5</span><span class="token operator">*</span><span class="token number">0.1</span>
+            poolreward<span class="token operator">+=</span><span class="token number">5</span><span class="token operator">*</span><span class="token number">0.9</span>
+            selfshare<span class="token operator">=</span><span class="token number">0</span>
+            totalshare<span class="token operator">=</span><span class="token number">0</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        totalshare<span class="token operator">+=</span>y
+        <span class="token keyword">if</span> random<span class="token punctuation">.</span>random<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&lt;</span><span class="token number">0.09</span><span class="token punctuation">:</span>
+            selfreward<span class="token operator">+=</span><span class="token number">5</span><span class="token operator">*</span>selfshare<span class="token operator">/</span>totalshare
+            poolreward<span class="token operator">+=</span><span class="token number">5</span><span class="token operator">*</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token operator">-</span>selfshare<span class="token operator">/</span>totalshare<span class="token punctuation">)</span>
+            selfshare<span class="token operator">=</span><span class="token number">0</span>
+            totalshare<span class="token operator">=</span><span class="token number">0</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            selfreward<span class="token operator">+=</span><span class="token number">5</span><span class="token operator">*</span>z<span class="token operator">/</span><span class="token punctuation">(</span>z<span class="token operator">+</span>x<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span>selfreward<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>poolreward<span class="token punctuation">)</span>
+</code></pre>
+<p>此外，也有矿池采用类似线上游戏的DKP制度，矿工每次挖到块会累积credit，当有块挖出来的时候就由当时credit最高的矿工全拿，并把他的credit归零。但这种模式显然对小矿工不利，期望值算起来大矿工会拿到不符比例多的额外收益。</p>
+<p>总的来说，不同的分润模式都是在追求矿工收入稳定、公平、低矿池风险之间的权衡。大矿池有足够的资源请工程师优化系统，也较能提供矿工稳定的收入，小矿池则有灵活的优势，可以经营名气尚小的潜质币种。</p>
+<p>营运矿池的各种经济考察</p>
+<p>通常矿工在意的不外乎是矿池的手续费高低、收入波动、服务器稳定度三项重点。矿池收取的手续费除了要付维护系统跟电费的开支，还要在给矿工发薪水的时候承担链上（on-chain）交易的手续费，所以一般会在累积到一大笔钱的时候再一次性支付。当矿池规模渐渐扩大的时候，光支付就会产生庞大的交易流量，常常处理不完造成堵车。</p>
+<p>最近有Ethereum矿池尝试用智能合约实现类似Bitcoin单笔交易包含多地址支付的功能，但似乎会让交易所钱包辨识失败，猜测原因是因为底层节点geth的监听功能filter只会对交易的第一组地址有反应，导致后续的交易没被听见，以致于无法触发交易所入账的事件。满期待交易所能改一下构架，否则都不能用智能合约支付，对许多Ethereum应用来说也挺困扰的。</p>
+<p>目前已经可以在GitHub上找到几组开源的矿池程序，稍有经验的人都能轻易的架起矿池。但尽管架池简单，经营倒挺困难，要找到足够的矿工和算力加入才能确保收入稳定。比起矿工是单纯的设备成本收入考察，经营矿池有时候更像在经营社群，需要培养一定的群众，提供不错的周边服务，才能让矿工愿意在收益变化的时候不至于军心溃散，肯留下来跟着矿池一起打拼。</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/15/online-qukuai-doc-36/">« 什么是区块链 36</a></span>
+  <span class="right"><a href="#">无 »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月15日 08:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-qukuai-doc-37
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+
