@@ -127,65 +127,131 @@ if(isiOS){
 
   
   <div class="page">
-      <p>Hello World Contract<br>This tutorial assumes that you have completed tutorials Getting Started With Contracts and Eosio.token, Exchange, and Eosio.msig Contracts.</p>
+      <h2 id="Hello-World-Contract"><a href="#Hello-World-Contract" class="headerlink" title="Hello World Contract"></a>Hello World Contract</h2><p>This tutorial assumes that you have completed tutorials Getting Started With Contracts and Eosio.token, Exchange, and Eosio.msig Contracts.</p>
 <p>We will now create our first “hello world” contract. Create a new folder called “hello”, cd into the folder, then create a file “hello.cpp” with the following contents:</p>
 <p>hello/hello.cpp</p>
-<p>#include <eosiolib eosio.hpp=""></eosiolib></p>
-<p>#include <eosiolib print.hpp=""><br>using namespace eosio;</eosiolib></p>
-<p>class hello : public eosio::contract {<br>  public:<br>      using contract::contract;</p>
-<pre><code>  /// @abi action 
-  void hi( account_name user ) {
-     print( &quot;Hello, &quot;, name{user} );
-  }
-</code></pre><p>};</p>
-<p>EOSIO_ABI( hello, (hi) )<br>You can compile your code to web assembly (.wast) as follows:</p>
-<p>$ eosiocpp -o hello.wast hello.cpp<br>NOTE: The compiler might generate warnings. These can be safely ignored.</p>
+<pre class=" language-CPP"><code class="language-CPP">#include <eosiolib/eosio.hpp>
+#include <eosiolib/print.hpp>
+using namespace eosio;
+
+class hello : public eosio::contract {
+  public:
+      using contract::contract;
+
+      /// @abi action 
+      void hi( account_name user ) {
+         print( "Hello, ", name{user} );
+      }
+};
+
+EOSIO_ABI( hello, (hi) )
+</code></pre>
+<p>You can compile your code to web assembly (.wast) as follows:</p>
+<pre class=" language-js"><code class="language-js">$ eosiocpp <span class="token operator">-</span>o hello<span class="token punctuation">.</span>wast hello<span class="token punctuation">.</span>cpp
+</code></pre>
+<p>NOTE: The compiler might generate warnings. These can be safely ignored.</p>
 <p>Now generate the abi:</p>
-<p>$ eosiocpp -g hello.abi hello.cpp<br>Generated hello.abi<br>Create an account and upload the contract:</p>
-<p>$ cleos create account eosio hello.code EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4 EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4<br>…<br>$ cleos set contract hello.code ../hello -p hello.code<br>…<br>Now we can run the contract:</p>
-<p>$ cleos push action hello.code hi ‘[“user”]’ -p user<br>executed transaction: 4c10c1426c16b1656e802f3302677594731b380b18a44851d38e8b5275072857  244 bytes  1000 cycles</p>
-<h1 id="hello-code-lt-hello-code-hi-“user”-”user”"><a href="#hello-code-lt-hello-code-hi-“user”-”user”" class="headerlink" title="hello.code &lt;= hello.code::hi               {“user”:”user”}"></a>hello.code &lt;= hello.code::hi               {“user”:”user”}</h1><blockquote>
-<blockquote>
-<p>Hello, user<br>At this time the contract allows anyone to authorize it, we could also say:</p>
-</blockquote>
-</blockquote>
-<p>$ cleos push action hello.code hi ‘[“user”]’ -p tester<br>executed transaction: 28d92256c8ffd8b0255be324e4596b7c745f50f85722d0c4400471bc184b9a16  244 bytes  1000 cycles</p>
-<h1 id="hello-code-lt-hello-code-hi-“user”-”user”-1"><a href="#hello-code-lt-hello-code-hi-“user”-”user”-1" class="headerlink" title="hello.code &lt;= hello.code::hi               {“user”:”user”}"></a>hello.code &lt;= hello.code::hi               {“user”:”user”}</h1><blockquote>
-<blockquote>
-<p>Hello, user<br>In this case tester is the one who authorized it and user is just an argument. If we want our contact to authenticate the user we are saying “hi” to, then we need to modify the contract to require authentication.</p>
-</blockquote>
-</blockquote>
+<pre class=" language-js"><code class="language-js">$ eosiocpp <span class="token operator">-</span>g hello<span class="token punctuation">.</span>abi hello<span class="token punctuation">.</span>cpp
+Generated hello<span class="token punctuation">.</span>abi
+</code></pre>
+<p>Create an account and upload the contract:</p>
+<pre class=" language-js"><code class="language-js">$ cleos create account eosio hello<span class="token punctuation">.</span>code EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4 EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4
+<span class="token operator">...</span>
+$ cleos <span class="token keyword">set</span> contract hello<span class="token punctuation">.</span>code <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">/</span>hello <span class="token operator">-</span>p hello<span class="token punctuation">.</span>code
+<span class="token operator">...</span>
+</code></pre>
+<p>Now we can run the contract:</p>
+<pre class=" language-js"><code class="language-js">$ cleos push action hello<span class="token punctuation">.</span>code hi <span class="token string">'["user"]'</span> <span class="token operator">-</span>p user
+executed transaction<span class="token punctuation">:</span> 4c10c1426c16b1656e802f3302677594731b380b18a44851d38e8b5275072857  <span class="token number">244</span> bytes  <span class="token number">1000</span> cycles
+#    hello<span class="token punctuation">.</span>code <span class="token operator">&lt;=</span> hello<span class="token punctuation">.</span>code<span class="token punctuation">:</span><span class="token punctuation">:</span>hi               <span class="token punctuation">{</span><span class="token string">"user"</span><span class="token punctuation">:</span><span class="token string">"user"</span><span class="token punctuation">}</span>
+<span class="token operator">></span><span class="token operator">></span> Hello<span class="token punctuation">,</span> user
+</code></pre>
+<p>At this time the contract allows anyone to authorize it, we could also say:</p>
+<pre class=" language-js"><code class="language-js">$ cleos push action hello<span class="token punctuation">.</span>code hi <span class="token string">'["user"]'</span> <span class="token operator">-</span>p tester
+executed transaction<span class="token punctuation">:</span> 28d92256c8ffd8b0255be324e4596b7c745f50f85722d0c4400471bc184b9a16  <span class="token number">244</span> bytes  <span class="token number">1000</span> cycles
+#    hello<span class="token punctuation">.</span>code <span class="token operator">&lt;=</span> hello<span class="token punctuation">.</span>code<span class="token punctuation">:</span><span class="token punctuation">:</span>hi               <span class="token punctuation">{</span><span class="token string">"user"</span><span class="token punctuation">:</span><span class="token string">"user"</span><span class="token punctuation">}</span>
+<span class="token operator">></span><span class="token operator">></span> Hello<span class="token punctuation">,</span> user
+</code></pre>
+<p>In this case tester is the one who authorized it and user is just an argument. If we want our contact to authenticate the user we are saying “hi” to, then we need to modify the contract to require authentication.</p>
 <p>Modify the hi() function in hello.cpp as follows:</p>
-<p>void hi( account_name user ) {<br>   require_auth( user );<br>   print( “Hello, “, name{user} );<br>}<br>Repeat the steps to compile the wast file and generate the abi, then set the contract again to deploy the update.</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">void</span> <span class="token function">hi</span><span class="token punctuation">(</span> account_name user <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token function">require_auth</span><span class="token punctuation">(</span> user <span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token function">print</span><span class="token punctuation">(</span> <span class="token string">"Hello, "</span><span class="token punctuation">,</span> name<span class="token punctuation">{</span>user<span class="token punctuation">}</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Repeat the steps to compile the wast file and generate the abi, then set the contract again to deploy the update.</p>
 <p>Now if we attempt to mismatch the user and the authority, the contract will throw an error:</p>
-<p>$ cleos push action hello.code hi ‘[“tester”]’ -p user<br>Error 3030001: missing required authority<br>Ensure that you have the related authority inside your transaction!;<br>If you are currently using ‘cleos push action’ command, try to add the relevant authority using -p option.<br>Error Details:<br>missing authority of tester<br>We can fix this by giving the permission of tester:</p>
-<p>$ cleos push action hello.code hi ‘[“tester”]’ -p tester<br>executed transaction: 235bd766c2097f4a698cfb948eb2e709532df8d18458b92c9c6aae74ed8e4518  244 bytes  1000 cycles</p>
-<h1 id="hello-code-lt-hello-code-hi-“user”-”tester”"><a href="#hello-code-lt-hello-code-hi-“user”-”tester”" class="headerlink" title="hello.code &lt;= hello.code::hi               {“user”:”tester”}"></a>hello.code &lt;= hello.code::hi               {“user”:”tester”}</h1><blockquote>
-<blockquote>
-<p>Hello, tester<br>Hello World Ricardian Contract<br>Every smart contract must have a matching Ricardian contract. The Ricardian Contract specifies the legally binding behavior associated with each action of the smart contract. The Ricardian Contract for the Hello World Contract is listed here.</p>
-</blockquote>
-</blockquote>
-<h2 id="CONTRACT-FOR-HELLO-WORLD"><a href="#CONTRACT-FOR-HELLO-WORLD" class="headerlink" title="CONTRACT FOR HELLO WORLD"></a>CONTRACT FOR HELLO WORLD</h2><h3 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h3><p>Input parameters: NONE</p>
-<p>Implied parameters: </p>
-<ul>
-<li>_<strong>account_name</strong>_ (name of the party invoking and signing the contract)</li>
-</ul>
-<h3 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a>Intent</h3><p>INTENT. The intention of the author and the invoker of this contract is to print output. It shall have no other effect.</p>
-<h3 id="Term"><a href="#Term" class="headerlink" title="Term"></a>Term</h3><p>TERM. This Contract expires at the conclusion of code execution.</p>
-<h3 id="Warranty"><a href="#Warranty" class="headerlink" title="Warranty"></a>Warranty</h3><p>WARRANTY.  shall uphold its Obligations under this Contract in a timely and workmanlike manner, using knowledge and recommendations for performing the services which meet generally acceptable standards set forth by EOSIO Blockchain Block Producers.</p>
-<h3 id="Default"><a href="#Default" class="headerlink" title="Default"></a>Default</h3><p>DEFAULT. The occurrence of any of the following shall constitute a material default under this Contract: </p>
-<h3 id="Remedies"><a href="#Remedies" class="headerlink" title="Remedies"></a>Remedies</h3><p>REMEDIES. In addition to any and all other rights a party may have available according to law, if a party defaults by failing to substantially perform any provision, term or condition of this Contract, the other party may terminate the Contract by providing written notice to the defaulting party. This notice shall describe with sufficient detail the nature of the default. The party receiving such notice shall promptly be removed from being a Block Producer and this Contract shall be automatically terminated. </p>
-<h3 id="Force-Majeure"><a href="#Force-Majeure" class="headerlink" title="Force Majeure"></a>Force Majeure</h3><p>FORCE MAJEURE. If performance of this Contract or any obligation under this Contract is prevented, restricted, or interfered with by causes beyond either party’s reasonable control (“Force Majeure”), and if the party unable to carry out its obligations gives the other party prompt written notice of such event, then the obligations of the party invoking this provision shall be suspended to the extent necessary by such event. The term Force Majeure shall include, without limitation, acts of God, fire, explosion, vandalism, storm or other similar occurrence, orders or acts of military or civil authority, or by national emergencies, insurrections, riots, or wars, or strikes, lock-outs, work stoppages, or supplier failures. The excused party shall use reasonable efforts under the circumstances to avoid or remove such causes of non-performance and shall proceed to perform with reasonable dispatch whenever such causes are removed or ceased. An act or omission shall be deemed within the reasonable control of a party if committed, omitted, or caused by such party, or its employees, officers, agents, or affiliates. </p>
-<h3 id="Dispute-Resolution"><a href="#Dispute-Resolution" class="headerlink" title="Dispute Resolution"></a>Dispute Resolution</h3><p>DISPUTE RESOLUTION. Any controversies or disputes arising out of or relating to this Contract will be resolved by binding arbitration under the default rules set forth by the EOSIO Blockchain. The arbitrator’s award will be final, and judgment may be entered upon it by any court having proper jurisdiction. </p>
-<h3 id="Entire-Agreement"><a href="#Entire-Agreement" class="headerlink" title="Entire Agreement"></a>Entire Agreement</h3><p>ENTIRE AGREEMENT. This Contract contains the entire agreement of the parties, and there are no other promises or conditions in any other agreement whether oral or written concerning the subject matter of this Contract. This Contract supersedes any prior written or oral agreements between the parties. </p>
-<h3 id="Severability"><a href="#Severability" class="headerlink" title="Severability"></a>Severability</h3><p>SEVERABILITY. If any provision of this Contract will be held to be invalid or unenforceable for any reason, the remaining provisions will continue to be valid and enforceable. If a court finds that any provision of this Contract is invalid or unenforceable, but that by limiting such provision it would become valid and enforceable, then such provision will be deemed to be written, construed, and enforced as so limited. </p>
-<h3 id="Amendment"><a href="#Amendment" class="headerlink" title="Amendment"></a>Amendment</h3><p>AMENDMENT. This Contract may be modified or amended in writing by mutual agreement between the parties, if the writing is signed by the party obligated under the amendment. </p>
-<h3 id="Governing-Law"><a href="#Governing-Law" class="headerlink" title="Governing Law"></a>Governing Law</h3><p>GOVERNING LAW. This Contract shall be construed in accordance with the Maxims of Equity. </p>
-<h3 id="Notice"><a href="#Notice" class="headerlink" title="Notice"></a>Notice</h3><p>NOTICE. Any notice or communication required or permitted under this Contract shall be sufficiently given if delivered to a verifiable email address or to such other email address as one party may have publicly furnished in writing, or published on a broadcast contract provided by this blockchain for purposes of providing notices of this type. </p>
-<h3 id="Waiver-of-Contractual-Right"><a href="#Waiver-of-Contractual-Right" class="headerlink" title="Waiver of Contractual Right"></a>Waiver of Contractual Right</h3><p>WAIVER OF CONTRACTUAL RIGHT. The failure of either party to enforce any provision of this Contract shall not be construed as a waiver or limitation of that party’s right to subsequently enforce and compel strict compliance with every provision of this Contract. </p>
-<h3 id="Arbitrator’s-Fees-to-Prevailing-Party"><a href="#Arbitrator’s-Fees-to-Prevailing-Party" class="headerlink" title="Arbitrator’s Fees to Prevailing Party"></a>Arbitrator’s Fees to Prevailing Party</h3><p>ARBITRATOR’S FEES TO PREVAILING PARTY. In any action arising hereunder or any separate action pertaining to the validity of this Agreement, both sides shall pay half the initial cost of arbitration, and the prevailing party shall be awarded reasonable arbitrator’s fees and costs.</p>
-<h3 id="Construction-and-Interpretation"><a href="#Construction-and-Interpretation" class="headerlink" title="Construction and Interpretation"></a>Construction and Interpretation</h3><p>CONSTRUCTION AND INTERPRETATION. The rule requiring construction or interpretation against the drafter is waived. The document shall be deemed as if it were drafted by both parties in a mutual effort. </p>
-<h3 id="In-Witness-Whereof"><a href="#In-Witness-Whereof" class="headerlink" title="In Witness Whereof"></a>In Witness Whereof</h3><p>IN WITNESS WHEREOF, the parties hereto have caused this Agreement to be executed by themselves or their duly authorized representatives as of the date of execution, and authorized as proven by the cryptographic signature on the transaction that invokes this contract.</p>
+<pre class=" language-js"><code class="language-js">$ cleos push action hello<span class="token punctuation">.</span>code hi <span class="token string">'["tester"]'</span> <span class="token operator">-</span>p user
+Error <span class="token number">3030001</span><span class="token punctuation">:</span> missing required authority
+Ensure that you have the related authority inside your transaction<span class="token operator">!</span><span class="token punctuation">;</span>
+If you are currently using <span class="token string">'cleos push action'</span> command<span class="token punctuation">,</span> <span class="token keyword">try</span> to add the relevant authority using <span class="token operator">-</span>p option<span class="token punctuation">.</span>
+Error Details<span class="token punctuation">:</span>
+missing authority <span class="token keyword">of</span> tester
+</code></pre>
+<p>We can fix this by giving the permission of tester:</p>
+<pre class=" language-js"><code class="language-js">$ cleos push action hello<span class="token punctuation">.</span>code hi <span class="token string">'["tester"]'</span> <span class="token operator">-</span>p tester
+executed transaction<span class="token punctuation">:</span> 235bd766c2097f4a698cfb948eb2e709532df8d18458b92c9c6aae74ed8e4518  <span class="token number">244</span> bytes  <span class="token number">1000</span> cycles
+#    hello<span class="token punctuation">.</span>code <span class="token operator">&lt;=</span> hello<span class="token punctuation">.</span>code<span class="token punctuation">:</span><span class="token punctuation">:</span>hi               <span class="token punctuation">{</span><span class="token string">"user"</span><span class="token punctuation">:</span><span class="token string">"tester"</span><span class="token punctuation">}</span>
+<span class="token operator">></span><span class="token operator">></span> Hello<span class="token punctuation">,</span> tester
+</code></pre>
+<h2 id="Hello-World-Ricardian-Contract"><a href="#Hello-World-Ricardian-Contract" class="headerlink" title="Hello World Ricardian Contract"></a>Hello World Ricardian Contract</h2><p>Every smart contract must have a matching Ricardian contract. The Ricardian Contract specifies the legally binding behavior associated with each action of the smart contract. The Ricardian Contract for the Hello World Contract is listed here.</p>
+<pre class=" language-js"><code class="language-js">## CONTRACT FOR HELLO WORLD
+
+### Parameters
+Input parameters<span class="token punctuation">:</span> NONE
+
+Implied parameters<span class="token punctuation">:</span> 
+
+<span class="token operator">*</span> _<span class="token operator">**</span>account_name<span class="token operator">**</span>_ <span class="token punctuation">(</span>name <span class="token keyword">of</span> the party invoking and signing the contract<span class="token punctuation">)</span>
+
+### Intent
+INTENT<span class="token punctuation">.</span> The intention <span class="token keyword">of</span> the author and the invoker <span class="token keyword">of</span> <span class="token keyword">this</span> contract is to print output<span class="token punctuation">.</span> It shall have no other effect<span class="token punctuation">.</span>
+
+### Term
+TERM<span class="token punctuation">.</span> This Contract expires at the conclusion <span class="token keyword">of</span> code execution<span class="token punctuation">.</span>
+
+### Warranty
+WARRANTY<span class="token punctuation">.</span> <span class="token punctuation">{</span><span class="token punctuation">{</span> account_name <span class="token punctuation">}</span><span class="token punctuation">}</span> shall uphold its Obligations under <span class="token keyword">this</span> Contract <span class="token keyword">in</span> a timely and workmanlike manner<span class="token punctuation">,</span> using knowledge and recommendations <span class="token keyword">for</span> performing the services which meet generally acceptable standards <span class="token keyword">set</span> forth by EOSIO Blockchain Block Producers<span class="token punctuation">.</span>
+
+### Default
+DEFAULT<span class="token punctuation">.</span> The occurrence <span class="token keyword">of</span> any <span class="token keyword">of</span> the following shall constitute a material <span class="token keyword">default</span> under <span class="token keyword">this</span> Contract<span class="token punctuation">:</span> 
+
+### Remedies
+REMEDIES<span class="token punctuation">.</span> In addition to any and all other rights a party may have available according to law<span class="token punctuation">,</span> <span class="token keyword">if</span> a party defaults by failing to substantially perform any provision<span class="token punctuation">,</span> term or condition <span class="token keyword">of</span> <span class="token keyword">this</span> Contract<span class="token punctuation">,</span> the other party may terminate the Contract by providing written notice to the defaulting party<span class="token punctuation">.</span> This notice shall describe <span class="token keyword">with</span> sufficient detail the nature <span class="token keyword">of</span> the <span class="token keyword">default</span><span class="token punctuation">.</span> The party receiving such notice shall promptly be removed <span class="token keyword">from</span> being a Block Producer and <span class="token keyword">this</span> Contract shall be automatically terminated<span class="token punctuation">.</span> 
+
+### Force Majeure
+FORCE MAJEURE<span class="token punctuation">.</span> If performance <span class="token keyword">of</span> <span class="token keyword">this</span> Contract or any obligation under <span class="token keyword">this</span> Contract is prevented<span class="token punctuation">,</span> restricted<span class="token punctuation">,</span> or interfered <span class="token keyword">with</span> by causes beyond either party's reasonable control <span class="token punctuation">(</span><span class="token string">"Force Majeure"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> and <span class="token keyword">if</span> the party unable to carry out its obligations gives the other party prompt written notice <span class="token keyword">of</span> such event<span class="token punctuation">,</span> then the obligations <span class="token keyword">of</span> the party invoking <span class="token keyword">this</span> provision shall be suspended to the extent necessary by such event<span class="token punctuation">.</span> The term Force Majeure shall include<span class="token punctuation">,</span> without limitation<span class="token punctuation">,</span> acts <span class="token keyword">of</span> God<span class="token punctuation">,</span> fire<span class="token punctuation">,</span> explosion<span class="token punctuation">,</span> vandalism<span class="token punctuation">,</span> storm or other similar occurrence<span class="token punctuation">,</span> orders or acts <span class="token keyword">of</span> military or civil authority<span class="token punctuation">,</span> or by national emergencies<span class="token punctuation">,</span> insurrections<span class="token punctuation">,</span> riots<span class="token punctuation">,</span> or wars<span class="token punctuation">,</span> or strikes<span class="token punctuation">,</span> lock<span class="token operator">-</span>outs<span class="token punctuation">,</span> work stoppages<span class="token punctuation">,</span> or supplier failures<span class="token punctuation">.</span> The excused party shall use reasonable efforts under the circumstances to avoid or remove such causes <span class="token keyword">of</span> non<span class="token operator">-</span>performance and shall proceed to perform <span class="token keyword">with</span> reasonable dispatch whenever such causes are removed or ceased<span class="token punctuation">.</span> An act or omission shall be deemed within the reasonable control <span class="token keyword">of</span> a party <span class="token keyword">if</span> committed<span class="token punctuation">,</span> omitted<span class="token punctuation">,</span> or caused by such party<span class="token punctuation">,</span> or its employees<span class="token punctuation">,</span> officers<span class="token punctuation">,</span> agents<span class="token punctuation">,</span> or affiliates<span class="token punctuation">.</span> 
+
+### Dispute Resolution
+DISPUTE RESOLUTION<span class="token punctuation">.</span> Any controversies or disputes arising out <span class="token keyword">of</span> or relating to <span class="token keyword">this</span> Contract will be resolved by binding arbitration under the <span class="token keyword">default</span> rules <span class="token keyword">set</span> forth by the EOSIO Blockchain<span class="token punctuation">.</span> The arbitrator's award will be final<span class="token punctuation">,</span> and judgment may be entered upon it by any court having proper jurisdiction<span class="token punctuation">.</span> 
+
+### Entire Agreement
+ENTIRE AGREEMENT<span class="token punctuation">.</span> This Contract contains the entire agreement <span class="token keyword">of</span> the parties<span class="token punctuation">,</span> and there are no other promises or conditions <span class="token keyword">in</span> any other agreement whether oral or written concerning the subject matter <span class="token keyword">of</span> <span class="token keyword">this</span> Contract<span class="token punctuation">.</span> This Contract supersedes any prior written or oral agreements between the parties<span class="token punctuation">.</span> 
+
+### Severability
+SEVERABILITY<span class="token punctuation">.</span> If any provision <span class="token keyword">of</span> <span class="token keyword">this</span> Contract will be held to be invalid or unenforceable <span class="token keyword">for</span> any reason<span class="token punctuation">,</span> the remaining provisions will <span class="token keyword">continue</span> to be valid and enforceable<span class="token punctuation">.</span> If a court finds that any provision <span class="token keyword">of</span> <span class="token keyword">this</span> Contract is invalid or unenforceable<span class="token punctuation">,</span> but that by limiting such provision it would become valid and enforceable<span class="token punctuation">,</span> then such provision will be deemed to be written<span class="token punctuation">,</span> construed<span class="token punctuation">,</span> and enforced <span class="token keyword">as</span> so limited<span class="token punctuation">.</span> 
+
+### Amendment
+AMENDMENT<span class="token punctuation">.</span> This Contract may be modified or amended <span class="token keyword">in</span> writing by mutual agreement between the parties<span class="token punctuation">,</span> <span class="token keyword">if</span> the writing is signed by the party obligated under the amendment<span class="token punctuation">.</span> 
+
+### Governing Law
+GOVERNING LAW<span class="token punctuation">.</span> This Contract shall be construed <span class="token keyword">in</span> accordance <span class="token keyword">with</span> the Maxims <span class="token keyword">of</span> Equity<span class="token punctuation">.</span> 
+
+### Notice
+NOTICE<span class="token punctuation">.</span> Any notice or communication required or permitted under <span class="token keyword">this</span> Contract shall be sufficiently given <span class="token keyword">if</span> delivered to a verifiable email address or to such other email address <span class="token keyword">as</span> one party may have publicly furnished <span class="token keyword">in</span> writing<span class="token punctuation">,</span> or published on a broadcast contract provided by <span class="token keyword">this</span> blockchain <span class="token keyword">for</span> purposes <span class="token keyword">of</span> providing notices <span class="token keyword">of</span> <span class="token keyword">this</span> type<span class="token punctuation">.</span> 
+
+### Waiver <span class="token keyword">of</span> Contractual Right
+WAIVER OF CONTRACTUAL RIGHT<span class="token punctuation">.</span> The failure <span class="token keyword">of</span> either party to enforce any provision <span class="token keyword">of</span> <span class="token keyword">this</span> Contract shall not be construed <span class="token keyword">as</span> a waiver or limitation <span class="token keyword">of</span> that party's right to subsequently enforce and compel strict compliance <span class="token keyword">with</span> every provision <span class="token keyword">of</span> <span class="token keyword">this</span> Contract<span class="token punctuation">.</span> 
+
+### Arbitrator's Fees to Prevailing Party
+ARBITRATOR’S FEES TO PREVAILING PARTY<span class="token punctuation">.</span> In any action arising hereunder or any separate action pertaining to the validity <span class="token keyword">of</span> <span class="token keyword">this</span> Agreement<span class="token punctuation">,</span> both sides shall pay half the initial cost <span class="token keyword">of</span> arbitration<span class="token punctuation">,</span> and the prevailing party shall be awarded reasonable arbitrator's fees and costs<span class="token punctuation">.</span>
+
+### Construction and Interpretation
+CONSTRUCTION AND INTERPRETATION<span class="token punctuation">.</span> The rule requiring construction or interpretation against the drafter is waived<span class="token punctuation">.</span> The document shall be deemed <span class="token keyword">as</span> <span class="token keyword">if</span> it were drafted by both parties <span class="token keyword">in</span> a mutual effort<span class="token punctuation">.</span> 
+
+### In Witness Whereof
+IN WITNESS WHEREOF<span class="token punctuation">,</span> the parties hereto have caused <span class="token keyword">this</span> Agreement to be executed by themselves or their duly authorized representatives <span class="token keyword">as</span> <span class="token keyword">of</span> the date <span class="token keyword">of</span> execution<span class="token punctuation">,</span> and authorized <span class="token keyword">as</span> proven by the cryptographic signature on the transaction that invokes <span class="token keyword">this</span> contract<span class="token punctuation">.</span>
+</code></pre>
 
   </div>
 </div>

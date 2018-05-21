@@ -128,6 +128,50 @@ if(isiOS){
   
   <div class="page">
       <h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>The program keosd, located in the eos/build/programs/keosd folder within the EOSIO/eos repository, can be used to store private keys that will be used to sign transactions sent to the block chain. keosd runs on your local machine and stores your private keys locally.</p>
+<h2 id="How-to-Run-keosd"><a href="#How-to-Run-keosd" class="headerlink" title="How to Run keosd"></a>How to Run keosd</h2><p>Start keosd on as follows:</p>
+<pre class=" language-js"><code class="language-js">$ keosd
+</code></pre>
+<p>By default, keosd creates the folder ~/eosio-wallet and populates it with a basic config.ini file. The location of the config file can be specified on the command line using the –config-dir argument. The configuration file contains the http server endpoint for incoming http connections and other parameters for cross origin resource sharing.</p>
+<p>By default, keosd stores wallets in the ~/eosio-wallet folder. Wallet files follow the naming convention <wallet-name>.wallet. For example, the default wallet will be stored in a file named default.wallet. As other wallets are created, similar files will be created for each. For example, a wallet named “foo” will have a corresponding wallet file named foo.wallet. The location of the wallet data folder can be specified on the command line using the –data-dir argument.</wallet-name></p>
+<h2 id="Command-Reference"><a href="#Command-Reference" class="headerlink" title="Command Reference"></a>Command Reference</h2><p>The command line tool to interact with keosd is called “cleos”. It is found in eos/build/programs/cleos folder.</p>
+<p>It provides the following commands to interact with keosd:</p>
+<h3 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h3><pre class=" language-js"><code class="language-js">$ cleos wallet create $<span class="token punctuation">{</span>options<span class="token punctuation">}</span>
+</code></pre>
+<p>Options:</p>
+<p>-n,–name TEXT=default The name of the new wallet</p>
+<p>If you don’t provide an optional name it creates a default wallet.</p>
+<h3 id="Open"><a href="#Open" class="headerlink" title="Open"></a>Open</h3><p>Open an already created wallet. You need to open a wallet to operate on it.</p>
+<p>$ cleos wallet open ${options}<br>Options:</p>
+<p>-n,–name TEXT The name of the wallet to open</p>
+<h3 id="Lock"><a href="#Lock" class="headerlink" title="Lock"></a>Lock</h3><p>Locks a wallet.</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet lock $<span class="token punctuation">{</span>options<span class="token punctuation">}</span>
+</code></pre>
+<p>Options:</p>
+<p>-n,–name TEXT The name of the wallet to lock</p>
+<p>Note: Your wallets will be locked when your wallet manager (keosd or nodeos) is shut down. You will need to unlock your wallets after restarting the wallet manager.</p>
+<h3 id="Unlock-wallet"><a href="#Unlock-wallet" class="headerlink" title="Unlock wallet"></a>Unlock wallet</h3><pre class=" language-js"><code class="language-js">$ cleos wallet unlock $<span class="token punctuation">{</span>options<span class="token punctuation">}</span>
+</code></pre>
+<p>Options:</p>
+<p>-n,–name TEXT The name of the wallet to unlock –password TEXT The password returned by wallet create</p>
+<h3 id="Import-private-key-into-wallet"><a href="#Import-private-key-into-wallet" class="headerlink" title="Import private key into wallet"></a>Import private key into wallet</h3><pre class=" language-js"><code class="language-js">$ cleos wallet <span class="token keyword">import</span> $<span class="token punctuation">{</span>options<span class="token punctuation">}</span> key
+</code></pre>
+<p>Positionals:</p>
+<p>key TEXT Private key in WIF format to import</p>
+<p>Options:</p>
+<p>-n,–name TEXT The name of the wallet to import key into</p>
+<h3 id="List"><a href="#List" class="headerlink" title="List"></a>List</h3><p>List opened wallets, * = unlocked</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet list
+</code></pre>
+<h3 id="Keys"><a href="#Keys" class="headerlink" title="Keys"></a>Keys</h3><p>List of private keys from all unlocked wallets in WIF format.</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet keys
+</code></pre>
+<h3 id="Managing-Wallets-with-nodeos"><a href="#Managing-Wallets-with-nodeos" class="headerlink" title="Managing Wallets with nodeos"></a>Managing Wallets with nodeos</h3><p>As an alternative to using keosd to manage your wallets, you can use nodeos to manage them. Using nodeos for wallet management is not the preferred configuration, but is suitable for development and test. It is not recommended to simultaneously have keosd and nodeos doing wallet management; it won’t break anything, but you will likely find it very confusing!</p>
+<p>To use nodeos for wallet management, you must configure nodeos to use the eosio::wallet_api_plugin. You can do this on the command line argument when starting nodeos, or by defining it in the nodeos config file. You will still use cleos as your interface to perform wallet management tasks, the difference being that cleos will direct its requests to nodeos.</p>
+<p>To start nodeos with the wallet plugin, include –plugin eosio::wallet_api_plugin on the nodeos command line.</p>
+<p>To include the wallet using the nodeos config file, add the following line to the nodeos config.ini file:</p>
+<pre class=" language-js"><code class="language-js">plugin <span class="token operator">=</span> eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>wallet_api_plugin
+</code></pre>
+<p>Note: If you use nodeos for wallet management, your wallets will be locked when nodeos is shut down. You will need to unlock your wallets after restarting nodeos.</p>
 
   </div>
 </div>

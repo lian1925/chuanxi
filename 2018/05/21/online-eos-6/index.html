@@ -128,16 +128,350 @@ if(isiOS){
   
   <div class="page">
       <h2 id="Programs【编程】"><a href="#Programs【编程】" class="headerlink" title="Programs【编程】"></a>Programs【编程】</h2><h3 id="nodeos"><a href="#nodeos" class="headerlink" title="nodeos"></a>nodeos</h3><p>The core EOSIO daemon【进程】 that can be configured【配置】 with plugins【插件】 to run a node. Example uses are block production, dedicated【专用的】 API endpoints【终端】, and local【本地】 development.</p>
-<h3 id="cleos"><a href="#cleos" class="headerlink" title="cleos"></a>cleos</h3><p>cleos is a command line tool【命令行工具】 that interfaces【接口】 with the REST API exposed【暴露】 by nodeos. In order to use cleos you will need to have the end point (IP address and port number) to a nodeos instance and also configure cleos to load the ‘eosio::chain_api_plugin’. cleos contains documentation for all of its commands. For a list of all commands known to cleos, simply run it with no arguments:</p>
-<p>$ cleos<br>ERROR: RequiredError: Subcommand required<br>Command Line Interface to EOSIO Client<br>Usage: ./cleos [OPTIONS] SUBCOMMAND</p>
-<p>Options:<br>  -h,–help                   Print this help message and exit<br>  -H,–host TEXT=localhost    the host where nodeos is running<br>  -p,–port UINT=8888         the port where nodeos is running<br>  –wallet-host TEXT=localhost<br>                              the host where keosd is running<br>  –wallet-port UINT=8888     the port where keosd is running<br>  -v,–verbose                output verbose messages on error</p>
-<p>Subcommands:<br>  version                     Retrieve version information<br>  create                      Create various items, on and off the blockchain<br>  get                         Retrieve various items and information from the blockchain<br>  set                         Set or update blockchain state<br>  transfer                    Transfer token from account to account<br>  net                         Interact with local p2p network connections<br>  wallet                      Interact with local wallet<br>  benchmark                   Configure and execute benchmarks<br>  push                        Push arbitrary transactions to the blockchain<br>To get help with any particular subcommand, run it with no arguments as well:</p>
-<p>$ cleos create<br>ERROR: RequiredError: Subcommand required<br>Create various items, on and off the blockchain<br>Usage: ./cleos create SUBCOMMAND</p>
-<p>Subcommands:<br>  key                         Create a new keypair and print the public and private keys<br>  account                     Create a new account on the blockchain<br>  producer                    Create a new producer on the blockchain</p>
-<p>$ cleos create account<br>ERROR: RequiredError: creator<br>Create a new account on the blockchain<br>Usage: ./cleos create account [OPTIONS] creator name OwnerKey ActiveKey</p>
-<p>Positionals:<br>  creator TEXT                The name of the account creating the new account<br>  name TEXT                   The name of the new account<br>  OwnerKey TEXT               The owner public key for the account<br>  ActiveKey TEXT              The active public key for the account</p>
-<p>Options:<br>  -s,–skip-signature         Specify that unlocked wallet keys should not be used to sign transaction<br>  -x,–expiration             set the time in seconds before a transaction expires, defaults to 30s<br>  -f,–force-unique           force the transaction to be unique. this will consume extra bandwidth and remove any protections against accidently issuing the same transaction multiple times<br>keosd<br>An EOSIO wallet daemon that loads wallet related plugins, such as the HTTP interface and RPC API</p>
-<p>launcher<br>The launcher application simplifies the distribution of multiple nodeos nodes across a LAN or a wider network. It can be configured via CLI to compose per-node configuration files, distribute these files securely amongst the peer hosts and then start up the multiple instances of nodeos.</p>
+<h3 id="cleos"><a href="#cleos" class="headerlink" title="cleos"></a>cleos</h3><p>cleos is a command line tool【命令行工具】 that interfaces【接口】 with the REST API exposed【暴露】 by nodeos. In order to use cleos you will need to have the end point (IP address【地址】 and port【端口】 number) to a nodeos instance【立刻】 and also configure cleos to load the ‘eosio::chain_api_plugin’. cleos contains documentation for all of its commands. For a list of all commands known to cleos, simply run it with no arguments【参数】:</p>
+<pre class=" language-js"><code class="language-js">$ cleos
+ERROR<span class="token punctuation">:</span> RequiredError<span class="token punctuation">:</span> Subcommand required
+Command Line Interface <span class="token class-name">to</span> EOSIO Client
+Usage<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token operator">/</span>cleos <span class="token punctuation">[</span>OPTIONS<span class="token punctuation">]</span> SUBCOMMAND
+
+Options<span class="token punctuation">:</span>
+  <span class="token operator">-</span>h<span class="token punctuation">,</span><span class="token operator">--</span>help                   Print <span class="token keyword">this</span> help message and exit
+  <span class="token operator">-</span>H<span class="token punctuation">,</span><span class="token operator">--</span>host TEXT<span class="token operator">=</span>localhost    the host where nodeos is running
+  <span class="token operator">-</span>p<span class="token punctuation">,</span><span class="token operator">--</span>port UINT<span class="token operator">=</span><span class="token number">8888</span>         the port where nodeos is running
+  <span class="token operator">--</span>wallet<span class="token operator">-</span>host TEXT<span class="token operator">=</span>localhost
+                              the host where keosd is running
+  <span class="token operator">--</span>wallet<span class="token operator">-</span>port UINT<span class="token operator">=</span><span class="token number">8888</span>     the port where keosd is running
+  <span class="token operator">-</span>v<span class="token punctuation">,</span><span class="token operator">--</span>verbose                output verbose messages on error
+
+Subcommands<span class="token punctuation">:</span>
+  version                     Retrieve version information
+  create                      Create various items<span class="token punctuation">,</span> on and off the blockchain
+  <span class="token keyword">get</span>                         Retrieve various items and information <span class="token keyword">from</span> the blockchain
+  <span class="token keyword">set</span>                         Set or update blockchain state
+  transfer                    Transfer token <span class="token keyword">from</span> account to account
+  net                         Interact <span class="token keyword">with</span> local p2p network connections
+  wallet                      Interact <span class="token keyword">with</span> local wallet
+  benchmark                   Configure and execute benchmarks
+  push                        Push arbitrary transactions to the blockchain
+</code></pre>
+<p>To get help with any particular【详细】 subcommand, run it with no arguments as well:</p>
+<pre class=" language-js"><code class="language-js">$ cleos create
+ERROR<span class="token punctuation">:</span> RequiredError<span class="token punctuation">:</span> Subcommand required
+Create various items<span class="token punctuation">,</span> on and off the blockchain
+Usage<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token operator">/</span>cleos create SUBCOMMAND
+
+Subcommands<span class="token punctuation">:</span>
+  key                         Create a <span class="token keyword">new</span> <span class="token class-name">keypair</span> and print the <span class="token keyword">public</span> and <span class="token keyword">private</span> keys
+  account                     Create a <span class="token keyword">new</span> <span class="token class-name">account</span> on the blockchain
+  producer                    Create a <span class="token keyword">new</span> <span class="token class-name">producer</span> on the blockchain
+
+$ cleos create account
+ERROR<span class="token punctuation">:</span> RequiredError<span class="token punctuation">:</span> creator
+Create a <span class="token keyword">new</span> <span class="token class-name">account</span> on the blockchain
+Usage<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token operator">/</span>cleos create account <span class="token punctuation">[</span>OPTIONS<span class="token punctuation">]</span> creator name OwnerKey ActiveKey
+
+Positionals<span class="token punctuation">:</span>
+  creator TEXT                The name <span class="token keyword">of</span> the account creating the <span class="token keyword">new</span> <span class="token class-name">account</span>
+  name TEXT                   The name <span class="token keyword">of</span> the <span class="token keyword">new</span> <span class="token class-name">account</span>
+  OwnerKey TEXT               The owner <span class="token keyword">public</span> key <span class="token keyword">for</span> the account
+  ActiveKey TEXT              The active <span class="token keyword">public</span> key <span class="token keyword">for</span> the account
+
+Options<span class="token punctuation">:</span>
+  <span class="token operator">-</span>s<span class="token punctuation">,</span><span class="token operator">--</span>skip<span class="token operator">-</span>signature         Specify that unlocked wallet keys should not be used to sign transaction
+  <span class="token operator">-</span>x<span class="token punctuation">,</span><span class="token operator">--</span>expiration             <span class="token keyword">set</span> the time <span class="token keyword">in</span> seconds before a transaction expires<span class="token punctuation">,</span> defaults to 30s
+  <span class="token operator">-</span>f<span class="token punctuation">,</span><span class="token operator">--</span>force<span class="token operator">-</span>unique           force the transaction to be unique<span class="token punctuation">.</span> <span class="token keyword">this</span> will consume extra bandwidth and remove any protections against accidently issuing the same transaction multiple times
+</code></pre>
+<h3 id="keosd"><a href="#keosd" class="headerlink" title="keosd"></a>keosd</h3><p>An EOSIO wallet【钱包】 daemon【进程】 that loads wallet related plugins, such as the HTTP interface【接口】 and RPC API</p>
+<h3 id="launcher【运行】"><a href="#launcher【运行】" class="headerlink" title="launcher【运行】"></a>launcher【运行】</h3><p>The launcher application simplifies【简化】 the distribution of multiple nodeos nodes across a LAN or a wider network. It can be configured【配置】 via CLI to compose per-node configuration files, distribute these files securely【安全】 amongst the peer hosts and then start up the multiple instances【实例】 of nodeos.</p>
+<h2 id="tools【工具】"><a href="#tools【工具】" class="headerlink" title="tools【工具】"></a>tools【工具】</h2><h3 id="eosiocpp"><a href="#eosiocpp" class="headerlink" title="eosiocpp"></a>eosiocpp</h3><p>Using eosiocpp to generate【生成】 the ABI specification file<br>eosiocpp can generate the ABI specification【规格】 file by inspecting【检查】 the content of types declared in the contract【合约】 source code【源码】.</p>
+<p>To indicate that a type must be exported to the ABI (as an action or a table), the @abi annotation【标记】 must be used in the comment【评论】 attached to the type declaration【声明】.</p>
+<p>The syntax【语法】 for the annotation is as following.</p>
+<p>@abi action [name name2 … nameN]<br>@abi table [index_type name] To generate the ABI file, eosiocpp must be called with the -g option.</p>
+<pre class=" language-js"><code class="language-js">➜ eosiocpp <span class="token operator">-</span>g abi<span class="token punctuation">.</span>json types<span class="token punctuation">.</span>hpp
+Generated abi<span class="token punctuation">.</span>json <span class="token operator">...</span>
+</code></pre>
+<p>eosiocpp can also be used to generate helper functions that serialize/deserialize the types defined in the ABI spec.</p>
+<pre class=" language-js"><code class="language-js">➜ eosiocpp <span class="token operator">-</span>g abi<span class="token punctuation">.</span>json <span class="token operator">-</span>gs types<span class="token punctuation">.</span>hpp
+Generated abi<span class="token punctuation">.</span>json <span class="token operator">...</span>
+Generated types<span class="token punctuation">.</span>gen<span class="token punctuation">.</span>hpp <span class="token operator">...</span>
+</code></pre>
+<h3 id="Examples"><a href="#Examples" class="headerlink" title="Examples"></a>Examples</h3><p>Declaring an action</p>
+<pre class=" language-js"><code class="language-js">#include <span class="token operator">&lt;</span>eoslib<span class="token operator">/</span>types<span class="token punctuation">.</span>hpp<span class="token operator">></span>
+#include <span class="token operator">&lt;</span>eoslib<span class="token operator">/</span>string<span class="token punctuation">.</span>hpp<span class="token operator">></span>
+
+<span class="token comment" spellcheck="true">//@abi action</span>
+struct action_name <span class="token punctuation">{</span>
+  uint64_t    param1<span class="token punctuation">;</span>
+  uint64_t    param2<span class="token punctuation">;</span>
+  eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>string param3<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">{</span>
+  <span class="token string">"types"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"structs"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"action_name"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"param1"</span><span class="token punctuation">:</span> <span class="token string">"uint64"</span><span class="token punctuation">,</span>
+        <span class="token string">"param2"</span><span class="token punctuation">:</span> <span class="token string">"uint64"</span><span class="token punctuation">,</span>
+        <span class="token string">"param3"</span><span class="token punctuation">:</span> <span class="token string">"string"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"actions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"action_name"</span><span class="token punctuation">:</span> <span class="token string">"actionname"</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"action_name"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"tables"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Declaring multiple actions using the same interface.</p>
+<pre class=" language-js"><code class="language-js">#include <span class="token operator">&lt;</span>eoslib<span class="token operator">/</span>types<span class="token punctuation">.</span>hpp<span class="token operator">></span>
+#include <span class="token operator">&lt;</span>eoslib<span class="token operator">/</span>string<span class="token punctuation">.</span>hpp<span class="token operator">></span>
+
+<span class="token comment" spellcheck="true">//@abi action action1 action2</span>
+struct action_name <span class="token punctuation">{</span>
+  uint64_t param1<span class="token punctuation">;</span>
+  uint64_t param2<span class="token punctuation">;</span>
+  eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>string   param3<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">{</span>
+  <span class="token string">"types"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"structs"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"action_name"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"param1"</span><span class="token punctuation">:</span> <span class="token string">"uint64"</span><span class="token punctuation">,</span>
+        <span class="token string">"param2"</span><span class="token punctuation">:</span> <span class="token string">"uint64"</span><span class="token punctuation">,</span>
+        <span class="token string">"param3"</span><span class="token punctuation">:</span> <span class="token string">"string"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"actions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"action_name"</span><span class="token punctuation">:</span> <span class="token string">"action1"</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"action_name"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+      <span class="token string">"action_name"</span><span class="token punctuation">:</span> <span class="token string">"action2"</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"action_name"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"tables"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Declaring a table</p>
+<pre class=" language-js"><code class="language-js">#include <span class="token operator">&lt;</span>eoslib<span class="token operator">/</span>types<span class="token punctuation">.</span>hpp<span class="token operator">></span>
+#include <span class="token operator">&lt;</span>eoslib<span class="token operator">/</span>string<span class="token punctuation">.</span>hpp<span class="token operator">></span>
+
+<span class="token comment" spellcheck="true">//@abi table</span>
+struct my_table <span class="token punctuation">{</span>
+  uint64_t key<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">{</span>
+  <span class="token string">"types"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"structs"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"my_table"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"key"</span><span class="token punctuation">:</span> <span class="token string">"uint64"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"actions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"tables"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"table_name"</span><span class="token punctuation">:</span> <span class="token string">"mytable"</span><span class="token punctuation">,</span>
+      <span class="token string">"index_type"</span><span class="token punctuation">:</span> <span class="token string">"i64"</span><span class="token punctuation">,</span>
+      <span class="token string">"key_names"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"key"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string">"key_types"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"uint64"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"my_table"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Declaring【声明】 a table with explicit index type</p>
+<p>*a struct with 3 uint64_t can be both i64 or i64i64i64</p>
+<pre class=" language-js"><code class="language-js">#include <span class="token operator">&lt;</span>eoslib<span class="token operator">/</span>types<span class="token punctuation">.</span>hpp<span class="token operator">></span>
+
+<span class="token comment" spellcheck="true">//@abi table i64</span>
+struct my_new_table <span class="token punctuation">{</span>
+  uint64_t key<span class="token punctuation">;</span>
+  uint64_t name<span class="token punctuation">;</span>
+  uint64_t age<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">{</span>
+  <span class="token string">"types"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"structs"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"my_new_table"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"key"</span><span class="token punctuation">:</span> <span class="token string">"uint64"</span><span class="token punctuation">,</span>
+        <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"uint64"</span><span class="token punctuation">,</span>
+        <span class="token string">"age"</span><span class="token punctuation">:</span> <span class="token string">"uint64"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"actions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"tables"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"table_name"</span><span class="token punctuation">:</span> <span class="token string">"mynewtable"</span><span class="token punctuation">,</span>
+      <span class="token string">"index_type"</span><span class="token punctuation">:</span> <span class="token string">"i64"</span><span class="token punctuation">,</span>
+      <span class="token string">"key_names"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"key"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string">"key_types"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"uint64"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"my_new_table"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Declaring a table and an action that use the same struct.</p>
+<pre class=" language-js"><code class="language-js">#include <span class="token operator">&lt;</span>eoslib<span class="token operator">/</span>types<span class="token punctuation">.</span>hpp<span class="token operator">></span>
+#include <span class="token operator">&lt;</span>eoslib<span class="token operator">/</span>string<span class="token punctuation">.</span>hpp<span class="token operator">></span>
+
+<span class="token comment" spellcheck="true">/*
+ * @abi table
+ * @abi action
+ */</span> 
+struct my_type <span class="token punctuation">{</span>
+  eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>string key<span class="token punctuation">;</span>
+  eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>name value<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">{</span>
+  <span class="token string">"types"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"structs"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"my_type"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"key"</span><span class="token punctuation">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+        <span class="token string">"value"</span><span class="token punctuation">:</span> <span class="token string">"name"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"actions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"action_name"</span><span class="token punctuation">:</span> <span class="token string">"mytype"</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"my_type"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"tables"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"table_name"</span><span class="token punctuation">:</span> <span class="token string">"mytype"</span><span class="token punctuation">,</span>
+      <span class="token string">"index_type"</span><span class="token punctuation">:</span> <span class="token string">"str"</span><span class="token punctuation">,</span>
+      <span class="token string">"key_names"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"key"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string">"key_types"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"string"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"my_type"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Example of typedef exporting</p>
+<pre class=" language-js"><code class="language-js">#include <span class="token operator">&lt;</span>eoslib<span class="token operator">/</span>types<span class="token punctuation">.</span>hpp<span class="token operator">></span>
+struct simple <span class="token punctuation">{</span>
+  uint64_t u64<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+typedef simple simple_alias<span class="token punctuation">;</span>
+typedef eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>name name_alias<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//@abi action</span>
+struct action_one <span class="token punctuation">:</span> simple_alias <span class="token punctuation">{</span>
+  uint32_t u32<span class="token punctuation">;</span>
+  name_alias name<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">{</span>
+  <span class="token string">"types"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"new_type_name"</span><span class="token punctuation">:</span> <span class="token string">"simple_alias"</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"simple"</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+      <span class="token string">"new_type_name"</span><span class="token punctuation">:</span> <span class="token string">"name_alias"</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"name"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"structs"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"simple"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"u64"</span><span class="token punctuation">:</span> <span class="token string">"uint64"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"action_one"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">"simple_alias"</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"u32"</span><span class="token punctuation">:</span> <span class="token string">"uint32"</span><span class="token punctuation">,</span>
+        <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"name_alias"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"actions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"action_name"</span><span class="token punctuation">:</span> <span class="token string">"actionone"</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"action_one"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"tables"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Using the generated<br>serialization/deserialization functions</p>
+<pre class=" language-js"><code class="language-js">#include <span class="token operator">&lt;</span>eoslib<span class="token operator">/</span>types<span class="token punctuation">.</span>hpp<span class="token operator">></span>
+#include <span class="token operator">&lt;</span>eoslib<span class="token operator">/</span>string<span class="token punctuation">.</span>hpp<span class="token operator">></span>
+
+struct simple <span class="token punctuation">{</span>
+  uint32_t u32<span class="token punctuation">;</span>
+  fixed_string16 s16<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+struct my_complex_type <span class="token punctuation">{</span>
+  uint64_t u64<span class="token punctuation">;</span>
+  eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>string str<span class="token punctuation">;</span>
+  simple simple<span class="token punctuation">;</span>
+  bytes bytes<span class="token punctuation">;</span>
+  public_key pub<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+typedef my_complex_type complex<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">//@abi action</span>
+struct test_action <span class="token punctuation">{</span>
+  uint32_t u32<span class="token punctuation">;</span>
+  complex cplx<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">apply</span><span class="token punctuation">(</span> uint64_t code<span class="token punctuation">,</span> uint64_t action <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+   <span class="token keyword">if</span><span class="token punctuation">(</span> code <span class="token operator">==</span> <span class="token function">N</span><span class="token punctuation">(</span>mycontract<span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span> action <span class="token operator">==</span> <span class="token function">N</span><span class="token punctuation">(</span>testaction<span class="token punctuation">)</span> <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        auto msg <span class="token operator">=</span> eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>current_message<span class="token operator">&lt;</span>test_action<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        eosio<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">print</span><span class="token punctuation">(</span><span class="token string">"test_action content\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        eosio<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">dump</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        bytes b <span class="token operator">=</span> eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>raw<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">pack</span><span class="token punctuation">(</span>msg<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">printhex</span><span class="token punctuation">(</span>b<span class="token punctuation">.</span>data<span class="token punctuation">,</span> b<span class="token punctuation">.</span>len<span class="token punctuation">)</span><span class="token punctuation">;</span>
+     <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>NOTE: table names and action names cannot use an underscore (“_”).</p>
+<p>Calling contract with test values</p>
+<pre class=" language-js"><code class="language-js">cleos push message mycontract testaction <span class="token string">'{"u32":"1000", "cplx":{"u64":"472", "str":"hello", "bytes":"B0CA", "pub":"EOS8CY2pCW5THmzvPTgEh5WLEAxgpVFXaPogPvgvVpVWCYMRdzmwx", "simple":{"u32":"164","s16":"small-string"}}}'</span> <span class="token operator">-</span>S mycontract
+</code></pre>
+<p>Will produce the following output in nodeos console</p>
+<pre class=" language-js"><code class="language-js">test_action content
+u32<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token number">1000</span><span class="token punctuation">]</span>
+cplx<span class="token punctuation">:</span><span class="token punctuation">[</span>
+  u64<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token number">472</span><span class="token punctuation">]</span>
+  str<span class="token punctuation">:</span><span class="token punctuation">[</span>hello<span class="token punctuation">]</span>
+  simple<span class="token punctuation">:</span><span class="token punctuation">[</span>
+    u32<span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token number">164</span><span class="token punctuation">]</span>
+    s16<span class="token punctuation">:</span><span class="token punctuation">[</span>small<span class="token operator">-</span>string<span class="token punctuation">]</span>
+  <span class="token punctuation">]</span>
+  bytes<span class="token punctuation">:</span><span class="token punctuation">[</span>b0ca<span class="token punctuation">]</span>
+  pub<span class="token punctuation">:</span><span class="token punctuation">[</span>03b41078f445628882fe8c1e629909cbbd67ff4b592b832264dac187ac730177f1<span class="token punctuation">]</span>
+<span class="token punctuation">]</span>
+e8030000d8010000000000000568656c6c6fa40000000c736d616c6c2d737472696e6702b0ca03b41078f445628882fe8c1e629909cbbd67ff4b592b832264dac187ac730177f1
+</code></pre>
 
   </div>
 </div>

@@ -127,53 +127,601 @@ if(isiOS){
 
   
   <div class="page">
-      <p>All command<br>cleos contains documentation for all of its commands. For a list of all commands known to cleos, simply run it with no arguments:</p>
-<p>$ cleos<br>ERROR: RequiredError: Subcommand required<br>Command Line Interface to EOSIO Client<br>Usage: cleos [OPTIONS] SUBCOMMAND</p>
-<p>Options:<br>  -h,–help                   Print this help message and exit<br>  -u,–url TEXT=<a href="http://localhost:8888/" target="_blank" rel="external">http://localhost:8888/</a><br>                              the http/https URL where nodeos is running<br>  –wallet-url TEXT=<a href="http://localhost:8888/" target="_blank" rel="external">http://localhost:8888/</a><br>                              the http/https URL where keosd is running<br>  -v,–verbose                output verbose actions on error</p>
-<p>Subcommands:<br>  version                     Retrieve version information<br>  create                      Create various items, on and off the blockchain<br>  get                         Retrieve various items and information from the blockchain<br>  set                         Set or update blockchain state<br>  transfer                    Transfer currency from account to account<br>  net                         Interact with local p2p network connections<br>  wallet                      Interact with local wallet<br>  sign                        Sign a transaction<br>  push                        Push arbitrary transactions to the blockchain<br>  multisig                    Multisig contract commands<br>  system                      Send eosio.system contract action to the blockchain.<br>All subcommand<br>To get help with any particular subcommand, run it with no arguments as well:</p>
-<p>$ cleos create<br>ERROR: RequiredError: Subcommand required<br>Create various items, on and off the blockchain<br>Usage: ./cleos create SUBCOMMAND<br>Subcommands:<br>  key                         Create a new keypair and print the public and private keys<br>  account                     Create a new account on the blockchain<br>  producer                    Create a new producer on the blockchain</p>
-<p>$ cleos create account<br>ERROR: RequiredError: creator<br>Create a new account on the blockchain<br>Usage: ./cleos create account creator name OwnerKey ActiveKey<br>Positionals:<br>  creator TEXT                The name of the account creating the new account<br>  name TEXT                   The name of the new account<br>  OwnerKey TEXT               The owner public key for the account<br>  ActiveKey TEXT              The active public key for the account</p>
-<p>Connect to node<br>This will connect you to your local node</p>
-<p>$ cleos -u localhost:8889 <subcommand><br>$ cleos –url localhost:8889 <subcommand><br>You can also adjust the node params to connect to a different node, e.g. the public testnet</subcommand></subcommand></p>
-<p>$ cleos -H test1.eos.io -p 80 <subcommand><br>Note You need to include the -H and -p arguments with each request to cleos</subcommand></p>
-<p>Query blockchain state<br>$ cleos get info<br>{<br>  “server_version”: “7451e092”,<br>  “head_block_num”: 6980,<br>  “last_irreversible_block_num”: 6963,<br>  “head_block_id”: “00001b4490e32b84861230871bb1c25fb8ee777153f4f82c5f3e4ca2b9877712”,<br>  “head_block_time”: “2017-12-07T09:18:48”,<br>  “head_block_producer”: “initp”,<br>  “recent_slots”: “1111111111111111111111111111111111111111111111111111111111111111”,<br>  “participation_rate”: “1.00000000000000000”<br>}<br>Get Transaction by transaction_id<br>With history_api_plugin loaded in nodeos, we can query for particular transaction using the transaction_id</p>
-<p>$ cleos get transaction eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703<br>{<br>  “transaction_id”: “eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703”,<br>  “processed”: {<br>    “refBlockNum”: 2206,<br>    “refBlockPrefix”: 221394282,<br>    “expiration”: “2017-09-05T08:03:58”,<br>    “scope”: [<br>      “inita”,<br>      “tester”<br>    ],<br>    “signatures”: [<br>      “1f22e64240e1e479eee6ccbbd79a29f1a6eb6020384b4cca1a958e7c708d3e562009ae6e60afac96f9a3b89d729a50cd5a7b5a7a647540ba1678831bf970e83312”<br>    ],<br>    “messages”: [{<br>        “code”: “eos”,<br>        “type”: “transfer”,<br>        “authorization”: [{<br>            “account”: “inita”,<br>            “permission”: “active”<br>          }<br>        ],<br>        “data”: {<br>          “from”: “inita”,<br>          “to”: “tester”,<br>          “amount”: 1000,<br>          “memo”: “”<br>        },<br>        “hex_data”: “000000008040934b00000000c84267a1e80300000000000000”<br>      }<br>    ],<br>    “output”: [{<br>        “notify”: [{<br>            “name”: “tester”,<br>            “output”: {<br>              “notify”: [],<br>              “sync_transactions”: [],<br>              “async_transactions”: []<br>            }<br>          },{<br>            “name”: “inita”,<br>            “output”: {<br>              “notify”: [],<br>              “sync_transactions”: [],<br>              “async_transactions”: []<br>            }<br>          }<br>        ],<br>        “sync_transactions”: [],<br>        “async_transactions”: []<br>      }<br>    ]<br>  }<br>}<br>Get Transaction by account<br>We can also query list of transactions performed by certain account starting from recent one</p>
-<p>$ cleos get transactions inita<br>[<br>  {<br>    “transaction_id”: “eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703”,<br>    …<br>  },<br>  {<br>    “transaction_id”: “6acd2ece68c4b86c1fa209c3989235063384020781f2c67bbb80bc8d540ca120”,<br>    …<br>  },<br>  …<br>]<br>Transfer Currency<br>$ cleos transfer inita tester 1000<br>{<br>  “transaction_id”: “eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703”,<br>  “processed”: {<br>    “refBlockNum”: 2206,<br>    “refBlockPrefix”: 221394282,<br>    “expiration”: “2017-09-05T08:03:58”,<br>    “scope”: [<br>      “inita”,<br>      “tester”<br>    ],<br>    “signatures”: [<br>      “1f22e64240e1e479eee6ccbbd79a29f1a6eb6020384b4cca1a958e7c708d3e562009ae6e60afac96f9a3b89d729a50cd5a7b5a7a647540ba1678831bf970e83312”<br>    ],<br>    “messages”: [{<br>        “code”: “eos”,<br>        “type”: “transfer”,<br>        “authorization”: [{<br>            “account”: “inita”,<br>            “permission”: “active”<br>          }<br>        ],<br>        “data”: {<br>          “from”: “inita”,<br>          “to”: “tester”,<br>          “amount”: 1000,<br>          “memo”: “”<br>        },<br>        “hex_data”: “000000008040934b00000000c84267a1e80300000000000000”<br>      }<br>    ],<br>    “output”: [{<br>        “notify”: [{<br>            “name”: “tester”,<br>            “output”: { … }<br>          },{<br>            “name”: “inita”,<br>            “output”: { … }<br>          }<br>        ],<br>        “sync_transactions”: [],<br>        “async_transactions”: []<br>      }<br>    ]<br>  }<br>}<br>Create wallet<br>Create wallet without specifying a name, the wallet will be created with the name ‘default’</p>
-<p>$ cleos wallet create<br>Creating wallet: default<br>Save password to use in the future to unlock this wallet.<br>Without password imported keys will not be retrievable.<br>“PW5JD9cw9YY288AXPvnbwUk5JK4Cy6YyZ83wzHcshu8F2akU9rRWE”<br>You can name the wallet adding the -n ${wallet_name} in the command</p>
-<p>$ cleos wallet create -n second-wallet<br>Creating wallet: second-wallet<br>Save password to use in the future to unlock this wallet.<br>Without password imported keys will not be retrievable.<br>“PW5Ji6JUrLjhKAVn68nmacLxwhvtqUAV18J7iycZppsPKeoGGgBEw”<br>List wallets<br>The list wallet command will list all wallet with status of each wallet, the * symbol indicates that the wallet is currently unlocked.</p>
-<p>$ cleos wallet list<br>Wallets:<br>[<br>  “default <em>“,<br>  “second-wallet </em>“<br>]<br>Import key to wallet<br>Note: If you do not hold an account key, you will need to use the create account command to first create account keys.</p>
-<p>$ cleos wallet import 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3<br>imported private key for: EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV<br>List wallet keys<br>This will list all the keys stored in the wallet in public private key pair.</p>
-<p>$ cleos wallet keys<br>[[<br>    “EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV”,<br>    “5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3”<br>  ]<br>]<br>Lock wallet<br>$ cleos wallet lock -n second-wallet<br>Locked: ‘second-wallet’</p>
-<p>Notice that the locked wallet doesn’t have * symbol in the list</p>
-<p>$ cleos wallet list<br>Wallets:<br>[<br>  “default *”,<br>  “second-wallet”<br>]<br>Unlock wallet<br>To unlock it specify the password you get when creating the wallet</p>
-<p>$ cleos wallet unlock -n second-wallet –password PW5Ji6JUrLjhKAVn68nmacLxwhvtqUAV18J7iycZppsPKeoGGgBEw<br>Unlocked: ‘second-wallet’<br>Open wallet<br>$ cleos wallet open<br>Wallets: [<br>  “default”<br>]<br>$ cleos wallet open -n second-wallet<br>Wallets: [<br>  “default”,<br>  “second-wallet”<br>]<br>Create keys<br>In order to create an account you will need two new keys: owner and active. You can ask cleos to create some keys for you:</p>
+      <h2 id="All-command【命令】"><a href="#All-command【命令】" class="headerlink" title="All command【命令】"></a>All command【命令】</h2><p>cleos contains documentation for all of its commands. For a list of all commands known to cleos, simply run it with no arguments:</p>
+<pre class=" language-js"><code class="language-js">$ cleos
+ERROR<span class="token punctuation">:</span> RequiredError<span class="token punctuation">:</span> Subcommand required
+Command Line Interface <span class="token class-name">to</span> EOSIO Client
+Usage<span class="token punctuation">:</span> cleos <span class="token punctuation">[</span>OPTIONS<span class="token punctuation">]</span> SUBCOMMAND
+
+Options<span class="token punctuation">:</span>
+  <span class="token operator">-</span>h<span class="token punctuation">,</span><span class="token operator">--</span>help                   Print <span class="token keyword">this</span> help message and exit
+  <span class="token operator">-</span>u<span class="token punctuation">,</span><span class="token operator">--</span>url TEXT<span class="token operator">=</span>http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token punctuation">:</span><span class="token number">8888</span><span class="token operator">/</span>
+                              the http<span class="token operator">/</span>https URL where nodeos is running
+  <span class="token operator">--</span>wallet<span class="token operator">-</span>url TEXT<span class="token operator">=</span>http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>localhost<span class="token punctuation">:</span><span class="token number">8888</span><span class="token operator">/</span>
+                              the http<span class="token operator">/</span>https URL where keosd is running
+  <span class="token operator">-</span>v<span class="token punctuation">,</span><span class="token operator">--</span>verbose                output verbose actions on error
+
+Subcommands<span class="token punctuation">:</span>
+  version                     Retrieve version information
+  create                      Create various items<span class="token punctuation">,</span> on and off the blockchain
+  <span class="token keyword">get</span>                         Retrieve various items and information <span class="token keyword">from</span> the blockchain
+  <span class="token keyword">set</span>                         Set or update blockchain state
+  transfer                    Transfer currency <span class="token keyword">from</span> account to account
+  net                         Interact <span class="token keyword">with</span> local p2p network connections
+  wallet                      Interact <span class="token keyword">with</span> local wallet
+  sign                        Sign a transaction
+  push                        Push arbitrary transactions to the blockchain
+  multisig                    Multisig contract commands
+  system                      Send eosio<span class="token punctuation">.</span>system contract action to the blockchain<span class="token punctuation">.</span>
+</code></pre>
+<h2 id="All-subcommand【子级命令】"><a href="#All-subcommand【子级命令】" class="headerlink" title="All subcommand【子级命令】"></a>All subcommand【子级命令】</h2><p>To get help with any particular subcommand, run it with no arguments【参数】 as well:</p>
+<pre class=" language-js"><code class="language-js">$ cleos create
+ERROR<span class="token punctuation">:</span> RequiredError<span class="token punctuation">:</span> Subcommand required
+Create various items<span class="token punctuation">,</span> on and off the blockchain
+Usage<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token operator">/</span>cleos create SUBCOMMAND
+Subcommands<span class="token punctuation">:</span>
+  key                         Create a <span class="token keyword">new</span> <span class="token class-name">keypair</span> and print the <span class="token keyword">public</span> and <span class="token keyword">private</span> keys
+  account                     Create a <span class="token keyword">new</span> <span class="token class-name">account</span> on the blockchain
+  producer                    Create a <span class="token keyword">new</span> <span class="token class-name">producer</span> on the blockchain
+
+$ cleos create account
+ERROR<span class="token punctuation">:</span> RequiredError<span class="token punctuation">:</span> creator
+Create a <span class="token keyword">new</span> <span class="token class-name">account</span> on the blockchain
+Usage<span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token operator">/</span>cleos create account creator name OwnerKey ActiveKey
+Positionals<span class="token punctuation">:</span>
+  creator TEXT                The name <span class="token keyword">of</span> the account creating the <span class="token keyword">new</span> <span class="token class-name">account</span>
+  name TEXT                   The name <span class="token keyword">of</span> the <span class="token keyword">new</span> <span class="token class-name">account</span>
+  OwnerKey TEXT               The owner <span class="token keyword">public</span> key <span class="token keyword">for</span> the account
+  ActiveKey TEXT              The active <span class="token keyword">public</span> key <span class="token keyword">for</span> the account
+</code></pre>
+<h2 id="Connect-to-node"><a href="#Connect-to-node" class="headerlink" title="Connect to node"></a>Connect to node</h2><p>This will connect you to your local node</p>
+<pre class=" language-js"><code class="language-js">$ cleos <span class="token operator">-</span>u localhost<span class="token punctuation">:</span><span class="token number">8889</span> <span class="token operator">&lt;</span>subcommand<span class="token operator">></span>
+$ cleos <span class="token operator">--</span>url localhost<span class="token punctuation">:</span><span class="token number">8889</span> <span class="token operator">&lt;</span>subcommand<span class="token operator">></span>
+</code></pre>
+<p>You can also adjust the node params to connect to a different node, e.g. the public testnet</p>
+<pre class=" language-js"><code class="language-js">$ cleos <span class="token operator">-</span>H test1<span class="token punctuation">.</span>eos<span class="token punctuation">.</span>io <span class="token operator">-</span>p <span class="token number">80</span> <span class="token operator">&lt;</span>subcommand<span class="token operator">></span>
+</code></pre>
+<p>Note You need to include the -H and -p arguments with each request to cleos</p>
+<h2 id="Query-blockchain-state"><a href="#Query-blockchain-state" class="headerlink" title="Query blockchain state"></a>Query blockchain state</h2><pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> info
+<span class="token punctuation">{</span>
+  <span class="token string">"server_version"</span><span class="token punctuation">:</span> <span class="token string">"7451e092"</span><span class="token punctuation">,</span>
+  <span class="token string">"head_block_num"</span><span class="token punctuation">:</span> <span class="token number">6980</span><span class="token punctuation">,</span>
+  <span class="token string">"last_irreversible_block_num"</span><span class="token punctuation">:</span> <span class="token number">6963</span><span class="token punctuation">,</span>
+  <span class="token string">"head_block_id"</span><span class="token punctuation">:</span> <span class="token string">"00001b4490e32b84861230871bb1c25fb8ee777153f4f82c5f3e4ca2b9877712"</span><span class="token punctuation">,</span>
+  <span class="token string">"head_block_time"</span><span class="token punctuation">:</span> <span class="token string">"2017-12-07T09:18:48"</span><span class="token punctuation">,</span>
+  <span class="token string">"head_block_producer"</span><span class="token punctuation">:</span> <span class="token string">"initp"</span><span class="token punctuation">,</span>
+  <span class="token string">"recent_slots"</span><span class="token punctuation">:</span> <span class="token string">"1111111111111111111111111111111111111111111111111111111111111111"</span><span class="token punctuation">,</span>
+  <span class="token string">"participation_rate"</span><span class="token punctuation">:</span> <span class="token string">"1.00000000000000000"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Get-Transaction-by-transaction-id"><a href="#Get-Transaction-by-transaction-id" class="headerlink" title="Get Transaction by transaction_id"></a>Get Transaction by transaction_id</h2><p>With history_api_plugin loaded in nodeos, we can query for particular transaction using the transaction_id</p>
+<pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> transaction eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703
+<span class="token punctuation">{</span>
+  <span class="token string">"transaction_id"</span><span class="token punctuation">:</span> <span class="token string">"eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703"</span><span class="token punctuation">,</span>
+  <span class="token string">"processed"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"refBlockNum"</span><span class="token punctuation">:</span> <span class="token number">2206</span><span class="token punctuation">,</span>
+    <span class="token string">"refBlockPrefix"</span><span class="token punctuation">:</span> <span class="token number">221394282</span><span class="token punctuation">,</span>
+    <span class="token string">"expiration"</span><span class="token punctuation">:</span> <span class="token string">"2017-09-05T08:03:58"</span><span class="token punctuation">,</span>
+    <span class="token string">"scope"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"inita"</span><span class="token punctuation">,</span>
+      <span class="token string">"tester"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"signatures"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"1f22e64240e1e479eee6ccbbd79a29f1a6eb6020384b4cca1a958e7c708d3e562009ae6e60afac96f9a3b89d729a50cd5a7b5a7a647540ba1678831bf970e83312"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"messages"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        <span class="token string">"code"</span><span class="token punctuation">:</span> <span class="token string">"eos"</span><span class="token punctuation">,</span>
+        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"transfer"</span><span class="token punctuation">,</span>
+        <span class="token string">"authorization"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            <span class="token string">"account"</span><span class="token punctuation">:</span> <span class="token string">"inita"</span><span class="token punctuation">,</span>
+            <span class="token string">"permission"</span><span class="token punctuation">:</span> <span class="token string">"active"</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"data"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+          <span class="token string">"from"</span><span class="token punctuation">:</span> <span class="token string">"inita"</span><span class="token punctuation">,</span>
+          <span class="token string">"to"</span><span class="token punctuation">:</span> <span class="token string">"tester"</span><span class="token punctuation">,</span>
+          <span class="token string">"amount"</span><span class="token punctuation">:</span> <span class="token number">1000</span><span class="token punctuation">,</span>
+          <span class="token string">"memo"</span><span class="token punctuation">:</span> <span class="token string">""</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token string">"hex_data"</span><span class="token punctuation">:</span> <span class="token string">"000000008040934b00000000c84267a1e80300000000000000"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"output"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        <span class="token string">"notify"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"tester"</span><span class="token punctuation">,</span>
+            <span class="token string">"output"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+              <span class="token string">"notify"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token string">"sync_transactions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token string">"async_transactions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+            <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"inita"</span><span class="token punctuation">,</span>
+            <span class="token string">"output"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+              <span class="token string">"notify"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token string">"sync_transactions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token string">"async_transactions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"sync_transactions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"async_transactions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Get-Transaction-by-account"><a href="#Get-Transaction-by-account" class="headerlink" title="Get Transaction by account"></a>Get Transaction by account</h2><p>We can also query list of transactions performed by certain account starting from recent one</p>
+<pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> transactions inita
+<span class="token punctuation">[</span>
+  <span class="token punctuation">{</span>
+    <span class="token string">"transaction_id"</span><span class="token punctuation">:</span> <span class="token string">"eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703"</span><span class="token punctuation">,</span>
+    <span class="token operator">...</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">{</span>
+    <span class="token string">"transaction_id"</span><span class="token punctuation">:</span> <span class="token string">"6acd2ece68c4b86c1fa209c3989235063384020781f2c67bbb80bc8d540ca120"</span><span class="token punctuation">,</span>
+    <span class="token operator">...</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<h2 id="Transfer-Currency"><a href="#Transfer-Currency" class="headerlink" title="Transfer Currency"></a>Transfer Currency</h2><pre class=" language-js"><code class="language-js">$ cleos transfer inita tester <span class="token number">1000</span>
+<span class="token punctuation">{</span>
+  <span class="token string">"transaction_id"</span><span class="token punctuation">:</span> <span class="token string">"eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703"</span><span class="token punctuation">,</span>
+  <span class="token string">"processed"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"refBlockNum"</span><span class="token punctuation">:</span> <span class="token number">2206</span><span class="token punctuation">,</span>
+    <span class="token string">"refBlockPrefix"</span><span class="token punctuation">:</span> <span class="token number">221394282</span><span class="token punctuation">,</span>
+    <span class="token string">"expiration"</span><span class="token punctuation">:</span> <span class="token string">"2017-09-05T08:03:58"</span><span class="token punctuation">,</span>
+    <span class="token string">"scope"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"inita"</span><span class="token punctuation">,</span>
+      <span class="token string">"tester"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"signatures"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"1f22e64240e1e479eee6ccbbd79a29f1a6eb6020384b4cca1a958e7c708d3e562009ae6e60afac96f9a3b89d729a50cd5a7b5a7a647540ba1678831bf970e83312"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"messages"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        <span class="token string">"code"</span><span class="token punctuation">:</span> <span class="token string">"eos"</span><span class="token punctuation">,</span>
+        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"transfer"</span><span class="token punctuation">,</span>
+        <span class="token string">"authorization"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            <span class="token string">"account"</span><span class="token punctuation">:</span> <span class="token string">"inita"</span><span class="token punctuation">,</span>
+            <span class="token string">"permission"</span><span class="token punctuation">:</span> <span class="token string">"active"</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"data"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+          <span class="token string">"from"</span><span class="token punctuation">:</span> <span class="token string">"inita"</span><span class="token punctuation">,</span>
+          <span class="token string">"to"</span><span class="token punctuation">:</span> <span class="token string">"tester"</span><span class="token punctuation">,</span>
+          <span class="token string">"amount"</span><span class="token punctuation">:</span> <span class="token number">1000</span><span class="token punctuation">,</span>
+          <span class="token string">"memo"</span><span class="token punctuation">:</span> <span class="token string">""</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token string">"hex_data"</span><span class="token punctuation">:</span> <span class="token string">"000000008040934b00000000c84267a1e80300000000000000"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"output"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        <span class="token string">"notify"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"tester"</span><span class="token punctuation">,</span>
+            <span class="token string">"output"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+            <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"inita"</span><span class="token punctuation">,</span>
+            <span class="token string">"output"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"sync_transactions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"async_transactions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Create-wallet"><a href="#Create-wallet" class="headerlink" title="Create wallet"></a>Create wallet</h2><p>Create wallet without specifying a name, the wallet will be created with the name ‘default’</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet create
+Creating wallet<span class="token punctuation">:</span> <span class="token keyword">default</span>
+Save password to use <span class="token keyword">in</span> the future to unlock <span class="token keyword">this</span> wallet<span class="token punctuation">.</span>
+Without password imported keys will not be retrievable<span class="token punctuation">.</span>
+<span class="token string">"PW5JD9cw9YY288AXPvnbwUk5JK4Cy6YyZ83wzHcshu8F2akU9rRWE"</span>
+</code></pre>
+<p>You can name the wallet adding the -n ${wallet_name} in the command</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet create <span class="token operator">-</span>n second<span class="token operator">-</span>wallet
+Creating wallet<span class="token punctuation">:</span> second<span class="token operator">-</span>wallet
+Save password to use <span class="token keyword">in</span> the future to unlock <span class="token keyword">this</span> wallet<span class="token punctuation">.</span>
+Without password imported keys will not be retrievable<span class="token punctuation">.</span>
+<span class="token string">"PW5Ji6JUrLjhKAVn68nmacLxwhvtqUAV18J7iycZppsPKeoGGgBEw"</span>
+</code></pre>
+<h2 id="List-wallets"><a href="#List-wallets" class="headerlink" title="List wallets"></a>List wallets</h2><p>The list wallet command will list all wallet with status of each wallet, the * symbol indicates that the wallet is currently unlocked.</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet list
+Wallets<span class="token punctuation">:</span>
+<span class="token punctuation">[</span>
+  <span class="token string">"default *"</span><span class="token punctuation">,</span>
+  <span class="token string">"second-wallet *"</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<h2 id="Import-key-to-wallet"><a href="#Import-key-to-wallet" class="headerlink" title="Import key to wallet"></a>Import key to wallet</h2><p>Note: If you do not hold an account key, you will need to use the create account command to first create account keys.</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet <span class="token keyword">import</span> 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
+imported <span class="token keyword">private</span> key <span class="token keyword">for</span><span class="token punctuation">:</span> EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
+</code></pre>
+<h2 id="List-wallet-keys"><a href="#List-wallet-keys" class="headerlink" title="List wallet keys"></a>List wallet keys</h2><p>This will list all the keys stored in the wallet in public private key pair.</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet keys
+<span class="token punctuation">[</span><span class="token punctuation">[</span>
+    <span class="token string">"EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV"</span><span class="token punctuation">,</span>
+    <span class="token string">"5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3"</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<h2 id="Lock-wallet"><a href="#Lock-wallet" class="headerlink" title="Lock wallet"></a>Lock wallet</h2><pre class=" language-js"><code class="language-js">$ cleos wallet lock <span class="token operator">-</span>n second<span class="token operator">-</span>wallet
+Locked<span class="token punctuation">:</span> <span class="token string">'second-wallet'</span>
+
+Notice that the locked wallet doesn't have <span class="token operator">*</span> symbol <span class="token keyword">in</span> the list
+
+$ cleos wallet list
+Wallets<span class="token punctuation">:</span>
+<span class="token punctuation">[</span>
+  <span class="token string">"default *"</span><span class="token punctuation">,</span>
+  <span class="token string">"second-wallet"</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<h2 id="Unlock-wallet"><a href="#Unlock-wallet" class="headerlink" title="Unlock wallet"></a>Unlock wallet</h2><p>To unlock it specify the password you get when creating the wallet</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet unlock <span class="token operator">-</span>n second<span class="token operator">-</span>wallet <span class="token operator">--</span>password PW5Ji6JUrLjhKAVn68nmacLxwhvtqUAV18J7iycZppsPKeoGGgBEw
+Unlocked<span class="token punctuation">:</span> <span class="token string">'second-wallet'</span>
+</code></pre>
+<h2 id="Open-wallet"><a href="#Open-wallet" class="headerlink" title="Open wallet"></a>Open wallet</h2><pre class=" language-js"><code class="language-js">$ cleos wallet open
+Wallets<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+  <span class="token string">"default"</span>
+<span class="token punctuation">]</span>
+$ cleos wallet open <span class="token operator">-</span>n second<span class="token operator">-</span>wallet
+Wallets<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+  <span class="token string">"default"</span><span class="token punctuation">,</span>
+  <span class="token string">"second-wallet"</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<h2 id="Create-keys"><a href="#Create-keys" class="headerlink" title="Create keys"></a>Create keys</h2><p>In order to create an account you will need two new keys: owner and active. You can ask cleos to create some keys for you:</p>
 <p>This will be your owner key,</p>
-<p>$ cleos create key<br>public: EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq<br>private: 5JKbLfCXgcafDQVwHMm3shHt6iRWgrr9adcmt6vX3FNjAEtJGaT<br>And this will be your active key,</p>
-<p>$ cleos create key<br>public: EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA<br>private: 5Hv22aPcjnENBv6X9o9nKGdkfrW44En6z4zJUt2PobAvbQXrT9z<br>Note: cleos does not save the generated private key.</p>
-<p>Create account<br>You will need your EOSIO keys in order to create an account, you must either have your EOSIO keys registered on the Ethereum network or you can use the create keys function to create a new sets of keys</p>
-<p>$ cleos create account inita tester EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA<br>{<br>  “transaction_id”: “6acd2ece68c4b86c1fa209c3989235063384020781f2c67bbb80bc8d540ca120”,<br>  “processed”: {<br>    “refBlockNum”: “25217”,<br>    “refBlockPrefix”: “2095475630”,<br>    “expiration”: “2017-07-25T17:54:55”,<br>    “scope”: [<br>      “eos”,<br>      “inita”<br>    ],<br>    “signatures”: [],<br>    “messages”: [{<br>        “code”: “eos”,<br>        “type”: “newaccount”,<br>        “authorization”: [{<br>            “account”: “inita”,<br>            “permission”: “active”<br>          }<br>        ],<br>        “data”: “c9251a0000000000b44c5a2400000000010000000102bcca6347d828d4e1868b7dfa91692a16d5b20d0ee3d16a7ca2ddcc7f6dd03344010000010000000102bcca6347d828d4e1868b7dfa91692a16d5b20d0ee3d16a7ca2ddcc7f6dd03344010000010000000001c9251a000000000061d0640b000000000100010000000000000008454f5300000000”<br>      }<br>    ],<br>    “output”: [{<br>        “notify”: [],<br>        “sync_transactions”: [],<br>        “async_transactions”: []<br>      }<br>    ]<br>  }<br>}<br>Account servants<br>To check the servant accounts created by an account (control account)</p>
-<p>$ cleos get servants inita<br>{<br>  “controlled_accounts”: [<br>    “tester”<br>  ]<br>}<br>Check account balance<br>$ cleos get account tester<br>{<br>  “name”: “tester”,<br>  “eos_balance”: 0,<br>  “staked_balance”: 1,<br>  “unstaking_balance”: 0,<br>  “last_unstaking_time”: “1969-12-31T23:59:59”,<br>  “permissions”: [{<br>      “name”: “active”,<br>      “parent”: “owner”,<br>      “required_auth”: {<br>        “threshold”: 1,<br>        “keys”: [{<br>            “key”: “EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA”,<br>            “weight”: 1<br>          }<br>        ],<br>        “accounts”: []<br>      }<br>    },{<br>      “name”: “owner”,<br>      “parent”: “owner”,<br>      “required_auth”: {<br>        “threshold”: 1,<br>        “keys”: [{<br>            “key”: “EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq”,<br>            “weight”: 1<br>          }<br>        ],<br>        “accounts”: []<br>      }<br>    }<br>  ]<br>}<br>Create or Modify Permissions<br>To modify permissions of an account, you must have the authority over the account and the permission of which you are modifying. The set account permission command is subject to change so it’s associated Class is not fully documented.</p>
+<pre class=" language-js"><code class="language-js">$ cleos create key
+<span class="token keyword">public</span><span class="token punctuation">:</span> EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq
+<span class="token keyword">private</span><span class="token punctuation">:</span> 5JKbLfCXgcafDQVwHMm3shHt6iRWgrr9adcmt6vX3FNjAEtJGaT
+</code></pre>
+<p>And this will be your active key,</p>
+<pre class=" language-js"><code class="language-js">$ cleos create key
+<span class="token keyword">public</span><span class="token punctuation">:</span> EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA
+<span class="token keyword">private</span><span class="token punctuation">:</span> 5Hv22aPcjnENBv6X9o9nKGdkfrW44En6z4zJUt2PobAvbQXrT9z
+</code></pre>
+<p>Note: cleos does not save the generated private key.</p>
+<h2 id="Create-account"><a href="#Create-account" class="headerlink" title="Create account"></a>Create account</h2><p>You will need your EOSIO keys in order to create an account, you must either have your EOSIO keys registered on the Ethereum network or you can use the create keys function to create a new sets of keys</p>
+<pre class=" language-js"><code class="language-js">$ cleos create account inita tester EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA
+<span class="token punctuation">{</span>
+  <span class="token string">"transaction_id"</span><span class="token punctuation">:</span> <span class="token string">"6acd2ece68c4b86c1fa209c3989235063384020781f2c67bbb80bc8d540ca120"</span><span class="token punctuation">,</span>
+  <span class="token string">"processed"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"refBlockNum"</span><span class="token punctuation">:</span> <span class="token string">"25217"</span><span class="token punctuation">,</span>
+    <span class="token string">"refBlockPrefix"</span><span class="token punctuation">:</span> <span class="token string">"2095475630"</span><span class="token punctuation">,</span>
+    <span class="token string">"expiration"</span><span class="token punctuation">:</span> <span class="token string">"2017-07-25T17:54:55"</span><span class="token punctuation">,</span>
+    <span class="token string">"scope"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"eos"</span><span class="token punctuation">,</span>
+      <span class="token string">"inita"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"signatures"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"messages"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        <span class="token string">"code"</span><span class="token punctuation">:</span> <span class="token string">"eos"</span><span class="token punctuation">,</span>
+        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"newaccount"</span><span class="token punctuation">,</span>
+        <span class="token string">"authorization"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            <span class="token string">"account"</span><span class="token punctuation">:</span> <span class="token string">"inita"</span><span class="token punctuation">,</span>
+            <span class="token string">"permission"</span><span class="token punctuation">:</span> <span class="token string">"active"</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"data"</span><span class="token punctuation">:</span> <span class="token string">"c9251a0000000000b44c5a2400000000010000000102bcca6347d828d4e1868b7dfa91692a16d5b20d0ee3d16a7ca2ddcc7f6dd03344010000010000000102bcca6347d828d4e1868b7dfa91692a16d5b20d0ee3d16a7ca2ddcc7f6dd03344010000010000000001c9251a000000000061d0640b000000000100010000000000000008454f5300000000"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"output"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        <span class="token string">"notify"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"sync_transactions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"async_transactions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Account-servants"><a href="#Account-servants" class="headerlink" title="Account servants"></a>Account servants</h2><p>To check the servant accounts created by an account (control account)</p>
+<pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> servants inita
+<span class="token punctuation">{</span>
+  <span class="token string">"controlled_accounts"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+    <span class="token string">"tester"</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Check-account-balance"><a href="#Check-account-balance" class="headerlink" title="Check account balance"></a>Check account balance</h2><pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> account tester
+<span class="token punctuation">{</span>
+  <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"tester"</span><span class="token punctuation">,</span>
+  <span class="token string">"eos_balance"</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token string">"staked_balance"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token string">"unstaking_balance"</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token string">"last_unstaking_time"</span><span class="token punctuation">:</span> <span class="token string">"1969-12-31T23:59:59"</span><span class="token punctuation">,</span>
+  <span class="token string">"permissions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"active"</span><span class="token punctuation">,</span>
+      <span class="token string">"parent"</span><span class="token punctuation">:</span> <span class="token string">"owner"</span><span class="token punctuation">,</span>
+      <span class="token string">"required_auth"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"threshold"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token string">"keys"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            <span class="token string">"key"</span><span class="token punctuation">:</span> <span class="token string">"EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA"</span><span class="token punctuation">,</span>
+            <span class="token string">"weight"</span><span class="token punctuation">:</span> <span class="token number">1</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"accounts"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"owner"</span><span class="token punctuation">,</span>
+      <span class="token string">"parent"</span><span class="token punctuation">:</span> <span class="token string">"owner"</span><span class="token punctuation">,</span>
+      <span class="token string">"required_auth"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"threshold"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token string">"keys"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            <span class="token string">"key"</span><span class="token punctuation">:</span> <span class="token string">"EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq"</span><span class="token punctuation">,</span>
+            <span class="token string">"weight"</span><span class="token punctuation">:</span> <span class="token number">1</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"accounts"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Create-or-Modify-Permissions"><a href="#Create-or-Modify-Permissions" class="headerlink" title="Create or Modify Permissions"></a>Create or Modify Permissions</h2><p>To modify permissions of an account, you must have the authority over the account and the permission of which you are modifying. The set account permission command is subject to change so it’s associated Class is not fully documented.</p>
 <p>The first example associates a new key to the active permissions of an account</p>
-<p>$ cleos set account permission test active ‘{“threshold” : 1, “keys” : [{“permission”:{“key”:”EOS8X7Mp7apQWtL6T2sfSZzBcQNUqZB7tARFEm9gA9Tn9nbMdsvBB”,”permission”:”active”},”weight”:1}], “accounts” : [{“permission”:{“actor”:”acc2”,”permission”:”active”},”weight”:50}]}’ owner<br>This second example modifies the same account permission, but removes the key set in the last example, and grants active authority of the @test account to another account.</p>
-<p>$ cleos set account permission test active ‘{“threshold” : 1, “keys” : [], “accounts” : [{“permission”:{“actor”:”sandwich”,”permission”:”active”},”weight”:1},{“permission”:{“actor”:”acc1”,”permission”:”active”},”weight”:50}]}’ owner<br>The third example demonstrates how to setup permissions for multisig</p>
-<p>$ cleos set account permission test active ‘{“threshold” : 100, “keys” : [{“permission”:{“key”:”EOS8X7Mp7apQWtL6T2sfSZzBcQNUqZB7tARFEm9gA9Tn9nbMdsvBB”,”permission”:”active”},”weight”:25}], “accounts” : [{“permission”:{“actor”:”@sandwich”,”permission”:”active”},”weight”:75}]}’ owner<br>The JSON object used in this command is actually composed of two different types of objects</p>
+<pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">set</span> account permission test active <span class="token string">'{"threshold" : 1, "keys" : [{"permission":{"key":"EOS8X7Mp7apQWtL6T2sfSZzBcQNUqZB7tARFEm9gA9Tn9nbMdsvBB","permission":"active"},"weight":1}], "accounts" : [{"permission":{"actor":"acc2","permission":"active"},"weight":50}]}'</span> owner
+This second example modifies the same account permission<span class="token punctuation">,</span> but removes the key <span class="token keyword">set</span> <span class="token keyword">in</span> the last example<span class="token punctuation">,</span> and grants active authority <span class="token keyword">of</span> the @test account to another account<span class="token punctuation">.</span>
+
+$ cleos <span class="token keyword">set</span> account permission test active <span class="token string">'{"threshold" : 1, "keys" : [], "accounts" : [{"permission":{"actor":"sandwich","permission":"active"},"weight":1},{"permission":{"actor":"acc1","permission":"active"},"weight":50}]}'</span> owner
+</code></pre>
+<p>The third example demonstrates how to setup permissions for multisig</p>
+<pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">set</span> account permission test active <span class="token string">'{"threshold" : 100, "keys" : [{"permission":{"key":"EOS8X7Mp7apQWtL6T2sfSZzBcQNUqZB7tARFEm9gA9Tn9nbMdsvBB","permission":"active"},"weight":25}], "accounts" : [{"permission":{"actor":"@sandwich","permission":"active"},"weight":75}]}'</span> owner
+</code></pre>
+<p>The JSON object used in this command is actually composed of two different types of objects</p>
 <p>The authority JSON object …</p>
-<p>{<br>  “threshold”       : 100,    /<em>An integer that defines cumulative signature weight required for authorization</em>/<br>  “keys”            : [],     /<em>An array made up of individual permissions defined with an EOSIO-style PUBLIC KEY</em>/<br>  “accounts”        : []      /<em>An array made up of individual permissions defined with an EOSIO-style ACCOUNT</em>/<br>}<br>…which includes one or more permissions objects</p>
-<p>/<em>Set Permission with Key</em>/<br>{<br>  “permission” : {<br>    “key”           : “EOS8X7Mp7apQWtL6T2sfSZzBcQNUqZB7tARFEm9gA9Tn9nbMdsvBB”,<br>    “permission”    : “active”<br>  },<br>  weight            : 25      /<em>Set the weight of a signature from this permission</em>/<br>}</p>
-<p>/<em>Set Permission with Account</em>/<br>{<br>  “permission” : {<br>    “actor”       : “sandwich”,<br>    “permission”  : “active”<br>  },<br>  weight            : 75      /<em>Set the weight of a signature from this permission</em>/<br>}<br>You can read more about some practical uses of permissions here</p>
-<p>Deploy Contract<br>To upload a contract to the blockchain, you must first hold an account and a wallet that holds the account unlocked. Secondly, you will need your contract files (.wast) and its abi (.abi). Then you may proceed with setting the code.</p>
-<p>$ cleos set contract currency ../../../contracts/currency/currency.wast ../../../contracts/currency/currency.abi<br>Reading WAST…<br>Assembling WASM…<br>Publishing contract…<br>{<br>  “transaction_id”: “9990306e13f630a9c5436a5a0b6fb8fe2c7f3da2f342b4898a39c4a2c17dcdb3”,<br>  “processed”: {<br>    “refBlockNum”: 1208,<br>    “refBlockPrefix”: 3058534156,<br>    “expiration”: “2017-08-24T18:29:52”,<br>    “scope”: [<br>      “currency”,<br>      “SYS”<br>    ],<br>    “signatures”: [],<br>    “messages”: [{<br>        “code”: “eos”,<br>        “type”: “setcode”,<br>        “authorization”: [{<br>            “account”: “currency”,<br>            “permission”: “active”<br>          }<br>        ],<br>        “data”: “00000079b822651d0000e8150061736d0100000001390a60017e0060037e7e7f017f60047e7e7f7f017f60017f0060057e7e7e7f7f017f60027f7f0060027f7f017f60027e7f0060000060027e7e00029d010a03656e7606617373657274000503656e76086c6f61645f693634000403656e76067072696e7469000003656e76067072696e746e000003656e76067072696e7473000303656e760b726561644d657373616765000603656e760a72656d6f76655f693634000103656e760b7265717569726541757468000003656e760d726571756972654e6f74696365000003656e760973746f72655f6936340002030706000007030809040401700000050301000107cc0107066d656d6f72790200205f5a4e33656f733133726571756972654e6f74696365454e535f344e616d6545000a1e5f5a4e33656f7331317265717569726541757468454e535f344e616d6545000b345f5a4e3863757272656e6379313273746f72654163636f756e74454e33656f73344e616d6545524b4e535f374163636f756e7445000c355f5a4e3863757272656e637932336170706c795f63757272656e63795f7472616e7366657245524b4e535f385472616e7366657245000d04696e6974000e056170706c79000f0a9d0d060600200010080b0600200010070b3400024020012903084200510d0020004280808080a8d7bee3082001411010091a0f0b20004280808080a8d7bee308200110061a0b8a0604017e027f047e017f4100410028020441206b2208360204200029030821052000290300210720002903102104411010042004100241c000100442808080c887d7c8b21d100341d00010042007100341e000100420051003200029030021052000290308100820051008200029030010072000290300210142002105423b210441f00021034200210603400240024002400240024020054206560d0020032c00002202419f7f6a41ff017141194b0d01200241a0016a21020c020b420021072005420b580d020c030b200241ea016a41002002414f6a41ff01714105491b21020b2002ad42388642388721070b2007421f83200442ffffffff0f838621070b200341016a2103200542017c2105200720068421062004427b7c2204427a520d000b420021052008420037031820082006370310200142808080c887d7c8b21d4280808080a8d7bee308200841106a411010011a200041086a2903002101423b210441f00021034200210603400240024002400240024020054206560d0020032c00002202419f7f6a41ff017141194b0d01200241a0016a21020c020b420021072005420b580d020c030b200241ea016a41002002414f6a41ff01714105491b21020b2002ad42388642388721070b2007421f83200442ffffffff0f838621070b200341016a2103200542017c2105200720068421062004427b7c2204427a520d000b2008200637030020084200370308200142808080c887d7c8b21d4280808080a8d7bee3082008411010011a200841186a2203290300200041106a22022903005a418001100020032003290300200229030022057d370300200520082903087c20055a41b00110002008200829030820022903007c370308200029030021050240024020032903004200510d0020054280808080a8d7bee308200841106a411010091a0c010b20054280808080a8d7bee308200841106a10061a0b200041086a290300210502400240200841086a2903004200510d0020054280808080a8d7bee3082008411010091a0c010b20054280808080a8d7bee308200810061a0b4100200841206a3602040b980303027f057e017f4100410028020441106b220736020442002103423b210241e00121014200210403400240024002400240024020034207560d0020012c00002200419f7f6a41ff017141194b0d01200041a0016a21000c020b420021052003420b580d020c030b200041ea016a41002000414f6a41ff01714105491b21000b2000ad42388642388721050b2005421f83200242ffffffff0f838621050b200141016a2101200342017c2103200520048421042002427b7c2202427a520d000b42002103423b210241f00021014200210603400240024002400240024020034206560d0020012c00002200419f7f6a41ff017141194b0d01200041a0016a21000c020b420021052003420b580d020c030b200041ea016a41002000414f6a41ff01714105491b21000b2000ad42388642388721050b2005421f83200242ffffffff0f838621050b200141016a2101200342017c2103200520068421062002427b7c2202427a520d000b2007428094ebdc033703082007200637030020044280808080a8d7bee3082007411010091a4100200741106a3602040bb10303027f047e017f4100410028020441206b220836020442002105423b210441e00121034200210603400240024002400240024020054207560d0020032c00002202419f7f6a41ff017141194b0d01200241a0016a21020c020b420021072005420b580d020c030b200241ea016a41002002414f6a41ff01714105491b21020b2002ad42388642388721070b2007421f83200442ffffffff0f838621070b200341016a2103200542017c2105200720068421062004427b7c2204427a520d000b024020062000520d0042002105423b210441f00121034200210603400240024002400240024020054207560d0020032c00002202419f7f6a41ff017141194b0d01200241a0016a21020c020b420021072005420b580d020c030b200241ea016a41002002414f6a41ff01714105491b21020b2002ad42388642388721070b2007421f83200442ffffffff0f838621070b200341016a2103200542017c2105200720068421062004427b7c2204427a520d000b20062001520d00200842003703102008420037030820084200370318200841086a4118100541174b4180021000200841086a100d0b4100200841206a3602040b0bff010b0041040b04200500000041100b2254686973206170706561727320746f2062652061207472616e73666572206f6620000041c0000b0220000041d0000b072066726f6d20000041e0000b0520746f20000041f0000b086163636f756e7400004180010b2c696e746567657220756e646572666c6f77207375627472616374696e6720746f6b656e2062616c616e6365000041b0010b26696e7465676572206f766572666c6f7720616464696e6720746f6b656e2062616c616e6365000041e0010b0963757272656e6379000041f0010b097472616e7366657200004180020b1e6d6573736167652073686f72746572207468616e2065787065637465640000fd02046e616d651006617373657274020000086c6f61645f693634050000000000067072696e74690100067072696e746e0100067072696e747301000b726561644d6573736167650200000a72656d6f76655f693634030000000b726571756972654175746801000d726571756972654e6f7469636501000973746f72655f6936340400000000205f5a4e33656f733133726571756972654e6f74696365454e535f344e616d65450101301e5f5a4e33656f7331317265717569726541757468454e535f344e616d6545010130345f5a4e3863757272656e6379313273746f72654163636f756e74454e33656f73344e616d6545524b4e535f374163636f756e74450201300131355f5a4e3863757272656e637932336170706c795f63757272656e63795f7472616e7366657245524b4e535f385472616e73666572450901300131013201330134013501360137013804696e69740801300131013201330134013501360137056170706c7909013001310132013301340135013601370138010b4163636f756e744e616d65044e616d6502087472616e7366657200030466726f6d0b4163636f756e744e616d6502746f0b4163636f756e744e616d65087175616e746974790655496e743634076163636f756e740002036b65790655496e7436340762616c616e63650655496e74363401000000b298e982a4087472616e736665720100000080bafac608076163636f756e74”<br>      }<br>    ],<br>    “output”: [{<br>        “notify”: [],<br>        “sync_transactions”: [],<br>        “async_transactions”: []<br>      }<br>    ]<br>  }<br>}<br>Query Contract ABI<br>We can query the blockchain for the .abi of the contract, on which we can check the list of available actions and their respective message structure</p>
-<p>$ cleos get code -a currency.abi currency<br>code hash: 9b9db1a7940503a88535517049e64467a6e8f4e9e03af15e9968ec89dd794975<br>saving abi to currency.abi<br>$ cat currency.abi<br>{<br>  “types”: [{<br>      “newTypeName”: “AccountName”,<br>      “type”: “Name”<br>    }<br>  ],<br>  “structs”: [{<br>      “name”: “transfer”,<br>      “base”: “”,<br>      “fields”: {<br>        “from”: “AccountName”,<br>        “to”: “AccountName”,<br>        “amount”: “UInt64”<br>      }<br>    },{<br>      “name”: “account”,<br>      “base”: “”,<br>      “fields”: {<br>        “account”: “Name”,<br>        “balance”: “UInt64”<br>      }<br>    }<br>  ],<br>  “actions”: [{<br>      “action”: “transfer”,<br>      “type”: “transfer”<br>    }<br>  ],<br>  “tables”: [{<br>      “table”: “account”,<br>      “indextype”: “i64”,<br>      “keynames”: [<br>        “account”<br>      ],<br>      “keytype”: [],<br>      “type”: “account”<br>    }<br>  ]<br>}<br>Push Message to Contract<br>A message should be contract according to the contract ABI.</p>
+<pre class=" language-js"><code class="language-js"><span class="token punctuation">{</span>
+  <span class="token string">"threshold"</span>       <span class="token punctuation">:</span> <span class="token number">100</span><span class="token punctuation">,</span>    <span class="token comment" spellcheck="true">/*An integer that defines cumulative signature weight required for authorization*/</span>
+  <span class="token string">"keys"</span>            <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>     <span class="token comment" spellcheck="true">/*An array made up of individual permissions defined with an EOSIO-style PUBLIC KEY*/</span>
+  <span class="token string">"accounts"</span>        <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>      <span class="token comment" spellcheck="true">/*An array made up of individual permissions defined with an EOSIO-style ACCOUNT*/</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>…which includes one or more permissions objects</p>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">/*Set Permission with Key*/</span>
+<span class="token punctuation">{</span>
+  <span class="token string">"permission"</span> <span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"key"</span>           <span class="token punctuation">:</span> <span class="token string">"EOS8X7Mp7apQWtL6T2sfSZzBcQNUqZB7tARFEm9gA9Tn9nbMdsvBB"</span><span class="token punctuation">,</span>
+    <span class="token string">"permission"</span>    <span class="token punctuation">:</span> <span class="token string">"active"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  weight            <span class="token punctuation">:</span> <span class="token number">25</span>      <span class="token comment" spellcheck="true">/*Set the weight of a signature from this permission*/</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">/*Set Permission with Account*/</span>
+<span class="token punctuation">{</span>
+  <span class="token string">"permission"</span> <span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"actor"</span>       <span class="token punctuation">:</span> <span class="token string">"sandwich"</span><span class="token punctuation">,</span>
+    <span class="token string">"permission"</span>  <span class="token punctuation">:</span> <span class="token string">"active"</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  weight            <span class="token punctuation">:</span> <span class="token number">75</span>      <span class="token comment" spellcheck="true">/*Set the weight of a signature from this permission*/</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>You can read more about some practical uses of permissions here</p>
+<h2 id="Deploy-Contract"><a href="#Deploy-Contract" class="headerlink" title="Deploy Contract"></a>Deploy Contract</h2><p>To upload a contract to the blockchain, you must first hold an account and a wallet that holds the account unlocked. Secondly, you will need your contract files (.wast) and its abi (.abi). Then you may proceed with setting the code.</p>
+<pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">set</span> contract currency <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token regex">/../</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">/</span>contracts<span class="token operator">/</span>currency<span class="token regex">/currency.wast ../</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">/</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">/</span>contracts<span class="token operator">/</span>currency<span class="token operator">/</span>currency<span class="token punctuation">.</span>abi
+Reading WAST<span class="token operator">...</span>
+Assembling WASM<span class="token operator">...</span>
+Publishing contract<span class="token operator">...</span>
+<span class="token punctuation">{</span>
+  <span class="token string">"transaction_id"</span><span class="token punctuation">:</span> <span class="token string">"9990306e13f630a9c5436a5a0b6fb8fe2c7f3da2f342b4898a39c4a2c17dcdb3"</span><span class="token punctuation">,</span>
+  <span class="token string">"processed"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"refBlockNum"</span><span class="token punctuation">:</span> <span class="token number">1208</span><span class="token punctuation">,</span>
+    <span class="token string">"refBlockPrefix"</span><span class="token punctuation">:</span> <span class="token number">3058534156</span><span class="token punctuation">,</span>
+    <span class="token string">"expiration"</span><span class="token punctuation">:</span> <span class="token string">"2017-08-24T18:29:52"</span><span class="token punctuation">,</span>
+    <span class="token string">"scope"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"currency"</span><span class="token punctuation">,</span>
+      <span class="token string">"SYS"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"signatures"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"messages"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        <span class="token string">"code"</span><span class="token punctuation">:</span> <span class="token string">"eos"</span><span class="token punctuation">,</span>
+        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"setcode"</span><span class="token punctuation">,</span>
+        <span class="token string">"authorization"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            <span class="token string">"account"</span><span class="token punctuation">:</span> <span class="token string">"currency"</span><span class="token punctuation">,</span>
+            <span class="token string">"permission"</span><span class="token punctuation">:</span> <span class="token string">"active"</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"data"</span><span class="token punctuation">:</span> <span class="token string">"00000079b822651d0000e8150061736d0100000001390a60017e0060037e7e7f017f60047e7e7f7f017f60017f0060057e7e7e7f7f017f60027f7f0060027f7f017f60027e7f0060000060027e7e00029d010a03656e7606617373657274000503656e76086c6f61645f693634000403656e76067072696e7469000003656e76067072696e746e000003656e76067072696e7473000303656e760b726561644d657373616765000603656e760a72656d6f76655f693634000103656e760b7265717569726541757468000003656e760d726571756972654e6f74696365000003656e760973746f72655f6936340002030706000007030809040401700000050301000107cc0107066d656d6f72790200205f5a4e33656f733133726571756972654e6f74696365454e535f344e616d6545000a1e5f5a4e33656f7331317265717569726541757468454e535f344e616d6545000b345f5a4e3863757272656e6379313273746f72654163636f756e74454e33656f73344e616d6545524b4e535f374163636f756e7445000c355f5a4e3863757272656e637932336170706c795f63757272656e63795f7472616e7366657245524b4e535f385472616e7366657245000d04696e6974000e056170706c79000f0a9d0d060600200010080b0600200010070b3400024020012903084200510d0020004280808080a8d7bee3082001411010091a0f0b20004280808080a8d7bee308200110061a0b8a0604017e027f047e017f4100410028020441206b2208360204200029030821052000290300210720002903102104411010042004100241c000100442808080c887d7c8b21d100341d00010042007100341e000100420051003200029030021052000290308100820051008200029030010072000290300210142002105423b210441f00021034200210603400240024002400240024020054206560d0020032c00002202419f7f6a41ff017141194b0d01200241a0016a21020c020b420021072005420b580d020c030b200241ea016a41002002414f6a41ff01714105491b21020b2002ad42388642388721070b2007421f83200442ffffffff0f838621070b200341016a2103200542017c2105200720068421062004427b7c2204427a520d000b420021052008420037031820082006370310200142808080c887d7c8b21d4280808080a8d7bee308200841106a411010011a200041086a2903002101423b210441f00021034200210603400240024002400240024020054206560d0020032c00002202419f7f6a41ff017141194b0d01200241a0016a21020c020b420021072005420b580d020c030b200241ea016a41002002414f6a41ff01714105491b21020b2002ad42388642388721070b2007421f83200442ffffffff0f838621070b200341016a2103200542017c2105200720068421062004427b7c2204427a520d000b2008200637030020084200370308200142808080c887d7c8b21d4280808080a8d7bee3082008411010011a200841186a2203290300200041106a22022903005a418001100020032003290300200229030022057d370300200520082903087c20055a41b00110002008200829030820022903007c370308200029030021050240024020032903004200510d0020054280808080a8d7bee308200841106a411010091a0c010b20054280808080a8d7bee308200841106a10061a0b200041086a290300210502400240200841086a2903004200510d0020054280808080a8d7bee3082008411010091a0c010b20054280808080a8d7bee308200810061a0b4100200841206a3602040b980303027f057e017f4100410028020441106b220736020442002103423b210241e00121014200210403400240024002400240024020034207560d0020012c00002200419f7f6a41ff017141194b0d01200041a0016a21000c020b420021052003420b580d020c030b200041ea016a41002000414f6a41ff01714105491b21000b2000ad42388642388721050b2005421f83200242ffffffff0f838621050b200141016a2101200342017c2103200520048421042002427b7c2202427a520d000b42002103423b210241f00021014200210603400240024002400240024020034206560d0020012c00002200419f7f6a41ff017141194b0d01200041a0016a21000c020b420021052003420b580d020c030b200041ea016a41002000414f6a41ff01714105491b21000b2000ad42388642388721050b2005421f83200242ffffffff0f838621050b200141016a2101200342017c2103200520068421062002427b7c2202427a520d000b2007428094ebdc033703082007200637030020044280808080a8d7bee3082007411010091a4100200741106a3602040bb10303027f047e017f4100410028020441206b220836020442002105423b210441e00121034200210603400240024002400240024020054207560d0020032c00002202419f7f6a41ff017141194b0d01200241a0016a21020c020b420021072005420b580d020c030b200241ea016a41002002414f6a41ff01714105491b21020b2002ad42388642388721070b2007421f83200442ffffffff0f838621070b200341016a2103200542017c2105200720068421062004427b7c2204427a520d000b024020062000520d0042002105423b210441f00121034200210603400240024002400240024020054207560d0020032c00002202419f7f6a41ff017141194b0d01200241a0016a21020c020b420021072005420b580d020c030b200241ea016a41002002414f6a41ff01714105491b21020b2002ad42388642388721070b2007421f83200442ffffffff0f838621070b200341016a2103200542017c2105200720068421062004427b7c2204427a520d000b20062001520d00200842003703102008420037030820084200370318200841086a4118100541174b4180021000200841086a100d0b4100200841206a3602040b0bff010b0041040b04200500000041100b2254686973206170706561727320746f2062652061207472616e73666572206f6620000041c0000b0220000041d0000b072066726f6d20000041e0000b0520746f20000041f0000b086163636f756e7400004180010b2c696e746567657220756e646572666c6f77207375627472616374696e6720746f6b656e2062616c616e6365000041b0010b26696e7465676572206f766572666c6f7720616464696e6720746f6b656e2062616c616e6365000041e0010b0963757272656e6379000041f0010b097472616e7366657200004180020b1e6d6573736167652073686f72746572207468616e2065787065637465640000fd02046e616d651006617373657274020000086c6f61645f693634050000000000067072696e74690100067072696e746e0100067072696e747301000b726561644d6573736167650200000a72656d6f76655f693634030000000b726571756972654175746801000d726571756972654e6f7469636501000973746f72655f6936340400000000205f5a4e33656f733133726571756972654e6f74696365454e535f344e616d65450101301e5f5a4e33656f7331317265717569726541757468454e535f344e616d6545010130345f5a4e3863757272656e6379313273746f72654163636f756e74454e33656f73344e616d6545524b4e535f374163636f756e74450201300131355f5a4e3863757272656e637932336170706c795f63757272656e63795f7472616e7366657245524b4e535f385472616e73666572450901300131013201330134013501360137013804696e69740801300131013201330134013501360137056170706c7909013001310132013301340135013601370138010b4163636f756e744e616d65044e616d6502087472616e7366657200030466726f6d0b4163636f756e744e616d6502746f0b4163636f756e744e616d65087175616e746974790655496e743634076163636f756e740002036b65790655496e7436340762616c616e63650655496e74363401000000b298e982a4087472616e736665720100000080bafac608076163636f756e74"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"output"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        <span class="token string">"notify"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"sync_transactions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"async_transactions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Query-Contract-ABI"><a href="#Query-Contract-ABI" class="headerlink" title="Query Contract ABI"></a>Query Contract ABI</h2><p>We can query the blockchain for the .abi of the contract, on which we can check the list of available actions and their respective message structure</p>
+<pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> code <span class="token operator">-</span>a currency<span class="token punctuation">.</span>abi currency
+code hash<span class="token punctuation">:</span> 9b9db1a7940503a88535517049e64467a6e8f4e9e03af15e9968ec89dd794975
+saving abi to currency<span class="token punctuation">.</span>abi
+$ cat currency<span class="token punctuation">.</span>abi
+<span class="token punctuation">{</span>
+  <span class="token string">"types"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"newTypeName"</span><span class="token punctuation">:</span> <span class="token string">"AccountName"</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"Name"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"structs"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"transfer"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"from"</span><span class="token punctuation">:</span> <span class="token string">"AccountName"</span><span class="token punctuation">,</span>
+        <span class="token string">"to"</span><span class="token punctuation">:</span> <span class="token string">"AccountName"</span><span class="token punctuation">,</span>
+        <span class="token string">"amount"</span><span class="token punctuation">:</span> <span class="token string">"UInt64"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"account"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"account"</span><span class="token punctuation">:</span> <span class="token string">"Name"</span><span class="token punctuation">,</span>
+        <span class="token string">"balance"</span><span class="token punctuation">:</span> <span class="token string">"UInt64"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"actions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"action"</span><span class="token punctuation">:</span> <span class="token string">"transfer"</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"transfer"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"tables"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"table"</span><span class="token punctuation">:</span> <span class="token string">"account"</span><span class="token punctuation">,</span>
+      <span class="token string">"indextype"</span><span class="token punctuation">:</span> <span class="token string">"i64"</span><span class="token punctuation">,</span>
+      <span class="token string">"keynames"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"account"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string">"keytype"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"account"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Push-Message-to-Contract"><a href="#Push-Message-to-Contract" class="headerlink" title="Push Message to Contract"></a>Push Message to Contract</h2><p>A message should be contract according to the contract ABI.</p>
 <p>For example, the ABI of the currency contract is contructed as follow.</p>
-<p>$ cleos get code -a currency.abi currency<br>code hash: 9b9db1a7940503a88535517049e64467a6e8f4e9e03af15e9968ec89dd794975<br>saving abi to currency.abi<br>$ cat currency.abi<br>{<br>  “types”: [{<br>      “newTypeName”: “AccountName”,<br>      “type”: “Name”<br>    }<br>  ],<br>  “structs”: [{<br>      “name”: “transfer”,<br>      “base”: “”,<br>      “fields”: {<br>        “from”: “AccountName”,<br>        “to”: “AccountName”,<br>        “amount”: “UInt64”<br>      }<br>    },{<br>      “name”: “account”,<br>      “base”: “”,<br>      “fields”: {<br>        “account”: “Name”,<br>        “balance”: “UInt64”<br>      }<br>    }<br>  ],<br>  “actions”: [{<br>      “action”: “transfer”,<br>      “type”: “transfer”<br>    }<br>  ],<br>  “tables”: [{<br>      “table”: “account”,<br>      “indextype”: “i64”,<br>      “keynames”: [<br>        “account”<br>      ],<br>      “keytype”: [],<br>      “type”: “account”<br>    }<br>  ]<br>}<br>From the above abi, we can see that currency contract accepts an action called transfer that accepts message with fields from, to, and amount.</p>
-<p>$ ./cleos push message currency transfer ‘{“from”:”currency”,”to”:”tester”,”amount”:50}’ -S currency -S tester -p currency@active<br>1589302ms thread-0   main.cpp:271                  operator()           ] Converting argument to binary…<br>1589304ms thread-0   main.cpp:290                  operator()           ] Transaction result:<br>{<br>  “transaction_id”: “1c4911c0b277566dce4217edbbca0f688f7bdef761ed445ff31b31f286720057”,<br>  “processed”: {<br>    “refBlockNum”: 1173,<br>    “refBlockPrefix”: 2184027244,<br>    “expiration”: “2017-08-24T18:28:07”,<br>    “scope”: [<br>      “currency”,<br>      “tester”<br>    ],<br>    “signatures”: [],<br>    “messages”: [{<br>        “code”: “currency”,<br>        “type”: “transfer”,<br>        “authorization”: [{<br>            “account”: “currency”,<br>            “permission”: “active”<br>          }<br>        ],<br>        “data”: {<br>          “from”: “currency”,<br>          “to”: “tester”,<br>          “quantity”: 50<br>        },<br>        “hex_data”: “00000079b822651d00000000c84267a13200000000000000”<br>      }<br>    ],<br>    “output”: [{<br>        “notify”: [{<br>            “name”: “tester”,<br>            “output”: {<br>              “notify”: [],<br>              “sync_transactions”: [],<br>              “async_transactions”: []<br>            }<br>          }<br>        ],<br>        “sync_transactions”: [],<br>        “async_transactions”: []<br>      }<br>    ]<br>  }<br>}<br>Querying Contract<br>Depending on the table structure defines in the contract, you can query the data within the contract.</p>
+<pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> code <span class="token operator">-</span>a currency<span class="token punctuation">.</span>abi currency
+code hash<span class="token punctuation">:</span> 9b9db1a7940503a88535517049e64467a6e8f4e9e03af15e9968ec89dd794975
+saving abi to currency<span class="token punctuation">.</span>abi
+$ cat currency<span class="token punctuation">.</span>abi
+<span class="token punctuation">{</span>
+  <span class="token string">"types"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"newTypeName"</span><span class="token punctuation">:</span> <span class="token string">"AccountName"</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"Name"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"structs"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"transfer"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"from"</span><span class="token punctuation">:</span> <span class="token string">"AccountName"</span><span class="token punctuation">,</span>
+        <span class="token string">"to"</span><span class="token punctuation">:</span> <span class="token string">"AccountName"</span><span class="token punctuation">,</span>
+        <span class="token string">"amount"</span><span class="token punctuation">:</span> <span class="token string">"UInt64"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"account"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        <span class="token string">"account"</span><span class="token punctuation">:</span> <span class="token string">"Name"</span><span class="token punctuation">,</span>
+        <span class="token string">"balance"</span><span class="token punctuation">:</span> <span class="token string">"UInt64"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"actions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"action"</span><span class="token punctuation">:</span> <span class="token string">"transfer"</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"transfer"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"tables"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"table"</span><span class="token punctuation">:</span> <span class="token string">"account"</span><span class="token punctuation">,</span>
+      <span class="token string">"indextype"</span><span class="token punctuation">:</span> <span class="token string">"i64"</span><span class="token punctuation">,</span>
+      <span class="token string">"keynames"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"account"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string">"keytype"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"account"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>From the above abi, we can see that currency contract accepts an action called transfer that accepts message with fields from, to, and amount.</p>
+<pre class=" language-js"><code class="language-js">$ <span class="token punctuation">.</span><span class="token operator">/</span>cleos push message currency transfer <span class="token string">'{"from":"currency","to":"tester","amount":50}'</span> <span class="token operator">-</span>S currency <span class="token operator">-</span>S tester <span class="token operator">-</span>p currency@active
+1589302ms thread<span class="token number">-0</span>   main<span class="token punctuation">.</span>cpp<span class="token punctuation">:</span><span class="token number">271</span>                  <span class="token function">operator</span><span class="token punctuation">(</span><span class="token punctuation">)</span>           <span class="token punctuation">]</span> Converting argument to binary<span class="token operator">...</span>
+1589304ms thread<span class="token number">-0</span>   main<span class="token punctuation">.</span>cpp<span class="token punctuation">:</span><span class="token number">290</span>                  <span class="token function">operator</span><span class="token punctuation">(</span><span class="token punctuation">)</span>           <span class="token punctuation">]</span> Transaction result<span class="token punctuation">:</span>
+<span class="token punctuation">{</span>
+  <span class="token string">"transaction_id"</span><span class="token punctuation">:</span> <span class="token string">"1c4911c0b277566dce4217edbbca0f688f7bdef761ed445ff31b31f286720057"</span><span class="token punctuation">,</span>
+  <span class="token string">"processed"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    <span class="token string">"refBlockNum"</span><span class="token punctuation">:</span> <span class="token number">1173</span><span class="token punctuation">,</span>
+    <span class="token string">"refBlockPrefix"</span><span class="token punctuation">:</span> <span class="token number">2184027244</span><span class="token punctuation">,</span>
+    <span class="token string">"expiration"</span><span class="token punctuation">:</span> <span class="token string">"2017-08-24T18:28:07"</span><span class="token punctuation">,</span>
+    <span class="token string">"scope"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+      <span class="token string">"currency"</span><span class="token punctuation">,</span>
+      <span class="token string">"tester"</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"signatures"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"messages"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        <span class="token string">"code"</span><span class="token punctuation">:</span> <span class="token string">"currency"</span><span class="token punctuation">,</span>
+        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"transfer"</span><span class="token punctuation">,</span>
+        <span class="token string">"authorization"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            <span class="token string">"account"</span><span class="token punctuation">:</span> <span class="token string">"currency"</span><span class="token punctuation">,</span>
+            <span class="token string">"permission"</span><span class="token punctuation">:</span> <span class="token string">"active"</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"data"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+          <span class="token string">"from"</span><span class="token punctuation">:</span> <span class="token string">"currency"</span><span class="token punctuation">,</span>
+          <span class="token string">"to"</span><span class="token punctuation">:</span> <span class="token string">"tester"</span><span class="token punctuation">,</span>
+          <span class="token string">"quantity"</span><span class="token punctuation">:</span> <span class="token number">50</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token string">"hex_data"</span><span class="token punctuation">:</span> <span class="token string">"00000079b822651d00000000c84267a13200000000000000"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token string">"output"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        <span class="token string">"notify"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"tester"</span><span class="token punctuation">,</span>
+            <span class="token string">"output"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
+              <span class="token string">"notify"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token string">"sync_transactions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+              <span class="token string">"async_transactions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+            <span class="token punctuation">}</span>
+          <span class="token punctuation">}</span>
+        <span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"sync_transactions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"async_transactions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">]</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Querying-Contract"><a href="#Querying-Contract" class="headerlink" title="Querying Contract"></a>Querying Contract</h2><p>Depending on the table structure defines in the contract, you can query the data within the contract.</p>
 <p>For example, the currency contract ABI contains the account table.</p>
-<p>$ cleos get code -a currency.abi currency<br>code hash: 9b9db1a7940503a88535517049e64467a6e8f4e9e03af15e9968ec89dd794975<br>saving abi to currency.abi<br>$ cat currency.abi<br>{<br>  …<br>  “tables”: [{<br>      “table”: “account”,<br>      “indextype”: “i64”,<br>      “keynames”: [<br>        “account”<br>      ],<br>      “keytype”: [],<br>      “type”: “account”<br>    }<br>  ]<br>}<br>You can query the table specifying the necessary fields.</p>
-<p>$ cleos get table inita currency account<br>{<br>  “rows”: [{<br>      “account”: “account”,<br>      “balance”: 50<br>    }<br>  ],<br>  “more”: true<br>}<br>Skip signatures<br>If you have nodeos running in your local, as an easy way for developers to test functionality without dealing with keys, nodeos can be run so that Transaction signatures are not required.</p>
-<p>$ nodeos –skip-transaction-signatures<br>And then for any operation that requires signing, use the -s option</p>
-<p>$ cleos ${command} ${subcommand} -s ${param}<br>Using Separate Wallet App<br>Instead of using the wallet functionality built-in to nodeos, you can also use a separate wallet app which can be found inside programs/keosd. By default, port 8888 is used by nodeos, so choose another port for the wallet app.</p>
-<p>$ keosd –http-server-endpoint 127.0.0.1:8887<br>Then for any operation that requires signing, use the –wallet-host and –wallet-port option</p>
-<p>$ cleos —-wallet-url 127.0.0.1:8887 ${command} ${subcommand} ${param}<br>Error Examples<br>status_code == 200: Error<br>: 10 assert_exception: Assert Exception<br>test: assertion failed: integer underflow subtracting token balance<br>    {“s”:”integer underflow subtracting token balance”,”ptr”:176}<br>    thread-1  wasm_interface.cpp:248 assertnonei32i32<br>[…snipped…]</p>
+<pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> code <span class="token operator">-</span>a currency<span class="token punctuation">.</span>abi currency
+code hash<span class="token punctuation">:</span> 9b9db1a7940503a88535517049e64467a6e8f4e9e03af15e9968ec89dd794975
+saving abi to currency<span class="token punctuation">.</span>abi
+$ cat currency<span class="token punctuation">.</span>abi
+<span class="token punctuation">{</span>
+  <span class="token operator">...</span>
+  <span class="token string">"tables"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"table"</span><span class="token punctuation">:</span> <span class="token string">"account"</span><span class="token punctuation">,</span>
+      <span class="token string">"indextype"</span><span class="token punctuation">:</span> <span class="token string">"i64"</span><span class="token punctuation">,</span>
+      <span class="token string">"keynames"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"account"</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string">"keytype"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"account"</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>You can query the table specifying the necessary fields.</p>
+<pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> table inita currency account
+<span class="token punctuation">{</span>
+  <span class="token string">"rows"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"account"</span><span class="token punctuation">:</span> <span class="token string">"account"</span><span class="token punctuation">,</span>
+      <span class="token string">"balance"</span><span class="token punctuation">:</span> <span class="token number">50</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"more"</span><span class="token punctuation">:</span> <span class="token boolean">true</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Skip-signatures"><a href="#Skip-signatures" class="headerlink" title="Skip signatures"></a>Skip signatures</h2><p>If you have nodeos running in your local, as an easy way for developers to test functionality without dealing with keys, nodeos can be run so that Transaction signatures are not required.</p>
+<pre class=" language-js"><code class="language-js">$ nodeos <span class="token operator">--</span>skip<span class="token operator">-</span>transaction<span class="token operator">-</span>signatures
+</code></pre>
+<p>And then for any operation that requires signing, use the -s option</p>
+<pre class=" language-js"><code class="language-js">$ cleos $<span class="token punctuation">{</span>command<span class="token punctuation">}</span> $<span class="token punctuation">{</span>subcommand<span class="token punctuation">}</span> <span class="token operator">-</span>s $<span class="token punctuation">{</span>param<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="Using-Separate-Wallet-App"><a href="#Using-Separate-Wallet-App" class="headerlink" title="Using Separate Wallet App"></a>Using Separate Wallet App</h3><p>Instead of using the wallet functionality built-in to nodeos, you can also use a separate wallet app which can be found inside programs/keosd. By default, port 8888 is used by nodeos, so choose another port for the wallet app.</p>
+<pre class=" language-js"><code class="language-js">$ keosd <span class="token operator">--</span>http<span class="token operator">-</span>server<span class="token operator">-</span>endpoint <span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">8887</span>
+</code></pre>
+<p>Then for any operation that requires signing, use the –wallet-host and –wallet-port option</p>
+<pre class=" language-js"><code class="language-js">$ cleos —<span class="token operator">-</span>wallet<span class="token operator">-</span>url <span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">8887</span> $<span class="token punctuation">{</span>command<span class="token punctuation">}</span> $<span class="token punctuation">{</span>subcommand<span class="token punctuation">}</span> $<span class="token punctuation">{</span>param<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Error-Examples"><a href="#Error-Examples" class="headerlink" title="Error Examples"></a>Error Examples</h2><pre class=" language-js"><code class="language-js">status_code <span class="token operator">==</span> <span class="token number">200</span><span class="token punctuation">:</span> Error
+<span class="token punctuation">:</span> <span class="token number">10</span> assert_exception<span class="token punctuation">:</span> Assert Exception
+test<span class="token punctuation">:</span> assertion failed<span class="token punctuation">:</span> integer underflow subtracting token balance
+    <span class="token punctuation">{</span><span class="token string">"s"</span><span class="token punctuation">:</span><span class="token string">"integer underflow subtracting token balance"</span><span class="token punctuation">,</span><span class="token string">"ptr"</span><span class="token punctuation">:</span><span class="token number">176</span><span class="token punctuation">}</span>
+    thread<span class="token number">-1</span>  wasm_interface<span class="token punctuation">.</span>cpp<span class="token punctuation">:</span><span class="token number">248</span> assertnonei32i32
+<span class="token punctuation">[</span><span class="token operator">...</span>snipped<span class="token operator">...</span><span class="token punctuation">]</span>
+</code></pre>
 
   </div>
 </div>

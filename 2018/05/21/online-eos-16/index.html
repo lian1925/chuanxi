@@ -127,69 +127,167 @@ if(isiOS){
 
   
   <div class="page">
-      <p>Comprehensive Accounts &amp; Wallets Tutorial<br>Note This tutorial is geared towards use on a private single node testnet, but will work on a public testnet with minor modifications.</p>
-<p>Tutorial Audience<br>This tutorial is for users who want to learn about wallet and account management, how to use cleos to manage wallets and accounts, and how the wallet and account management EOSIO components interact with each other. Additional information can be found in the Command Reference.</p>
-<p>What You’ll Learn<br>You’ll learn how to create and manage wallets, their keys and then use this wallet to interact with the blockchain through cleos. You will then learn how to create accounts using cleos. The tutorial will introduce you to some of the interaction between cleos, keosd, and nodeos to sign content published to the blockchain.</p>
-<p>Prerequisites<br>Built and running copy of cleos and keosd on your system.<br>Built and ready to run copy of nodeos on your system.<br>Basic understanding of command line interfaces.<br>Note: Instructions require slight modification when applied to a docker installation.</p>
-<p>EOSIO Accounts and Wallets Conceptual Overview<br>The diagram below provides a simple conceptual view of accounts and wallets in EOSIO. While there are other supported deployment configurations, this view matches the one that we will use for this tutorial.</p>
-<p>Accounts and Wallets Conceptual Overview</p>
+      <h2 id="Comprehensive-Accounts-amp-Wallets-Tutorial"><a href="#Comprehensive-Accounts-amp-Wallets-Tutorial" class="headerlink" title="Comprehensive Accounts &amp; Wallets Tutorial"></a>Comprehensive Accounts &amp; Wallets Tutorial</h2><p>Note This tutorial is geared towards use on a private single node testnet, but will work on a public testnet with minor modifications.</p>
+<h3 id="Tutorial-Audience"><a href="#Tutorial-Audience" class="headerlink" title="Tutorial Audience"></a>Tutorial Audience</h3><p>This tutorial is for users who want to learn about wallet and account management, how to use cleos to manage wallets and accounts, and how the wallet and account management EOSIO components interact with each other. Additional information can be found in the Command Reference.</p>
+<h3 id="What-You’ll-Learn"><a href="#What-You’ll-Learn" class="headerlink" title="What You’ll Learn"></a>What You’ll Learn</h3><p>You’ll learn how to create and manage wallets, their keys and then use this wallet to interact with the blockchain through cleos. You will then learn how to create accounts using cleos. The tutorial will introduce you to some of the interaction between cleos, keosd, and nodeos to sign content published to the blockchain.</p>
+<h3 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h3><p>Built and running copy of cleos and keosd on your system.<br>Built and ready to run copy of nodeos on your system.<br>Basic understanding of command line interfaces.<br>Note: Instructions require slight modification when applied to a docker installation.</p>
+<h2 id="EOSIO-Accounts-and-Wallets-Conceptual-Overview"><a href="#EOSIO-Accounts-and-Wallets-Conceptual-Overview" class="headerlink" title="EOSIO Accounts and Wallets Conceptual Overview"></a>EOSIO Accounts and Wallets Conceptual Overview</h2><p>The diagram below provides a simple conceptual view of accounts and wallets in EOSIO. While there are other supported deployment configurations, this view matches the one that we will use for this tutorial.</p>
+<p><img src="https://raw.githubusercontent.com/wiki/EOSIO/eos/assets/Accounts-and-Wallets-Overview.png" alt=""><br>Accounts and Wallets Conceptual Overview</p>
 <p>The wallet can be thought of as a repository of public-private key pairs. These are needed to sign operations performed on the blockchain. Wallets and their content are managed by keosd. Wallets are accessed using cleos.</p>
 <p>An account can be thought of as an on-chain identifier that has access permissions associated with it (i.e., a security principal). nodeos manages the publishing of accounts and account-related actions on the blockchain. The account management capabilities of nodeos are also accessed using cleos.</p>
 <p>There is no inherent relationship between accounts and wallets. Accounts do not know about wallets, and vice versa. Correspondingly, there is no inherent relationship between nodeos and keosd. Their basic functions are fundamentally different. (Having said that, there are deployment configurations that blur the distinction. However, that topic is beyond the scope of this tutorial.)</p>
 <p>Where overlap occurs is when signatures are required, e.g., to sign transactions. The wallet facilitates obtaining signatures in a secure manner by storing keys locally in an encrypted store that can be locked. cleos effectively serves as an intermediary between keosd key retrieval operations and nodeos account (and other) blockchain actions that require signatures generated using those keys.</p>
-<p>Creating and Managing Wallets<br>Open your terminal and change to the directory where EOSIO was built. This will make it easier for us to interact with cleos, which is a command line interface for interacting with nodeos and keosd.</p>
-<p>$ cd /path_to_eos/build/programs/cleos<br>The first thing you’ll need to do is create a wallet; use the wallet create command of cleos</p>
-<p>$ cleos wallet create<br>Creating wallet: default<br>Save password to use in the future to unlock this wallet.<br>Without password imported keys will not be retrievable.<br>“A MASTER PASSWORD”<br>A wallet called default is now inside keosd and has returned the master password for this wallet. Be sure to save this password somewhere safe. This password is used to unlock (decrypt) your wallet file.</p>
+<h2 id="Creating-and-Managing-Wallets"><a href="#Creating-and-Managing-Wallets" class="headerlink" title="Creating and Managing Wallets"></a>Creating and Managing Wallets</h2><p>Open your terminal and change to the directory where EOSIO was built. This will make it easier for us to interact with cleos, which is a command line interface for interacting with nodeos and keosd.</p>
+<pre class=" language-js"><code class="language-js">$ cd <span class="token operator">/</span>path_to_eos<span class="token operator">/</span>build<span class="token operator">/</span>programs<span class="token operator">/</span>cleos
+</code></pre>
+<p>The first thing you’ll need to do is create a wallet; use the wallet create command of cleos</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet create
+Creating wallet<span class="token punctuation">:</span> <span class="token keyword">default</span>
+Save password to use <span class="token keyword">in</span> the future to unlock <span class="token keyword">this</span> wallet<span class="token punctuation">.</span>
+Without password imported keys will not be retrievable<span class="token punctuation">.</span>
+<span class="token string">"A MASTER PASSWORD"</span>
+</code></pre>
+<p>A wallet called default is now inside keosd and has returned the master password for this wallet. Be sure to save this password somewhere safe. This password is used to unlock (decrypt) your wallet file.</p>
 <p>The file for this wallet is named default.wallet. By default, keosd stores wallets in the ~/eosio-wallet folder. The location of the wallet data folder can be specified on the command line using the –data-dir argument.</p>
-<p>Managing Multiple Wallets and Wallet Names<br>cleos is capable of managing multiple wallets. Each individual wallet is protected by different wallet master passwords. The example below creates another wallet and demonstrates how to name it by using the -n argument.</p>
-<p>$ cleos wallet create -n periwinkle<br>Creating wallet: periwinkle<br>Save password to use in the future to unlock this wallet.<br>Without password imported keys will not be retrievable.<br>“A MASTER PASSWORD”<br>Now confirm that the wallet was created with your chosen name.</p>
-<p>$ cleos wallet list<br>Wallets:<br>[<br>  “default <em>“,<br>  “periwinkle </em>“<br>]<br>It’s important to notice the asterisk (*) after each listed wallet, which means that the respective wallet is unlocked. When using create wallet the resulting wallet is unlocked by default for your convenience.</p>
+<h3 id="Managing-Multiple-Wallets-and-Wallet-Names"><a href="#Managing-Multiple-Wallets-and-Wallet-Names" class="headerlink" title="Managing Multiple Wallets and Wallet Names"></a>Managing Multiple Wallets and Wallet Names</h3><p>cleos is capable of managing multiple wallets. Each individual wallet is protected by different wallet master passwords. The example below creates another wallet and demonstrates how to name it by using the -n argument.</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet create <span class="token operator">-</span>n periwinkle
+Creating wallet<span class="token punctuation">:</span> periwinkle
+Save password to use <span class="token keyword">in</span> the future to unlock <span class="token keyword">this</span> wallet<span class="token punctuation">.</span>
+Without password imported keys will not be retrievable<span class="token punctuation">.</span>
+<span class="token string">"A MASTER PASSWORD"</span>
+</code></pre>
+<p>Now confirm that the wallet was created with your chosen name.</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet list
+Wallets<span class="token punctuation">:</span>
+<span class="token punctuation">[</span>
+  <span class="token string">"default *"</span><span class="token punctuation">,</span>
+  <span class="token string">"periwinkle *"</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<p>It’s important to notice the asterisk (*) after each listed wallet, which means that the respective wallet is unlocked. When using create wallet the resulting wallet is unlocked by default for your convenience.</p>
 <p>Lock that second wallet using wallet lock</p>
-<p>$ cleos wallet lock -n periwinkle<br>Locked: ‘periwinkle’<br>Upon running wallet list again, you will see that the asterisk is gone, meaning that the wallet is now locked.</p>
-<p>$ cleos wallet list<br>Wallets:<br>[<br>  “default *”,<br>  “periwinkle”<br>]<br>Unlocking a named wallet entails calling wallet unlock with an -n parameter followed by the name of the wallet and then entering the wallet’s master password in the password prompt (yes, you can paste the password). Go ahead and grab the master key for the second wallet you created, execute the command below and when the password prompt appears, paste and press enter. You’ll be presented with a confirmation.</p>
-<p>$ cleos wallet unlock -n periwinkle<br>cleos will let you know that the wallet was unlocked</p>
-<p>Unlocked: ‘periwinkle’<br>Note: You can also use a –password argument followed by the master password to skip the prompt, but this results in your master password being visible in the console history</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet lock <span class="token operator">-</span>n periwinkle
+Locked<span class="token punctuation">:</span> <span class="token string">'periwinkle'</span>
+</code></pre>
+<p>Upon running wallet list again, you will see that the asterisk is gone, meaning that the wallet is now locked.</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet list
+Wallets<span class="token punctuation">:</span>
+<span class="token punctuation">[</span>
+  <span class="token string">"default *"</span><span class="token punctuation">,</span>
+  <span class="token string">"periwinkle"</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<p>Unlocking a named wallet entails calling wallet unlock with an -n parameter followed by the name of the wallet and then entering the wallet’s master password in the password prompt (yes, you can paste the password). Go ahead and grab the master key for the second wallet you created, execute the command below and when the password prompt appears, paste and press enter. You’ll be presented with a confirmation.</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet unlock <span class="token operator">-</span>n periwinkle
+</code></pre>
+<p>cleos will let you know that the wallet was unlocked</p>
+<pre class=" language-js"><code class="language-js">Unlocked<span class="token punctuation">:</span> <span class="token string">'periwinkle'</span>
+</code></pre>
+<p>Note: You can also use a –password argument followed by the master password to skip the prompt, but this results in your master password being visible in the console history</p>
 <p>Now check your progress:</p>
-<p>$ cleos wallet list<br>Wallets:<br>[<br>  “default <em>“,<br>  “periwinkle </em>“<br>]<br>The periwinkle wallet is followed by an asterisk, so it is now unlocked.</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet list
+Wallets<span class="token punctuation">:</span>
+<span class="token punctuation">[</span>
+  <span class="token string">"default *"</span><span class="token punctuation">,</span>
+  <span class="token string">"periwinkle *"</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<p>The periwinkle wallet is followed by an asterisk, so it is now unlocked.</p>
 <p>Note: Interacting with the ‘default’ wallet using the wallet command does not require the -n parameter</p>
 <p>Restart keosd now, and then go back to where you were calling cleos and run the following command</p>
-<p>$ cleos wallet list<br>Wallets:<br>[]<br>Wallets first need to be opened before they can be operated on, including listing them. The wallets were locked when you shut down keosd. When keosd was restarted, the wallet wasn’t open. Run the following commands to open, then list the default wallet.</p>
-<p>$ cleos wallet open<br>$ cleos wallet list<br>Wallets:<br>[<br>  “default”<br>]<br>Note: If you wanted to open a named wallet, you would run $ cleos wallet open -n periwinkle.</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet list
+Wallets<span class="token punctuation">:</span>
+<span class="token punctuation">[</span><span class="token punctuation">]</span>
+</code></pre>
+<p>Wallets first need to be opened before they can be operated on, including listing them. The wallets were locked when you shut down keosd. When keosd was restarted, the wallet wasn’t open. Run the following commands to open, then list the default wallet.</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet open
+$ cleos wallet list
+Wallets<span class="token punctuation">:</span>
+<span class="token punctuation">[</span>
+  <span class="token string">"default"</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<p>Note: If you wanted to open a named wallet, you would run $ cleos wallet open -n periwinkle.</p>
 <p>You’ll notice in the last response that the default wallet is locked by default. Unlock the now; you’ll need it in the subsequent steps.</p>
 <p>Run the wallet unlock command and paste your default wallet’s master password when the password prompt appears.</p>
-<p>$ cleos wallet unlock<br>Unlocked: ‘default’<br>Check that the wallet is unlocked:</p>
-<p>$ cleos wallet list<br>Wallets:<br>[<br>  “default *”<br>]<br>The wallet is accompanied by an asterisk, so it’s unlocked.</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet unlock
+Unlocked<span class="token punctuation">:</span> <span class="token string">'default'</span>
+</code></pre>
+<p>Check that the wallet is unlocked:</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet list
+Wallets<span class="token punctuation">:</span>
+<span class="token punctuation">[</span>
+  <span class="token string">"default *"</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<p>The wallet is accompanied by an asterisk, so it’s unlocked.</p>
 <p>You’ve learned how to create multiple wallets, and interact with them in cleos. However, an empty wallet doesn’t do you much good. We will now learn to import keys into the wallet.</p>
-<p>Generating and Importing EOSIO Keys<br>There are several ways to generate an EOSIO key pair, but this tutorial will focus on the create key command in cleos.</p>
+<h2 id="Generating-and-Importing-EOSIO-Keys"><a href="#Generating-and-Importing-EOSIO-Keys" class="headerlink" title="Generating and Importing EOSIO Keys"></a>Generating and Importing EOSIO Keys</h2><p>There are several ways to generate an EOSIO key pair, but this tutorial will focus on the create key command in cleos.</p>
 <p>Generate two public/private key pairs. Note the general format of the keys.</p>
-<p>$ cleos create key<br>Private key: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>Public key: EOSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>$ cleos create key<br>Private key: XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>Public key: EOSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX<br>You now have two EOSIO keypairs. At this point, these are just arbitrary keypairs and by themselves have no authority.</p>
+<pre class=" language-js"><code class="language-js">$ cleos create key
+Private key<span class="token punctuation">:</span> XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Public key<span class="token punctuation">:</span> EOSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+$ cleos create key
+Private key<span class="token punctuation">:</span> XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+Public key<span class="token punctuation">:</span> EOSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+</code></pre>
+<p>You now have two EOSIO keypairs. At this point, these are just arbitrary keypairs and by themselves have no authority.</p>
 <p>If you followed all of the previous steps, your default wallet should be open and unlocked.</p>
 <p>In this next step, we will import the private keys into the wallet. To do this, execute wallet import twice, once for each private key that was generated earlier.</p>
-<p>$ cleos wallet import ${private_key_1}<br>And then again with the second private key</p>
-<p>$ cleos wallet import ${private_key_2}<br>If successful, each time wallet import command responds with the public key corresponding to your private key, your console should look something like..</p>
-<p>$ cleos wallet import 5Hvgh37WMCWAc4GuyRBiFrk4SArCnSQVMhNtEQVoszhBh6RgdWr<br>imported private key for: EOS84jJqXj5XBz3RqLreXZCMxXRKspUadXg3AVy8eb5J2axj8cywc<br>We can check which keys are loaded by calling wallet keys</p>
-<p>$ cleos wallet keys<br>[[<br>    “EOS6….”,<br>    “5KQwr…”<br>  ],<br>  [<br>    “EOS3….”,<br>    “5Ks0e…”<br>  ]<br>]<br>the wallet file itself is encrypted, so the wallet will protect these keys when it’s locked. Accessing the keys in a locked wallet requires the master password that was provided to you during wallet creation.</p>
-<p>Backing up your wallet<br>Now that your wallet contains keys, it’s good to get into the habit of backing up the wallet, e.g., to a flash drive or other media, to protect against the loss of the wallet file. Without the password, the wallet file is encrypted with high entropy, and the keys inside are incredibly difficult (improbable by all reasonable measures) to access.</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet <span class="token keyword">import</span> $<span class="token punctuation">{</span>private_key_1<span class="token punctuation">}</span>
+</code></pre>
+<p>And then again with the second private key</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet <span class="token keyword">import</span> $<span class="token punctuation">{</span>private_key_2<span class="token punctuation">}</span>
+</code></pre>
+<p>If successful, each time wallet import command responds with the public key corresponding to your private key, your console should look something like..</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet <span class="token keyword">import</span> 5Hvgh37WMCWAc4GuyRBiFrk4SArCnSQVMhNtEQVoszhBh6RgdWr
+imported <span class="token keyword">private</span> key <span class="token keyword">for</span><span class="token punctuation">:</span> EOS84jJqXj5XBz3RqLreXZCMxXRKspUadXg3AVy8eb5J2axj8cywc
+</code></pre>
+<p>We can check which keys are loaded by calling wallet keys</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet keys
+<span class="token punctuation">[</span><span class="token punctuation">[</span>
+    <span class="token string">"EOS6...."</span><span class="token punctuation">,</span>
+    <span class="token string">"5KQwr..."</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token punctuation">[</span>
+    <span class="token string">"EOS3...."</span><span class="token punctuation">,</span>
+    <span class="token string">"5Ks0e..."</span>
+  <span class="token punctuation">]</span>
+<span class="token punctuation">]</span>
+</code></pre>
+<p>the wallet file itself is encrypted, so the wallet will protect these keys when it’s locked. Accessing the keys in a locked wallet requires the master password that was provided to you during wallet creation.</p>
+<h2 id="Backing-up-your-wallet"><a href="#Backing-up-your-wallet" class="headerlink" title="Backing up your wallet"></a>Backing up your wallet</h2><p>Now that your wallet contains keys, it’s good to get into the habit of backing up the wallet, e.g., to a flash drive or other media, to protect against the loss of the wallet file. Without the password, the wallet file is encrypted with high entropy, and the keys inside are incredibly difficult (improbable by all reasonable measures) to access.</p>
 <p>You can find your wallet files in the data-dir. If you did not specify a –data-dir parameter when launching eos, your wallet files are stored in the ~/eosio-wallet folder.</p>
-<p>$ cd ~/eosio-wallet &amp;&amp; ls<br>blockchain   blocks   config.ini   default.wallet   periwinkle.wallet<br>If you’ve been following the steps of this tutorial, you will the two files, default.wallet and periwinkle.wallet. Save these files in a safe location.</p>
-<p>Creating an Account<br>Performing actions on the blockchain requires the use of accounts. We use cleos to request nodeos to create accounts and publish them on the blockchain. At this point in our tutorial, we need to start nodeos. The following command will start a single node testnet. See Creating and Launching a Single Node Testnet for more on setting up a local environment.</p>
-<p>For this part of the tutorial, we need keosd and nodeos to run simultaneously. Presently, the default port for keosd and nodeos is the same (port 8888). To simplify running nodeos for this part of the tutorial, we will change the port for keosd to 8899. There are two ways that we can do this:</p>
-<p>Edit the keosd config file (~/eosio-wallet/config.ini) and change the http-server-address property to:</p>
-<p>http-server-address = 127.0.0.1:8899</p>
-<p>Start keosd using the command line argument –http-server-address=localhost:8899</p>
-<p>Restart keosd using the comand line argument:</p>
-<p>  $ pkill keosd<br>  $ keosd –http-server-address=localhost:8899<br>Unlock your default wallet (it was locked when keosd was restarted). Since keosd was started listening on port 8899, you will need to use the –wallet-port command line argument to cleos.</p>
-<p>  cleos –wallet-port=8899 wallet unlock<br>When prompted for the password, enter the wallet password generated in the previous section when the wallet was created.</p>
+<pre class=" language-js"><code class="language-js">$ cd <span class="token operator">~</span><span class="token operator">/</span>eosio<span class="token operator">-</span>wallet <span class="token operator">&amp;&amp;</span> ls
+blockchain   blocks   config<span class="token punctuation">.</span>ini   <span class="token keyword">default</span><span class="token punctuation">.</span>wallet   periwinkle<span class="token punctuation">.</span>wallet
+</code></pre>
+<p>If you’ve been following the steps of this tutorial, you will the two files, default.wallet and periwinkle.wallet. Save these files in a safe location.</p>
+<h2 id="Creating-an-Account"><a href="#Creating-an-Account" class="headerlink" title="Creating an Account"></a>Creating an Account</h2><p>Performing actions on the blockchain requires the use of accounts. We use cleos to request nodeos to create accounts and publish them on the blockchain. At this point in our tutorial, we need to start nodeos. The following command will start a single node testnet. See Creating and Launching a Single Node Testnet for more on setting up a local environment.</p>
 <p>To start nodeos, open a new terminal window, go to the folder that contains your nodeos executable, and run the following:</p>
-<p>$ cd eos/build/programs/nodeos<br>$ nodeos -e -p eosio –plugin eosio::chain_api_plugin –plugin eosio::history_api_plugin<br>Now we can create the account. Here is the structure of the cleos create account command.</p>
-<p>$ cleos create account ${authorizing_account} ${new_account} ${owner_key} ${active_key}<br>authorizing_account is the name of the account that will fund the account creation, and subsequently the new account.<br>new_account is the name of the account you would like to create<br>owner_key is a public key to be assigned to the owner authority of the account. (See Accounts &amp; Permissions)<br>active_key is a public key to be assigned to the active authority of the account. of your account, and the second one will be permissioned for the active authority of your account.<br>In this tutorial, eosio is the authorizing account. The actions performed on the blockchain must be signed using the keys associated with the eosio account. The eosio account is a special account used to bootstrap EOSIO nodes. The keys for this account can be found in the nodeos config file, located at ~/.local/shared/eosio/config/config.ini on Linux platforms, and ~/Libraries/Application Support/eosio/nodeos/config/config.ini on MacOS.</p>
+<pre class=" language-js"><code class="language-js">$ cd eos<span class="token operator">/</span>build<span class="token operator">/</span>programs<span class="token operator">/</span>nodeos
+$ nodeos <span class="token operator">-</span>e <span class="token operator">-</span>p eosio <span class="token operator">--</span>plugin eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>chain_api_plugin <span class="token operator">--</span>plugin eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>history_api_plugin
+</code></pre>
+<p>Now we can create the account. Here is the structure of the cleos create account command.</p>
+<pre class=" language-js"><code class="language-js">$ cleos create account $<span class="token punctuation">{</span>authorizing_account<span class="token punctuation">}</span> $<span class="token punctuation">{</span>new_account<span class="token punctuation">}</span> $<span class="token punctuation">{</span>owner_key<span class="token punctuation">}</span> $<span class="token punctuation">{</span>active_key<span class="token punctuation">}</span>
+</code></pre>
+<p>authorizing_account is the name of the account that will fund the account creation, and subsequently the new account.</p>
+<p>new_account is the name of the account you would like to create</p>
+<p>owner_key is a public key to be assigned to the owner authority of the account. (See Accounts &amp; Permissions)</p>
+<p>active_key is a public key to be assigned to the active authority of the account. of your account, and the second one will be permissioned for the active authority of your account.</p>
+<p>In this tutorial, eosio is the authorizing account. The actions performed on the blockchain must be signed using the keys associated with the eosio account. The eosio account is a special account used to bootstrap EOSIO nodes. The keys for this account can be found in the nodeos config file, located at ~/.local/shared/eosio/config/config.ini on Linux platforms, and ~/Libraries/Application Support/eosio/nodeos/config/config.ini on MacOS.</p>
 <p>We need a name for our new account. Account names must conform to the following guidelines:</p>
-<p>Must be less than 13 characters<br>Can only contain the following symbols: .12345abcdefghijklmnopqrstuvwxyz<br>We will use the name “myaccount” for the new account.</p>
+<p>Must be less than 13 characters</p>
+<p>Can only contain the following symbols: .12345abcdefghijklmnopqrstuvwxyz</p>
+<p>We will use the name “myaccount” for the new account.</p>
 <p>We will use the public keys that you generated above and imported into your wallet (recall that the public keys begin with EOS). The keys are arbitrary until you have assigned them to an authority. However, once assigned, it is important to remember the assignments. Your owner key equates to full control of your account, whereas your active key equates to full access over funds in your account.</p>
 <p>Use cleos create account to create your account:</p>
-<p>$ cleos –wallet-port=8899 create account eosio myaccount ${public_key_1} ${public_key_2}<br>If successful, you will see output similar to the following.</p>
-<p>executed transaction: 7f1c6b87cd6573365a7bb3c6aa12f8162c3373d57d148f63f2a2d3373ad2fd54  352 bytes  102400 cycles</p>
-<h1 id="eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”myaccount”-”owner”-“threshold”-1-”keys”-“key”-”EOS5kkAs8HZ88m2N7iZWy4J…"><a href="#eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”myaccount”-”owner”-“threshold”-1-”keys”-“key”-”EOS5kkAs8HZ88m2N7iZWy4J…" class="headerlink" title="eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”myaccount”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS5kkAs8HZ88m2N7iZWy4J…"></a>eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”myaccount”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS5kkAs8HZ88m2N7iZWy4J…</h1>
+<pre class=" language-js"><code class="language-js">$ cleos <span class="token operator">--</span>wallet<span class="token operator">-</span>port<span class="token operator">=</span><span class="token number">8899</span> create account eosio myaccount $<span class="token punctuation">{</span>public_key_1<span class="token punctuation">}</span> $<span class="token punctuation">{</span>public_key_2<span class="token punctuation">}</span>
+</code></pre>
+<p>If successful, you will see output similar to the following.</p>
+<pre class=" language-js"><code class="language-js">executed transaction<span class="token punctuation">:</span> 7f1c6b87cd6573365a7bb3c6aa12f8162c3373d57d148f63f2a2d3373ad2fd54  <span class="token number">352</span> bytes  <span class="token number">102400</span> cycles
+#         eosio <span class="token operator">&lt;=</span> eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>newaccount            <span class="token punctuation">{</span><span class="token string">"creator"</span><span class="token punctuation">:</span><span class="token string">"eosio"</span><span class="token punctuation">,</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"myaccount"</span><span class="token punctuation">,</span><span class="token string">"owner"</span><span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token string">"threshold"</span><span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">"keys"</span><span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token string">"key"</span><span class="token punctuation">:</span>"EOS5kkAs8HZ88m2N7iZWy4J<span class="token operator">...</span>
+</code></pre>
+
   </div>
 </div>
 
