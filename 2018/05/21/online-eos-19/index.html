@@ -1,0 +1,345 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>Single Host Multinode | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/EOS/">
+            EOS
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/EOS/">
+              EOS
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/21/online-eos-18/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/21/online-eos-20/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/21/online-eos-18/">
+                    Tic Tac Toe
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/21/online-eos-20/">
+                    EOS.IO Software Roadmap
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>Single Host Multinode</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月21日 20:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>This tutorial describes how to set up a multi-node blockchain configuration running on a single host. This is referred to as a single host, multi-node testnet. We will set up two nodes on your local computer and have them communicate with each other. The examples in this section rely on three command-line applications, nodeos, keosd, and cleos. The following diagram depicts the desired testnet configuration. Single Host, Multi-Node Testnet</p>
+<p>It is assumed that keosd, cleos, and nodeos have been installed in your path, or that you know how to start these applications from the location in the file system. (See Setting Up A Local Environment)</p>
+<p>Open three “terminal” windows to perform the steps in this tutorial.</p>
+<p>Create a Default Wallet<br>In the next terminal window, use cleos, the command-line utility, to create the default wallet.</p>
+<p>cleos wallet create<br>cleos will indicate that it created the “default” wallet, and will provide a password for future wallet access. As the message says, be sure to preserve this password for future use. Here is an example of this output:</p>
+<p>cleos wallet create<br>“/usr/local/bin/keosd” launched<br>Creating wallet: default<br>Save password to use in the future to unlock this wallet.<br>Without password imported keys will not be retrievable.<br>“PW5K8UL1WFpRuMnuSe7VpB78CoNHu3PidALNrJsmhbcbafwvycWSS”<br>We will continue to use this window for subsequent cleos commands.</p>
+<p>Note that keosd was automatically launched. This instance is running on the default wallet port (8900) and writing to the default wallet directory (~/eosio-wallet).</p>
+<p>Start the First Producer Node<br>We can now start the first producer node. In the second terminal window run:</p>
+<p>nodeos –enable-stale-production –producer-name eosio –plugin eosio::chain_api_plugin –plugin eosio::net_api_plugin<br>This creates a special producer, known as the “bios” producer. Assuming everything has executed correctly to this point, you should see output from the nodeos process reporting block creation.</p>
+<p>Start the Second Producer Node<br>The following commands assume that you are running this tutorial from your ${EOSIO_SOURCE} directory, from which you ran ./eosio_build.sh to build. See Getting the Code for more information if this is not clear.</p>
+<p>To start additional nodes, you must first load the eosio.bios contract. This contract enables you to have direct control over the resource allocation of other accounts and to access other privileged API calls. Return to the second terminal window and run the following command to load the contract:</p>
+<p>cleos set contract eosio build/contracts/eosio.bios<br>You should see output similar to the following:</p>
+<p>Reading WAST/WASM from build/contracts/eosio.bios/eosio.bios.wasm…<br>Using already assembled WASM…<br>Publishing contract…<br>executed transaction: d08a017c20398d3d9396ada3eb6a5efbc9f0491c1b5c95d01627bea1b5e2b7e0  3256 bytes  802 us</p>
+<h1 id="eosio-lt-eosio-setcode-“account”-”eosio”-”vmtype”-0-”vmversion”-0-”code”-”0061736d01000000015c1160037f7e7f0060057f7e7e7e7e…"><a href="#eosio-lt-eosio-setcode-“account”-”eosio”-”vmtype”-0-”vmversion”-0-”code”-”0061736d01000000015c1160037f7e7f0060057f7e7e7e7e…" class="headerlink" title="eosio &lt;= eosio::setcode               {“account”:”eosio”,”vmtype”:0,”vmversion”:0,”code”:”0061736d01000000015c1160037f7e7f0060057f7e7e7e7e…"></a>eosio &lt;= eosio::setcode               {“account”:”eosio”,”vmtype”:0,”vmversion”:0,”code”:”0061736d01000000015c1160037f7e7f0060057f7e7e7e7e…</h1><h1 id="eosio-lt-eosio-setabi-“account”-”eosio”-”abi”-“types”-”structs”-“name”-”set-account-limits”-”base”-””-”fields”-“n…"><a href="#eosio-lt-eosio-setabi-“account”-”eosio”-”abi”-“types”-”structs”-“name”-”set-account-limits”-”base”-””-”fields”-“n…" class="headerlink" title="eosio &lt;= eosio::setabi                {“account”:”eosio”,”abi”:{“types”:[],”structs”:[{“name”:”set_account_limits”,”base”:””,”fields”:[{“n…"></a>eosio &lt;= eosio::setabi                {“account”:”eosio”,”abi”:{“types”:[],”structs”:[{“name”:”set_account_limits”,”base”:””,”fields”:[{“n…</h1><p>We will create an account to become a producer, using the account name producernde1. To create the account, we need to generate keys to associate with the account, and import those into our wallet.</p>
+<p>Run the create key command:</p>
+<p>cleos create key<br>This will report newly generated public and private keypairs that will look similar to the following.</p>
+<p>IMPORTANT: The command line instructions that follow use the keys shown below. In order to be able to cut-and-paste the command line instructions directly from this tutorial, do NOT use the keys that you just generated. If you want to use your newly generated keys, you will need to replace the key values with yours in the commands.</p>
+<p>Private key: 5J2Hihw5VhnD3qsQYvegRsQixy55iB424PyqCLau4RrSxZNjrWp<br>Public key: EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCuKfSuHXsgRVsVH1LJPai<br>Now import the private key portion into your wallet. If successful, the matching public key will be reported. This should match the previously generated public key:</p>
+<p>cleos wallet import 5J2Hihw5VhnD3qsQYvegRsQixy55iB424PyqCLau4RrSxZNjrWp<br>imported private key for: EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCuKfSuHXsgRVsVH1LJPai<br>Create the producernde1 account that we will use to become a producer. The create account command requires two public keys, one for the account’s owner key and one for its active key. In this example, the newly created public key is used twice, as both the owner key and the active key. Example output from the create command is shown:</p>
+<p>cleos create account eosio producernde1 EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCuKfSuHXsgRVsVH1LJPai EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCuKfSuHXsgRVsVH1LJPai<br>executed transaction: 3bfe642201152082a56cea776f049315fe224f662c5a5a1dff66c31292c4fac7  200 bytes  215 us</p>
+<h1 id="eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”producernde1”-”owner”-“threshold”-1-”keys”-“key”-”EOS5wXTc92qD3DgSgdfi…"><a href="#eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”producernde1”-”owner”-“threshold”-1-”keys”-“key”-”EOS5wXTc92qD3DgSgdfi…" class="headerlink" title="eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”producernde1”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS5wXTc92qD3DgSgdfi…"></a>eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”producernde1”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS5wXTc92qD3DgSgdfi…</h1><p>We now have an account that is available to have a contract assigned to it, enabling it to do meaningful work. In other tutorials, the account has been used to establish simple contracts. In this case, the account will be designated as a block producer.</p>
+<p>In the third terminal window, start a second nodeos instance. Notice that this command line is substantially longer than the one we used above to create the first producer. This is necessary to avoid collisions with the first nodeos instance. Fortunately, you can just cut and paste this command line and adjust the keys:</p>
+<p>nodeos –producer-name producernde1 –plugin eosio::chain_api_plugin –plugin eosio::net_api_plugin –http-server-address 127.0.0.1:8889 –p2p-listen-endpoint 127.0.0.1:9877 –p2p-peer-address 127.0.0.1:9876 –config-dir node2 –data-dir node2 –private-key [\”EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCuKfSuHXsgRVsVH1LJPai\”,\”5J2Hihw5VhnD3qsQYvegRsQixy55iB424PyqCLau4RrSxZNjrWp\”]<br>The output from this new node will show a little activity but will stop reporting until the last step in this tutorial, when the producernde1 account is registered as a producer account and activated. Here is some example output from a newly started node. Your output might look a little different, depending on how much time you took entering each of these commands. Furthermore, this example is only a few lines of output:</p>
+<p>2521356ms thread-0   net_plugin.cpp:2921           plugin_startup       ] starting listener, max clients is 25<br>2521356ms thread-0   net_plugin.cpp:676            connection           ] created connection to 127.0.0.1:9876<br>2521356ms thread-0   net_plugin.cpp:1948           connect              ] host: 127.0.0.1 port: 9876<br>2521356ms thread-0   net_api_plugin.cpp:69         plugin_startup       ] starting net_api_plugin<br>2521356ms thread-0   http_plugin.cpp:325           add_handler          ] add api url: /v1/net/connect<br>2521356ms thread-0   http_plugin.cpp:325           add_handler          ] add api url: /v1/net/connections<br>2521356ms thread-0   http_plugin.cpp:325           add_handler          ] add api url: /v1/net/disconnect<br>2521356ms thread-0   http_plugin.cpp:325           add_handler          ] add api url: /v1/net/status<br>2521356ms thread-0   producer_plugin.cpp:381       plugin_startup       ] producer plugin:  plugin_startup() begin<br>2521356ms thread-0   producer_plugin.cpp:388       plugin_startup       ] Launching block production for 1 producers.<br>2521356ms thread-0   producer_plugin.cpp:401       plugin_startup       ] producer plugin:  plugin_startup() end<br>2521719ms thread-0   producer_plugin.cpp:213       on_incoming_block    ] Received block 000003e8f45db37b… #1000 @ 2018-05-17T00:40:05.500 signed by eosio [trxs: 0, lib: 999, confirmed: 0]<br>2521800ms thread-0   producer_plugin.cpp:213       on_incoming_block    ] Received block 000004c797082035… #1223 @ 2018-05-17T00:41:57.000 signed by eosio [trxs: 0, lib: 1222, confirmed: 0]<br>2521800ms thread-0   producer_plugin.cpp:213       on_incoming_block    ] Received block 000004c89f62eef1… #1224 @ 2018-05-17T00:41:57.500 signed by eosio [trxs: 0, lib: 1223, confirmed: 0]<br>At this point, the second nodeos is an idle producer. To turn it into an active producer, producernde1 needs to be registered as a producer with the bios node, and the bios node needs to perform an action to update the producer schedule.</p>
+<p>cleos push action eosio setprods “{ \”schedule\”: [{\”producer_name\”: \”producernde1\”,\”block_signing_key\”: \”EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCuKfSuHXsgRVsVH1LJPai\”}]}” -p eosio@active<br>executed transaction: 46f7a8333c557392f78eefd193abd8c33778e7a57d8bf869c01ad1a353cd44b1  136 bytes  269 us</p>
+<h1 id="eosio-lt-eosio-setprods-“schedule”-“producer-name”-”producernde1”-”block-signing-key”-”EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCu…"><a href="#eosio-lt-eosio-setprods-“schedule”-“producer-name”-”producernde1”-”block-signing-key”-”EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCu…" class="headerlink" title="eosio &lt;= eosio::setprods              {“schedule”:[{“producer_name”:”producernde1”,”block_signing_key”:”EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCu…"></a>eosio &lt;= eosio::setprods              {“schedule”:[{“producer_name”:”producernde1”,”block_signing_key”:”EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCu…</h1><p>On the original node, you should see output similar to the following, showing that the node is no longer producing but is now receiving.</p>
+<p>2688500ms thread-0   producer_plugin.cpp:585       block_production_loo ] Produced block 0000061e624645a2… #1566 @ 2018-05-17T00:44:48.500 signed by eosio [trxs: 0, lib: 1565, confirmed: 0]<br>2689004ms thread-0   producer_plugin.cpp:585       block_production_loo ] Produced block 0000061f24f2f7c5… #1567 @ 2018-05-17T00:44:49.000 signed by eosio [trxs: 1, lib: 1566, confirmed: 0]<br>2689004ms thread-0   controller.cpp:679            start_block          ] promoting proposed schedule (set in block 1567) to pending; current block: 1568 lib: 1567 schedule: {“version”:1,”producers”:[{“producer_name”:”producernde1”,”block_signing_key”:”EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCuKfSuHXsgRVsVH1LJPai”}]}<br>2689505ms thread-0   producer_plugin.cpp:585       block_production_loo ] Produced block 000006204d14f394… #1568 @ 2018-05-17T00:44:49.500 signed by eosio [trxs: 0, lib: 1567, confirmed: 0]<br>2690005ms thread-0   producer_plugin.cpp:585       block_production_loo ] Produced block 00000621f9736261… #1569 @ 2018-05-17T00:44:50.000 signed by eosio [trxs: 0, lib: 1568, confirmed: 0]<br>2690506ms thread-0   producer_plugin.cpp:213       on_incoming_block    ] Received block 00000622f381232b… #1570 @ 2018-05-17T00:44:50.500 signed by producernde1 [trxs: 0, lib: 1569, confirmed: 0]<br>2691005ms thread-0   producer_plugin.cpp:213       on_incoming_block    ] Received block 00000623f7677528… #1571 @ 2018-05-17T00:44:51.000 signed by producernde1 [trxs: 0, lib: 1570, confirmed: 0]<br>On the second node, you should see output similar to the following, showing that it is now producing.</p>
+<p>2688003ms thread-0   producer_plugin.cpp:213       on_incoming_block    ] Received block 0000061dad1b516f… #1565 @ 2018-05-17T00:44:48.000 signed by eosio [trxs: 0, lib: 1564, confirmed: 0]<br>2688501ms thread-0   producer_plugin.cpp:213       on_incoming_block    ] Received block 0000061e624645a2… #1566 @ 2018-05-17T00:44:48.500 signed by eosio [trxs: 0, lib: 1565, confirmed: 0]<br>2689004ms thread-0   producer_plugin.cpp:213       on_incoming_block    ] Received block 0000061f24f2f7c5… #1567 @ 2018-05-17T00:44:49.000 signed by eosio [trxs: 1, lib: 1566, confirmed: 0]<br>2689004ms thread-0   controller.cpp:679            start_block          ] promoting proposed schedule (set in block 1567) to pending; current block: 1568 lib: 1567 schedule: {“version”:1,”producers”:[{“producer_name”:”producernde1”,”block_signing_key”:”EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCuKfSuHXsgRVsVH1LJPai”}]}<br>2689004ms thread-0   controller.cpp:679            start_block          ] promoting proposed schedule (set in block 1567) to pending; current block: 1568 lib: 1567 schedule: {“version”:1,”producers”:[{“producer_name”:”producernde1”,”block_signing_key”:”EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCuKfSuHXsgRVsVH1LJPai”}]}<br>2689503ms thread-0   controller.cpp:679            start_block          ] promoting proposed schedule (set in block 1567) to pending; current block: 1568 lib: 1567 schedule: {“version”:1,”producers”:[{“producer_name”:”producernde1”,”block_signing_key”:”EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCuKfSuHXsgRVsVH1LJPai”}]}<br>2689505ms thread-0   controller.cpp:679            start_block          ] promoting proposed schedule (set in block 1567) to pending; current block: 1568 lib: 1567 schedule: {“version”:1,”producers”:[{“producer_name”:”producernde1”,”block_signing_key”:”EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCuKfSuHXsgRVsVH1LJPai”}]}<br>2689506ms thread-0   producer_plugin.cpp:213       on_incoming_block    ] Received block 000006204d14f394… #1568 @ 2018-05-17T00:44:49.500 signed by eosio [trxs: 0, lib: 1567, confirmed: 0]<br>2690006ms thread-0   producer_plugin.cpp:213       on_incoming_block    ] Received block 00000621f9736261… #1569 @ 2018-05-17T00:44:50.000 signed by eosio [trxs: 0, lib: 1568, confirmed: 0]<br>2690505ms thread-0   producer_plugin.cpp:585       block_production_loo ] Produced block 00000622f381232b… #1570 @ 2018-05-17T00:44:50.500 signed by producernde1 [trxs: 0, lib: 1569, confirmed: 0]<br>2691005ms thread-0   producer_plugin.cpp:585       block_production_loo ] Produced block 00000623f7677528… #1571 @ 2018-05-17T00:44:51.000 signed by producernde1 [trxs: 0, lib: 1570, confirmed: 0]<br>2691505ms thread-0   producer_plugin.cpp:585       block_production_loo ] Produced block 000006247aaaad54… #1572 @ 2018-05-17T00:44:51.500 signed by producernde1 [trxs: 0, lib: 1571, confirmed: 0]<br>Congratulations, you have now configured a two-node testnet! You can see that the original node is no longer producing blocks but it is receiving them. You can verify this by running the get info commmand against each node.</p>
+<p>Get info about the first node:</p>
+<p>cleos get info<br>This should produce output that looks similar to this:</p>
+<p>{<br>  “server_version”: “d624664b”,<br>  “head_block_num”: 2103,<br>  “last_irreversible_block_num”: 2102,<br>  “last_irreversible_block_id”: “000008362319b91789c24d42937b9206c54c5a832b674248defebbe1cd9095d2”,<br>  “head_block_id”: “00000837e0c161727830b75deddcda24d44cdb468911e72cff1dff63511c777a”,<br>  “head_block_time”: “2018-05-17T00:49:17”,<br>  “head_block_producer”: “producernde1”,<br>  “virtual_block_cpu_limit”: 815566,<br>  “virtual_block_net_limit”: 8585466,<br>  “block_cpu_limit”: 99900,<br>  “block_net_limit”: 1048576<br>}<br>Now for the second node:</p>
+<p>cleos -u <a href="http://localhost:8889" target="_blank" rel="external">http://localhost:8889</a> get info<br>This should produce output that looks similar to this:</p>
+<p>{<br>  “server_version”: “d624664b”,<br>  “head_block_num”: 2153,<br>  “last_irreversible_block_num”: 2152,<br>  “last_irreversible_block_id”: “0000086818df0f7cff031c63db63e55fcaa96fb3eb2f25dfba4c57d6995363ec”,<br>  “head_block_id”: “00000869c8c0df26e8a50e05a36c1517753f338310d3d5e27f7023ee32b7b523”,<br>  “head_block_time”: “2018-05-17T00:49:42”,<br>  “head_block_producer”: “producernde1”,<br>  “virtual_block_cpu_limit”: 857378,<br>  “virtual_block_net_limit”: 9025851,<br>  “block_cpu_limit”: 99900,<br>  “block_net_limit”: 1048576<br>}<br>In a later tutorial we will explore how to use more advanced tools to run a multi-host, multi-node testnet.</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/21/online-eos-17/">« Bios Boot ...</a></span>
+  <span class="right"><a href="/2018/05/21/online-eos-20/">EOS.IO Sof... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月21日 20:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-eos-19
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

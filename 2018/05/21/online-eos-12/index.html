@@ -1,0 +1,348 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>Getting Started【启动】 With Contracts【合约】 | 教程 | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/EOS/">
+            EOS
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/EOS/">
+              EOS
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/21/online-eos-11/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/21/online-eos-13/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/21/online-eos-11/">
+                    Smart【智能】 Contract【合约】
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/21/online-eos-13/">
+                    eosio token Contract【合约】 | 教程
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>Getting Started【启动】 With Contracts【合约】 | 教程</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月21日 20:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>Getting Started with Contracts<br>The purpose of this tutorial is to demonstrate how to setup a local blockchain that can be used to experiment with smart contracts. The first part of this tutorial will focus on:</p>
+<p>Starting a Private Blockchain<br>Creating a Wallet<br>Loading the Bios Contract<br>Creating Accounts<br>The second part of this tutorial will walk you through creating and deploying your own contracts.</p>
+<p>eosio.token Contract<br>Exchange Contract<br>Hello World Contract<br>This tutorial assumes that you have installed EOSIO and that nodeos and cleos are in your path.</p>
+<p>Starting a Private Blockchain<br>You can start your own single-node blockchain with this single command:</p>
+<p>$ nodeos -e -p eosio –plugin eosio::chain_api_plugin –plugin eosio::history_api_plugin<br>…<br>eosio generated block 046b9984… #101527 @ 2018-04-01T14:24:58.000 with 0 trxs<br>eosio generated block 5e527ee2… #101528 @ 2018-04-01T14:24:58.500 with 0 trxs</p>
+<p>This command sets many flags and loads some optional plugins which we will need for the rest of this tutorial. Assuming everything worked properly, you should see a block generation message every 0.5 seconds.</p>
+<p>eosio generated block 046b9984… #101527 @ 2018-04-01T14:24:58.000 with 0 trxs<br>This means your local blockchain is live, producing blocks, and ready to be used.</p>
+<p>For more information about the arguments to nodeos you can use:</p>
+<p>nodeos –help<br>Creating a Wallet<br>A wallet is a repository of private keys necessary to authorize actions on the blockchain. These keys are stored on disk encrypted using a password generated for you. This password should be stored in a secure password manager.</p>
+<p>$ cleos wallet create<br>Creating wallet: default<br>Save password to use in the future to unlock this wallet.<br>Without password imported keys will not be retrievable.<br>“PW5JuBXoXJ8JHiCTXfXcYuJabjF9f9UNNqHJjqDVY7igVffe3pXub”<br>For the purpose of this simple development environment, your wallet is being managed by your local nodeos via the eosio::wallet_api_plugin we enabled when we started nodeos. Any time you restart nodeos you will have to unlock your wallet before you can use the keys within.</p>
+<p>$ cleos wallet unlock –password PW5JuBXoXJ8JHiCTXfXcYuJabjF9f9UNNqHJjqDVY7igVffe3pXub<br>Unlocked: default<br>It is generally not secure to use your password directly on the commandline where it gets logged to your bash history, so you can also unlock in interactive mode:</p>
+<p>$ cleos wallet unlock<br>password:<br>For security purposes it is generally best to leave your wallet locked when you are not using it. To lock your wallet without shutting down nodeos you can do:</p>
+<p>$ cleos wallet lock<br>Locked: default<br>You will need your wallet unlocked for the rest of this tutorial.</p>
+<p>Loading the Bios Contract<br>Now that we have a wallet with the key for the eosio account loaded, we can set a default system contract. For the purposes of development, the default eosio.bios contract can be used. This contract enables you to have direct control over the resource allocation of other accounts and to access other privileged API calls. In a public blockchain, this contract will manage the staking and unstaking of tokens to reserve bandwidth for CPU and network activity, and memory for contracts.</p>
+<p>The eosio.bios contract can be found in the contracts/eosio.bios folder of your EOSIO source code. The command sequence below assumes it is being executed from the root of the EOSIO source, but you can execute it from anywhere by specifying the full path to ${EOSIO_SOURCE}/build/contracts/eosio.bios.</p>
+<p>$ cleos set contract eosio build/contracts/eosio.bios -p eosio<br>Reading WAST…<br>Assembling WASM…<br>Publishing contract…<br>executed transaction: 414cf0dc7740d22474992779b2416b0eabdbc91522c16521307dd682051af083  4068 bytes  10000 cycles</p>
+<h1 id="eosio-lt-eosio-setcode-“account”-”eosio”-”vmtype”-0-”vmversion”-0-”code”-”0061736d0100000001ab011960037f7e7f0060057f7e7e7e…"><a href="#eosio-lt-eosio-setcode-“account”-”eosio”-”vmtype”-0-”vmversion”-0-”code”-”0061736d0100000001ab011960037f7e7f0060057f7e7e7e…" class="headerlink" title="eosio &lt;= eosio::setcode               {“account”:”eosio”,”vmtype”:0,”vmversion”:0,”code”:”0061736d0100000001ab011960037f7e7f0060057f7e7e7e…"></a>eosio &lt;= eosio::setcode               {“account”:”eosio”,”vmtype”:0,”vmversion”:0,”code”:”0061736d0100000001ab011960037f7e7f0060057f7e7e7e…</h1><h1 id="eosio-lt-eosio-setabi-“account”-”eosio”-”abi”-“types”-”structs”-“name”-”set-account-limits”-”base”-””-”fields”-“n…"><a href="#eosio-lt-eosio-setabi-“account”-”eosio”-”abi”-“types”-”structs”-“name”-”set-account-limits”-”base”-””-”fields”-“n…" class="headerlink" title="eosio &lt;= eosio::setabi                {“account”:”eosio”,”abi”:{“types”:[],”structs”:[{“name”:”set_account_limits”,”base”:””,”fields”:[{“n…"></a>eosio &lt;= eosio::setabi                {“account”:”eosio”,”abi”:{“types”:[],”structs”:[{“name”:”set_account_limits”,”base”:””,”fields”:[{“n…</h1><p>The result of this command sequence is that cleos generated a transaction with two actions, eosio::setcode and eosio::setabi.</p>
+<p>The code defines how the contract runs and the abi describes how to convert between binary and json representations of the arguments. While an abi is technically optional, all of the EOSIO tooling depends upon it for ease of use.</p>
+<p>Any time you execute a transaction you will see output like:</p>
+<p>executed transaction: 414cf0dc7740d22474992779b2416b0eabdbc91522c16521307dd682051af083  4068 bytes  10000 cycles</p>
+<h1 id="eosio-lt-eosio-setcode-“account”-”eosio”-”vmtype”-0-”vmversion”-0-”code”-”0061736d0100000001ab011960037f7e7f0060057f7e7e7e…-1"><a href="#eosio-lt-eosio-setcode-“account”-”eosio”-”vmtype”-0-”vmversion”-0-”code”-”0061736d0100000001ab011960037f7e7f0060057f7e7e7e…-1" class="headerlink" title="eosio &lt;= eosio::setcode               {“account”:”eosio”,”vmtype”:0,”vmversion”:0,”code”:”0061736d0100000001ab011960037f7e7f0060057f7e7e7e…"></a>eosio &lt;= eosio::setcode               {“account”:”eosio”,”vmtype”:0,”vmversion”:0,”code”:”0061736d0100000001ab011960037f7e7f0060057f7e7e7e…</h1><h1 id="eosio-lt-eosio-setabi-“account”-”eosio”-”abi”-“types”-”structs”-“name”-”set-account-limits”-”base”-””-”fields”-“n…-1"><a href="#eosio-lt-eosio-setabi-“account”-”eosio”-”abi”-“types”-”structs”-“name”-”set-account-limits”-”base”-””-”fields”-“n…-1" class="headerlink" title="eosio &lt;= eosio::setabi                {“account”:”eosio”,”abi”:{“types”:[],”structs”:[{“name”:”set_account_limits”,”base”:””,”fields”:[{“n…"></a>eosio &lt;= eosio::setabi                {“account”:”eosio”,”abi”:{“types”:[],”structs”:[{“name”:”set_account_limits”,”base”:””,”fields”:[{“n…</h1><p>This can be read as: The action setcode as defined by eosio was executed by eosio contract with {args…}.</p>
+<h1 id="executor-lt-contract-action-args…"><a href="#executor-lt-contract-action-args…" class="headerlink" title="${executor} &lt;= ${contract}:${action} ${args…}"></a>${executor} &lt;= ${contract}:${action} ${args…}</h1><blockquote>
+<p>console output from this execution, if any<br>As we will see in a bit, actions can be processed by more than one contract.</p>
+</blockquote>
+<p>The last argument to this call was -p eosio. This tells cleos to sign this action with the active authority of the eosio account, i.e., to sign the action using the private key for the eosio account that we imported earlier.</p>
+<p>Creating Accounts<br>Now that we have setup the basic system contract, we can start to create our own accounts. We will create two accounts, user and tester, and we will need to associate a key with each account. In this example, the same key will be used for both accounts.</p>
+<p>To do this we first generate a key for the accounts.</p>
+<p>$ cleos create key<br>Private key: 5Jmsawgsp1tQ3GD6JyGCwy1dcvqKZgX6ugMVMdjirx85iv5VyPR<br>Public key: EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4<br>Then we import this key into our wallet:</p>
+<p>$ cleos wallet import 5Jmsawgsp1tQ3GD6JyGCwy1dcvqKZgX6ugMVMdjirx85iv5VyPR<br>imported private key for: EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4<br>NOTE: Be sure to use the actual key value generated by the cleos command and not the one shown in the example above!</p>
+<p>Keys are not automatically added to a wallet, so skipping this step could result in losing control of your account.</p>
+<p>Create Two User Accounts<br>Next we will create two accounts, user and tester, using the key we created and imported above.</p>
+<p>$ cleos create account eosio user EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4 EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4<br>executed transaction: 8aedb926cc1ca31642ada8daf4350833c95cbe98b869230f44da76d70f6d6242  364 bytes  1000 cycles</p>
+<h1 id="eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”user”-”owner”-“threshold”-1-”keys”-“key”-”EOS7ijWCBmoXBi3CgtK7DJxentZZ…"><a href="#eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”user”-”owner”-“threshold”-1-”keys”-“key”-”EOS7ijWCBmoXBi3CgtK7DJxentZZ…" class="headerlink" title="eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”user”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS7ijWCBmoXBi3CgtK7DJxentZZ…"></a>eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”user”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS7ijWCBmoXBi3CgtK7DJxentZZ…</h1><p>$ cleos create account eosio tester EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4 EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4<br>executed transaction: 414cf0dc7740d22474992779b2416b0eabdbc91522c16521307dd682051af083 366 bytes  1000 cycles</p>
+<h1 id="eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”tester”-”owner”-“threshold”-1-”keys”-“key”-”EOS7ijWCBmoXBi3CgtK7DJxentZZ…"><a href="#eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”tester”-”owner”-“threshold”-1-”keys”-“key”-”EOS7ijWCBmoXBi3CgtK7DJxentZZ…" class="headerlink" title="eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”tester”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS7ijWCBmoXBi3CgtK7DJxentZZ…"></a>eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”tester”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS7ijWCBmoXBi3CgtK7DJxentZZ…</h1><p>NOTE: The create account subcommand requires two keys, one for the OwnerKey (which in a production environment should be kept highly secure) and one for the ActiveKey. In this tutorial example, the same key is used for both.</p>
+<p>Because we are using the eosio::history_api_plugin we can query all accounts that are controlled by our key:</p>
+<p>$ cleos get accounts EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4<br>{<br>  “account_names”: [<br>    “tester”,<br>    “user”<br>  ]<br>}<br>Next Step - Eosio.token, Exchange, and Eosio.msig Contracts<br>You are now ready to proceed to the next tutorial, Eosio.token, Exchange, and Eosio.msig Contracts</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/21/online-eos-11/">« Smart【智能】 ...</a></span>
+  <span class="right"><a href="/2018/05/21/online-eos-13/">eosio toke... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月21日 20:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-eos-12
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

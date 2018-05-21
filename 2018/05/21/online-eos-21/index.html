@@ -1,0 +1,342 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>DPOS BFT— Pipelined Byzantine Fault Tolerance | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/EOS/">
+            EOS
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/EOS/">
+              EOS
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/21/online-eos-20/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="#">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/21/online-eos-20/">
+                    EOS.IO Software Roadmap
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="#">
+                    无
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>DPOS BFT— Pipelined Byzantine Fault Tolerance</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月21日 20:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>There are two general blockchain consensus systems: those that produce unambiguous 100% finality given a defined set of validators and those which do not provide 100% finality but instead rely on high probability of finality.</p>
+<p>The first generation blockchain consensus algorithms (Proof of Work, Proof of Stake, and BitShares’ Delegated Proof of Stake) only offer high probability of finality that grows with time. In theory someone could pay enough money to mine an alternative “longer” Bitcoin blockchain that goes all the way back to genesis.</p>
+<p>More recent consensus algorithms, whether HashGraph, Casper, Tendermint, or DPOS BFT all adopt long-established principles of Paxos and related consensus algorithms. Under these models it is possible to reach unambiguous finality under all network conditions so long as more than ⅔ of participants are honest.</p>
+<p>Objective and unambiguous 100% finality is a critical property for all blockchains that wish to support inter-blockchain communication. Absent 100% finality, a reversion on one chain could have irreconcilable ripple effects across all interconnected chains.</p>
+<p>The abstract protocol for these more recent protocols involves:</p>
+<p>Propose block<br>All participants acknowledge block (pre-commitment)<br>All participants acknowledge when ⅔+ have sent them pre-commitments (commitment)<br>A block is final once a node has received ⅔+ commitments<br>Unanimous agreement on finality is guaranteed unless ⅓+ are bad and evidence of bad behavior is available to all</p>
+<p>Abstract BFT Life Cycle<br>What makes the various consensus protocols different are:</p>
+<p>Deciding when and who gets to propose a block<br>Deciding how commitments are logged &amp; communicated<br>How byzantine behavior is documented<br>Punishment for byzantine behavior<br>Some of these differences are political and some of them are technical in nature. Examples of political differences include:</p>
+<p>DPOS elects the set of proposers &amp; validators based upon stake<br>Casper relies on proof-of-work to determine when and who and when gets to propose and bonded-stake-weight to determine who the validators are<br>DPOS punishes objective and subjective bad behavior by voting people out<br>Casper only punishes objective bad behavior by slashing bonds<br>Under normal conditions, the political differences make no day-to-day impact on the experience of users relying on the consensus mechanism to order and finalize transactions. The threshold for malicious behavior is so high and the penalties so great that for all practical purposes it doesn’t happen.</p>
+<p>It is the technical differences in the protocols that give rise to real-world impact on user experience. This includes things such as latency until finality, degrees of finality, bandwidth, and proof generation / validation overhead.</p>
+<p>The simplest possible algorithm has everyone reach consensus on one block before any progress can be made on the next block. This involves every participant sending every other participant two messages per block. In a global network the speed of light limits the practical latency from time of proposal to the time a node receives ⅔+ commit messages to about one second (500ms round trip latency * 2 round-trips). All networks I have observed seem to be in the 2–3 second latency camp. These simple protocols also have a “timer” which introduces a new proposal if no consensus can be reached over the validity of the current proposal. This timer is generally longer than the expected confirmation time.</p>
+<p>Protocols like Casper attempt to minimize the overhead by relying on proof-of-work for short-term consensus and only reaching finality over every 100th block (checkpoint). This means Casper-based chains reach finality every 20 to 30 minutes.</p>
+<p>DPOS BFT Pipeline Consensus<br>Modern Delegated Proof of Stake with BFT as implemented in EOSIO uses a pipelined approach to deliver the proposal, pre-commitment, and commitment messages. This means under normal operating conditions, every block advances the finality of one block and this is achieved by only requiring one proposal per time slot. In other words, the cost of DPOS with BFT finality in terms of signature verifications, hash calculations, network bandwidth, etc., is equal to the cost of older DPOS systems that relied upon eventual consistency and the longest chain rule similar to Bitcoin and Ethereum (pre Casper).</p>
+<p>Only DPOS BFT can efficiently scale to an unlimited number of validators (at cost to latency). Other protocols grow the resource requirements for finality with O(2N) the number of participants as everyone must talk to everyone twice for each block or checkpoint. With more parties involved,more signatures, network overhead, and storage are required and there is greater latency.</p>
+<p>Assuming DPOS BFT with two second block interval and 21 producers, finality can be reached after 1 minute, but a new block reaches finality every two seconds. This is achieved by pipelining the BFT confirmations. Platforms like EOSIO produce blocks every 500ms, but only rotate proposers every 12 blocks. This means BFT finality takes about 3 minutes based upon pure BFT DPOS block confirmations. The end result is 10x faster than Casper for finality for individual blocks, but a new block reaches finality every two seconds versus every 30 minutes.</p>
+<p>DPOS BFT w/ optional Low-Latency Confirmation<br>DPOS Hybrid Pipeline / Realtime BFT<br>There are many applications where a three minute time for finality is undesirable and/or the DPOS proofs for light clients for a particular block are larger than desired. In this case, a blockchain can make the design choice to do a BFT pre-commit &amp; commit message over every pending block. This gives DPOS-BFT chains finality latency of 1–2 seconds at the expense of the additional network overhead, storage requirements, and CPU usage. Unlike protocols such as Tendermint/Cosmos there can be multiple proposals “in-the pipeline” at the same time. It is even possible that some blocks never receive the “real time” commitment due to network splits, but never the less they are eventually indirectly confirmed.</p>
+<p>With the hybrid approach light clients can validate a block with 15 signatures and/or use more advanced cryptographic techniques to merge commit signatures into a single signature. Without the commit messages light clients can still reach BFT finality using a number of consecutive block headers.</p>
+<p>Degrees of Security<br>It has long been understood that for many applications, such as blog posts and social media voting, waiting for 100% finality is overkill when 99.999% finality can be achieved in less than a second. Protocols like Casper give users the option of relying on Proof of Work confirmations when waiting for the next checkpoint is overkill.</p>
+<p>Some full nodes may not care to process the overhead of all BFT pre-commit/commit messages when all they require is blockchain state. It is enough to know that the block producers (proposers/validators) are reaching real-time consensus and that their blockheaders eventually prove BFT consensus a couple minutes later.</p>
+<p>Each consensus algorithm makes certain choices for users and degrades to less-secure variations in different ways. Tendermint/Cosmos/Ripple don’t give users a choice to operate with anything less than full finality. Ethereum gives users a fall-back to proof-of-work, and DPOS-BFT falls back to the original DPOS guarantees.</p>
+<p>It is even possible to layer the Casper checkpoint algorithm with slashing conditions on top of the DPOS BFT block proposal system. Such an approach would create multiple independent validator sets with both political and economic incentives for good behavior.</p>
+<p>User Experience<br>Delegated Proof of Stake with BFT optimizes the nominal case while being no-worse in the worst case. Under normal conditions, elected block producers are trusted public figures with legal liabilities and highly reliable nodes. The probability that a produced block will reach finality is already 99.999% which means that the average user gets near-certain finality in under a second. This is reliable enough for almost all day-to-day financial transactions. Larger financial transactions, such as buying a car, merely require the user to wait a few seconds for absolute finality.</p>
+<p>Each user can decide for themselves how much overhead and/or delay they wish to incur and how big the proofs they want to generate for inter-blockchain communication, whereas other protocols do not give users that choice.</p>
+<p>Conclusion<br>All modern consensus algorithms that follow the BFT consensus principles originally introduced the 1980’s can reach a secure and final state in the worst-case of a partitioned network with ⅓ byzantine participants. Only DPOS BFT and EOSIO is optimized for the 99.999% case of 100% honest nodes without network partitions. DPOS BFT achieves this optimized performance without sacrificing the security guarantees that other protocols provide.</p>
+<p>Disclaimer: Block.one is a software company and is producing the EOSIOsoftware as free, open source software. This software may, among other things, enable those who deploy it to launch a blockchain or decentralized applications with various features. For more information, please visit <a href="https://github.com/eosio" target="_blank" rel="external">https://github.com/eosio</a>. Block.one does not provide financial support to anyone seeking to become a block producer on any version of the EOSIO platform that may be adopted or implemented.</p>
+<p>Block.one will not be launching any of the initial public blockchains based on the EOSIO software. It will be the sole responsibility of third parties, the community and/or those who wish to become block producers to adopt and implement EOSIO in the manner they choose, with the features they choose and/or providing the services as they choose. Block.one does not guarantee that anyone will adopt or implement such features or provide such services or that the EOSIO software will be adopted and implemented in any way.</p>
+<p>Block.one does not endorse any third party or its products or services, even if they are mentioned herein. Block.one is not responsible for any linked content.</p>
+<p>Please note that the statements herein are an expression of block.one’s vision, not a guarantee of anything. While we will try to make that vision come true, all aspects of it are subject to change in all respects in Block.one’s sole discretion. We call these “forward looking statements”, which includes statements in this document, other than statements of historical facts, such as statements regarding Block.one’s business strategy, plans, prospects, developments and objectives. These statements are only predictions and reflect Block.one’s current beliefs and expectations with respect to future events and are based on assumptions and are subject to risk, uncertainties and change at any time. We operate in a rapidly changing environment. New risks emerge from time to time. Given these risks and uncertainties, you are cautioned not to rely on these forward-looking statements. Actual results, performance or events may differ materially from those contained in the forward-looking statements. Some of the factors that could cause actual results, performance or events to differ materially from the forward-looking statements include, without limitation: market volatility; continued availability of capital, financing and personnel; product acceptance; the commercial success of any new products or technologies; competition; government regulation and laws; and general economic, market or business conditions.</p>
+<p>All statements speak only as of the date of first posting and Block.one is under no obligation to, and expressly disclaims any obligation to, update or alter any statements, whether as a result of new information, subsequent events or otherwise. Nothing herein constitutes technology, financial, investment, legal or other advice, either in general or for any particular situation or implementation. Please consult with experts in appropriate areas before implementing or utilizing anything contained in this document.</p>
+<p>The ideas and information expressed herein are solely those of the author and do not necessarily reflect the positions, views or advice of Block.one or any other employee of Block.one.</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/21/online-eos-20/">« EOS.IO Sof...</a></span>
+  <span class="right"><a href="/2018/05/21/online-eos-18/">Tic Tac To... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月21日 20:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-eos-21
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

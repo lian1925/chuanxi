@@ -1,0 +1,371 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>Hello World Contract | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/EOS/">
+            EOS
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/EOS/">
+              EOS
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/21/online-eos-14/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/21/online-eos-16/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/21/online-eos-14/">
+                    Exchange Deposit Withdraw | 教程
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/21/online-eos-16/">
+                    Comprehensive Accounts and Wallets
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>Hello World Contract</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月21日 20:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>Hello World Contract<br>This tutorial assumes that you have completed tutorials Getting Started With Contracts and Eosio.token, Exchange, and Eosio.msig Contracts.</p>
+<p>We will now create our first “hello world” contract. Create a new folder called “hello”, cd into the folder, then create a file “hello.cpp” with the following contents:</p>
+<p>hello/hello.cpp</p>
+<p>#include <eosiolib eosio.hpp=""></eosiolib></p>
+<p>#include <eosiolib print.hpp=""><br>using namespace eosio;</eosiolib></p>
+<p>class hello : public eosio::contract {<br>  public:<br>      using contract::contract;</p>
+<pre><code>  /// @abi action 
+  void hi( account_name user ) {
+     print( &quot;Hello, &quot;, name{user} );
+  }
+</code></pre><p>};</p>
+<p>EOSIO_ABI( hello, (hi) )<br>You can compile your code to web assembly (.wast) as follows:</p>
+<p>$ eosiocpp -o hello.wast hello.cpp<br>NOTE: The compiler might generate warnings. These can be safely ignored.</p>
+<p>Now generate the abi:</p>
+<p>$ eosiocpp -g hello.abi hello.cpp<br>Generated hello.abi<br>Create an account and upload the contract:</p>
+<p>$ cleos create account eosio hello.code EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4 EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4<br>…<br>$ cleos set contract hello.code ../hello -p hello.code<br>…<br>Now we can run the contract:</p>
+<p>$ cleos push action hello.code hi ‘[“user”]’ -p user<br>executed transaction: 4c10c1426c16b1656e802f3302677594731b380b18a44851d38e8b5275072857  244 bytes  1000 cycles</p>
+<h1 id="hello-code-lt-hello-code-hi-“user”-”user”"><a href="#hello-code-lt-hello-code-hi-“user”-”user”" class="headerlink" title="hello.code &lt;= hello.code::hi               {“user”:”user”}"></a>hello.code &lt;= hello.code::hi               {“user”:”user”}</h1><blockquote>
+<blockquote>
+<p>Hello, user<br>At this time the contract allows anyone to authorize it, we could also say:</p>
+</blockquote>
+</blockquote>
+<p>$ cleos push action hello.code hi ‘[“user”]’ -p tester<br>executed transaction: 28d92256c8ffd8b0255be324e4596b7c745f50f85722d0c4400471bc184b9a16  244 bytes  1000 cycles</p>
+<h1 id="hello-code-lt-hello-code-hi-“user”-”user”-1"><a href="#hello-code-lt-hello-code-hi-“user”-”user”-1" class="headerlink" title="hello.code &lt;= hello.code::hi               {“user”:”user”}"></a>hello.code &lt;= hello.code::hi               {“user”:”user”}</h1><blockquote>
+<blockquote>
+<p>Hello, user<br>In this case tester is the one who authorized it and user is just an argument. If we want our contact to authenticate the user we are saying “hi” to, then we need to modify the contract to require authentication.</p>
+</blockquote>
+</blockquote>
+<p>Modify the hi() function in hello.cpp as follows:</p>
+<p>void hi( account_name user ) {<br>   require_auth( user );<br>   print( “Hello, “, name{user} );<br>}<br>Repeat the steps to compile the wast file and generate the abi, then set the contract again to deploy the update.</p>
+<p>Now if we attempt to mismatch the user and the authority, the contract will throw an error:</p>
+<p>$ cleos push action hello.code hi ‘[“tester”]’ -p user<br>Error 3030001: missing required authority<br>Ensure that you have the related authority inside your transaction!;<br>If you are currently using ‘cleos push action’ command, try to add the relevant authority using -p option.<br>Error Details:<br>missing authority of tester<br>We can fix this by giving the permission of tester:</p>
+<p>$ cleos push action hello.code hi ‘[“tester”]’ -p tester<br>executed transaction: 235bd766c2097f4a698cfb948eb2e709532df8d18458b92c9c6aae74ed8e4518  244 bytes  1000 cycles</p>
+<h1 id="hello-code-lt-hello-code-hi-“user”-”tester”"><a href="#hello-code-lt-hello-code-hi-“user”-”tester”" class="headerlink" title="hello.code &lt;= hello.code::hi               {“user”:”tester”}"></a>hello.code &lt;= hello.code::hi               {“user”:”tester”}</h1><blockquote>
+<blockquote>
+<p>Hello, tester<br>Hello World Ricardian Contract<br>Every smart contract must have a matching Ricardian contract. The Ricardian Contract specifies the legally binding behavior associated with each action of the smart contract. The Ricardian Contract for the Hello World Contract is listed here.</p>
+</blockquote>
+</blockquote>
+<h2 id="CONTRACT-FOR-HELLO-WORLD"><a href="#CONTRACT-FOR-HELLO-WORLD" class="headerlink" title="CONTRACT FOR HELLO WORLD"></a>CONTRACT FOR HELLO WORLD</h2><h3 id="Parameters"><a href="#Parameters" class="headerlink" title="Parameters"></a>Parameters</h3><p>Input parameters: NONE</p>
+<p>Implied parameters: </p>
+<ul>
+<li>_<strong>account_name</strong>_ (name of the party invoking and signing the contract)</li>
+</ul>
+<h3 id="Intent"><a href="#Intent" class="headerlink" title="Intent"></a>Intent</h3><p>INTENT. The intention of the author and the invoker of this contract is to print output. It shall have no other effect.</p>
+<h3 id="Term"><a href="#Term" class="headerlink" title="Term"></a>Term</h3><p>TERM. This Contract expires at the conclusion of code execution.</p>
+<h3 id="Warranty"><a href="#Warranty" class="headerlink" title="Warranty"></a>Warranty</h3><p>WARRANTY.  shall uphold its Obligations under this Contract in a timely and workmanlike manner, using knowledge and recommendations for performing the services which meet generally acceptable standards set forth by EOSIO Blockchain Block Producers.</p>
+<h3 id="Default"><a href="#Default" class="headerlink" title="Default"></a>Default</h3><p>DEFAULT. The occurrence of any of the following shall constitute a material default under this Contract: </p>
+<h3 id="Remedies"><a href="#Remedies" class="headerlink" title="Remedies"></a>Remedies</h3><p>REMEDIES. In addition to any and all other rights a party may have available according to law, if a party defaults by failing to substantially perform any provision, term or condition of this Contract, the other party may terminate the Contract by providing written notice to the defaulting party. This notice shall describe with sufficient detail the nature of the default. The party receiving such notice shall promptly be removed from being a Block Producer and this Contract shall be automatically terminated. </p>
+<h3 id="Force-Majeure"><a href="#Force-Majeure" class="headerlink" title="Force Majeure"></a>Force Majeure</h3><p>FORCE MAJEURE. If performance of this Contract or any obligation under this Contract is prevented, restricted, or interfered with by causes beyond either party’s reasonable control (“Force Majeure”), and if the party unable to carry out its obligations gives the other party prompt written notice of such event, then the obligations of the party invoking this provision shall be suspended to the extent necessary by such event. The term Force Majeure shall include, without limitation, acts of God, fire, explosion, vandalism, storm or other similar occurrence, orders or acts of military or civil authority, or by national emergencies, insurrections, riots, or wars, or strikes, lock-outs, work stoppages, or supplier failures. The excused party shall use reasonable efforts under the circumstances to avoid or remove such causes of non-performance and shall proceed to perform with reasonable dispatch whenever such causes are removed or ceased. An act or omission shall be deemed within the reasonable control of a party if committed, omitted, or caused by such party, or its employees, officers, agents, or affiliates. </p>
+<h3 id="Dispute-Resolution"><a href="#Dispute-Resolution" class="headerlink" title="Dispute Resolution"></a>Dispute Resolution</h3><p>DISPUTE RESOLUTION. Any controversies or disputes arising out of or relating to this Contract will be resolved by binding arbitration under the default rules set forth by the EOSIO Blockchain. The arbitrator’s award will be final, and judgment may be entered upon it by any court having proper jurisdiction. </p>
+<h3 id="Entire-Agreement"><a href="#Entire-Agreement" class="headerlink" title="Entire Agreement"></a>Entire Agreement</h3><p>ENTIRE AGREEMENT. This Contract contains the entire agreement of the parties, and there are no other promises or conditions in any other agreement whether oral or written concerning the subject matter of this Contract. This Contract supersedes any prior written or oral agreements between the parties. </p>
+<h3 id="Severability"><a href="#Severability" class="headerlink" title="Severability"></a>Severability</h3><p>SEVERABILITY. If any provision of this Contract will be held to be invalid or unenforceable for any reason, the remaining provisions will continue to be valid and enforceable. If a court finds that any provision of this Contract is invalid or unenforceable, but that by limiting such provision it would become valid and enforceable, then such provision will be deemed to be written, construed, and enforced as so limited. </p>
+<h3 id="Amendment"><a href="#Amendment" class="headerlink" title="Amendment"></a>Amendment</h3><p>AMENDMENT. This Contract may be modified or amended in writing by mutual agreement between the parties, if the writing is signed by the party obligated under the amendment. </p>
+<h3 id="Governing-Law"><a href="#Governing-Law" class="headerlink" title="Governing Law"></a>Governing Law</h3><p>GOVERNING LAW. This Contract shall be construed in accordance with the Maxims of Equity. </p>
+<h3 id="Notice"><a href="#Notice" class="headerlink" title="Notice"></a>Notice</h3><p>NOTICE. Any notice or communication required or permitted under this Contract shall be sufficiently given if delivered to a verifiable email address or to such other email address as one party may have publicly furnished in writing, or published on a broadcast contract provided by this blockchain for purposes of providing notices of this type. </p>
+<h3 id="Waiver-of-Contractual-Right"><a href="#Waiver-of-Contractual-Right" class="headerlink" title="Waiver of Contractual Right"></a>Waiver of Contractual Right</h3><p>WAIVER OF CONTRACTUAL RIGHT. The failure of either party to enforce any provision of this Contract shall not be construed as a waiver or limitation of that party’s right to subsequently enforce and compel strict compliance with every provision of this Contract. </p>
+<h3 id="Arbitrator’s-Fees-to-Prevailing-Party"><a href="#Arbitrator’s-Fees-to-Prevailing-Party" class="headerlink" title="Arbitrator’s Fees to Prevailing Party"></a>Arbitrator’s Fees to Prevailing Party</h3><p>ARBITRATOR’S FEES TO PREVAILING PARTY. In any action arising hereunder or any separate action pertaining to the validity of this Agreement, both sides shall pay half the initial cost of arbitration, and the prevailing party shall be awarded reasonable arbitrator’s fees and costs.</p>
+<h3 id="Construction-and-Interpretation"><a href="#Construction-and-Interpretation" class="headerlink" title="Construction and Interpretation"></a>Construction and Interpretation</h3><p>CONSTRUCTION AND INTERPRETATION. The rule requiring construction or interpretation against the drafter is waived. The document shall be deemed as if it were drafted by both parties in a mutual effort. </p>
+<h3 id="In-Witness-Whereof"><a href="#In-Witness-Whereof" class="headerlink" title="In Witness Whereof"></a>In Witness Whereof</h3><p>IN WITNESS WHEREOF, the parties hereto have caused this Agreement to be executed by themselves or their duly authorized representatives as of the date of execution, and authorized as proven by the cryptographic signature on the transaction that invokes this contract.</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/21/online-eos-14/">« Exchange D...</a></span>
+  <span class="right"><a href="/2018/05/21/online-eos-16/">Comprehens... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月21日 20:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-eos-15
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

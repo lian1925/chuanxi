@@ -1,0 +1,359 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>Command【命令】 Reference【参考】 | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/EOS/">
+            EOS
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/EOS/">
+              EOS
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/21/online-eos-8/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/21/online-eos-10/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/21/online-eos-8/">
+                    CLI Wallet【钱包】
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/21/online-eos-10/">
+                    Persistence【存储】 API
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>Command【命令】 Reference【参考】</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月21日 20:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>All command<br>cleos contains documentation for all of its commands. For a list of all commands known to cleos, simply run it with no arguments:</p>
+<p>$ cleos<br>ERROR: RequiredError: Subcommand required<br>Command Line Interface to EOSIO Client<br>Usage: cleos [OPTIONS] SUBCOMMAND</p>
+<p>Options:<br>  -h,–help                   Print this help message and exit<br>  -u,–url TEXT=<a href="http://localhost:8888/" target="_blank" rel="external">http://localhost:8888/</a><br>                              the http/https URL where nodeos is running<br>  –wallet-url TEXT=<a href="http://localhost:8888/" target="_blank" rel="external">http://localhost:8888/</a><br>                              the http/https URL where keosd is running<br>  -v,–verbose                output verbose actions on error</p>
+<p>Subcommands:<br>  version                     Retrieve version information<br>  create                      Create various items, on and off the blockchain<br>  get                         Retrieve various items and information from the blockchain<br>  set                         Set or update blockchain state<br>  transfer                    Transfer currency from account to account<br>  net                         Interact with local p2p network connections<br>  wallet                      Interact with local wallet<br>  sign                        Sign a transaction<br>  push                        Push arbitrary transactions to the blockchain<br>  multisig                    Multisig contract commands<br>  system                      Send eosio.system contract action to the blockchain.<br>All subcommand<br>To get help with any particular subcommand, run it with no arguments as well:</p>
+<p>$ cleos create<br>ERROR: RequiredError: Subcommand required<br>Create various items, on and off the blockchain<br>Usage: ./cleos create SUBCOMMAND<br>Subcommands:<br>  key                         Create a new keypair and print the public and private keys<br>  account                     Create a new account on the blockchain<br>  producer                    Create a new producer on the blockchain</p>
+<p>$ cleos create account<br>ERROR: RequiredError: creator<br>Create a new account on the blockchain<br>Usage: ./cleos create account creator name OwnerKey ActiveKey<br>Positionals:<br>  creator TEXT                The name of the account creating the new account<br>  name TEXT                   The name of the new account<br>  OwnerKey TEXT               The owner public key for the account<br>  ActiveKey TEXT              The active public key for the account</p>
+<p>Connect to node<br>This will connect you to your local node</p>
+<p>$ cleos -u localhost:8889 <subcommand><br>$ cleos –url localhost:8889 <subcommand><br>You can also adjust the node params to connect to a different node, e.g. the public testnet</subcommand></subcommand></p>
+<p>$ cleos -H test1.eos.io -p 80 <subcommand><br>Note You need to include the -H and -p arguments with each request to cleos</subcommand></p>
+<p>Query blockchain state<br>$ cleos get info<br>{<br>  “server_version”: “7451e092”,<br>  “head_block_num”: 6980,<br>  “last_irreversible_block_num”: 6963,<br>  “head_block_id”: “00001b4490e32b84861230871bb1c25fb8ee777153f4f82c5f3e4ca2b9877712”,<br>  “head_block_time”: “2017-12-07T09:18:48”,<br>  “head_block_producer”: “initp”,<br>  “recent_slots”: “1111111111111111111111111111111111111111111111111111111111111111”,<br>  “participation_rate”: “1.00000000000000000”<br>}<br>Get Transaction by transaction_id<br>With history_api_plugin loaded in nodeos, we can query for particular transaction using the transaction_id</p>
+<p>$ cleos get transaction eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703<br>{<br>  “transaction_id”: “eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703”,<br>  “processed”: {<br>    “refBlockNum”: 2206,<br>    “refBlockPrefix”: 221394282,<br>    “expiration”: “2017-09-05T08:03:58”,<br>    “scope”: [<br>      “inita”,<br>      “tester”<br>    ],<br>    “signatures”: [<br>      “1f22e64240e1e479eee6ccbbd79a29f1a6eb6020384b4cca1a958e7c708d3e562009ae6e60afac96f9a3b89d729a50cd5a7b5a7a647540ba1678831bf970e83312”<br>    ],<br>    “messages”: [{<br>        “code”: “eos”,<br>        “type”: “transfer”,<br>        “authorization”: [{<br>            “account”: “inita”,<br>            “permission”: “active”<br>          }<br>        ],<br>        “data”: {<br>          “from”: “inita”,<br>          “to”: “tester”,<br>          “amount”: 1000,<br>          “memo”: “”<br>        },<br>        “hex_data”: “000000008040934b00000000c84267a1e80300000000000000”<br>      }<br>    ],<br>    “output”: [{<br>        “notify”: [{<br>            “name”: “tester”,<br>            “output”: {<br>              “notify”: [],<br>              “sync_transactions”: [],<br>              “async_transactions”: []<br>            }<br>          },{<br>            “name”: “inita”,<br>            “output”: {<br>              “notify”: [],<br>              “sync_transactions”: [],<br>              “async_transactions”: []<br>            }<br>          }<br>        ],<br>        “sync_transactions”: [],<br>        “async_transactions”: []<br>      }<br>    ]<br>  }<br>}<br>Get Transaction by account<br>We can also query list of transactions performed by certain account starting from recent one</p>
+<p>$ cleos get transactions inita<br>[<br>  {<br>    “transaction_id”: “eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703”,<br>    …<br>  },<br>  {<br>    “transaction_id”: “6acd2ece68c4b86c1fa209c3989235063384020781f2c67bbb80bc8d540ca120”,<br>    …<br>  },<br>  …<br>]<br>Transfer Currency<br>$ cleos transfer inita tester 1000<br>{<br>  “transaction_id”: “eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703”,<br>  “processed”: {<br>    “refBlockNum”: 2206,<br>    “refBlockPrefix”: 221394282,<br>    “expiration”: “2017-09-05T08:03:58”,<br>    “scope”: [<br>      “inita”,<br>      “tester”<br>    ],<br>    “signatures”: [<br>      “1f22e64240e1e479eee6ccbbd79a29f1a6eb6020384b4cca1a958e7c708d3e562009ae6e60afac96f9a3b89d729a50cd5a7b5a7a647540ba1678831bf970e83312”<br>    ],<br>    “messages”: [{<br>        “code”: “eos”,<br>        “type”: “transfer”,<br>        “authorization”: [{<br>            “account”: “inita”,<br>            “permission”: “active”<br>          }<br>        ],<br>        “data”: {<br>          “from”: “inita”,<br>          “to”: “tester”,<br>          “amount”: 1000,<br>          “memo”: “”<br>        },<br>        “hex_data”: “000000008040934b00000000c84267a1e80300000000000000”<br>      }<br>    ],<br>    “output”: [{<br>        “notify”: [{<br>            “name”: “tester”,<br>            “output”: { … }<br>          },{<br>            “name”: “inita”,<br>            “output”: { … }<br>          }<br>        ],<br>        “sync_transactions”: [],<br>        “async_transactions”: []<br>      }<br>    ]<br>  }<br>}<br>Create wallet<br>Create wallet without specifying a name, the wallet will be created with the name ‘default’</p>
+<p>$ cleos wallet create<br>Creating wallet: default<br>Save password to use in the future to unlock this wallet.<br>Without password imported keys will not be retrievable.<br>“PW5JD9cw9YY288AXPvnbwUk5JK4Cy6YyZ83wzHcshu8F2akU9rRWE”<br>You can name the wallet adding the -n ${wallet_name} in the command</p>
+<p>$ cleos wallet create -n second-wallet<br>Creating wallet: second-wallet<br>Save password to use in the future to unlock this wallet.<br>Without password imported keys will not be retrievable.<br>“PW5Ji6JUrLjhKAVn68nmacLxwhvtqUAV18J7iycZppsPKeoGGgBEw”<br>List wallets<br>The list wallet command will list all wallet with status of each wallet, the * symbol indicates that the wallet is currently unlocked.</p>
+<p>$ cleos wallet list<br>Wallets:<br>[<br>  “default <em>“,<br>  “second-wallet </em>“<br>]<br>Import key to wallet<br>Note: If you do not hold an account key, you will need to use the create account command to first create account keys.</p>
+<p>$ cleos wallet import 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3<br>imported private key for: EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV<br>List wallet keys<br>This will list all the keys stored in the wallet in public private key pair.</p>
+<p>$ cleos wallet keys<br>[[<br>    “EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV”,<br>    “5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3”<br>  ]<br>]<br>Lock wallet<br>$ cleos wallet lock -n second-wallet<br>Locked: ‘second-wallet’</p>
+<p>Notice that the locked wallet doesn’t have * symbol in the list</p>
+<p>$ cleos wallet list<br>Wallets:<br>[<br>  “default *”,<br>  “second-wallet”<br>]<br>Unlock wallet<br>To unlock it specify the password you get when creating the wallet</p>
+<p>$ cleos wallet unlock -n second-wallet –password PW5Ji6JUrLjhKAVn68nmacLxwhvtqUAV18J7iycZppsPKeoGGgBEw<br>Unlocked: ‘second-wallet’<br>Open wallet<br>$ cleos wallet open<br>Wallets: [<br>  “default”<br>]<br>$ cleos wallet open -n second-wallet<br>Wallets: [<br>  “default”,<br>  “second-wallet”<br>]<br>Create keys<br>In order to create an account you will need two new keys: owner and active. You can ask cleos to create some keys for you:</p>
+<p>This will be your owner key,</p>
+<p>$ cleos create key<br>public: EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq<br>private: 5JKbLfCXgcafDQVwHMm3shHt6iRWgrr9adcmt6vX3FNjAEtJGaT<br>And this will be your active key,</p>
+<p>$ cleos create key<br>public: EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA<br>private: 5Hv22aPcjnENBv6X9o9nKGdkfrW44En6z4zJUt2PobAvbQXrT9z<br>Note: cleos does not save the generated private key.</p>
+<p>Create account<br>You will need your EOSIO keys in order to create an account, you must either have your EOSIO keys registered on the Ethereum network or you can use the create keys function to create a new sets of keys</p>
+<p>$ cleos create account inita tester EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA<br>{<br>  “transaction_id”: “6acd2ece68c4b86c1fa209c3989235063384020781f2c67bbb80bc8d540ca120”,<br>  “processed”: {<br>    “refBlockNum”: “25217”,<br>    “refBlockPrefix”: “2095475630”,<br>    “expiration”: “2017-07-25T17:54:55”,<br>    “scope”: [<br>      “eos”,<br>      “inita”<br>    ],<br>    “signatures”: [],<br>    “messages”: [{<br>        “code”: “eos”,<br>        “type”: “newaccount”,<br>        “authorization”: [{<br>            “account”: “inita”,<br>            “permission”: “active”<br>          }<br>        ],<br>        “data”: “c9251a0000000000b44c5a2400000000010000000102bcca6347d828d4e1868b7dfa91692a16d5b20d0ee3d16a7ca2ddcc7f6dd03344010000010000000102bcca6347d828d4e1868b7dfa91692a16d5b20d0ee3d16a7ca2ddcc7f6dd03344010000010000000001c9251a000000000061d0640b000000000100010000000000000008454f5300000000”<br>      }<br>    ],<br>    “output”: [{<br>        “notify”: [],<br>        “sync_transactions”: [],<br>        “async_transactions”: []<br>      }<br>    ]<br>  }<br>}<br>Account servants<br>To check the servant accounts created by an account (control account)</p>
+<p>$ cleos get servants inita<br>{<br>  “controlled_accounts”: [<br>    “tester”<br>  ]<br>}<br>Check account balance<br>$ cleos get account tester<br>{<br>  “name”: “tester”,<br>  “eos_balance”: 0,<br>  “staked_balance”: 1,<br>  “unstaking_balance”: 0,<br>  “last_unstaking_time”: “1969-12-31T23:59:59”,<br>  “permissions”: [{<br>      “name”: “active”,<br>      “parent”: “owner”,<br>      “required_auth”: {<br>        “threshold”: 1,<br>        “keys”: [{<br>            “key”: “EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA”,<br>            “weight”: 1<br>          }<br>        ],<br>        “accounts”: []<br>      }<br>    },{<br>      “name”: “owner”,<br>      “parent”: “owner”,<br>      “required_auth”: {<br>        “threshold”: 1,<br>        “keys”: [{<br>            “key”: “EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq”,<br>            “weight”: 1<br>          }<br>        ],<br>        “accounts”: []<br>      }<br>    }<br>  ]<br>}<br>Create or Modify Permissions<br>To modify permissions of an account, you must have the authority over the account and the permission of which you are modifying. The set account permission command is subject to change so it’s associated Class is not fully documented.</p>
+<p>The first example associates a new key to the active permissions of an account</p>
+<p>$ cleos set account permission test active ‘{“threshold” : 1, “keys” : [{“permission”:{“key”:”EOS8X7Mp7apQWtL6T2sfSZzBcQNUqZB7tARFEm9gA9Tn9nbMdsvBB”,”permission”:”active”},”weight”:1}], “accounts” : [{“permission”:{“actor”:”acc2”,”permission”:”active”},”weight”:50}]}’ owner<br>This second example modifies the same account permission, but removes the key set in the last example, and grants active authority of the @test account to another account.</p>
+<p>$ cleos set account permission test active ‘{“threshold” : 1, “keys” : [], “accounts” : [{“permission”:{“actor”:”sandwich”,”permission”:”active”},”weight”:1},{“permission”:{“actor”:”acc1”,”permission”:”active”},”weight”:50}]}’ owner<br>The third example demonstrates how to setup permissions for multisig</p>
+<p>$ cleos set account permission test active ‘{“threshold” : 100, “keys” : [{“permission”:{“key”:”EOS8X7Mp7apQWtL6T2sfSZzBcQNUqZB7tARFEm9gA9Tn9nbMdsvBB”,”permission”:”active”},”weight”:25}], “accounts” : [{“permission”:{“actor”:”@sandwich”,”permission”:”active”},”weight”:75}]}’ owner<br>The JSON object used in this command is actually composed of two different types of objects</p>
+<p>The authority JSON object …</p>
+<p>{<br>  “threshold”       : 100,    /<em>An integer that defines cumulative signature weight required for authorization</em>/<br>  “keys”            : [],     /<em>An array made up of individual permissions defined with an EOSIO-style PUBLIC KEY</em>/<br>  “accounts”        : []      /<em>An array made up of individual permissions defined with an EOSIO-style ACCOUNT</em>/<br>}<br>…which includes one or more permissions objects</p>
+<p>/<em>Set Permission with Key</em>/<br>{<br>  “permission” : {<br>    “key”           : “EOS8X7Mp7apQWtL6T2sfSZzBcQNUqZB7tARFEm9gA9Tn9nbMdsvBB”,<br>    “permission”    : “active”<br>  },<br>  weight            : 25      /<em>Set the weight of a signature from this permission</em>/<br>}</p>
+<p>/<em>Set Permission with Account</em>/<br>{<br>  “permission” : {<br>    “actor”       : “sandwich”,<br>    “permission”  : “active”<br>  },<br>  weight            : 75      /<em>Set the weight of a signature from this permission</em>/<br>}<br>You can read more about some practical uses of permissions here</p>
+<p>Deploy Contract<br>To upload a contract to the blockchain, you must first hold an account and a wallet that holds the account unlocked. Secondly, you will need your contract files (.wast) and its abi (.abi). Then you may proceed with setting the code.</p>
+<p>$ cleos set contract currency ../../../contracts/currency/currency.wast ../../../contracts/currency/currency.abi<br>Reading WAST…<br>Assembling WASM…<br>Publishing contract…<br>{<br>  “transaction_id”: “9990306e13f630a9c5436a5a0b6fb8fe2c7f3da2f342b4898a39c4a2c17dcdb3”,<br>  “processed”: {<br>    “refBlockNum”: 1208,<br>    “refBlockPrefix”: 3058534156,<br>    “expiration”: “2017-08-24T18:29:52”,<br>    “scope”: [<br>      “currency”,<br>      “SYS”<br>    ],<br>    “signatures”: [],<br>    “messages”: [{<br>        “code”: “eos”,<br>        “type”: “setcode”,<br>        “authorization”: [{<br>            “account”: “currency”,<br>            “permission”: “active”<br>          }<br>        ],<br>        “data”: “00000079b822651d0000e8150061736d0100000001390a60017e0060037e7e7f017f60047e7e7f7f017f60017f0060057e7e7e7f7f017f60027f7f0060027f7f017f60027e7f0060000060027e7e00029d010a03656e7606617373657274000503656e76086c6f61645f693634000403656e76067072696e7469000003656e76067072696e746e000003656e76067072696e7473000303656e760b726561644d657373616765000603656e760a72656d6f76655f693634000103656e760b7265717569726541757468000003656e760d726571756972654e6f74696365000003656e760973746f72655f6936340002030706000007030809040401700000050301000107cc0107066d656d6f72790200205f5a4e33656f733133726571756972654e6f74696365454e535f344e616d6545000a1e5f5a4e33656f7331317265717569726541757468454e535f344e616d6545000b345f5a4e3863757272656e6379313273746f72654163636f756e74454e33656f73344e616d6545524b4e535f374163636f756e7445000c355f5a4e3863757272656e637932336170706c795f63757272656e63795f7472616e7366657245524b4e535f385472616e7366657245000d04696e6974000e056170706c79000f0a9d0d060600200010080b0600200010070b3400024020012903084200510d0020004280808080a8d7bee3082001411010091a0f0b20004280808080a8d7bee308200110061a0b8a0604017e027f047e017f4100410028020441206b2208360204200029030821052000290300210720002903102104411010042004100241c000100442808080c887d7c8b21d100341d00010042007100341e000100420051003200029030021052000290308100820051008200029030010072000290300210142002105423b210441f00021034200210603400240024002400240024020054206560d0020032c00002202419f7f6a41ff017141194b0d01200241a0016a21020c020b420021072005420b580d020c030b200241ea016a41002002414f6a41ff01714105491b21020b2002ad42388642388721070b2007421f83200442ffffffff0f838621070b200341016a2103200542017c2105200720068421062004427b7c2204427a520d000b420021052008420037031820082006370310200142808080c887d7c8b21d4280808080a8d7bee308200841106a411010011a200041086a2903002101423b210441f00021034200210603400240024002400240024020054206560d0020032c00002202419f7f6a41ff017141194b0d01200241a0016a21020c020b420021072005420b580d020c030b200241ea016a41002002414f6a41ff01714105491b21020b2002ad42388642388721070b2007421f83200442ffffffff0f838621070b200341016a2103200542017c2105200720068421062004427b7c2204427a520d000b2008200637030020084200370308200142808080c887d7c8b21d4280808080a8d7bee3082008411010011a200841186a2203290300200041106a22022903005a418001100020032003290300200229030022057d370300200520082903087c20055a41b00110002008200829030820022903007c370308200029030021050240024020032903004200510d0020054280808080a8d7bee308200841106a411010091a0c010b20054280808080a8d7bee308200841106a10061a0b200041086a290300210502400240200841086a2903004200510d0020054280808080a8d7bee3082008411010091a0c010b20054280808080a8d7bee308200810061a0b4100200841206a3602040b980303027f057e017f4100410028020441106b220736020442002103423b210241e00121014200210403400240024002400240024020034207560d0020012c00002200419f7f6a41ff017141194b0d01200041a0016a21000c020b420021052003420b580d020c030b200041ea016a41002000414f6a41ff01714105491b21000b2000ad42388642388721050b2005421f83200242ffffffff0f838621050b200141016a2101200342017c2103200520048421042002427b7c2202427a520d000b42002103423b210241f00021014200210603400240024002400240024020034206560d0020012c00002200419f7f6a41ff017141194b0d01200041a0016a21000c020b420021052003420b580d020c030b200041ea016a41002000414f6a41ff01714105491b21000b2000ad42388642388721050b2005421f83200242ffffffff0f838621050b200141016a2101200342017c2103200520068421062002427b7c2202427a520d000b2007428094ebdc033703082007200637030020044280808080a8d7bee3082007411010091a4100200741106a3602040bb10303027f047e017f4100410028020441206b220836020442002105423b210441e00121034200210603400240024002400240024020054207560d0020032c00002202419f7f6a41ff017141194b0d01200241a0016a21020c020b420021072005420b580d020c030b200241ea016a41002002414f6a41ff01714105491b21020b2002ad42388642388721070b2007421f83200442ffffffff0f838621070b200341016a2103200542017c2105200720068421062004427b7c2204427a520d000b024020062000520d0042002105423b210441f00121034200210603400240024002400240024020054207560d0020032c00002202419f7f6a41ff017141194b0d01200241a0016a21020c020b420021072005420b580d020c030b200241ea016a41002002414f6a41ff01714105491b21020b2002ad42388642388721070b2007421f83200442ffffffff0f838621070b200341016a2103200542017c2105200720068421062004427b7c2204427a520d000b20062001520d00200842003703102008420037030820084200370318200841086a4118100541174b4180021000200841086a100d0b4100200841206a3602040b0bff010b0041040b04200500000041100b2254686973206170706561727320746f2062652061207472616e73666572206f6620000041c0000b0220000041d0000b072066726f6d20000041e0000b0520746f20000041f0000b086163636f756e7400004180010b2c696e746567657220756e646572666c6f77207375627472616374696e6720746f6b656e2062616c616e6365000041b0010b26696e7465676572206f766572666c6f7720616464696e6720746f6b656e2062616c616e6365000041e0010b0963757272656e6379000041f0010b097472616e7366657200004180020b1e6d6573736167652073686f72746572207468616e2065787065637465640000fd02046e616d651006617373657274020000086c6f61645f693634050000000000067072696e74690100067072696e746e0100067072696e747301000b726561644d6573736167650200000a72656d6f76655f693634030000000b726571756972654175746801000d726571756972654e6f7469636501000973746f72655f6936340400000000205f5a4e33656f733133726571756972654e6f74696365454e535f344e616d65450101301e5f5a4e33656f7331317265717569726541757468454e535f344e616d6545010130345f5a4e3863757272656e6379313273746f72654163636f756e74454e33656f73344e616d6545524b4e535f374163636f756e74450201300131355f5a4e3863757272656e637932336170706c795f63757272656e63795f7472616e7366657245524b4e535f385472616e73666572450901300131013201330134013501360137013804696e69740801300131013201330134013501360137056170706c7909013001310132013301340135013601370138010b4163636f756e744e616d65044e616d6502087472616e7366657200030466726f6d0b4163636f756e744e616d6502746f0b4163636f756e744e616d65087175616e746974790655496e743634076163636f756e740002036b65790655496e7436340762616c616e63650655496e74363401000000b298e982a4087472616e736665720100000080bafac608076163636f756e74”<br>      }<br>    ],<br>    “output”: [{<br>        “notify”: [],<br>        “sync_transactions”: [],<br>        “async_transactions”: []<br>      }<br>    ]<br>  }<br>}<br>Query Contract ABI<br>We can query the blockchain for the .abi of the contract, on which we can check the list of available actions and their respective message structure</p>
+<p>$ cleos get code -a currency.abi currency<br>code hash: 9b9db1a7940503a88535517049e64467a6e8f4e9e03af15e9968ec89dd794975<br>saving abi to currency.abi<br>$ cat currency.abi<br>{<br>  “types”: [{<br>      “newTypeName”: “AccountName”,<br>      “type”: “Name”<br>    }<br>  ],<br>  “structs”: [{<br>      “name”: “transfer”,<br>      “base”: “”,<br>      “fields”: {<br>        “from”: “AccountName”,<br>        “to”: “AccountName”,<br>        “amount”: “UInt64”<br>      }<br>    },{<br>      “name”: “account”,<br>      “base”: “”,<br>      “fields”: {<br>        “account”: “Name”,<br>        “balance”: “UInt64”<br>      }<br>    }<br>  ],<br>  “actions”: [{<br>      “action”: “transfer”,<br>      “type”: “transfer”<br>    }<br>  ],<br>  “tables”: [{<br>      “table”: “account”,<br>      “indextype”: “i64”,<br>      “keynames”: [<br>        “account”<br>      ],<br>      “keytype”: [],<br>      “type”: “account”<br>    }<br>  ]<br>}<br>Push Message to Contract<br>A message should be contract according to the contract ABI.</p>
+<p>For example, the ABI of the currency contract is contructed as follow.</p>
+<p>$ cleos get code -a currency.abi currency<br>code hash: 9b9db1a7940503a88535517049e64467a6e8f4e9e03af15e9968ec89dd794975<br>saving abi to currency.abi<br>$ cat currency.abi<br>{<br>  “types”: [{<br>      “newTypeName”: “AccountName”,<br>      “type”: “Name”<br>    }<br>  ],<br>  “structs”: [{<br>      “name”: “transfer”,<br>      “base”: “”,<br>      “fields”: {<br>        “from”: “AccountName”,<br>        “to”: “AccountName”,<br>        “amount”: “UInt64”<br>      }<br>    },{<br>      “name”: “account”,<br>      “base”: “”,<br>      “fields”: {<br>        “account”: “Name”,<br>        “balance”: “UInt64”<br>      }<br>    }<br>  ],<br>  “actions”: [{<br>      “action”: “transfer”,<br>      “type”: “transfer”<br>    }<br>  ],<br>  “tables”: [{<br>      “table”: “account”,<br>      “indextype”: “i64”,<br>      “keynames”: [<br>        “account”<br>      ],<br>      “keytype”: [],<br>      “type”: “account”<br>    }<br>  ]<br>}<br>From the above abi, we can see that currency contract accepts an action called transfer that accepts message with fields from, to, and amount.</p>
+<p>$ ./cleos push message currency transfer ‘{“from”:”currency”,”to”:”tester”,”amount”:50}’ -S currency -S tester -p currency@active<br>1589302ms thread-0   main.cpp:271                  operator()           ] Converting argument to binary…<br>1589304ms thread-0   main.cpp:290                  operator()           ] Transaction result:<br>{<br>  “transaction_id”: “1c4911c0b277566dce4217edbbca0f688f7bdef761ed445ff31b31f286720057”,<br>  “processed”: {<br>    “refBlockNum”: 1173,<br>    “refBlockPrefix”: 2184027244,<br>    “expiration”: “2017-08-24T18:28:07”,<br>    “scope”: [<br>      “currency”,<br>      “tester”<br>    ],<br>    “signatures”: [],<br>    “messages”: [{<br>        “code”: “currency”,<br>        “type”: “transfer”,<br>        “authorization”: [{<br>            “account”: “currency”,<br>            “permission”: “active”<br>          }<br>        ],<br>        “data”: {<br>          “from”: “currency”,<br>          “to”: “tester”,<br>          “quantity”: 50<br>        },<br>        “hex_data”: “00000079b822651d00000000c84267a13200000000000000”<br>      }<br>    ],<br>    “output”: [{<br>        “notify”: [{<br>            “name”: “tester”,<br>            “output”: {<br>              “notify”: [],<br>              “sync_transactions”: [],<br>              “async_transactions”: []<br>            }<br>          }<br>        ],<br>        “sync_transactions”: [],<br>        “async_transactions”: []<br>      }<br>    ]<br>  }<br>}<br>Querying Contract<br>Depending on the table structure defines in the contract, you can query the data within the contract.</p>
+<p>For example, the currency contract ABI contains the account table.</p>
+<p>$ cleos get code -a currency.abi currency<br>code hash: 9b9db1a7940503a88535517049e64467a6e8f4e9e03af15e9968ec89dd794975<br>saving abi to currency.abi<br>$ cat currency.abi<br>{<br>  …<br>  “tables”: [{<br>      “table”: “account”,<br>      “indextype”: “i64”,<br>      “keynames”: [<br>        “account”<br>      ],<br>      “keytype”: [],<br>      “type”: “account”<br>    }<br>  ]<br>}<br>You can query the table specifying the necessary fields.</p>
+<p>$ cleos get table inita currency account<br>{<br>  “rows”: [{<br>      “account”: “account”,<br>      “balance”: 50<br>    }<br>  ],<br>  “more”: true<br>}<br>Skip signatures<br>If you have nodeos running in your local, as an easy way for developers to test functionality without dealing with keys, nodeos can be run so that Transaction signatures are not required.</p>
+<p>$ nodeos –skip-transaction-signatures<br>And then for any operation that requires signing, use the -s option</p>
+<p>$ cleos ${command} ${subcommand} -s ${param}<br>Using Separate Wallet App<br>Instead of using the wallet functionality built-in to nodeos, you can also use a separate wallet app which can be found inside programs/keosd. By default, port 8888 is used by nodeos, so choose another port for the wallet app.</p>
+<p>$ keosd –http-server-endpoint 127.0.0.1:8887<br>Then for any operation that requires signing, use the –wallet-host and –wallet-port option</p>
+<p>$ cleos —-wallet-url 127.0.0.1:8887 ${command} ${subcommand} ${param}<br>Error Examples<br>status_code == 200: Error<br>: 10 assert_exception: Assert Exception<br>test: assertion failed: integer underflow subtracting token balance<br>    {“s”:”integer underflow subtracting token balance”,”ptr”:176}<br>    thread-1  wasm_interface.cpp:248 assertnonei32i32<br>[…snipped…]</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/21/online-eos-8/">« CLI Wallet...</a></span>
+  <span class="right"><a href="/2018/05/21/online-eos-10/">Persistenc... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月21日 20:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-eos-9
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

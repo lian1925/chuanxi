@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>eosio token Contract【合约】 | 教程 | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/EOS/">
+            EOS
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/EOS/">
+              EOS
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/21/online-eos-12/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/21/online-eos-14/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/21/online-eos-12/">
+                    Getting Started【启动】 With Contracts【合约】 | 教程
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/21/online-eos-14/">
+                    Exchange Deposit Withdraw | 教程
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>eosio token Contract【合约】 | 教程</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月21日 20:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <h2 id="Eosio-token-Exchange-and-Eosio-msig-Contracts"><a href="#Eosio-token-Exchange-and-Eosio-msig-Contracts" class="headerlink" title="Eosio.token, Exchange, and Eosio.msig Contracts"></a>Eosio.token, Exchange, and Eosio.msig Contracts</h2><p>This tutorial assumes that you have completed the tutorial Getting Started With Contracts.</p>
+<p>At this stage the blockchain doesn’t do much, so let’s deploy the eosio.token contract. This contract enables the creation of many different tokens all running on the same contract but potentially managed by different users.</p>
+<p>Before we can deploy the token contract we must create an account to deploy it to.</p>
+<p>$ cleos create account eosio eosio.token EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4 EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4<br>…<br>Then we can deploy the contract which can be found in ${EOSIO_SOURCE}/build/contracts/eosio.token</p>
+<p>$ cleos set contract eosio.token build/contracts/eosio.token -p eosio.token<br>Reading WAST…<br>Assembling WASM…<br>Publishing contract…<br>executed transaction: 528bdbce1181dc5fd72a24e4181e6587dace8ab43b2d7ac9b22b2017992a07ad  8708 bytes  10000 cycles</p>
+<h1 id="eosio-lt-eosio-setcode-“account”-”eosio-token”-”vmtype”-0-”vmversion”-0-”code”-”0061736d0100000001ce011d60067f7e7f7f7f7f00…"><a href="#eosio-lt-eosio-setcode-“account”-”eosio-token”-”vmtype”-0-”vmversion”-0-”code”-”0061736d0100000001ce011d60067f7e7f7f7f7f00…" class="headerlink" title="eosio &lt;= eosio::setcode               {“account”:”eosio.token”,”vmtype”:0,”vmversion”:0,”code”:”0061736d0100000001ce011d60067f7e7f7f7f7f00…"></a>eosio &lt;= eosio::setcode               {“account”:”eosio.token”,”vmtype”:0,”vmversion”:0,”code”:”0061736d0100000001ce011d60067f7e7f7f7f7f00…</h1><h1 id="eosio-lt-eosio-setabi-“account”-”eosio-token”-”abi”-“types”-”structs”-“name”-”transfer”-”base”-””-”fields”-“name”…"><a href="#eosio-lt-eosio-setabi-“account”-”eosio-token”-”abi”-“types”-”structs”-“name”-”transfer”-”base”-””-”fields”-“name”…" class="headerlink" title="eosio &lt;= eosio::setabi                {“account”:”eosio.token”,”abi”:{“types”:[],”structs”:[{“name”:”transfer”,”base”:””,”fields”:[{“name”…"></a>eosio &lt;= eosio::setabi                {“account”:”eosio.token”,”abi”:{“types”:[],”structs”:[{“name”:”transfer”,”base”:””,”fields”:[{“name”…</h1><p>Create the Currency Token<br>You can view the interface to eosio.token as defined by contracts/eosio.token/eosio.token.hpp:</p>
+<p>   void create( account_name issuer,<br>                asset        maximum_supply,<br>                uint8_t      can_freeze,<br>                uint8_t      can_recall,<br>                uint8_t      can_whitelist );</p>
+<p>   void issue( account_name to, asset quantity, string memo );</p>
+<p>   void transfer( account_name from,<br>                  account_name to,<br>                  asset        quantity,<br>                  string       memo );<br>To create a new token we must call the create(…) action with the proper arguments. This command will use the symbol of the maximum supply to uniquely identify this token from other tokens. The issuer will be the one with authority to call issue and or perform other actions such as freezing, recalling, and whitelisting of owners.</p>
+<p>The concise way to call this method, using positional arguments:</p>
+<p>$ cleos push action eosio.token create ‘[ “eosio”, “1000000000.0000 SYS”, 0, 0, 0]’ -p eosio.token<br>executed transaction: 0e49a421f6e75f4c5e09dd738a02d3f51bd18a0cf31894f68d335cd70d9c0e12  260 bytes  1000 cycles</p>
+<h1 id="eosio-token-lt-eosio-token-create-“issuer”-”eosio”-”maximum-supply”-”1000000000-0000-SYS”-”can-freeze”-0-”can-recall”-0-”can-whitelis…"><a href="#eosio-token-lt-eosio-token-create-“issuer”-”eosio”-”maximum-supply”-”1000000000-0000-SYS”-”can-freeze”-0-”can-recall”-0-”can-whitelis…" class="headerlink" title="eosio.token &lt;= eosio.token::create          {“issuer”:”eosio”,”maximum_supply”:”1000000000.0000 SYS”,”can_freeze”:0,”can_recall”:0,”can_whitelis…"></a>eosio.token &lt;= eosio.token::create          {“issuer”:”eosio”,”maximum_supply”:”1000000000.0000 SYS”,”can_freeze”:0,”can_recall”:0,”can_whitelis…</h1><p>Alternatively, a more verbose way to call this method, using named arguments:</p>
+<p>$ cleos push action eosio.token create ‘{“issuer”:”eosio”, “maximum_supply”:”1000000000.0000 SYS”, “can_freeze”:0, “can_recall”:0, “can_whitelist”:0}’ -p eosio.token<br>executed transaction: 0e49a421f6e75f4c5e09dd738a02d3f51bd18a0cf31894f68d335cd70d9c0e12  260 bytes  1000 cycles</p>
+<h1 id="eosio-token-lt-eosio-token-create-“issuer”-”eosio”-”maximum-supply”-”1000000000-0000-SYS”-”can-freeze”-0-”can-recall”-0-”can-whitelis…-1"><a href="#eosio-token-lt-eosio-token-create-“issuer”-”eosio”-”maximum-supply”-”1000000000-0000-SYS”-”can-freeze”-0-”can-recall”-0-”can-whitelis…-1" class="headerlink" title="eosio.token &lt;= eosio.token::create          {“issuer”:”eosio”,”maximum_supply”:”1000000000.0000 SYS”,”can_freeze”:0,”can_recall”:0,”can_whitelis…"></a>eosio.token &lt;= eosio.token::create          {“issuer”:”eosio”,”maximum_supply”:”1000000000.0000 SYS”,”can_freeze”:0,”can_recall”:0,”can_whitelis…</h1><p>This command created a new token SYS with a pecision of 4 decimials and a maximum supply of 1000000000.0000 SYS.</p>
+<p>In order to create this token we required the permission of the eosio.token contract because it “owns” the symbol namespace (e.g. “SYS”). Future versions of this contract may allow other parties to buy symbol names automatically. For this reason we must pass -p eosio.token to authorize this call.</p>
+<p>Issue Tokens to Account “User”<br>Now that we have created the token, the issuer can issue new tokens to the account user we created earlier.</p>
+<p>We will use the positional calling convention (vs named args).</p>
+<p>$ cleos push action eosio.token issue ‘[ “user”, “100.0000 SYS”, “memo” ]’ -p eosio<br>executed transaction: 822a607a9196112831ecc2dc14ffb1722634f1749f3ac18b73ffacd41160b019  268 bytes  1000 cycles</p>
+<h1 id="eosio-token-lt-eosio-token-issue-“to”-”user”-”quantity”-”100-0000-SYS”-”memo”-”memo”"><a href="#eosio-token-lt-eosio-token-issue-“to”-”user”-”quantity”-”100-0000-SYS”-”memo”-”memo”" class="headerlink" title="eosio.token &lt;= eosio.token::issue           {“to”:”user”,”quantity”:”100.0000 SYS”,”memo”:”memo”}"></a>eosio.token &lt;= eosio.token::issue           {“to”:”user”,”quantity”:”100.0000 SYS”,”memo”:”memo”}</h1><blockquote>
+<blockquote>
+<p>issue</p>
+<h1 id="eosio-token-lt-eosio-token-transfer-“from”-”eosio”-”to”-”user”-”quantity”-”100-0000-SYS”-”memo”-”memo”"><a href="#eosio-token-lt-eosio-token-transfer-“from”-”eosio”-”to”-”user”-”quantity”-”100-0000-SYS”-”memo”-”memo”" class="headerlink" title="eosio.token &lt;= eosio.token::transfer        {“from”:”eosio”,”to”:”user”,”quantity”:”100.0000 SYS”,”memo”:”memo”}"></a>eosio.token &lt;= eosio.token::transfer        {“from”:”eosio”,”to”:”user”,”quantity”:”100.0000 SYS”,”memo”:”memo”}</h1><p>transfer</p>
+<h1 id="eosio-lt-eosio-token-transfer-“from”-”eosio”-”to”-”user”-”quantity”-”100-0000-SYS”-”memo”-”memo”"><a href="#eosio-lt-eosio-token-transfer-“from”-”eosio”-”to”-”user”-”quantity”-”100-0000-SYS”-”memo”-”memo”" class="headerlink" title="eosio &lt;= eosio.token::transfer        {“from”:”eosio”,”to”:”user”,”quantity”:”100.0000 SYS”,”memo”:”memo”}"></a>eosio &lt;= eosio.token::transfer        {“from”:”eosio”,”to”:”user”,”quantity”:”100.0000 SYS”,”memo”:”memo”}</h1><h1 id="user-lt-eosio-token-transfer-“from”-”eosio”-”to”-”user”-”quantity”-”100-0000-SYS”-”memo”-”memo”"><a href="#user-lt-eosio-token-transfer-“from”-”eosio”-”to”-”user”-”quantity”-”100-0000-SYS”-”memo”-”memo”" class="headerlink" title="user &lt;= eosio.token::transfer        {“from”:”eosio”,”to”:”user”,”quantity”:”100.0000 SYS”,”memo”:”memo”}"></a>user &lt;= eosio.token::transfer        {“from”:”eosio”,”to”:”user”,”quantity”:”100.0000 SYS”,”memo”:”memo”}</h1><p>This time the output contains several different actions: one issue and three transfers. While the only action we signed was issue, the issue action performed an “inline transfer” and the “inline transfer” notified the sender and receiver accounts. The output indicates all of the action handlers that were called, the order they were called in, and whether or not any output was generated by the action.</p>
+</blockquote>
+</blockquote>
+<p>Technically, the eosio.token contract could have skipped the inline transfer and opted to just modify the balances directly. However, in this case, the eosio.token contract is following our token convention that requires that all account balances be derivable by the sum of the transfer actions that reference them. It also requires that the sender and receiver of funds be notified so they can automate handling deposits and withdrawals.</p>
+<p>If you want to see the actual transaction that was broadcast, you can use the -d -j options to indicate “don’t broadcast” and “return transaction as json”.</p>
+<p>$ cleos push action eosio.token issue ‘[“user”, “100.0000 SYS”, “memo”]’ -p eosio -d -j<br>{<br>  “expiration”: “2018-04-01T15:20:44”,<br>  “region”: 0,<br>  “ref_block_num”: 42580,<br>  “ref_block_prefix”: 3987474256,<br>  “net_usage_words”: 21,<br>  “kcpu_usage”: 1000,<br>  “delay_sec”: 0,<br>  “context_free_actions”: [],<br>  “actions”: [{<br>      “account”: “eosio.token”,<br>      “name”: “issue”,<br>      “authorization”: [{<br>          “actor”: “eosio”,<br>          “permission”: “active”<br>        }<br>      ],<br>      “data”: “00000000007015d640420f000000000004454f5300000000046d656d6f”<br>    }<br>  ],<br>  “signatures”: [<br>    “EOSJzPywCKsgBitRh9kxFNeMJc8BeD6QZLagtXzmdS2ib5gKTeELiVxXvcnrdRUiY3ExP9saVkdkzvUNyRZSXj2CLJnj7U42H”<br>  ],<br>  “context_free_data”: []<br>}<br>Transfer Tokens to Account “Tester”<br>Now that account user has tokens, we will transfer some to account tester. We indicate that user authorized this action using the permission argument -p user.</p>
+<p>$ cleos push action eosio.token transfer ‘[ “user”, “tester”, “25.0000 SYS”, “m” ]’ -p user<br>executed transaction: 06d0a99652c11637230d08a207520bf38066b8817ef7cafaab2f0344aafd7018  268 bytes  1000 cycles</p>
+<h1 id="eosio-token-lt-eosio-token-transfer-“from”-”user”-”to”-”tester”-”quantity”-”25-0000-SYS”-”memo”-”m”"><a href="#eosio-token-lt-eosio-token-transfer-“from”-”user”-”to”-”tester”-”quantity”-”25-0000-SYS”-”memo”-”m”" class="headerlink" title="eosio.token &lt;= eosio.token::transfer        {“from”:”user”,”to”:”tester”,”quantity”:”25.0000 SYS”,”memo”:”m”}"></a>eosio.token &lt;= eosio.token::transfer        {“from”:”user”,”to”:”tester”,”quantity”:”25.0000 SYS”,”memo”:”m”}</h1><blockquote>
+<blockquote>
+<p>transfer</p>
+<h1 id="user-lt-eosio-token-transfer-“from”-”user”-”to”-”tester”-”quantity”-”25-0000-SYS”-”memo”-”m”"><a href="#user-lt-eosio-token-transfer-“from”-”user”-”to”-”tester”-”quantity”-”25-0000-SYS”-”memo”-”m”" class="headerlink" title="user &lt;= eosio.token::transfer        {“from”:”user”,”to”:”tester”,”quantity”:”25.0000 SYS”,”memo”:”m”}"></a>user &lt;= eosio.token::transfer        {“from”:”user”,”to”:”tester”,”quantity”:”25.0000 SYS”,”memo”:”m”}</h1><h1 id="tester-lt-eosio-token-transfer-“from”-”user”-”to”-”tester”-”quantity”-”25-0000-SYS”-”memo”-”m”"><a href="#tester-lt-eosio-token-transfer-“from”-”user”-”to”-”tester”-”quantity”-”25-0000-SYS”-”memo”-”m”" class="headerlink" title="tester &lt;= eosio.token::transfer        {“from”:”user”,”to”:”tester”,”quantity”:”25.0000 SYS”,”memo”:”m”}"></a>tester &lt;= eosio.token::transfer        {“from”:”user”,”to”:”tester”,”quantity”:”25.0000 SYS”,”memo”:”m”}</h1><p>Deploy Exchange Contract<br>Similar to the examples shown above, we can deploy the exchange contract. The exchange contract provides capabilities to create and trade currency. It is assumed this is being run from the root of the EOSIO source.</p>
+</blockquote>
+</blockquote>
+<p>$ cleos create account eosio exchange  EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4 EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4<br>executed transaction: 4d38de16631a2dc698f1d433f7eb30982d855219e7c7314a888efbbba04e571c  364 bytes  1000 cycles</p>
+<h1 id="eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”exchange”-”owner”-“threshold”-1-”keys”-“key”-”EOS7ijWCBmoXBi3CgtK7DJxe…"><a href="#eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”exchange”-”owner”-“threshold”-1-”keys”-“key”-”EOS7ijWCBmoXBi3CgtK7DJxe…" class="headerlink" title="eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”exchange”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS7ijWCBmoXBi3CgtK7DJxe…"></a>eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”exchange”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS7ijWCBmoXBi3CgtK7DJxe…</h1><p>$ cleos set contract exchange build/contracts/exchange -p exchange<br>Reading WAST…<br>Assembling WASM…<br>Publishing contract…<br>executed transaction: 5a63b4de8a1da415590778f163c5ed26dc164c960185b20fd834c297cf7fa8f4  35172 bytes  10000 cycles</p>
+<h1 id="eosio-lt-eosio-setcode-“account”-”exchange”-”vmtype”-0-”vmversion”-0-”code”-”0061736d0100000001f0023460067f7e7f7f7f7f00600…"><a href="#eosio-lt-eosio-setcode-“account”-”exchange”-”vmtype”-0-”vmversion”-0-”code”-”0061736d0100000001f0023460067f7e7f7f7f7f00600…" class="headerlink" title="eosio &lt;= eosio::setcode               {“account”:”exchange”,”vmtype”:0,”vmversion”:0,”code”:”0061736d0100000001f0023460067f7e7f7f7f7f00600…"></a>eosio &lt;= eosio::setcode               {“account”:”exchange”,”vmtype”:0,”vmversion”:0,”code”:”0061736d0100000001f0023460067f7e7f7f7f7f00600…</h1><h1 id="eosio-lt-eosio-setabi-“account”-”exchange”-”abi”-“types”-“new-type-name”-”account-name”-”type”-”name”-”structs”-“n…"><a href="#eosio-lt-eosio-setabi-“account”-”exchange”-”abi”-“types”-“new-type-name”-”account-name”-”type”-”name”-”structs”-“n…" class="headerlink" title="eosio &lt;= eosio::setabi                {“account”:”exchange”,”abi”:{“types”:[{“new_type_name”:”account_name”,”type”:”name”}],”structs”:[{“n…"></a>eosio &lt;= eosio::setabi                {“account”:”exchange”,”abi”:{“types”:[{“new_type_name”:”account_name”,”type”:”name”}],”structs”:[{“n…</h1><p>Deploy Eosio.msig Contract<br>The eosio.msig contract allows multiple parties to sign a single transaction asynchronously. EOSIO has multi-signature (multisig) support at a base level, but it requires a synchronous side channel where data is ferried around and signed. Eosio.msig is a more user friendly way of asynchronously proposing, approving and eventually publishing a transaction with multiple parties’ consent.</p>
+<p>The following steps can be used to deploy the eosio.msig contract.</p>
+<p>$ cleos create account eosio eosio.msig  EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4 EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4</p>
+<h1 id="eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”eosio-msig”-”owner”-“threshold”-1-”keys”-“key”-”EOS7ijWCBmoXBi3CgtK7DJ…"><a href="#eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”eosio-msig”-”owner”-“threshold”-1-”keys”-“key”-”EOS7ijWCBmoXBi3CgtK7DJ…" class="headerlink" title="eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”eosio.msig”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS7ijWCBmoXBi3CgtK7DJ…"></a>eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”eosio.msig”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS7ijWCBmoXBi3CgtK7DJ…</h1><p>$ cleos set contract eosio.msig build/contracts/eosio.msig -p eosio.msig<br>Reading WAST…<br>Assembling WASM…<br>Publishing contract…<br>executed transaction: a113a7db8c878dfd894671792770b59a04efb3aa8295f5b3d585daf89c314ec9  8964 bytes  10000 cycles</p>
+<h1 id="eosio-lt-eosio-setcode-“account”-”eosio-msig”-”vmtype”-0-”vmversion”-0-”code”-”0061736d0100000001bd011b60047f7e7e7f0060047…"><a href="#eosio-lt-eosio-setcode-“account”-”eosio-msig”-”vmtype”-0-”vmversion”-0-”code”-”0061736d0100000001bd011b60047f7e7e7f0060047…" class="headerlink" title="eosio &lt;= eosio::setcode               {“account”:”eosio.msig”,”vmtype”:0,”vmversion”:0,”code”:”0061736d0100000001bd011b60047f7e7e7f0060047…"></a>eosio &lt;= eosio::setcode               {“account”:”eosio.msig”,”vmtype”:0,”vmversion”:0,”code”:”0061736d0100000001bd011b60047f7e7e7f0060047…</h1><h1 id="eosio-lt-eosio-setabi-“account”-”eosio-msig”-”abi”-“types”-“new-type-name”-”account-name”-”type”-”name”-“new-type-na…"><a href="#eosio-lt-eosio-setabi-“account”-”eosio-msig”-”abi”-“types”-“new-type-name”-”account-name”-”type”-”name”-“new-type-na…" class="headerlink" title="eosio &lt;= eosio::setabi                {“account”:”eosio.msig”,”abi”:{“types”:[{“new_type_name”:”account_name”,”type”:”name”},{“new_type_na…"></a>eosio &lt;= eosio::setabi                {“account”:”eosio.msig”,”abi”:{“types”:[{“new_type_name”:”account_name”,”type”:”name”},{“new_type_na…</h1>
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/21/online-eos-12/">« Getting St...</a></span>
+  <span class="right"><a href="/2018/05/21/online-eos-14/">Exchange D... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月21日 20:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-eos-13
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

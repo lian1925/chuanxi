@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>Bios Boot Sequence | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/EOS/">
+            EOS
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/EOS/">
+              EOS
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/21/online-eos-16/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/21/online-eos-18/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/21/online-eos-16/">
+                    Comprehensive Accounts and Wallets
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/21/online-eos-18/">
+                    Tic Tac Toe
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>Bios Boot Sequence</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月21日 20:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>Bios Boot Sequence Tutorial<br>The description below covers the bios boot sequence to start a blockchain from a single “genesis” node, transitioning to a voted on set of producers.</p>
+<p>The script bios-boot-tutorial.py implements these steps in a single-server installation (all nodeos nodes running on the same server). The script can be run with no arguments directly from the programs/bios-boot-tutorial directory.</p>
+<p>cd programs/bios-boot-tutorial<br>./bios-boot-tutorial.py<br>The script logs the commands it executes in ./test.log. This enables you to see what work it has done.</p>
+<p>Manual Execution of the Boot Sequence<br>The remainder of this document covers the same set of steps as the bios-boot-tutorial.py script, but walks you through the commands step by step, enabling you to directly experience using the commands. The manual steps below do not try to bring up a full blockchain or do the same scope of work as the script. For example, the script generates almost 400 accounts, 30+ running producer nodes, etc. This would be too unwieldy to do manually!</p>
+<p>Note: In a live network, the steps involved require considerable coordination among independent parties who participate in the network. It is likely that the boot sequence will be done collectively by a small group within the blockchain community who work together closely to get an initial distributed network up and running. The network will then be expanded to incorporate more members.</p>
+<p>The steps here can be readily expanded for the networked case. Some assumptions are made here regarding how the parties involved will coordinate with each other. However, there are many ways that the community can choose to coordinate. The technical aspects of the process are objective; assumptions of how the coordination might occur are speculative. Several approaches have already been suggested by the community. You are encouraged to review the various approaches and get involved in the discussions as appropriate.</p>
+<p>Configure the initial set of nodeos nodes<br>In this tutorial, we will start a number of nodeos nodes, point them to each other, and eventually vote on a set of producers. All of the nodeos nodes will run on the same server. In the following sections, we take various steps to prepare our candidate set of producers. We will use the naming convention accountnumXY, with XY chosen from the digits 1-5, e.g.,</p>
+<p>accountnum11<br>accountnum12<br>..<br>accountnum15<br>accountnum21<br>…<br>accountnum55<br>Create config and data directories for each nodeos<br>Since all of the nodeos nodes will run on the same server, we need separate config and data directories for each. The following example creates directories for each nodeos under the directory ~/eosio_test. Use whatever method works best for you to create a number of accounts, keeping in mind the naming restrictions that account names must be exactly 12 characters, from the set of a-z and 1-5.</p>
+<p>$ mkdir ~/eosio_test<br>$ for (( i = 1; i &lt;= 5; i++ )); do for (( j = 1 ; j &lt;=5 ; j++ )); do mkdir ~/eosio_test/accountnum$i$j; done; done<br>You will use these directories with the –config-dir and –data-dir parameters on the nodeos command line.</p>
+<p>Configure addresses for peer-to-peer communication<br>When we set up our producers, we will want to configure them to point to each other in order to perform peer-to-peer communication. If you set up a full mesh configuration, each node will point to all other nodes. A full mesh network will quickly grow unwieldy. The description below tells how to point nodes to other nodes in order to create the peer-to-peer communication. Use this for the nodes you select to be peers, but it is recommended NOT to use this for all nodes, as your configuration will grow explosively.</p>
+<p>Configure IP address and port numbers for peer-to-peer communication among each nodeos node. Each nodeos can be configured by setting the p2p-peer-address configuration property, either on the command line when starting nodeos (one argument per peer), or by setting the property in the config.ini file for nodeos (one line per peer).</p>
+<p>For example, assuming we are using port numbers 9011-9055 for the producers (i.e., accountnum11 - accountnum55, respectively), include the following arguments on the nodeos command line for accountnum12:</p>
+<p>–p2p-peer-address localhost:9011 –p2p-peer-address localhost:9013 –p2p-peer-address localhost:9014 …<br>OR In the config.ini file for accountnum12, add lines for each peer:</p>
+<p>p2p-peer-address = localhost:9011<br>p2p-peer-address = localhost:9013<br>p2p-peer-address = localhost:9014<br>…<br>If using the configuration file approach, you will have many copies of the config.ini file, one in each ~/eosio_test/accountnumXY directory. Whether using the command line or config file approach, be careful to NOT include the producer’s own address in the list of peers.</p>
+<p>Start the “genesis” node<br>The “genesis” node is the first nodeos that we start, that will originate the blockchain. All other nodes will derive from the genesis node. Do the following on the genesis node.</p>
+<p>Create a wallet<br>Create a wallet. By default, keosd is automatically started to manage the wallet.</p>
+<p>$ cleos wallet create<br>Be sure to save the wallet password to enable unlocking the wallet in the future.</p>
+<p>The same wallet will be used for all key management for all accounts in this tutorial, regardless of which nodeos is being accessed. In a distributed deployment, wallet management should be a local-only activity.</p>
+<p>Create the key for the eosio account<br>nodeos comes pre-configured with a key pair, but we don’t want to use that key. Create a key pair to be used for the eosio account when starting the genesis node.</p>
+<p>$ cleos create key<br>Private key: 5JGxnezvp3N4V1NxBo8LPBvCrdR85bZqZUFvBZ8ACrbRC3ZWNYv<br>Public key: EOS8VJybqtm41PMmXL1QUUDSfCrs9umYN4U1ZNa34JhPZ9mU5r2Cm<br>Start the first nodeos node<br>Start the genesis node using the generated key pair.</p>
+<p>$ nodeos –enable-stale-production –producer-name eosio –private-key ‘[ “EOS8VJybqtm41PMmXL1QUUDSfCrs9umYN4U1ZNa34JhPZ9mU5r2Cm”,”5JGxnezvp3N4V1NxBo8LPBvCrdR85bZqZUFvBZ8ACrbRC3ZWNYv” ]’ –plugin eosio::producer_plugin –plugin eosio::chain_api_plugin –plugin eosio::http_plugin<br>Set the eosio.tokencontract<br>Create an account for the eosio.token contract. We will generate a unique key pair for this account, but we will use the same key for both the account owner and active keys.</p>
+<p>$ cleos create key  # for eosio.token<br>Private key: 5KAVVPzPZnbAx8dHz6UWVPFDVFtU1P5ncUzwHGQFuTxnEbdHJL4<br>Public key: EOS84BLRbGbFahNJEpnnJHYCoW9QPbQEk2iHsHGGS6qcVUq9HhutG</p>
+<p>$ cleos wallet import 5KAVVPzPZnbAx8dHz6UWVPFDVFtU1P5ncUzwHGQFuTxnEbdHJL4<br>imported private key for: EOS84BLRbGbFahNJEpnnJHYCoW9QPbQEk2iHsHGGS6qcVUq9HhutG</p>
+<p>$ cleos create account eosio eosio.token EOS84BLRbGbFahNJEpnnJHYCoW9QPbQEk2iHsHGGS6qcVUq9HhutG EOS84BLRbGbFahNJEpnnJHYCoW9QPbQEk2iHsHGGS6qcVUq9HhutG<br>executed transaction: d8fc14255dd576359043882e03b9a813c7c13facd7ec33c2c34357b59ffa2746  200 bytes  215 us</p>
+<h1 id="eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”eosio-token”-”owner”-“threshold”-1-”keys”-“key”-”EOS84BLRbGbFahNJEpnnJ…"><a href="#eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”eosio-token”-”owner”-“threshold”-1-”keys”-“key”-”EOS84BLRbGbFahNJEpnnJ…" class="headerlink" title="eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”eosio.token”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS84BLRbGbFahNJEpnnJ…"></a>eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”eosio.token”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS84BLRbGbFahNJEpnnJ…</h1><p>Set the eosio.token contract. Note that this assumes that you built eos in the ~/Documents/eos folder.</p>
+<p>$ cleos set contract eosio.token ~/Documents/eos/build/contracts/eosio.token<br>Reading WAST/WASM from /Users/tutorial/Documents/eos/build/contracts/eosio.token/eosio.token.wasm…<br>Using already assembled WASM…<br>Publishing contract…<br>executed transaction: 17fa4e06ed0b2f52cadae2cd61dee8fb3d89d3e46d5b133333816a04d23ba991  8024 bytes  974 us</p>
+<h1 id="eosio-lt-eosio-setcode-“account”-”eosio-token”-”vmtype”-0-”vmversion”-0-”code”-”0061736d01000000017f1560037f7e7f0060057f7e…"><a href="#eosio-lt-eosio-setcode-“account”-”eosio-token”-”vmtype”-0-”vmversion”-0-”code”-”0061736d01000000017f1560037f7e7f0060057f7e…" class="headerlink" title="eosio &lt;= eosio::setcode               {“account”:”eosio.token”,”vmtype”:0,”vmversion”:0,”code”:”0061736d01000000017f1560037f7e7f0060057f7e…"></a>eosio &lt;= eosio::setcode               {“account”:”eosio.token”,”vmtype”:0,”vmversion”:0,”code”:”0061736d01000000017f1560037f7e7f0060057f7e…</h1><h1 id="eosio-lt-eosio-setabi-“account”-”eosio-token”-”abi”-“types”-”structs”-“name”-”transfer”-”base”-””-”fields”-“name”…"><a href="#eosio-lt-eosio-setabi-“account”-”eosio-token”-”abi”-“types”-”structs”-“name”-”transfer”-”base”-””-”fields”-“name”…" class="headerlink" title="eosio &lt;= eosio::setabi                {“account”:”eosio.token”,”abi”:{“types”:[],”structs”:[{“name”:”transfer”,”base”:””,”fields”:[{“name”…"></a>eosio &lt;= eosio::setabi                {“account”:”eosio.token”,”abi”:{“types”:[],”structs”:[{“name”:”transfer”,”base”:””,”fields”:[{“name”…</h1><p>Set the eosio.msigcontract<br>Create an account for the eosio.msig contract. We will generate a unique key pair for this account, but we will use the same key for both the account owner and active keys.</p>
+<p>$ cleos create key  # for eosio.msig<br>Private key: 5J2zhmRG33uYKd2n5wEydxdiqp6ymVKL5o9qCqAqiK1J3iAaRtT<br>Public key: EOS73N6SCJ4nENVcv5iCFwu3uMY3o83Vd6qgq41CJhNK9LYhBiWzc</p>
+<p>$ cleos wallet import 5J2zhmRG33uYKd2n5wEydxdiqp6ymVKL5o9qCqAqiK1J3iAaRtT<br>imported private key for: EOS73N6SCJ4nENVcv5iCFwu3uMY3o83Vd6qgq41CJhNK9LYhBiWzc</p>
+<p>$ cleos create account eosio eosio.msig EOS73N6SCJ4nENVcv5iCFwu3uMY3o83Vd6qgq41CJhNK9LYhBiWzc EOS73N6SCJ4nENVcv5iCFwu3uMY3o83Vd6qgq41CJhNK9LYhBiWzc<br>executed transaction: f321e9e47f6b1b3d43975dc6938272da4eee6b39eb36c33a12c9887e45496cfe  200 bytes  142 us</p>
+<h1 id="eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”eosio-msig”-”owner”-“threshold”-1-”keys”-“key”-”EOS73N6SCJ4nENVcv5iCFw…"><a href="#eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”eosio-msig”-”owner”-“threshold”-1-”keys”-“key”-”EOS73N6SCJ4nENVcv5iCFw…" class="headerlink" title="eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”eosio.msig”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS73N6SCJ4nENVcv5iCFw…"></a>eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”eosio.msig”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS73N6SCJ4nENVcv5iCFw…</h1><p>Set the eosio.msig contract. Note that this assumes that you built EOSIO in the ~/Documents/eos folder.</p>
+<p>$ cleos set contract eosio.msig ~/Documents/eos/build/contracts/eosio.msig<br>Reading WAST/WASM from /Users/tutorial/Documents/eos/build/contracts/eosio.msig/eosio.msig.wasm…<br>Using already assembled WASM…<br>Publishing contract…<br>executed transaction: 007507ad01de884377009d7dcf409bc41634e38da2feb6a117ceced8554a75bc  8840 bytes  925 us</p>
+<h1 id="eosio-lt-eosio-setcode-“account”-”eosio-msig”-”vmtype”-0-”vmversion”-0-”code”-”0061736d010000000198011760017f0060047f7e7e7…"><a href="#eosio-lt-eosio-setcode-“account”-”eosio-msig”-”vmtype”-0-”vmversion”-0-”code”-”0061736d010000000198011760017f0060047f7e7e7…" class="headerlink" title="eosio &lt;= eosio::setcode               {“account”:”eosio.msig”,”vmtype”:0,”vmversion”:0,”code”:”0061736d010000000198011760017f0060047f7e7e7…"></a>eosio &lt;= eosio::setcode               {“account”:”eosio.msig”,”vmtype”:0,”vmversion”:0,”code”:”0061736d010000000198011760017f0060047f7e7e7…</h1><h1 id="eosio-lt-eosio-setabi-“account”-”eosio-msig”-”abi”-“types”-“new-type-name”-”account-name”-”type”-”name”-”structs”-…"><a href="#eosio-lt-eosio-setabi-“account”-”eosio-msig”-”abi”-“types”-“new-type-name”-”account-name”-”type”-”name”-”structs”-…" class="headerlink" title="eosio &lt;= eosio::setabi                {“account”:”eosio.msig”,”abi”:{“types”:[{“new_type_name”:”account_name”,”type”:”name”}],”structs”:[{…"></a>eosio &lt;= eosio::setabi                {“account”:”eosio.msig”,”abi”:{“types”:[{“new_type_name”:”account_name”,”type”:”name”}],”structs”:[{…</h1><p>Create and allocate the SYS currency<br>Create the SYS currency with a maximum value of 10 billion tokens. Then issue one billion tokens. You can replace SYS with your specific currency designation.</p>
+<p>$ cleos push action eosio.token create ‘[ “eosio”, “10000000000.0000 SYS”, 0, 0, 0]’ -p eosio.token<br>executed transaction: 0440461e0d8816b4a8fd9d47c1a6a53536d3c7af54abf53eace884f008429697  120 bytes  326 us</p>
+<h1 id="eosio-token-lt-eosio-token-create-“issuer”-”eosio”-”maximum-supply”-”10000000000-0000-SYS”"><a href="#eosio-token-lt-eosio-token-create-“issuer”-”eosio”-”maximum-supply”-”10000000000-0000-SYS”" class="headerlink" title="eosio.token &lt;= eosio.token::create          {“issuer”:”eosio”,”maximum_supply”:”10000000000.0000 SYS”}"></a>eosio.token &lt;= eosio.token::create          {“issuer”:”eosio”,”maximum_supply”:”10000000000.0000 SYS”}</h1><p>$ cleos push action eosio.token issue ‘[ “eosio”, “1000000000.0000 SYS”, “memo” ]’ -p eosio<br>executed transaction: a53961a566c1faa95531efb422cd952611b17d728edac833c9a55582425f98ed  128 bytes  432 us</p>
+<h1 id="eosio-token-lt-eosio-token-issue-“to”-”eosio”-”quantity”-”1000000000-0000-SYS”-”memo”-”memo”"><a href="#eosio-token-lt-eosio-token-issue-“to”-”eosio”-”quantity”-”1000000000-0000-SYS”-”memo”-”memo”" class="headerlink" title="eosio.token &lt;= eosio.token::issue           {“to”:”eosio”,”quantity”:”1000000000.0000 SYS”,”memo”:”memo”}"></a>eosio.token &lt;= eosio.token::issue           {“to”:”eosio”,”quantity”:”1000000000.0000 SYS”,”memo”:”memo”}</h1><p>Set the eosio.system contract<br>Set the eosio.system contract. After this we will be able to stake our accounts.</p>
+<p>$ cleos set contract eosio ~/Documents/eos/build/contracts/eosio.system<br>Reading WAST/WASM from /Users/tutorial/Documents/eos/build/contracts/eosio.system/eosio.system.wasm…<br>Using already assembled WASM…<br>Publishing contract…<br>executed transaction: 2150ed87e4564cd3fe98ccdea841dc9ff67351f9315b6384084e8572a35887cc  39968 bytes  4395 us</p>
+<h1 id="eosio-lt-eosio-setcode-“account”-”eosio”-”vmtype”-0-”vmversion”-0-”code”-”0061736d0100000001be023060027f7e0060067f7e7e7f7f…"><a href="#eosio-lt-eosio-setcode-“account”-”eosio”-”vmtype”-0-”vmversion”-0-”code”-”0061736d0100000001be023060027f7e0060067f7e7e7f7f…" class="headerlink" title="eosio &lt;= eosio::setcode               {“account”:”eosio”,”vmtype”:0,”vmversion”:0,”code”:”0061736d0100000001be023060027f7e0060067f7e7e7f7f…"></a>eosio &lt;= eosio::setcode               {“account”:”eosio”,”vmtype”:0,”vmversion”:0,”code”:”0061736d0100000001be023060027f7e0060067f7e7e7f7f…</h1><h1 id="eosio-lt-eosio-setabi-“account”-”eosio”-”abi”-“types”-”structs”-“name”-”buyrambytes”-”base”-””-”fields”-“name”-”p…"><a href="#eosio-lt-eosio-setabi-“account”-”eosio”-”abi”-“types”-”structs”-“name”-”buyrambytes”-”base”-””-”fields”-“name”-”p…" class="headerlink" title="eosio &lt;= eosio::setabi                {“account”:”eosio”,”abi”:{“types”:[],”structs”:[{“name”:”buyrambytes”,”base”:””,”fields”:[{“name”:”p…"></a>eosio &lt;= eosio::setabi                {“account”:”eosio”,”abi”:{“types”:[],”structs”:[{“name”:”buyrambytes”,”base”:””,”fields”:[{“name”:”p…</h1><p>Stake tokens and expand the network<br>If you’ve followed the tutorial steps above to this point, you now have a single node configuration configured with the key contracts:</p>
+<p>eosio.token<br>eosio.msig<br>eosio.system<br>We are now ready to being staking accounts and expanding the network.</p>
+<p>Create staked accounts<br>During the boot sequence, accounts are staked with their tokens. In the initial staking process, tokens are staked 50/50 CPU and network. Additionally, by default, cleos stakes 8 KB of RAM on account creation, paid by the account creator. In the initial staking, the eosio account is the account creator doing the staking. Tokens staked during the initial token staking process cannot be unstaked and made liquid until after the minimum voting requirements have been met.</p>
+<p>For this tutorial, we distribute 1 billion tokens among our member accounts and then stake those. To make the tutorial more realistic, we distribute the tokens using a Pareto distribution. The Pareto distribution models an 80-20 rule, e.g., in this case, 80% of the tokens are held by 20% of the population. The examples here do not show how to generate the distribution, focusing instead on the commands to do the staking. The script bios-boot-tutorial.py that accompanies this tutorial uses the Python NumPy (numpy) library to generate a Pareto distribution.</p>
+<p>Create a staked account<br>Use the following steps to stake tokens for each account. These steps must be done individually for each account.</p>
+<p>The key pair is created here for this tutorial. In a “live” scenario, the key and token share for an account should already be established.</p>
+<p>   $ cleos create key  # for accountnum11<br>   Private key: 5K7EYY3j1YY14TSFVfqgtbWbrw3FA8BUUnSyFGgwHi8Uy61wU1o<br>   Public key: EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22uex4u41ab1EVv9EAhWt</p>
+<p>   $ cleos wallet import 5K7EYY3j1YY14TSFVfqgtbWbrw3FA8BUUnSyFGgwHi8Uy61wU1o<br>   imported private key for: EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22uex4u41ab1EVv9EAhWt<br>Create a staked account with initial resources and public key.</p>
+<p>$ cleos system newaccount eosio –transfer accountnum11 EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22uex4u41ab1EVv9EAhWt –stake-net “100000.0000 SYS” –stake-cpu “100000.0000 SYS”<br>775292ms thread-0   main.cpp:419                  create_action        ] result: {“binargs”:”0000000000ea30551082d4334f4d113200200000”} arg: {“code”:”eosio”,”action”:”buyrambytes”,”args”:{“payer”:”eosio”,”receiver”:”accountnum11”,”bytes”:8192}}<br>775295ms thread-0   main.cpp:419                  create_action        ] result: {“binargs”:”0000000000ea30551082d4334f4d113200ca9a3b00000000045359530000000000ca9a3b00000000045359530000000001”} arg: {“code”:”eosio”,”action”:”delegatebw”,”args”:{“from”:”eosio”,”receiver”:”accountnum11”,”stake_net_quantity”:”100000.0000 SYS”,”stake_cpu_quantity”:”100000.0000 SYS”,”transfer”:true}}<br>executed transaction: fb47254c316e736a26873cce1290cdafff07718f04335ea4faa4cb2e58c9982a  336 bytes  1799 us</p>
+<h1 id="eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”accountnum11”-”owner”-“threshold”-1-”keys”-“key”-”EOS8mUftJXepGzdQ2TaC…"><a href="#eosio-lt-eosio-newaccount-“creator”-”eosio”-”name”-”accountnum11”-”owner”-“threshold”-1-”keys”-“key”-”EOS8mUftJXepGzdQ2TaC…" class="headerlink" title="eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”accountnum11”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS8mUftJXepGzdQ2TaC…"></a>eosio &lt;= eosio::newaccount            {“creator”:”eosio”,”name”:”accountnum11”,”owner”:{“threshold”:1,”keys”:[{“key”:”EOS8mUftJXepGzdQ2TaC…</h1><h1 id="eosio-lt-eosio-buyrambytes-“payer”-”eosio”-”receiver”-”accountnum11”-”bytes”-8192"><a href="#eosio-lt-eosio-buyrambytes-“payer”-”eosio”-”receiver”-”accountnum11”-”bytes”-8192" class="headerlink" title="eosio &lt;= eosio::buyrambytes           {“payer”:”eosio”,”receiver”:”accountnum11”,”bytes”:8192}"></a>eosio &lt;= eosio::buyrambytes           {“payer”:”eosio”,”receiver”:”accountnum11”,”bytes”:8192}</h1><h1 id="eosio-lt-eosio-delegatebw-“from”-”eosio”-”receiver”-”accountnum11”-”stake-net-quantity”-”100000-0000-SYS”-”stake-cpu-quantity…"><a href="#eosio-lt-eosio-delegatebw-“from”-”eosio”-”receiver”-”accountnum11”-”stake-net-quantity”-”100000-0000-SYS”-”stake-cpu-quantity…" class="headerlink" title="eosio &lt;= eosio::delegatebw            {“from”:”eosio”,”receiver”:”accountnum11”,”stake_net_quantity”:”100000.0000 SYS”,”stake_cpu_quantity…"></a>eosio &lt;= eosio::delegatebw            {“from”:”eosio”,”receiver”:”accountnum11”,”stake_net_quantity”:”100000.0000 SYS”,”stake_cpu_quantity…</h1><p>Register as a producer<br>Some set of the accounts created will be registered as producers. Choose some set of the staked accounts to be producers.</p>
+<p>$ cleos system regproducer accountnum11 EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22uex4u41ab1EVv9EAhWt <a href="https://accountnum11.com/EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22uex4u41ab1EVv9EAhWt" target="_blank" rel="external">https://accountnum11.com/EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22uex4u41ab1EVv9EAhWt</a><br>1487984ms thread-0   main.cpp:419                  create_action        ] result: {“binargs”:”1082d4334f4d11320003fedd01e019c7e91cb07c724c614bbf644a36eff83a861b36723f29ec81dc9bdb4e68747470733a2f2f6163636f756e746e756d31312e636f6d2f454f53386d5566744a586570477a64513254614364754e7553504166584a48663232756578347534316162314556763945416857740000”} arg: {“code”:”eosio”,”action”:”regproducer”,”args”:{“producer”:”accountnum11”,”producer_key”:”EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22uex4u41ab1EVv9EAhWt”,”url”:”<a href="https://accountnum11.com/EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22uex4u41ab1EVv9EAhWt&quot;,&quot;location&quot;:0}}" target="_blank" rel="external">https://accountnum11.com/EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22uex4u41ab1EVv9EAhWt&quot;,&quot;location&quot;:0}}</a><br>executed transaction: 4ebe9258bdf1d9ac8ad3821f6fcdc730823810a345c18509ac41f7ef9b278e0c  216 bytes  896 us</p>
+<h1 id="eosio-lt-eosio-regproducer-“producer”-”accountnum11”-”producer-key”-”EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22uex4u41ab1EVv9EAhWt”-”u…"><a href="#eosio-lt-eosio-regproducer-“producer”-”accountnum11”-”producer-key”-”EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22uex4u41ab1EVv9EAhWt”-”u…" class="headerlink" title="eosio &lt;= eosio::regproducer           {“producer”:”accountnum11”,”producer_key”:”EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22uex4u41ab1EVv9EAhWt”,”u…"></a>eosio &lt;= eosio::regproducer           {“producer”:”accountnum11”,”producer_key”:”EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22uex4u41ab1EVv9EAhWt”,”u…</h1><p>List the producers<br>To facilitate the voting process, list the available producers.</p>
+<p>$ cleos system listproducers<br>Producer      Producer key                                           Url                                                         Scaled votes<br>accountnum11  EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22uex4u41ab1EVv9EAhWt  <a href="https://accountnum11.com/EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22" target="_blank" rel="external">https://accountnum11.com/EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22</a> 0.0000<br>accountnum22  EOS5kgeCLuQo8MMLnkZfqcBA3GRFgQsPyDddHWmXceRLjRX8LJRaH  <a href="https://accountnum22.com/EOS5kgeCLuQo8MMLnkZfqcBA3GRFgQsPyD" target="_blank" rel="external">https://accountnum22.com/EOS5kgeCLuQo8MMLnkZfqcBA3GRFgQsPyD</a> 0.0000<br>accountnum33  EOS63CnoyfeEQDjXXxwywN5PPKW7RYHC9tbtmvb8vFBGZooktz7kG  <a href="https://accountnum33.com/EOS63CnoyfeEQDjXXxwywN5PPKW7RYHC9t" target="_blank" rel="external">https://accountnum33.com/EOS63CnoyfeEQDjXXxwywN5PPKW7RYHC9t</a> 0.0000<br>accountnum44  EOS6kBaCHrvz7VdUfFBLrLdhNjXYaKBmRkpDXU9PhbEUiHbspr7rz  <a href="https://accountnum44.com/EOS6kBaCHrvz7VdUfFBLrLdhNjXYaKBmRk" target="_blank" rel="external">https://accountnum44.com/EOS6kBaCHrvz7VdUfFBLrLdhNjXYaKBmRk</a> 0.0000<br>Start the producers<br>Use the following command to start the producers. Recall that in this tutorial, all of the producers are running on a single server, so command line arguments are used to ensure each producer is using its own directory. This also expects that the genesis.json file, e.g, see below, has been copied to the respective account directories.</p>
+<p>{<br>  “initial_timestamp”: “2018-03-02T12:00:00.000”,<br>  “initial_key”: “EOS8Znrtgwt8TfpmbVpTKvA2oB8Nqey625CLN8bCN3TEbgx86Dsvr”,<br>  “initial_configuration”: {<br>    “max_block_net_usage”: 1048576,<br>    “target_block_net_usage_pct”: 1000,<br>    “max_transaction_net_usage”: 524288,<br>    “base_per_transaction_net_usage”: 12,<br>    “net_usage_leeway”: 500,<br>    “context_free_discount_net_usage_num”: 20,<br>    “context_free_discount_net_usage_den”: 100,<br>    “max_block_cpu_usage”: 100000,<br>    “target_block_cpu_usage_pct”: 500,<br>    “max_transaction_cpu_usage”: 50000,<br>    “min_transaction_cpu_usage”: 100,<br>    “max_transaction_lifetime”: 3600,<br>    “deferred_trx_expiration_window”: 600,<br>    “max_transaction_delay”: 3888000,<br>    “max_inline_action_size”: 4096,<br>    “max_inline_action_depth”: 4,<br>    “max_authority_depth”: 6,<br>    “max_generated_transaction_count”: 16<br>  },<br>  “initial_chain_id”: “0000000000000000000000000000000000000000000000000000000000000000”<br>}<br>In a separate window for each producer, run the following nodeos command, adjusting the command line arguments for each producer.</p>
+<p>$ nodeos –genesis-json ~/eosio_test/accountnum11/genesis.json –block-log-dir ~/eosio_test/accountnum11/blocks –config-dir ~/eosio_test/accountnum11/ –data-dir ~/eosio_test/accountnum11/ –http-server-address 127.0.0.1:8011 –p2p-listen-endpoint 127.0.0.1:9011 –enable-stale-production –producer-name accountnum11 –private-key ‘[ “EOS8mUftJXepGzdQ2TaCduNuSPAfXJHf22uex4u41ab1EVv9EAhWt”,”5K7EYY3j1YY14TSFVfqgtbWbrw3FA8BUUnSyFGgwHi8Uy61wU1o” ]’ –plugin eosio::producer_plugin –plugin eosio::chain_api_plugin –plugin eosio::http_plugin –p2p-peer-address localhost:9022  –p2p-peer-address localhost:9033  –p2p-peer-address localhost:9044<br>Note that until all producers are up, connection error messages such as the following will be generated.</p>
+<p>1826099ms thread-0   net_plugin.cpp:2927           plugin_startup       ] starting listener, max clients is 25<br>1826099ms thread-0   net_plugin.cpp:676            connection           ] created connection to localhost:9022<br>1826099ms thread-0   net_plugin.cpp:1948           connect              ] host: localhost port: 9022<br>1826099ms thread-0   net_plugin.cpp:676            connection           ] created connection to localhost:9033<br>1826099ms thread-0   net_plugin.cpp:1948           connect              ] host: localhost port: 9033<br>1826099ms thread-0   net_plugin.cpp:676            connection           ] created connection to localhost:9044<br>1826099ms thread-0   net_plugin.cpp:1948           connect              ] host: localhost port: 9044<br>1826100ms thread-0   net_plugin.cpp:1989           operator()           ] connection failed to localhost:9022: Connection refused<br>1826100ms thread-0   net_plugin.cpp:1989           operator()           ] connection failed to localhost:9033: Connection refused<br>1826100ms thread-0   net_plugin.cpp:1989           operator()           ] connection failed to localhost:9044: Connection refused<br>For convenience, the following commands can be run (in separate shell windows) for accounts accountnum22, accountnum33, and accountnum44. If you run these, you can see how multiple nodes respond when running in a peer-to-peer configuration. This assumes that accounts have been staked using the relevant key pairs (the key pairs can be seen in each of the command lines below).</p>
+<p>$ nodeos –genesis-json ~/eosio_test/accountnum22/genesis.json –block-log-dir ~/eosio_test/accountnum22/blocks –config-dir ~/eosio_test/accountnum22/ –data-dir ~/eosio_test/accountnum22/ –http-server-address 127.0.0.1:8022 –p2p-listen-endpoint 127.0.0.1:9022 –enable-stale-production –producer-name accountnum22 –private-key ‘[ “EOS5kgeCLuQo8MMLnkZfqcBA3GRFgQsPyDddHWmXceRLjRX8LJRaH”,”5Jh4rseyguLx5Y7KE2oLL81PRmDcyyzbyyyJd3GvdHijKqENbRk” ]’ –plugin eosio::producer_plugin –plugin eosio::chain_api_plugin –plugin eosio::http_plugin –p2p-peer-address localhost:9011  –p2p-peer-address localhost:9033  –p2p-peer-address localhost:9044<br>$ nodeos –genesis-json ~/eosio_test/accountnum33/genesis.json –block-log-dir ~/eosio_test/accountnum33/blocks –config-dir ~/eosio_test/accountnum33/ –data-dir ~/eosio_test/accountnum33/ –http-server-address 127.0.0.1:8033 –p2p-listen-endpoint 127.0.0.1:9033 –enable-stale-production –producer-name accountnum33 –private-key ‘[ “EOS63CnoyfeEQDjXXxwywN5PPKW7RYHC9tbtmvb8vFBGZooktz7kG”,”5JWp5K24x5dbAFBNP7hwzSRS7XjD7wjHL4nrAwSLdRuJnERjgqB” ]’ –plugin eosio::producer_plugin –plugin eosio::chain_api_plugin –plugin eosio::http_plugin –p2p-peer-address localhost:9011  –p2p-peer-address localhost:9022  –p2p-peer-address localhost:9044<br>$ nodeos –genesis-json ~/eosio_test/accountnum44/genesis.json –block-log-dir ~/eosio_test/accountnum44/blocks –config-dir ~/eosio_test/accountnum44/ –data-dir ~/eosio_test/accountnum44/ –http-server-address 127.0.0.1:8044 –p2p-listen-endpoint 127.0.0.1:9044 –enable-stale-production –producer-name accountnum44 –private-key ‘[ “EOS6kBaCHrvz7VdUfFBLrLdhNjXYaKBmRkpDXU9PhbEUiHbspr7rz”,”5KeGoDkbhEdkZTpYqQg2rPZvtxqfWAtGgixuCLUt1Dmoq4NmXCj” ]’ –plugin eosio::producer_plugin –plugin eosio::chain_api_plugin –plugin eosio::http_plugin –p2p-peer-address localhost:9011  –p2p-peer-address localhost:9022  –p2p-peer-address localhost:9033<br>Vote for producers<br>Voting for producers can begin as accounts are staked and producers are registered.</p>
+<p>The following command enables votes to be cast.</p>
+<p>$ cleos system voteproducer prods accountnum23 accountnum11 accountnum33<br>In this example, account accountnum23 has voted for accountnum11 and accountnum33. Block production does not begin until 15% of the available votes have been voted.</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/21/online-eos-16/">« Comprehens...</a></span>
+  <span class="right"><a href="/2018/05/21/online-eos-19/">Single Hos... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月21日 20:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-eos-17
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

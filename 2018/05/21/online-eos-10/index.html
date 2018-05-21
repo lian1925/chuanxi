@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>Persistence【存储】 API | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/EOS/">
+            EOS
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/EOS/">
+              EOS
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/21/online-eos-9/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/21/online-eos-11/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/21/online-eos-9/">
+                    Command【命令】 Reference【参考】
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/21/online-eos-11/">
+                    Smart【智能】 Contract【合约】
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>Persistence【存储】 API</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月21日 20:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>A Multi-Index container abstraction of persistent data on EOSIO blockchains</p>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>EOSIO provides a set of services and interfaces that enable contract developers to persist state across action, and consequently transaction, boundaries. Without persistence, state that is generated during the processing of actions and transactions will be lost when processing goes out of scope. The persistence components include:</p>
+<p>Services to persist state in a database<br>Enhanced query capabilities to find and retrieve database content<br>C++ APIs to these services, intended for use by contract developers<br>C APIs for access to core services, of interest to library and system developers<br>This document covers the first three topics.</p>
+<p>The Need for Persistence Services<br>Actions perform the work of EOSIO contracts. Actions operate within an environment known as the action context. As illustrated in the diagram below, an action context provides several things necessary for the execution of the action. One of those things is the action’s working memory. This is where the action maintains its working state. Before processing an action, EOSIO sets up a clean working memory for the action. Variables that might have been set when another action executed are not available within the new action’s context. The only way to pass state among actions is to persist it to and retrieve it from the EOSIO database.</p>
+<p>Actions-Transactions-Mutable-Immutable-Data</p>
+<p>The EOSIO Multi-Index API<br>The EOSIO Multi-Index API provides a C++ interface to the EOSIO database. The EOSIO Multi-Index API a is patterned after Boost Multi-Index Containers. This API provides a model for object storage with rich retrieval capabilities, enabling the use of multiple indices with different sorting and access semantics. The Multi-Index API is provided by the eosio::multi_index C++ class found in the contracts/eosiolib folder of the EOSIO/eos GitHub repository. This class enables a contract written in C++ to read and modify persistent state in the EOSIO database.</p>
+<p>The Multi-Index container interface eosio::multi_index provides a homogeneous container of an arbitrary C++ type (and it does not need to be a plain-old data type or be fixed-size) that is kept sorted in multiple indices by keys of various types that are derived from the objects. It can be compared to a traditional database table with rows, columns, and indices. It can also be easily compared to Boost Multi-index Containers. In fact many of the member function signatures of eosio::multi_index are modeled after boost::multi_index, although there are important differences.</p>
+<p>eosio::multi_index can be conceptually viewed as tables in a conventional database in which the rows are the individual objects in the container, the columns are the member properties of the objects in the container, and the indices provide fast lookup of an object by a key compatible with an object member property.</p>
+<p>Traditional database tables allow the index to be a user-defined function over some number of columns of the table. eosio::multi_index similarly allows the index to be any user-defined function (provided as a member function of the class/struct of the element type) but with its return value restricted to one of a limited set of supported key types.</p>
+<p>Traditional database tables typically have a single unique primary key that allows unambiguously identifying a particular row in the table and also provides the standard sort order for the rows in the table. eosio::multi_index supports a similar semantic, but the primary key of the object in the eosio::multi_index container must be a unique unsigned 64-bit integer. The objects in the eosio::multi_index container are sorted by the primary key index in ascending order of the unsigned 64-bit integer primary key.</p>
+<p>EOSIO Multi-Index Iterators<br>A key differentiator of the EOSIO persistence services over other blockchain infrastructures is its Multi-Index iterators. Unlike some other blockchains that only provide a key-value store, EOSIO Multi-Index tables allow a contract developer to keep a collection of objects sorted by a variety of different key types, which could be derived from the data within the object. This enables rich retrieval capabilities. Up to 16 secondary indices can be defined, each having its own way of ordering and retrieving table contents.</p>
+<p>The EOSIO Multi-Index iterators follow a pattern that is common to C++ iterators. All iterators are bi-directional const, either const_iterator or const_reverse_iterator. The iterators can be dereferenced to provide access to an object in the Multi-Index table.</p>
+<p>Putting It All Together</p>
+<p>How to Create Your EOSIO Multi-Index Table<br>Here is a summary of the steps to create your own persistent data using EOSIO Multi-Index tables.</p>
+<p>Define your object(s) using C++ class or struct. Each object will be in its own Multi-Index table.<br>Define a const member function in the class/struct called primary_key that returns the uint64_t primary key value of your object.<br>Determine the secondary indices. Up to 16 additional indices are supported. A secondary index supports several key types, listed below.<br>idx64 - Primitive 64-bit unsigned integer key<br>idx128 - Primitive 128-bit unsigned integer key<br>idx256 - 256-bit fixed-size lexicographical key<br>idx_double - Double precision floating point key<br>idx_long_double - Quadruple precision floating point key<br>Define a key extractor for each secondary index. The key extractor is a function used to obtain the keys from the elements of the Multi-Index table. See Multi-Index Constructor and indexed_by sections below.</p>
+<p>How to Use Your EOSIO Multi-Index Table<br>Instantiate your Multi-Index table.<br>Insert (emplace) into, and subsequently modify or erase objects in your table as required by your contract.<br>Locate and traverse objects in your table using get, find and iterator operations.</p>
+<p>Vehicle Maintenance Tracker Example<br>In the following example, we will look at how to use the EOSIO Multi-Index API to implement a simple vehicle maintenance tracker. The tracker will keep a ledger of vehicle maintenance activities.</p>
+<p>The target users of the tracker are service mechanics and their customers. A service mechanic will add records to the ledger as service jobs are done. They can use this information to track service history and notify customers when service is due. Customers can also track their service history. They can also periodically update their vehicle mileage to enable their mechanic to better determine when service is needed.</p>
+<p>If we were implementing the full contract for this example, we might have actions such as:</p>
+<p>Create a new service record, which can only be done by the mechanic<br>Update mileage, which can be done by the mechanic for any vehicle or a customer for its vehicle<br>Various types of reporting actions<br>For the purposes of this example, we will focus on the aspects of storage and retrieval, and not the contract actions.</p>
+<p>We actually need two tables for our application. The first table will contain individual service transactions created by the mechanic. The same customer can have many records in this table, representing each time the vehicle was serviced. Our second table will contain the current state for a customer. Each customer will have one entry in this table. Note that for simplicity, our design here limits one vehicle per customer.</p>
+<p>Vehicle Maintenance Tracker service Table<br>We’ll call the table that contains individual service transactions the service table. This table will be used to create service record reports. The records of this table will contain the following properties:</p>
+<p>Primary key - the Customer ID can’t be the primary key, since a customer can have many records. In fact, we don’t need the primary key directly, so we can let the system generate one for us.<br>Customer ID - this will correspond to the account name (a uint64_t value) of the customer<br>Date of Service - the date when the service was performed<br>Odometer - the vehicle’s odometer reading at date of service<br>We want to be able to search this table by customer, so we will create a secondary index on the customer property. The diagram below illustrates the service table and its secondary index, bycustomer.</p>
+<p>Service Table Example</p>
+<p>We will declare a struct service_rec with these properties to represent our service record object:</p>
+<p>struct service_rec {<br>    uint64_t        pkey;           // opaque, will use available_primary_key()<br>    account_name    customer;       // will create a secondary index on this<br>    uint32_t        service_date;<br>    uint32_t        odometer;</p>
+<pre><code>auto            primary_key()const { return pkey; }
+account_name    get_customer()const { return customer; }
+
+EOSLIB_SERIALIZE( service_rec, (pkey)(customer)(service_date)(odometer) )
+</code></pre><p>};<br>To instantiate our service table (we’ll call our instance service_table), we write the following in our contract, where mechanic is the account name for the mechanic.</p>
+<p>using service_table_type = multi_index<service, service_rec,="" indexed_by<="" n(bycustomer),="" const_mem_fun<service_rec,="" account_name,="" &service_rec::get_customer=""> &gt;</service,></p>
+<blockquote>
+<p>;<br>service_table_type service_table( current_receiver(), mechanic );<br>The two parameters passed to the constructor establish access privileges to the table. The first parameter (the code parameter, see below) determines whether the action is accessing the contract’s own persistent state (i.e., code == current_receiver()), in which case the action context has both read and write access to the table, or if it is accessing some other contract’s persistent state and is, therefore, read-only.</p>
+</blockquote>
+<p>To add records to service_table, we can use C++ similar to the following (assuming corresponding local variables for the service record content). Variable customer_name contains the human-readable string name of the customer, which we must convert to the account_name encoding of the customer stored in the table.</p>
+<p>service_table.emplace(mechanic, <a href="auto&amp; s_rec">&amp;</a> {<br>    s_rec.pkey = service_table.available_primary_key();<br>    s_rec.customer = eosio::chain::string_to_name(customer_name);<br>    s_rec.service_date = service_date;<br>    s_rec.odometer = odometer;<br>});<br>To find all service records for a customer, we first get the bycustomer secondary index,</p>
+<p>auto customer_index = service_table.template get_index<n(bycustomer)>();<br>then we can find the desired customer using the secondary index.</n(bycustomer)></p>
+<p>account_name customer_acct = eosio::chain::string_to_name(customer_name);<br>auto cust_itr = customer_index.find(customer_acct);<br>We can iterate through the secondary index to get all service records for the customer.</p>
+<p>while (cust_itr != service_table.end() &amp;&amp; cust_itr-&gt;customer == customer_acct) {<br>    // code to process customer record…<br>    …<br>    cust_itr++;<br>}<br>Vehicle Maintenance Tracker customer Table<br>Our second table will contain the current state for a customer. We’ll call this the customer table. This state consists of the following properties:</p>
+<p>Customer ID - this will be unique for the customer table, so we can use it as our primary key (note that for simplicity, this example limits to one vehicle per customer);<br>Last Service Date - the last time the vehicle was in for routine service<br>Odometer at Last Service Date - the odometer reading when the vehicle was last in for service<br>Miles Since Last Service - this will be calculated each time the customer or mechanic updates the latest odometer value (e.g., voluntarily by the customer, and each time the mechanic performs a service)<br>We will index the customer table on the Last Service Date and on the Miles Since Last Service. The diagram below illustrates the customer table and its two secondary indices, bydate and bymiles. Note in the example that Sue has volunteered her latest odometer reading, presumably using an interface provided by the application. The corresponding Miles Since Last Service is calculated whenever the customer enters miles, and this value is indexed. This enables the mechanic to identify customers needing service by date or by miles, at least for customers who choose to participate. Examples of using these values are given below.</p>
+<p>Customer Table Example</p>
+<p>We will declare a struct customer_rec with these properties to represent our customer record object:</p>
+<p>struct customer_rec {<br>    account_name    customer_id             // primary key<br>    uint64_t        last_service_date;      // will create a secondary index on this<br>    unit32_t        odometer_at_last_service;<br>    uint32_t        latest_odometer;</p>
+<pre><code>auto            primary_key()const { return customer_id; }
+uint64_t        get_last_service_date()const { return last_service_date; }
+uint64_t        get_miles_since_service()const {
+                    return latest_odometer &gt; odometer_at-last_service ? latest_odometer - odometer_at_last_service : 0;
+                }
+
+EOSLIB_SERIALIZE( customer_rec, (customer_id)(last_service_date)(odometer_at_last_service)(latest_odometer) )
+</code></pre><p>};<br>To instantiate our customer table (we’ll call it customer_table), we write the following in our contract, where mechanic is the account name for the mechanic.</p>
+<p>using customer_table_type = multi_index<customer, customer_rec,="" indexed_by<="" n(bydate),="" const_mem_fun<customer_rec,="" uint64_t,="" &customer_rec::get_last_service_date=""> &gt;,<br>   indexed_by&lt; N(bymiles), const_mem_fun<customer_rec, uint64_t,="" &customer_rec::get_miles_since_service=""> &gt;</customer_rec,></customer,></p>
+<blockquote>
+<p>;<br>customer_table_type customer_table( current_receiver(), mechanic );<br>To add records to customer_table, we can use C++ similar to the following (assuming corresponding local variables for the customer record content). Variable customer_name contains the human-readable string name of the customer, which we must convert to the account_name encoding of the customer stored in the table.</p>
+</blockquote>
+<p>customer_table.emplace(mechanic, <a href="auto&amp; c_rec">&amp;</a> {<br>    c_rec.customer_id = eosio::chain::string_to_name(customer_name);<br>    c_rec.last_service_date = current_date;<br>    c_rec.odometer_at_last_service = current_odometer;<br>    c_rec.latest_odometer = current_odometer;<br>});<br>We can find a customer using the primary key, customer_id.</p>
+<p>account_name customer_id = eosio::chain::string_to_name(customer_name);<br>auto cust_itr = customer_table.find(customer_id);<br>To update the latest_odometer property, use something similar to the following.</p>
+<p>account_name customer_id = eosio::chain::string_to_name(customer_name);<br>customer_table.modify(customer_table.get(customer_id), mechanic, <a href="auto&amp; c_rec">&amp;</a> {<br>    c_rec.latest_odometer = customer_provided_odometer_reading;     // customer provided input<br>});<br>Parameter mechanic is the payer for the update action. Our example allows the mechanic or customer to update the latest_odometer property, but we don’t want the customer paying just to volunteer their latest odometer reading.</p>
+<p>Note that the above requires calculating the miles_since_service property. The example assumes the variable customer_odometer_at_last_service holds the odometer reading from the customer’s last service. We can obtain the most recent service record for the customer by using the bycustomer secondary index of the service table. See the service table example above for using this index.</p>
+<p>To get the secondary indices for customer_table, use something similar to the following.</p>
+<p>auto last_service_date_index = customer_table.template get_index<n(bydate)>();<br>auto miles_since_service_index = customer_table.template get_index<n(bymiles)>();<br>We can iterate backwards through the bydate secondary index to get all customers who are due for service, e.g., because their last service is more than 3 months ago.</n(bymiles)></n(bydate)></p>
+<p>auto overdue_date_itr = last_service_date_index.upper_bound(three_months_ago);  // date for three months earlier than today<br>// code to iterate the customer table backwards from three months ago<br>…<br>We can iterate forward through the bymiles secondary index to get all customers who are due for service, e.g., because their miles since last service is greater than 3000.</p>
+<p>auto over_miles_itr = last_service_date_index.lower_bound(3000);  // all records 3000 or more miles<br>// code to iterate the customer table forward for greater than 3000 miles<br>…</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/21/online-eos-9/">« Command【命令...</a></span>
+  <span class="right"><a href="/2018/05/21/online-eos-11/">Smart【智能】 ... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月21日 20:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-eos-10
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

@@ -1,0 +1,385 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>Exchange Deposit Withdraw | 教程 | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/EOS/">
+            EOS
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/EOS/">
+              EOS
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/21/online-eos-13/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/21/online-eos-15/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/21/online-eos-13/">
+                    eosio token Contract【合约】 | 教程
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/21/online-eos-15/">
+                    Hello World Contract
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>Exchange Deposit Withdraw | 教程</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月21日 20:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>Exchange Deposit and Withdrawal<br>This document is targeted toward exchanges that wish to automate deposit and withdrawal of standard-conforming EOSIO token contracts. The blockchain’s native token conforms to the standard.</p>
+<p>Configuring Nodeos<br>This tutorial uses the cleos command line tool to query a local nodeos server that should be connected to an eosio blockchain. nodeos will need to be configured with the following plugins:</p>
+<p>eosio::wallet_api_plugin<br>eosio::history_api_plugin<br>eosio::chain_api_plugin<br>By default, the history plugin will log the history of all accounts, but this is not the recommended configuration, as it will consume tens of gigabytes of RAM in the medium term. For a more optimized memory footprint, you should configure the history plugin to only log activity relevant to your account(s). This can be achieved with the following config param placed in your config.ini or passed on the command line.</p>
+<p>$ nodeos –filter_on_accounts youraccount<br>Replaying the Blockchain<br>If you have already synced the blockchain without the history plugin, then you may need to replay the blockchain to pickup any historical activity.</p>
+<p>$ nodeos –replay –filter_on_accounts youraccount<br>You only need to replay once. Subsequent runs of nodeos should not use the replay flag, as your startup times will be unnecessarily long.</p>
+<p>Accepting Deposits<br>When designing this tutorial, we assume that an exchange will poll nodeos for incoming transactions and will want to know when a transfer is considered irreversible or final.</p>
+<p>With eosio-based chains, finality of a transaction occurs once 2/3 + 1 of block producers have either directly or indirectly confirmed the block. This could take from less than a second to a couple of minutes, but either way nodeos will keep you posted on the status.</p>
+<p>Initial Condition<br>./cleos get currency balance eosio.token scott SYS<br>900.0000 SYS<br>We will now deposit some funds to exchange:</p>
+<p>./cleos transfer scott exchange “1.0000 SYS” deposit<br>executed transaction: 5ec797175dd24612acd8fc5a8685fa44caa8646cec0a87b12568db22a3df02fb  256 bytes  8k cycles</p>
+<h1 id="eosio-token-lt-eosio-token-transfer-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”memo”-””"><a href="#eosio-token-lt-eosio-token-transfer-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”memo”-””" class="headerlink" title="eosio.token &lt;= eosio.token::transfer        {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”memo”:””}"></a>eosio.token &lt;= eosio.token::transfer        {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”memo”:””}</h1><blockquote>
+<blockquote>
+<p>transfer</p>
+<h1 id="scott-lt-eosio-token-transfer-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”memo”-””"><a href="#scott-lt-eosio-token-transfer-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”memo”-””" class="headerlink" title="scott &lt;= eosio.token::transfer        {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”memo”:””}"></a>scott &lt;= eosio.token::transfer        {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”memo”:””}</h1><h1 id="exchange-lt-eosio-token-transfer-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”memo”-””"><a href="#exchange-lt-eosio-token-transfer-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”memo”-””" class="headerlink" title="exchange &lt;= eosio.token::transfer        {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”memo”:””}"></a>exchange &lt;= eosio.token::transfer        {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”memo”:””}</h1><p>warning: transaction executed locally, but may not be confirmed by the network yet<br>This output indicates that the action eosio.token::transfer was delivered to three accounts/contracts, (“eosio.token”, “scott”, and “exchange”). The eosio token standard requires that both the sender and receiver account/contract be notified of all transfer actions so that those accounts can run custom logic. At this time, neither scott nor exchange has any contract set, but the transaction log still notes that they were notified.</p>
+</blockquote>
+</blockquote>
+<p>Polling Account History<br>The account history consists of all actions that were either authorized by the account or received by the account. Since the exchange received the eosio.token::transfer action, it is listed in the history. If you are using the console, confirmed and irreversible transactions are printed in “green” while unconfirmed transactions are printed in “yellow”. Without color, you can tell whether a transaction is confirmed or not by the first character: ‘#’ for irreversible and ‘?’ for potentially reversible.</p>
+<p>./cleos get actions exchange</p>
+<h1 id="seq-when-contract-action-gt-receiver-trx-id…-args"><a href="#seq-when-contract-action-gt-receiver-trx-id…-args" class="headerlink" title="seq  when                              contract::action =&gt; receiver      trx id…   args"></a>seq  when                              contract::action =&gt; receiver      trx id…   args</h1><p>================================================================================================================</p>
+<h1 id="0-2018-04-29T01-09-45-000-eosio-token-transfer-gt-exchange-5ec79717…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…"><a href="#0-2018-04-29T01-09-45-000-eosio-token-transfer-gt-exchange-5ec79717…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…" class="headerlink" title="0   2018-04-29T01:09:45.000     eosio.token::transfer =&gt; exchange      5ec79717… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…"></a>0   2018-04-29T01:09:45.000     eosio.token::transfer =&gt; exchange      5ec79717… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…</h1><p>Do a few more transfers:</p>
+<p>./cleos get actions exchange</p>
+<h1 id="seq-when-contract-action-gt-receiver-trx-id…-args-1"><a href="#seq-when-contract-action-gt-receiver-trx-id…-args-1" class="headerlink" title="seq  when                              contract::action =&gt; receiver      trx id…   args"></a>seq  when                              contract::action =&gt; receiver      trx id…   args</h1><p>================================================================================================================</p>
+<h1 id="0-2018-04-29T01-09-45-000-eosio-token-transfer-gt-exchange-5ec79717…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…-1"><a href="#0-2018-04-29T01-09-45-000-eosio-token-transfer-gt-exchange-5ec79717…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…-1" class="headerlink" title="0   2018-04-29T01:09:45.000     eosio.token::transfer =&gt; exchange      5ec79717… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…"></a>0   2018-04-29T01:09:45.000     eosio.token::transfer =&gt; exchange      5ec79717… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…</h1><h1 id="1-2018-04-29T01-16-25-000-eosio-token-transfer-gt-exchange-2269828c…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…"><a href="#1-2018-04-29T01-16-25-000-eosio-token-transfer-gt-exchange-2269828c…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…" class="headerlink" title="1   2018-04-29T01:16:25.000     eosio.token::transfer =&gt; exchange      2269828c… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…"></a>1   2018-04-29T01:16:25.000     eosio.token::transfer =&gt; exchange      2269828c… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…</h1><p>?    2   2018-04-29T01:19:54.000     eosio.token::transfer =&gt; exchange      213f3797… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…<br>The last transfer is still pending, waiting on irreversibility.</p>
+<p>The “seq” column represents the index of actions for your specific account. It will always increment as new relevant actions are added.</p>
+<p>The cleos get actions command allows you some control over which actions are fetched. You can view the help for this command with -h</p>
+<p>./cleos get actions -h<br>Usage: ./cleos get actions [OPTIONS] account_name [pos] [offset]</p>
+<p>Positionals:<br>  account_name TEXT           name of account to query on<br>  pos INT                     sequence number of action for this account, -1 for last<br>  offset INT                  get actions [pos,pos+offset] for positive offset or [pos-offset,pos) for negative offset</p>
+<p>  Options:<br>    -j,–json                   print full json<br>    –full                      don’t truncate action json<br>    –pretty                    pretty print full action json<br>    –console                   print console output generated by action<br>To get only the last action you would do the following:</p>
+<p>./cleos get actions exchange -1 -1</p>
+<h1 id="seq-when-contract-action-gt-receiver-trx-id…-args-2"><a href="#seq-when-contract-action-gt-receiver-trx-id…-args-2" class="headerlink" title="seq  when                              contract::action =&gt; receiver      trx id…   args"></a>seq  when                              contract::action =&gt; receiver      trx id…   args</h1><p>================================================================================================================</p>
+<h1 id="2-2018-04-29T01-19-54-000-eosio-token-transfer-gt-exchange-213f3797…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…"><a href="#2-2018-04-29T01-19-54-000-eosio-token-transfer-gt-exchange-213f3797…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…" class="headerlink" title="2   2018-04-29T01:19:54.000     eosio.token::transfer =&gt; exchange      213f3797… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…"></a>2   2018-04-29T01:19:54.000     eosio.token::transfer =&gt; exchange      213f3797… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…</h1><p>This command says to go to the last sequence number (indicated by pos = -1) and then fetch “1” item prior to it (offset = -1). Using the example above, this will return a sequence in the range [3-1,3) or [2,3) which is only row 2. In this case, “-1” position means “one past the last sequence” and operates like an end iterator from C++ containers.</p>
+<p>Fetching only “New” Actions<br>Since we presume your exchange is running a polling micro-service, it will want to fetch the “next unprocessed deposit”. In this case the microservice will need to track the seq number of the “last processed seq”. For the sake of this example, we will assume that “seq 0” has been processed and that we want to fetch “seq 1” if any.</p>
+<p>We pass pos=1 and offset=0 to get the range [1,1+0] or [1,1].</p>
+<p>./cleos get actions exchange 1 0</p>
+<h1 id="seq-when-contract-action-gt-receiver-trx-id…-args-3"><a href="#seq-when-contract-action-gt-receiver-trx-id…-args-3" class="headerlink" title="seq  when                              contract::action =&gt; receiver      trx id…   args"></a>seq  when                              contract::action =&gt; receiver      trx id…   args</h1><p>================================================================================================================</p>
+<h1 id="1-2018-04-29T01-16-25-000-eosio-token-transfer-gt-exchange-2269828c…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…-1"><a href="#1-2018-04-29T01-16-25-000-eosio-token-transfer-gt-exchange-2269828c…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…-1" class="headerlink" title="1   2018-04-29T01:16:25.000     eosio.token::transfer =&gt; exchange      2269828c… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…"></a>1   2018-04-29T01:16:25.000     eosio.token::transfer =&gt; exchange      2269828c… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…</h1><p>We can call this in a loop, processing each confirmed action (those starting with #) until we either run out of items or we find an unconfirmed action (starting with ?).</p>
+<p>./cleos get actions exchange 3 0</p>
+<h1 id="seq-when-contract-action-gt-receiver-trx-id…-args-4"><a href="#seq-when-contract-action-gt-receiver-trx-id…-args-4" class="headerlink" title="seq  when                              contract::action =&gt; receiver      trx id…   args"></a>seq  when                              contract::action =&gt; receiver      trx id…   args</h1><p>================================================================================================================<br>Machine Readable Account History (JSON)<br>So far this tutorial has focused on using cleos to fetch and display the history. However, cleos is merely a light-weight wrapper around a JSON-RPC interface. cleos can dump the raw json returned from the JSON-RPC request, or you can make your own JSON-RPC request.</p>
+<p>Here is the JSON returned when querying sequence 2.</p>
+<p>./cleos get actions exchange 2 0 -j<br>{<br>  “actions”: [{<br>      “global_action_seq”: 32856,<br>      “account_action_seq”: 2,<br>      “block_num”: 32759,<br>      “block_time”: “2018-04-29T01:19:54.000”,<br>      “action_trace”: {<br>        “receipt”: {<br>          “receiver”: “exchange”,<br>          “act_digest”: “00686ff415fe97951a942889dbaed2b880043e3ae6ac2d5579318bbb2d30060f”,<br>          “global_sequence”: 32856,<br>          “recv_sequence”: 3,<br>          “auth_sequence”: [[<br>              “scott”,<br>              43<br>            ]<br>          ]<br>        },<br>        “act”: {<br>          “account”: “eosio.token”,<br>          “name”: “transfer”,<br>          “authorization”: [{<br>              “actor”: “scott”,<br>              “permission”: “active”<br>            }<br>          ],<br>          “data”: {<br>            “from”: “scott”,<br>            “to”: “exchange”,<br>            “quantity”: “1.0000 SYS”,<br>            “memo”: “”<br>          },<br>          “hex_data”: “00000000809c29c20000008a4dd35057102700000000000004454f530000000000”<br>        },<br>        “elapsed”: 52,<br>        “cpu_usage”: 1000,<br>        “console”: “”,<br>        “total_inline_cpu_usage”: 1000,<br>        “trx_id”: “213f37972498cbae5abf6bcb5aec82e09967df7f04cf90f67b7d63a6bb871d58”,<br>        “inline_traces”: []<br>      }<br>    }<br>  ],<br>  “last_irreversible_block”: 35062<br>}<br>Given this JSON, an action is irreversible (final) if “block_num” &lt; “last_irreversible_block”.</p>
+<p>You can identify irreversible deposits by the following:</p>
+<pre><code>actions[0].action_trace.act.account == &quot;eosio.token&quot; &amp;&amp;
+actions[0].action_trace.act.name == &quot;transfer&quot; &amp;&amp;
+actions[0].action_trace.act.data.quantity == &quot;X.0000 SYS&quot; &amp;&amp;
+actions[0].action_trace.to == &quot;exchange&quot; &amp;&amp; 
+actions[0].action_trace.memo == &quot;KEY TO IDENTIFY INTERNAL ACCOUNT&quot; &amp;&amp; 
+actions[0].action_trace.receipt.receiver == &quot;exchange&quot;  &amp;&amp;
+actions[0].block_num &lt; last_irreversible_block
+</code></pre><p>In practice you should give your customers a “memo” that identifies which of your internal accounts you should credit with the deposit.</p>
+<p>WARNING<br>It is critical that you validate all of the conditions above, including the token symbol name. Users can create other contracts with “transfer” actions that “notify” your account. If you do not validate all of the above properties, then you may process “false deposits”.</p>
+<pre><code>actions[0].action_trace.act.account == &quot;eosio.token&quot; &amp;&amp;
+actions[0].action_trace.receipt.receiver == &quot;exchange&quot; 
+</code></pre><p>Validating Balance<br>Now that we have received three deposits, we should see that the exchange has a balance of 3.0000 SYS.</p>
+<p>./cleos get currency balance eosio.token exchange SYS<br>3.0000 SYS<br>Processing Withdrawals<br>(Note: while generating this tutorial, scott deposited another 1.0000 SYS (seq 3) for a total exchange balance of 4.0000 SYS.)</p>
+<p>When a user requests a withdrawal from your exchange, they will need to provide you with their eosio account name and the amount to be withdrawn. You can then run the cleos command to perform the withdrawal. cleos will interact with the “unlocked” wallet running on nodeos, which should only enable localhost connections. More advanced usage will have a separate key-server (keosd), but that will be covered later.</p>
+<p>Let’s assume scott wants to withdraw 1.0000 SYS:</p>
+<p>./cleos transfer exchange scott  “1.0000 SYS”<br>executed transaction: 93e785202e7502bb1383ad10e786cc20f7dd738d3fd3da38712b3fb38fb9af26  256 bytes  8k cycles</p>
+<h1 id="eosio-token-lt-eosio-token-transfer-“from”-”exchange”-”to”-”scott”-”quantity”-”1-0000-SYS”-”memo”-””"><a href="#eosio-token-lt-eosio-token-transfer-“from”-”exchange”-”to”-”scott”-”quantity”-”1-0000-SYS”-”memo”-””" class="headerlink" title="eosio.token &lt;= eosio.token::transfer        {“from”:”exchange”,”to”:”scott”,”quantity”:”1.0000 SYS”,”memo”:””}"></a>eosio.token &lt;= eosio.token::transfer        {“from”:”exchange”,”to”:”scott”,”quantity”:”1.0000 SYS”,”memo”:””}</h1><blockquote>
+<blockquote>
+<p>transfer</p>
+<h1 id="exchange-lt-eosio-token-transfer-“from”-”exchange”-”to”-”scott”-”quantity”-”1-0000-SYS”-”memo”-””"><a href="#exchange-lt-eosio-token-transfer-“from”-”exchange”-”to”-”scott”-”quantity”-”1-0000-SYS”-”memo”-””" class="headerlink" title="exchange &lt;= eosio.token::transfer        {“from”:”exchange”,”to”:”scott”,”quantity”:”1.0000 SYS”,”memo”:””}"></a>exchange &lt;= eosio.token::transfer        {“from”:”exchange”,”to”:”scott”,”quantity”:”1.0000 SYS”,”memo”:””}</h1><h1 id="scott-lt-eosio-token-transfer-“from”-”exchange”-”to”-”scott”-”quantity”-”1-0000-SYS”-”memo”-””"><a href="#scott-lt-eosio-token-transfer-“from”-”exchange”-”to”-”scott”-”quantity”-”1-0000-SYS”-”memo”-””" class="headerlink" title="scott &lt;= eosio.token::transfer        {“from”:”exchange”,”to”:”scott”,”quantity”:”1.0000 SYS”,”memo”:””}"></a>scott &lt;= eosio.token::transfer        {“from”:”exchange”,”to”:”scott”,”quantity”:”1.0000 SYS”,”memo”:””}</h1><p>warning: transaction executed locally, but may not be confirmed by the network yet<br>At this stage your local nodeos client accepted the transaction and likely broadcast it to the broader network.</p>
+</blockquote>
+</blockquote>
+<p>We can get the history and see that there are “3” new actions listed, all with transaction id 93e78520…, as reported by our transfer command. Because exchange authorized the transaction, it is informed of all accounts that processed and accepted the transfer. In this case the eosio.token contract processed the transfer and updated balances, the sender (exchange) processed it, as did the receiver (scott). All three contracts/accounts approved it and/or performed state transitions based upon the action.</p>
+<p>./cleos get actions exchange -1 -8</p>
+<h1 id="seq-when-contract-action-gt-receiver-trx-id…-args-5"><a href="#seq-when-contract-action-gt-receiver-trx-id…-args-5" class="headerlink" title="seq  when                              contract::action =&gt; receiver      trx id…   args"></a>seq  when                              contract::action =&gt; receiver      trx id…   args</h1><p>================================================================================================================</p>
+<h1 id="0-2018-04-29T01-09-45-000-eosio-token-transfer-gt-exchange-5ec79717…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…-2"><a href="#0-2018-04-29T01-09-45-000-eosio-token-transfer-gt-exchange-5ec79717…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…-2" class="headerlink" title="0   2018-04-29T01:09:45.000     eosio.token::transfer =&gt; exchange      5ec79717… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…"></a>0   2018-04-29T01:09:45.000     eosio.token::transfer =&gt; exchange      5ec79717… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…</h1><h1 id="1-2018-04-29T01-16-25-000-eosio-token-transfer-gt-exchange-2269828c…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…-2"><a href="#1-2018-04-29T01-16-25-000-eosio-token-transfer-gt-exchange-2269828c…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…-2" class="headerlink" title="1   2018-04-29T01:16:25.000     eosio.token::transfer =&gt; exchange      2269828c… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…"></a>1   2018-04-29T01:16:25.000     eosio.token::transfer =&gt; exchange      2269828c… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…</h1><h1 id="2-2018-04-29T01-19-54-000-eosio-token-transfer-gt-exchange-213f3797…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…-1"><a href="#2-2018-04-29T01-19-54-000-eosio-token-transfer-gt-exchange-213f3797…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…-1" class="headerlink" title="2   2018-04-29T01:19:54.000     eosio.token::transfer =&gt; exchange      213f3797… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…"></a>2   2018-04-29T01:19:54.000     eosio.token::transfer =&gt; exchange      213f3797… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…</h1><h1 id="3-2018-04-29T01-53-57-000-eosio-token-transfer-gt-exchange-8b7766ac…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…"><a href="#3-2018-04-29T01-53-57-000-eosio-token-transfer-gt-exchange-8b7766ac…-“from”-”scott”-”to”-”exchange”-”quantity”-”1-0000-SYS”-”mem…" class="headerlink" title="3   2018-04-29T01:53:57.000     eosio.token::transfer =&gt; exchange      8b7766ac… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…"></a>3   2018-04-29T01:53:57.000     eosio.token::transfer =&gt; exchange      8b7766ac… {“from”:”scott”,”to”:”exchange”,”quantity”:”1.0000 SYS”,”mem…</h1><h1 id="4-2018-04-29T01-54-17-500-eosio-token-transfer-gt-eosio-token-93e78520…-“from”-”exchange”-”to”-”scott”-”quantity”-”1-0000-SYS”-”mem…"><a href="#4-2018-04-29T01-54-17-500-eosio-token-transfer-gt-eosio-token-93e78520…-“from”-”exchange”-”to”-”scott”-”quantity”-”1-0000-SYS”-”mem…" class="headerlink" title="4   2018-04-29T01:54:17.500     eosio.token::transfer =&gt; eosio.token   93e78520… {“from”:”exchange”,”to”:”scott”,”quantity”:”1.0000 SYS”,”mem…"></a>4   2018-04-29T01:54:17.500     eosio.token::transfer =&gt; eosio.token   93e78520… {“from”:”exchange”,”to”:”scott”,”quantity”:”1.0000 SYS”,”mem…</h1><h1 id="5-2018-04-29T01-54-17-500-eosio-token-transfer-gt-exchange-93e78520…-“from”-”exchange”-”to”-”scott”-”quantity”-”1-0000-SYS”-”mem…"><a href="#5-2018-04-29T01-54-17-500-eosio-token-transfer-gt-exchange-93e78520…-“from”-”exchange”-”to”-”scott”-”quantity”-”1-0000-SYS”-”mem…" class="headerlink" title="5   2018-04-29T01:54:17.500     eosio.token::transfer =&gt; exchange      93e78520… {“from”:”exchange”,”to”:”scott”,”quantity”:”1.0000 SYS”,”mem…"></a>5   2018-04-29T01:54:17.500     eosio.token::transfer =&gt; exchange      93e78520… {“from”:”exchange”,”to”:”scott”,”quantity”:”1.0000 SYS”,”mem…</h1><h1 id="6-2018-04-29T01-54-17-500-eosio-token-transfer-gt-scott-93e78520…-“from”-”exchange”-”to”-”scott”-”quantity”-”1-0000-SYS”-”mem…"><a href="#6-2018-04-29T01-54-17-500-eosio-token-transfer-gt-scott-93e78520…-“from”-”exchange”-”to”-”scott”-”quantity”-”1-0000-SYS”-”mem…" class="headerlink" title="6   2018-04-29T01:54:17.500     eosio.token::transfer =&gt; scott         93e78520… {“from”:”exchange”,”to”:”scott”,”quantity”:”1.0000 SYS”,”mem…"></a>6   2018-04-29T01:54:17.500     eosio.token::transfer =&gt; scott         93e78520… {“from”:”exchange”,”to”:”scott”,”quantity”:”1.0000 SYS”,”mem…</h1><p>By processing the history, we can be informed when our transaction was confirmed. In practice, we expect you will maintain private database state to track the withdrawal process. It might be useful to embed an exchange-specific memo in the withdraw request in order to map to your private database state. Another approach is to simply use the transaction ID for your mapping. When your account history microservice comes across seq 5 and sees it is irreversible, it can then mark your withdrawal as complete.</p>
+<p>Handling Errors<br>Sometimes network issues will cause a transaction to fail and never be included in a block. Your internal database will need to know when this has happened so that it can inform the user and/or try again. If you do not get an immediate error when you submit your local transfer, then you must wait for the transaction to expire. Every transaction has an “expiration”, after which the transaction can never be applied. Once the last irreversible block has moved past the expiration time, you can safely mark your attempted withdrawal as failed and not worry about it “floating around the ether” to be applied when you least expect.</p>
+<p>By default, cleos sets an expiration window of 2 minutes. This is long enough to allow all 21 producers an opportunity to include the transaction.</p>
+<p> ./cleos transfer exchange scott  “1.0000 SYS” -j -d<br>{<br>  “expiration”: “2018-04-29T01:58:12”,<br>  “ref_block_num”: 37282,<br>  “ref_block_prefix”: 351570603,<br>  “max_net_usage_words”: 0,<br>  “max_kcpu_usage”: 0,<br>  “delay_sec”: 0,<br>  “context_free_actions”: [],<br>  …</p>
+<p>Your microservice can query the last irreversible block number and the head block time using cleos.</p>
+<p>./cleos get info<br>{<br>  “server_version”: “0812f84d”,<br>  “head_block_num”: 39313,<br>  “last_irreversible_block_num”: 39298,<br>  “last_irreversible_block_id”: “000099823bfc4f0b936d8e48c70fc3f1619eb8d21989d160a9fe23655f1f5c79”,<br>  “head_block_id”: “000099912473a7a3699ad682f731d1874ebddcf4b60eff79f8e6e4216077278d”,<br>  “head_block_time”: “2018-04-29T02:14:31”,<br>  “head_block_producer”: “producer2”<br>}<br>Exchange Security<br>This tutorial shows the minimal viable deposit/withdraw handlers and assumes a single wallet which contains all keys necessary to authorize deposits and withdrawals. A security-focused exchange would take the following additional steps:</p>
+<p>keep vast majority of funds in a time-delayed, multi-sig controlled account<br>use multi-sig on the hot wallet with several independent processes/servers double-checking all withdrawals<br>deploy a custom contract that only allows withdrawals to KYC’d accounts and require multi-sig to white-list accounts<br>deploy a custom contract that only accepts deposits of known tokens from KYC’d accounts<br>deploy a custom contract that enforces a mandatory 24-hour waiting period for all withdrawals<br>utilize hardware wallets for all signing, even automated withdrawal<br>Customers want immediate withdrawals, but they also want the exchange to be protected. The blockchain-enforced 24-hour period lets the customer know the money is “on the way” while also informing potential-hackers that the exchange has 24 hours to respond to unauthorized access. Furthermore, if the exchange emails/text messages users upon start of withdrawal, users have 24 hours to contact the exchange and fix any unauthorized access to their individual account.</p>
+<p>Information on how to utilize these more advanced techniques will be available in a future document.</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/21/online-eos-13/">« eosio toke...</a></span>
+  <span class="right"><a href="/2018/05/21/online-eos-15/">Hello Worl... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月21日 20:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-eos-14
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+
