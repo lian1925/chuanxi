@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>EOSIO Dawn【拂晓版】 4.0 Release【发布】 | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/EOS/">
+            EOS
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/EOS/">
+              EOS
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/21/online-eos-1/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="#">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/21/online-eos-1/">
+                    白皮书 v2 | EOS
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="#">
+                    无
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>EOSIO Dawn【拂晓版】 4.0 Release【发布】</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月21日 12:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>(May 12 五月12日发布)</p>
+<p>Last week we introduced EOSIO Dawn 4.0, today we are proud to bring you the next major pre-release of EOSIO. A lot has happened in the past week!</p>
+<h2 id="Feedback【反馈】-on-Dawn-4-0-RAM-Allocation【RAM分配】"><a href="#Feedback【反馈】-on-Dawn-4-0-RAM-Allocation【RAM分配】" class="headerlink" title="Feedback【反馈】 on Dawn 4.0 RAM Allocation【RAM分配】"></a>Feedback【反馈】 on Dawn 4.0 RAM Allocation【RAM分配】</h2><p>Some community members expressed concern【关注】 that some people will derive【源自】 unjustified【不公正的】 profits【利润】 by buying up cheap RAM before anyone else can get on the chain. To mitigate【消除】 this, we recommend【推荐】 that those who launch a chain start out with a very limited【少量】 supply of RAM and then gradually increase【增加】 the RAM over the first couple【两个】 of months. If the RAM supply starts out at 32GB and then grows to 1TB over a period of months then the price of RAM may rapidly drop over time to 3% of its initial pricing. Only those who really need RAM or who factor in future RAM supply when bidding will buy the initial RAM. Either way, no one will get “cheap” RAM or “free profits”.</p>
+<h2 id="Test-Network-Status【状况】"><a href="#Test-Network-Status【状况】" class="headerlink" title="Test Network Status【状况】"></a>Test Network Status【状况】</h2><p>Our internal【内部】 test network with nodes in Europe【欧洲】, Asia【亚洲】, and the United States【美国】 has been operating well【运行良好】 without significant issues.</p>
+<h2 id="Subjective-CPU-Resource【资源】-Usage-is-Back"><a href="#Subjective-CPU-Resource【资源】-Usage-is-Back" class="headerlink" title="Subjective CPU Resource【资源】 Usage is Back"></a>Subjective CPU Resource【资源】 Usage is Back</h2><p>For the past several months【过去几个月】 we have been experimenting【实验】 with objective CPU billing【账单】. Objective billing attempts to calculate a number of CPU instructions【指令】 used by a transaction【事务】 in a deterministic【确定性】 manner. This has the nice property of ensuring that there is complete and unambiguous【不含糊的】 consensus over what resources are consumed by a transaction. It is also the method used by many other smart contract platforms.</p>
+<p>When we introduced EOSIO a year ago we proposed【假想】 the use of Subjective Best Effort Scheduling. Under this model each block producer would measure the wall-clock-time it took to execute the transaction and charge the user accordingly. To maintain consensus over usage, the producer will report the number of microseconds they billed to the transactions.</p>
+<p>While objective billing is nice for its ability to eliminate【消除】 billing disputes【争端】 and simplify consensus, it has several drawbacks【回滚】 which caused us to finally decide on subjective billing:</p>
+<p>Objective CPU measures slow down performance by introducing extra【额外】 bookkeeping【记账】.</p>
+<p>Objective CPU measures introduce attack【攻击】 and denial of service vectors anytime there is inconsistency between the real cost of an action and its objective approximation.<br>Objective CPU measures are difficult to maintain, upgrade, and introduce optimizations.<br>Subjective billing has its own challenges, especially in a consensus system. Fortunately we have found innovative solutions that make it practical. Some of these challenges include:</p>
+<p>Trusting producers to accurately report usage.<br>Resolving differences of opinion among producers (caused by hardware/software/load).<br>Dealing with a malicious producer.<br>With Delegated Proof of Stake it is expected that the block producers would be public entities with contractual obligations and legal repercussions for malicious behavior. It is further expected that all 21 active producers are highly approved by their the community who elected them.</p>
+<p>Based upon this we can place an element of trust on all of them to act as cpu runtime oracles and not lie about how long a transaction takes to run. This means that under normal operating conditions we can trust that the reported runtime is within a reasonable margin of error of average runtime across all producers.</p>
+<p>Critics of this approach may point out that a single malicious producer could construct a block with an infinite loop and report it as taking no time. To prevent this all nodes place a cap of a couple seconds of runtime for all blocks; however, even with the cap it could cause some disruption to the network. A savvy malicious producer might construct a block such that 50% of the nodes accept it and 50% reject it and thus split the network.</p>
+<p>Our team has analysed these attack vectors and come to the realization that a block with a very long runtime is no different than a very long network delay or outage. Any consensus algorithm that is robust in the face network partitions should also be robust in the face of other subjective things. Because DPOS with BFT can withstand network partitions (like if US and China get temporarily disconnected from the broader internet), it can survive a malicious producer creating such conditions.</p>
+<p>There are several ways that block producers can mitigate the potential for network partitions and they are the same whether the cause is cutting a fiber optic cable in the Atlantic or a malicious producer.</p>
+<p>Maintain Multiple Connections<br>With this approach if the connection across the Atlantic is cut, then the producer would route packets across the Pacific. When it comes to validating blocks, a producer should have several validating nodes and never have the two nodes attempt to validate the same block. In the most extreme case each producer could have dedicated nodes for processing incoming blocks from each peer producer. If one producer clogs their validating channel with an infinite loop then blocks from the other producers can still get through their independent and redundant channels. Once the irreversible block number moves past the block number of the bad block (the one with an infinite loop), the node can force the block processing to terminate and exit. It would require ⅔+ of the producers to be byzantine stop consensus from advancing.</p>
+<p>Repair or Route Around Damage<br>It isn’t always possible to have multiple fibre-optic cables ready to take over the moment one of them is cut. In this event a team is dispatched to repair the damaged cable and restore connectivity. This may take longer, but eventually connectivity returns and the network resumes consensus with nothing more than a little down time. When it comes to a bad producer causing mischief the other producers can simply update their configuration to blacklist the bad producer and then the network will resume its normal operations. The process of blacklisting a bad producer can even be automated any time they observe a block that takes an unreasonable amount of runtime. Worst case scenario a bad producer crafts a block right on the edge of the ban threshold such that only causes half of the producers to blacklist him. In this event the last irreversible block will cease to advance while the producers decide which pending fork to follow.</p>
+<p>In all of the above cases users who rely on the last irreversible block for determining finality are safe from double spend attacks and the “down time” experienced by the network is likely to be less than the typical “down time” people experience from their power companies or ISP.</p>
+<p>We believe that the governance processes and incentives of DPOS make the probability of malicious behavior leading to short-term downtime to be lower than the probability of internet connectivity issues leading to downtime for all blockchain platforms. At least with DPOS users are safe from unknowingly being on a minority chain that is unwound after reconnection. With Proof of Work chains a network split could result in double spend attacks for those who only rely on a fixed number of confirmations.</p>
+<p>System Contract Updates<br>The ‘eosio.system’ contract is what provides the implementation of producer registration, voting, staking, and resource allocation. Our team has been working to provide a reference implementation that a community may choose to adopt when they create their chain. In this release the system contract has been updated to include the following:</p>
+<p>No one can unstake until 150,000,000.0000 TOKENS have cast a vote for at least one producer or proxy.<br>If a chain wishes to allocate 10% of TOKENS to Block.one, it will rate limit unstaking to 1% per year.<br>Hacked Account Recovery &amp; Lost Password Recovery<br>Our team created a new approach to hacked account recovery and lost password recovery that enables almost everything to be implemented in Web Assembly. We added a new intrinsic API that returns the last time a permission level was authorized by an account. With this information a smart contract can now implement the logic required to enforce 30 days of inactivity followed by 7 days notice before resetting a lost password entirely in Web Assembly.</p>
+<p>We removed 3 hard-coded action handlers, eliminating potential bugs and making it easy to enhance with soft-updates later. The one or more implementations of lost password recovery may be provided as a separate smart contract after the release of 1.0.</p>
+<p>Available on Github Now<br>EOSIO Dawn 4.0 is now available on GitHub so developers can start testing their applications.</p>
+<p>EOSIO 1.0 Coming Soon<br>Our team is working around the clock to bring a stable EOSIO 1.0 to the market the first week of June. This initial release will have everything needed to allow anyone to create their own EOSIO based blockchain. We have implemented a “feature freeze” and the next few weeks will be dedicated to operating and testing internal test networks and fixing bugs discovered. Our goal is to ensure the most critical features are rock solid. After EOSIO 1.0 we will continue to enhance the EOSIO software with non-forking changes which will enable a host of usability and infrastructure improvements.</p>
+<p>Disclaimer: Block.one is a software company and is producing the EOSIO software as free, open source software. This software may, among other things, enable those who deploy it to launch a blockchain or decentralized applications with various features. For more information, please visit <a href="https://github.com/eosio" target="_blank" rel="external">https://github.com/eosio</a>. block.one does not provide financial support to anyone seeking to become a block producer on any version of the EOSIO platform that may be adopted or implemented.</p>
+<p>Block.one will not be launching any of the initial public blockchains based on the EOSIO software. It will be the sole responsibility of third parties, the community and/or those who wish to become block producers to adopt and implement EOSIO in the manner they choose, with the features they choose and/or providing the services as they choose. Block.one does not guarantee that anyone will adopt or implement such features or provide such services or that the EOSIO software will be adopted and implemented in any way.</p>
+<p>Block.one does not endorse any third party or its products or services, even if they are mentioned herein. Block.one is not responsible for any linked content.</p>
+<p>Please note that the statements herein are an expression of block.one’s vision, not a guarantee of anything. While we will try to make that vision come true, all aspects of it are subject to change in all respects in Block.one’s sole discretion. We call these “forward looking statements”, which includes statements in this document, other than statements of historical facts, such as statements regarding Block.one’s business strategy, plans, prospects, developments and objectives. These statements are only predictions and reflect Block.one’s current beliefs and expectations with respect to future events and are based on assumptions and are subject to risk, uncertainties and change at any time. We operate in a rapidly changing environment. New risks emerge from time to time. Given these risks and uncertainties, you are cautioned not to rely on these forward-looking statements. Actual results, performance or events may differ materially from those contained in the forward-looking statements. Some of the factors that could cause actual results, performance or events to differ materially from the forward-looking statements include, without limitation: market volatility; continued availability of capital, financing and personnel; product acceptance; the commercial success of any new products or technologies; competition; government regulation and laws; and general economic, market or business conditions.</p>
+<p>All statements speak only as of the date of first posting and Block.one is under no obligation to, and expressly disclaims any obligation to, update or alter any statements, whether as a result of new information, subsequent events or otherwise. Nothing herein constitutes technology, financial, investment, legal or other advice, either in general or for any particular situation or implementation. Please consult with experts in appropriate areas before implementing or utilizing anything contained in this document.</p>
+<p>The ideas and information expressed herein are solely those of the author and do not necessarily reflect the positions, views or advice of Block.one or any other employee of Block.one.</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/21/online-eos-1/">« 白皮书 v2 | E...</a></span>
+  <span class="right"><a href="#">无... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月21日 12:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-eos-2
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+
