@@ -127,212 +127,593 @@ if(isiOS){
 
   
   <div class="page">
-      <p>Objective<br>The following tutorial will guide the user to build a sample Player vs Player game contract. We will use tic tac toe game to demonstrate this. Final result of this tutorial can be found here.</p>
-<p>Assumption<br>For this game, we are using a standard 3x3 tic tac toe board. Players are divided into two roles: host and challenger. Host always makes the first move. Each pair of players can ONLY have up to two games at the same time, one where the first player becomes the host and the other one where the second player becomes the host.</p>
-<p>Board<br>Instead of using o and x as in the traditional tic tac toe game. We use 1 to denote movement by host, 2 to denote movement by challenger, and 0 to denote empty cell. Furthermore, we will use one dimensional array to store the board. Hence:</p>
+      <h2 id="Objective"><a href="#Objective" class="headerlink" title="Objective"></a>Objective</h2><p>The following tutorial will guide the user to build a sample Player vs Player game contract. We will use tic tac toe game to demonstrate this. Final result of this tutorial can be found here.</p>
+<h2 id="Assumption"><a href="#Assumption" class="headerlink" title="Assumption"></a>Assumption</h2><p>For this game, we are using a standard 3x3 tic tac toe board. Players are divided into two roles: host and challenger. Host always makes the first move. Each pair of players can ONLY have up to two games at the same time, one where the first player becomes the host and the other one where the second player becomes the host.</p>
+<h3 id="Board"><a href="#Board" class="headerlink" title="Board"></a>Board</h3><p>Instead of using o and x as in the traditional tic tac toe game. We use 1 to denote movement by host, 2 to denote movement by challenger, and 0 to denote empty cell. Furthermore, we will use one dimensional array to store the board. Hence:</p>
 <p>(0,0)    (1,0)    (2,0)<br>(0,0)    -    o    x<br>(0,1)    -    x    -<br>(0,2)    x    o    o<br>Assuming x is host, the above board is equal to [0, 2, 1, 0, 1, 0, 1, 2, 2]</p>
-<p>Action<br>User will have the following actions to interact with this contract:</p>
-<p>create: create a new game<br>restart: restart an existing game, host or challenger is allowed to do this<br>close: close an existing game, which frees up the storage used to store the game, only host is allowed to do this<br>move: make a movement<br>Contract account<br>For the following guide, we are going to push the contract to an account called tic.tac.toe. In case tic.tac.toe account name is already taken, you can also use another account by replacing any occurence of tic.tac.toe in the code with your account name. If you haven’t created the account, please create the account first.</p>
+<h3 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h3><p>User will have the following actions to interact with this contract:</p>
+<p>create: create a new game<br>restart: restart an existing game, host or challenger is allowed to do this<br>close: close an existing game, which frees up the storage used to store the game, only host is allowed to do this<br>move: make a movement</p>
+<h3 id="Contract-account"><a href="#Contract-account" class="headerlink" title="Contract account"></a>Contract account</h3><p>For the following guide, we are going to push the contract to an account called tic.tac.toe. In case tic.tac.toe account name is already taken, you can also use another account by replacing any occurence of tic.tac.toe in the code with your account name. If you haven’t created the account, please create the account first.</p>
 <p>$ cleos create account ${creator_name} ${contract_account_name} ${contract_pub_owner_key} ${contract_pub_active_key} –permission ${creator_name}@active</p>
 <h1 id="e-g-cleos-create-account-inita-tic-tac-toe-EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq-EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA-–permission-inita-active"><a href="#e-g-cleos-create-account-inita-tic-tac-toe-EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq-EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA-–permission-inita-active" class="headerlink" title="e.g. $ cleos create account inita tic.tac.toe  EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA –permission inita@active"></a>e.g. $ cleos create account inita tic.tac.toe  EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA –permission inita@active</h1><p>Ensure that you have your wallet unlocked and the creator’s private active key in the wallet imported, otherwise the above command will fail.</p>
-<p>Start!<br>We are going to create three files here:</p>
-<p>tic_tac_toe.hpp =&gt; header file where the structure of the contract is defined<br>tic_tac_toe.cpp =&gt; main logic of the contract<br>tic_tac_toe.abi =&gt; interface for user to interact with the contract NB: In this example we use the account name of N(tic.tac.toe) for the contract account. If you plan to use a differnt name for the contract account, then replace tic.tac.toe with your account name.<br>Defining Structure<br>Let’s first start with the header file and define the structure of the contract. Open tic_tac_toe.hpp and start with the following boilerplate</p>
+<h2 id="Start"><a href="#Start" class="headerlink" title="Start!"></a>Start!</h2><p>We are going to create three files here:</p>
+<p>tic_tac_toe.hpp =&gt; header file where the structure of the contract is defined<br>tic_tac_toe.cpp =&gt; main logic of the contract<br>tic_tac_toe.abi =&gt; interface for user to interact with the contract NB: In this example we use the account name of N(tic.tac.toe) for the contract account. If you plan to use a differnt name for the contract account, then replace tic.tac.toe with your account name.</p>
+<h2 id="Defining-Structure"><a href="#Defining-Structure" class="headerlink" title="Defining Structure"></a>Defining Structure</h2><p>Let’s first start with the header file and define the structure of the contract. Open tic_tac_toe.hpp and start with the following boilerplate</p>
 <p>// Import necessary library</p>
 <p>#include <eosiolib eosio.hpp=""> // Generic eosio library, i.e. print, type, math, etc</eosiolib></p>
-<p>using namespace eosio;<br>namespace tic_tac_toe {<br>   static const account_name games_account = N(games);<br>   static const account_name code_account = N(tic.tac.toe);<br>    // Your code here<br>}<br>Games Table<br>For this contract, we will need to have a table that stores a list of games. Let’s define it:</p>
-<p>…<br>namespace tic_tac_toe {<br>    …<br>    typedef eosio::multi_index&lt; games_account, game&gt; games;<br>}</p>
-<p>First template parameter defines the name of the table<br>Second template parameter defines the structure that it stores (will be defined in the next section)<br>Game Structure<br>Let’s define structure for the game. Ensure that this struct definition appears before the table definition in the code.</p>
-<p>…<br>namespace tic_tac_toe {<br>   static const uint32_t board_len = 9;<br>   struct game {<br>      game() {}<br>      game(account_name challenger, account_name host):challenger(challenger), host(host), turn(host) {<br>         // Initialize board<br>         initialize_board();<br>      }<br>      account_name     challenger;<br>      account_name     host;<br>      account_name     turn; // = account name of host/ challenger<br>      account_name     winner = N(none); // = none/ draw/ account name of host/ challenger<br>      uint8_t          board[9]; //</p>
-<pre><code>  // Initialize board with empty cell
-  void initialize_board() {
-     for (uint8_t i = 0; i &lt; board_len ; i++) {
-        board[i] = 0;
-     }
-  }
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">using</span> <span class="token keyword">namespace</span> eosio<span class="token punctuation">;</span>
+<span class="token keyword">namespace</span> tic_tac_toe <span class="token punctuation">{</span>
+   <span class="token keyword">static</span> <span class="token keyword">const</span> account_name games_account <span class="token operator">=</span> <span class="token function">N</span><span class="token punctuation">(</span>games<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token keyword">static</span> <span class="token keyword">const</span> account_name code_account <span class="token operator">=</span> <span class="token function">N</span><span class="token punctuation">(</span>tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// Your code here</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="Games-Table"><a href="#Games-Table" class="headerlink" title="Games Table"></a>Games Table</h3><p>For this contract, we will need to have a table that stores a list of games. Let’s define it:</p>
+<pre class=" language-js"><code class="language-js"><span class="token operator">...</span>
+namespace tic_tac_toe <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+    typedef eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>multi_index<span class="token operator">&lt;</span> games_account<span class="token punctuation">,</span> game<span class="token operator">></span> games<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>First template parameter defines the name of the table<br>Second template parameter defines the structure that it stores (will be defined in the next section)</p>
+<h2 id="Game-Structure"><a href="#Game-Structure" class="headerlink" title="Game Structure"></a>Game Structure</h2><p>Let’s define structure for the game. Ensure that this struct definition appears before the table definition in the code.</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">namespace</span> tic_tac_toe <span class="token punctuation">{</span>
+   <span class="token keyword">static</span> <span class="token keyword">const</span> uint32_t board_len <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>
+   <span class="token keyword">struct</span> game <span class="token punctuation">{</span>
+      <span class="token function">game</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+      <span class="token function">game</span><span class="token punctuation">(</span>account_name challenger<span class="token punctuation">,</span> account_name host<span class="token punctuation">)</span><span class="token operator">:</span><span class="token function">challenger</span><span class="token punctuation">(</span>challenger<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">host</span><span class="token punctuation">(</span>host<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">turn</span><span class="token punctuation">(</span>host<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token comment" spellcheck="true">// Initialize board</span>
+         <span class="token function">initialize_board</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+      account_name     challenger<span class="token punctuation">;</span>
+      account_name     host<span class="token punctuation">;</span>
+      account_name     turn<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// = account name of host/ challenger</span>
+      account_name     winner <span class="token operator">=</span> <span class="token function">N</span><span class="token punctuation">(</span>none<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// = none/ draw/ account name of host/ challenger</span>
+      uint8_t          board<span class="token punctuation">[</span><span class="token number">9</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//</span>
 
-  // Reset game
-  void reset_game() {
-     initialize_board();
-     turn = host;
-     winner = N(none);
-  }
+      <span class="token comment" spellcheck="true">// Initialize board with empty cell</span>
+      <span class="token keyword">void</span> <span class="token function">initialize_board</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token keyword">for</span> <span class="token punctuation">(</span>uint8_t i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> board_len <span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            board<span class="token punctuation">[</span>i<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
 
-  auto primary_key() const { return challenger; }
+      <span class="token comment" spellcheck="true">// Reset game</span>
+      <span class="token keyword">void</span> <span class="token function">reset_game</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token function">initialize_board</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         turn <span class="token operator">=</span> host<span class="token punctuation">;</span>
+         winner <span class="token operator">=</span> <span class="token function">N</span><span class="token punctuation">(</span>none<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
 
-  EOSLIB_SERIALIZE( game, (challenger)(host)(turn)(winner)(board) )
-</code></pre><p>   };<br>}<br>The primary_key method is required by the above table definition for games. That is how the table knows what field is the lookup key for the table.</p>
-<p>Action Structure<br>Create<br>To create the game, we need host account name and challenger’s account name. The EOSLIB_SERIALIZE macro provides serialize and deserialize methods so that actions can be passed back and forth between the contracts and the nodeos system.</p>
-<p>…<br>namespace tic_tac_toe {<br>   …<br>   struct create {<br>      account_name   challenger;<br>      account_name   host;</p>
-<pre><code>  EOSLIB_SERIALIZE( create, (challenger)(host) )
-</code></pre><p>   };<br>   …<br>}<br>Restart<br>To restart the game, we need host account name and challenger’s account name to identify the game. Furthermore, we need to specify who wants to restart the game, so we can verify the correct signature is provided.</p>
-<p>…<br>namespace tic_tac_toe {<br>   …<br>   struct restart {<br>      account_name   challenger;<br>      account_name   host;<br>      account_name   by;</p>
-<pre><code>  EOSLIB_SERIALIZE( restart, (challenger)(host)(by) )
-</code></pre><p>   };<br>   …<br>}<br>Close<br>To close the game, we need host account name and challenger’s account name to identify the game.</p>
-<p>…<br>namespace tic_tac_toe {<br>   …<br>   struct close {<br>      account_name   challenger;<br>      account_name   host;</p>
-<pre><code>  EOSLIB_SERIALIZE( close, (challenger)(host) )
-</code></pre><p>   };<br>   …<br>}<br>Move<br>To make a move, we need host account name and challenger’s account name to identify the game. Furthermore, we need to specify who makes this move and the movement he is making.</p>
-<p>…<br>namespace tic_tac_toe {<br>   …<br>   struct movement {<br>      uint32_t    row;<br>      uint32_t    column;</p>
-<pre><code>  EOSLIB_SERIALIZE( movement, (row)(column) )
-</code></pre><p>   };</p>
-<p>   struct move {<br>      account_name   challenger;<br>      account_name   host;<br>      account_name   by; // the account who wants to make the move<br>      movement       mvt;</p>
-<pre><code>  EOSLIB_SERIALIZE( move, (challenger)(host)(by)(mvt) )
-</code></pre><p>   };<br>   …<br>}<br>You can see the final tic_tac_toe.hpp here</p>
-<p>Main<br>Let’s open tic_tac_toe.cpp and setup the boilerplate</p>
-<p>#include “tic_tac_toe.hpp”<br>using namespace eosio;<br>/**</p>
-<ul>
-<li>The apply() method must have C calling convention so that the blockchain can lookup and</li>
-<li><p>call these methods.<br>*/<br>extern “C” {</p>
-<p>using namespace tic_tac_toe;<br>/// The apply method implements the dispatch of events to this contract<br>void apply( uint64_t receiver, uint64_t code, uint64_t action ) {<br>   // Put your action handler here<br>}</p>
-</li>
-</ul>
-<p>} // extern “C”<br>Action handler<br>We want tic_tac_toe contract to only react to actions sent to the tic.tac.toe account and react differently according to the type of the action. Let’s add an impl struct with overloaded ‘on’ methods taking the different action types (this may seem like overkill for this example, but you will see this pattern employed in other contracts that you can extend, like currency):</p>
-<p>using namespace eosio;<br>namespace tic_tac_toe {<br>struct impl {<br>   …<br>   /// The apply method implements the dispatch of events to this contract<br>   void apply( uint64_t receiver, uint64_t code, uint64_t action ) {</p>
-<pre><code>  if (code == code_account) {
-     if (action == N(create)) {
-        impl::on(eosio::unpack_action_data&lt;tic_tac_toe::create&gt;());
-     } else if (action == N(restart)) {
-        impl::on(eosio::unpack_action_data&lt;tic_tac_toe::restart&gt;());
-     } else if (action == N(close)) {
-        impl::on(eosio::unpack_action_data&lt;tic_tac_toe::close&gt;());
-     } else if (action == N(move)) {
-        impl::on(eosio::unpack_action_data&lt;tic_tac_toe::move&gt;());
-     }
-  }
-</code></pre><p>   }</p>
-<p>};<br>}</p>
-<p>…<br>extern “C” {</p>
-<p>   using namespace tic_tac_toe;<br>   /// The apply method implements the dispatch of events to this contract<br>   void apply( uint64_t receiver, uint64_t code, uint64_t action ) {<br>      impl().apply(receiver, code, action);<br>   }</p>
-<p>} // extern “C”<br>Notice that we use unpack_action_data<t>() before passing it to specific handler, unpack_action_data<t>() is converting the action that the contract receives to struct T.</t></t></p>
+      <span class="token keyword">auto</span> <span class="token function">primary_key</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> challenger<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+
+      <span class="token function">EOSLIB_SERIALIZE</span><span class="token punctuation">(</span> game<span class="token punctuation">,</span> <span class="token punctuation">(</span>challenger<span class="token punctuation">)</span><span class="token punctuation">(</span>host<span class="token punctuation">)</span><span class="token punctuation">(</span>turn<span class="token punctuation">)</span><span class="token punctuation">(</span>winner<span class="token punctuation">)</span><span class="token punctuation">(</span>board<span class="token punctuation">)</span> <span class="token punctuation">)</span>
+   <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The primary_key method is required by the above table definition for games. That is how the table knows what field is the lookup key for the table.</p>
+<h2 id="Action-Structure"><a href="#Action-Structure" class="headerlink" title="Action Structure"></a>Action Structure</h2><h3 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h3><p>To create the game, we need host account name and challenger’s account name. The EOSLIB_SERIALIZE macro provides serialize and deserialize methods so that actions can be passed back and forth between the contracts and the nodeos system.</p>
+<pre class=" language-js"><code class="language-js"><span class="token operator">...</span>
+namespace tic_tac_toe <span class="token punctuation">{</span>
+   <span class="token operator">...</span>
+   struct create <span class="token punctuation">{</span>
+      account_name   challenger<span class="token punctuation">;</span>
+      account_name   host<span class="token punctuation">;</span>
+
+      <span class="token function">EOSLIB_SERIALIZE</span><span class="token punctuation">(</span> create<span class="token punctuation">,</span> <span class="token punctuation">(</span>challenger<span class="token punctuation">)</span><span class="token punctuation">(</span>host<span class="token punctuation">)</span> <span class="token punctuation">)</span>
+   <span class="token punctuation">}</span><span class="token punctuation">;</span>
+   <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Restart"><a href="#Restart" class="headerlink" title="Restart"></a>Restart</h2><p>To restart the game, we need host account name and challenger’s account name to identify the game. Furthermore, we need to specify who wants to restart the game, so we can verify the correct signature is provided.</p>
+<pre class=" language-js"><code class="language-js"><span class="token operator">...</span>
+namespace tic_tac_toe <span class="token punctuation">{</span>
+   <span class="token operator">...</span>
+   struct restart <span class="token punctuation">{</span>
+      account_name   challenger<span class="token punctuation">;</span>
+      account_name   host<span class="token punctuation">;</span>
+      account_name   by<span class="token punctuation">;</span>
+
+      <span class="token function">EOSLIB_SERIALIZE</span><span class="token punctuation">(</span> restart<span class="token punctuation">,</span> <span class="token punctuation">(</span>challenger<span class="token punctuation">)</span><span class="token punctuation">(</span>host<span class="token punctuation">)</span><span class="token punctuation">(</span>by<span class="token punctuation">)</span> <span class="token punctuation">)</span>
+   <span class="token punctuation">}</span><span class="token punctuation">;</span>
+   <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Close"><a href="#Close" class="headerlink" title="Close"></a>Close</h2><p>To close the game, we need host account name and challenger’s account name to identify the game.</p>
+<pre class=" language-js"><code class="language-js"><span class="token operator">...</span>
+namespace tic_tac_toe <span class="token punctuation">{</span>
+   <span class="token operator">...</span>
+   struct close <span class="token punctuation">{</span>
+      account_name   challenger<span class="token punctuation">;</span>
+      account_name   host<span class="token punctuation">;</span>
+
+      <span class="token function">EOSLIB_SERIALIZE</span><span class="token punctuation">(</span> close<span class="token punctuation">,</span> <span class="token punctuation">(</span>challenger<span class="token punctuation">)</span><span class="token punctuation">(</span>host<span class="token punctuation">)</span> <span class="token punctuation">)</span>
+   <span class="token punctuation">}</span><span class="token punctuation">;</span>
+   <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Move"><a href="#Move" class="headerlink" title="Move"></a>Move</h2><p>To make a move, we need host account name and challenger’s account name to identify the game. Furthermore, we need to specify who makes this move and the movement he is making.</p>
+<pre class=" language-js"><code class="language-js"><span class="token operator">...</span>
+namespace tic_tac_toe <span class="token punctuation">{</span>
+   <span class="token operator">...</span>
+   struct movement <span class="token punctuation">{</span>
+      uint32_t    row<span class="token punctuation">;</span>
+      uint32_t    column<span class="token punctuation">;</span>
+
+      <span class="token function">EOSLIB_SERIALIZE</span><span class="token punctuation">(</span> movement<span class="token punctuation">,</span> <span class="token punctuation">(</span>row<span class="token punctuation">)</span><span class="token punctuation">(</span>column<span class="token punctuation">)</span> <span class="token punctuation">)</span>
+   <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+   struct move <span class="token punctuation">{</span>
+      account_name   challenger<span class="token punctuation">;</span>
+      account_name   host<span class="token punctuation">;</span>
+      account_name   by<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// the account who wants to make the move</span>
+      movement       mvt<span class="token punctuation">;</span>
+
+      <span class="token function">EOSLIB_SERIALIZE</span><span class="token punctuation">(</span> move<span class="token punctuation">,</span> <span class="token punctuation">(</span>challenger<span class="token punctuation">)</span><span class="token punctuation">(</span>host<span class="token punctuation">)</span><span class="token punctuation">(</span>by<span class="token punctuation">)</span><span class="token punctuation">(</span>mvt<span class="token punctuation">)</span> <span class="token punctuation">)</span>
+   <span class="token punctuation">}</span><span class="token punctuation">;</span>
+   <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>You can see the final tic_tac_toe.hpp here</p>
+<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><p>Let’s open tic_tac_toe.cpp and setup the boilerplate</p>
+<pre class=" language-ts"><code class="language-ts">#include <span class="token string">"tic_tac_toe.hpp"</span>
+using namespace eosio<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">/**
+*  The apply() method must have C calling convention so that the blockchain can lookup and
+*  call these methods.
+*/</span>
+extern <span class="token string">"C"</span> <span class="token punctuation">{</span>
+
+   using namespace tic_tac_toe<span class="token punctuation">;</span>
+   <span class="token comment" spellcheck="true">/// The apply method implements the dispatch of events to this contract</span>
+   <span class="token keyword">void</span> <span class="token function">apply</span><span class="token punctuation">(</span> uint64_t receiver<span class="token punctuation">,</span> uint64_t code<span class="token punctuation">,</span> uint64_t action <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// Put your action handler here</span>
+   <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// extern "C"</span>
+</code></pre>
+<h3 id="Action-handler"><a href="#Action-handler" class="headerlink" title="Action handler"></a>Action handler</h3><p>We want tic_tac_toe contract to only react to actions sent to the tic.tac.toe account and react differently according to the type of the action. Let’s add an impl struct with overloaded ‘on’ methods taking the different action types (this may seem like overkill for this example, but you will see this pattern employed in other contracts that you can extend, like currency):</p>
+<pre class=" language-ts"><code class="language-ts">using namespace eosio<span class="token punctuation">;</span>
+namespace tic_tac_toe <span class="token punctuation">{</span>
+struct impl <span class="token punctuation">{</span>
+   <span class="token operator">...</span>
+   <span class="token comment" spellcheck="true">/// The apply method implements the dispatch of events to this contract</span>
+   <span class="token keyword">void</span> <span class="token function">apply</span><span class="token punctuation">(</span> uint64_t receiver<span class="token punctuation">,</span> uint64_t code<span class="token punctuation">,</span> uint64_t action <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+
+      <span class="token keyword">if</span> <span class="token punctuation">(</span>code <span class="token operator">==</span> code_account<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token keyword">if</span> <span class="token punctuation">(</span>action <span class="token operator">==</span> <span class="token function">N</span><span class="token punctuation">(</span>create<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            impl<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">on</span><span class="token punctuation">(</span>eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>unpack_action_data<span class="token operator">&lt;</span>tic_tac_toe<span class="token punctuation">:</span><span class="token punctuation">:</span>create<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>action <span class="token operator">==</span> <span class="token function">N</span><span class="token punctuation">(</span>restart<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            impl<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">on</span><span class="token punctuation">(</span>eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>unpack_action_data<span class="token operator">&lt;</span>tic_tac_toe<span class="token punctuation">:</span><span class="token punctuation">:</span>restart<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>action <span class="token operator">==</span> <span class="token function">N</span><span class="token punctuation">(</span>close<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            impl<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">on</span><span class="token punctuation">(</span>eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>unpack_action_data<span class="token operator">&lt;</span>tic_tac_toe<span class="token punctuation">:</span><span class="token punctuation">:</span>close<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>action <span class="token operator">==</span> <span class="token function">N</span><span class="token punctuation">(</span>move<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            impl<span class="token punctuation">:</span><span class="token punctuation">:</span><span class="token function">on</span><span class="token punctuation">(</span>eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>unpack_action_data<span class="token operator">&lt;</span>tic_tac_toe<span class="token punctuation">:</span><span class="token punctuation">:</span>move<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+   <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token operator">...</span>
+extern <span class="token string">"C"</span> <span class="token punctuation">{</span>
+
+   using namespace tic_tac_toe<span class="token punctuation">;</span>
+   <span class="token comment" spellcheck="true">/// The apply method implements the dispatch of events to this contract</span>
+   <span class="token keyword">void</span> <span class="token function">apply</span><span class="token punctuation">(</span> uint64_t receiver<span class="token punctuation">,</span> uint64_t code<span class="token punctuation">,</span> uint64_t action <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">impl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">apply</span><span class="token punctuation">(</span>receiver<span class="token punctuation">,</span> code<span class="token punctuation">,</span> action<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// extern "C"</span>
+</code></pre>
+<p>Notice that we use unpack_action_data<t>() before passing it to specific handler, unpack_action_data<t>() is converting the action that the contract receives to struct T.</t></t></p>
 <p>To make things tidy, we will encapsulate the action handlers inside struct impl:</p>
-<p>…<br>struct impl {<br>…<br>   /**</p>
-<pre><code>* @param create - action to be applied
-*/
-</code></pre><p>   void on(const create&amp; c) {<br>      // Put code for create action here<br>   }</p>
-<p>   /**</p>
-<pre><code>* @brief Apply restart action
-* @param restart - action to be applied
-*/
-</code></pre><p>   void on(const restart&amp; r) {<br>      // Put code for restart action here<br>   }</p>
-<p>   /**</p>
-<pre><code>* @brief Apply close action
-* @param close - action to be applied
-*/
-</code></pre><p>   void on(const close&amp; c) {<br>      // Put code for close action here<br>   }</p>
-<p>   /**</p>
-<pre><code>* @brief Apply move action
-* @param move - action to be applied
-*/
-</code></pre><p>   void on(const move&amp; m) {<br>      // Put code for move action here<br>   }</p>
-<p>   /// The apply method implements the dispatch of events to this contract<br>   void apply( uint64_t receiver, uint64_t code, uint64_t action ) {<br>…<br>Create Action Handler<br>For the create action handler, we want to:</p>
-<p>Ensure that the action has signature from the host<br>Ensure that the challenger and host are not the same player<br>Ensure that there is no existing game<br>Store the newly created game into the db<br>struct impl {<br>   …<br>   /**</p>
-<pre><code>* @brief Apply create action
-* @param create - action to be applied
-*/
-</code></pre><p>   void on(const create&amp; c) {<br>      require_auth(c.host);<br>      eosio_assert(c.challenger != c.host, “challenger shouldn’t be the same as host”);</p>
-<pre><code>  // Check if game already exists
-  games existing_host_games(code_account, c.host);
-  auto itr = existing_host_games.find( c.challenger );
-  eosio_assert(itr == existing_host_games.end(), &quot;game already exists&quot;);
+<pre class=" language-ts"><code class="language-ts"><span class="token operator">...</span>
+struct impl <span class="token punctuation">{</span>
+<span class="token operator">...</span>
+   <span class="token comment" spellcheck="true">/**
+    * @param create - action to be applied
+    */</span>
+   <span class="token keyword">void</span> <span class="token function">on</span><span class="token punctuation">(</span><span class="token keyword">const</span> create<span class="token operator">&amp;</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// Put code for create action here</span>
+   <span class="token punctuation">}</span>
 
-  existing_host_games.emplace(c.host, [&amp;]( auto&amp; g ) {
-     g.challenger = c.challenger;
-     g.host = c.host;
-     g.turn = c.host;
-  });
-</code></pre><p>   }<br>   …<br>}<br>Restart Action Handler<br>For the restart action handler, we want to:</p>
-<p>Ensure that the action has signature from the host/ challenger<br>Ensure that the game exists<br>Ensure that the restart action is done by host/ challenger<br>Reset the game<br>Store the updated game to the db<br>struct impl {<br>   …<br>   /**</p>
-<pre><code>* @brief Apply restart action
-* @param restart - action to be applied
-*/
-</code></pre><p>   void on(const restart&amp; r) {<br>      require_auth(r.by);</p>
-<pre><code>  // Check if game exists
-  games existing_host_games(code_account, r.host);
-  auto itr = existing_host_games.find( r.challenger );
-  eosio_assert(itr != existing_host_games.end(), &quot;game doesn&#39;t exists&quot;);
+   <span class="token comment" spellcheck="true">/**
+    * @brief Apply restart action
+    * @param restart - action to be applied
+    */</span>
+   <span class="token keyword">void</span> <span class="token function">on</span><span class="token punctuation">(</span><span class="token keyword">const</span> restart<span class="token operator">&amp;</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// Put code for restart action here</span>
+   <span class="token punctuation">}</span>
 
-  // Check if this game belongs to the action sender
-  eosio_assert(r.by == itr-&gt;host || r.by == itr-&gt;challenger, &quot;this is not your game!&quot;);
+   <span class="token comment" spellcheck="true">/**
+    * @brief Apply close action
+    * @param close - action to be applied
+    */</span>
+   <span class="token keyword">void</span> <span class="token function">on</span><span class="token punctuation">(</span><span class="token keyword">const</span> close<span class="token operator">&amp;</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// Put code for close action here</span>
+   <span class="token punctuation">}</span>
 
-  // Reset game
-  existing_host_games.modify(itr, itr-&gt;host, []( auto&amp; g ) {
-     g.reset_game();
-  });
-</code></pre><p>   }<br>   …<br>}<br>Close Action Handler<br>For the close action handler, we want to:</p>
-<p>Ensure that the action has signature from the host<br>Ensure that the game exists<br>Remove the game from the db<br>struct impl {<br>   …<br>   /**</p>
-<pre><code>* @brief Apply close action
-* @param close - action to be applied
-*/
-</code></pre><p>   void on(const close&amp; c) {<br>      require_auth(c.host);</p>
-<pre><code>  // Check if game exists
-  games existing_host_games(code_account, c.host);
-  auto itr = existing_host_games.find( c.challenger );
-  eosio_assert(itr != existing_host_games.end(), &quot;game doesn&#39;t exists&quot;);
+   <span class="token comment" spellcheck="true">/**
+    * @brief Apply move action
+    * @param move - action to be applied
+    */</span>
+   <span class="token keyword">void</span> <span class="token function">on</span><span class="token punctuation">(</span><span class="token keyword">const</span> move<span class="token operator">&amp;</span> m<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// Put code for move action here</span>
+   <span class="token punctuation">}</span>
 
-  // Remove game
-  existing_host_games.erase(itr);
-</code></pre><p>   }<br>   …<br>}<br>Move Action Handler<br>For the move action handler, we want to:</p>
-<p>Ensure that the action has signature from the host/ challenger<br>Ensure that the game exists<br>Ensure that the game is not finished yet<br>Ensure that the move action is done by host/ challenger<br>Ensure that this is the right user’s turn<br>Verify movement is valid<br>Update board with the new move<br>Change the move_turn to the other player<br>Determine if there is a winner<br>Store the updated game to the db<br>struct impl {<br>   …<br>   bool is_valid_movement(const movement&amp; mvt, const game&amp; game_for_movement) {<br>      // Put code here<br>   }</p>
-<p>   account_name get_winner(const game&amp; current_game) {<br>      // Put code here<br>   }<br>   …<br>   /**</p>
-<pre><code>* @brief Apply move action
-* @param move - action to be applied
-*/
-</code></pre><p>   void on(const move&amp; m) {<br>      require_auth(m.by);</p>
-<pre><code>  // Check if game exists
-  games existing_host_games(code_account, m.host);
-  auto itr = existing_host_games.find( m.challenger );
-  eosio_assert(itr != existing_host_games.end(), &quot;game doesn&#39;t exists&quot;);
+   <span class="token comment" spellcheck="true">/// The apply method implements the dispatch of events to this contract</span>
+   <span class="token keyword">void</span> <span class="token function">apply</span><span class="token punctuation">(</span> uint64_t receiver<span class="token punctuation">,</span> uint64_t code<span class="token punctuation">,</span> uint64_t action <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token operator">...</span>
+</code></pre>
+<h3 id="Create-Action-Handler"><a href="#Create-Action-Handler" class="headerlink" title="Create Action Handler"></a>Create Action Handler</h3><p>For the create action handler, we want to:</p>
+<p>Ensure that the action has signature from the host<br>Ensure that the challenger and host are not the same player<br>Ensure that there is no existing game<br>Store the newly created game into the db</p>
+<pre class=" language-ts"><code class="language-ts">struct impl <span class="token punctuation">{</span>
+   <span class="token operator">...</span>
+   <span class="token comment" spellcheck="true">/**
+    * @brief Apply create action
+    * @param create - action to be applied
+    */</span>
+   <span class="token keyword">void</span> <span class="token function">on</span><span class="token punctuation">(</span><span class="token keyword">const</span> create<span class="token operator">&amp;</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">require_auth</span><span class="token punctuation">(</span>c<span class="token punctuation">.</span>host<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">eosio_assert</span><span class="token punctuation">(</span>c<span class="token punctuation">.</span>challenger <span class="token operator">!=</span> c<span class="token punctuation">.</span>host<span class="token punctuation">,</span> <span class="token string">"challenger shouldn't be the same as host"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // Check if this game hasn&#39;t ended yet
-  eosio_assert(itr-&gt;winner == N(none), &quot;the game has ended!&quot;);
-  // Check if this game belongs to the action sender
-  eosio_assert(m.by == itr-&gt;host || m.by == itr-&gt;challenger, &quot;this is not your game!&quot;);
-  // Check if this is the  action sender&#39;s turn
-  eosio_assert(m.by == itr-&gt;turn, &quot;it&#39;s not your turn yet!&quot;);
+      <span class="token comment" spellcheck="true">// Check if game already exists</span>
+      games <span class="token function">existing_host_games</span><span class="token punctuation">(</span>code_account<span class="token punctuation">,</span> c<span class="token punctuation">.</span>host<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      auto itr <span class="token operator">=</span> existing_host_games<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span> c<span class="token punctuation">.</span>challenger <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">eosio_assert</span><span class="token punctuation">(</span>itr <span class="token operator">==</span> existing_host_games<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"game already exists"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      existing_host_games<span class="token punctuation">.</span><span class="token function">emplace</span><span class="token punctuation">(</span>c<span class="token punctuation">.</span>host<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token operator">&amp;</span><span class="token punctuation">]</span><span class="token punctuation">(</span> auto<span class="token operator">&amp;</span> g <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         g<span class="token punctuation">.</span>challenger <span class="token operator">=</span> c<span class="token punctuation">.</span>challenger<span class="token punctuation">;</span>
+         g<span class="token punctuation">.</span>host <span class="token operator">=</span> c<span class="token punctuation">.</span>host<span class="token punctuation">;</span>
+         g<span class="token punctuation">.</span>turn <span class="token operator">=</span> c<span class="token punctuation">.</span>host<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+   <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="Restart-Action-Handler"><a href="#Restart-Action-Handler" class="headerlink" title="Restart Action Handler"></a>Restart Action Handler</h3><p>For the restart action handler, we want to:</p>
+<p>Ensure that the action has signature from the host/ challenger<br>Ensure that the game exists<br>Ensure that the restart action is done by host/ challenger<br>Reset the game<br>Store the updated game to the db</p>
+<pre class=" language-ts"><code class="language-ts">struct impl <span class="token punctuation">{</span>
+   <span class="token operator">...</span>
+   <span class="token comment" spellcheck="true">/**
+    * @brief Apply restart action
+    * @param restart - action to be applied
+    */</span>
+   <span class="token keyword">void</span> <span class="token function">on</span><span class="token punctuation">(</span><span class="token keyword">const</span> restart<span class="token operator">&amp;</span> r<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">require_auth</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span>by<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token comment" spellcheck="true">// Check if game exists</span>
+      games <span class="token function">existing_host_games</span><span class="token punctuation">(</span>code_account<span class="token punctuation">,</span> r<span class="token punctuation">.</span>host<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      auto itr <span class="token operator">=</span> existing_host_games<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span> r<span class="token punctuation">.</span>challenger <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">eosio_assert</span><span class="token punctuation">(</span>itr <span class="token operator">!=</span> existing_host_games<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"game doesn't exists"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token comment" spellcheck="true">// Check if this game belongs to the action sender</span>
+      <span class="token function">eosio_assert</span><span class="token punctuation">(</span>r<span class="token punctuation">.</span>by <span class="token operator">==</span> itr<span class="token operator">-</span><span class="token operator">></span>host <span class="token operator">||</span> r<span class="token punctuation">.</span>by <span class="token operator">==</span> itr<span class="token operator">-</span><span class="token operator">></span>challenger<span class="token punctuation">,</span> <span class="token string">"this is not your game!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token comment" spellcheck="true">// Reset game</span>
+      existing_host_games<span class="token punctuation">.</span><span class="token function">modify</span><span class="token punctuation">(</span>itr<span class="token punctuation">,</span> itr<span class="token operator">-</span><span class="token operator">></span>host<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">(</span> auto<span class="token operator">&amp;</span> g <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         g<span class="token punctuation">.</span><span class="token function">reset_game</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+   <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="Close-Action-Handler"><a href="#Close-Action-Handler" class="headerlink" title="Close Action Handler"></a>Close Action Handler</h3><p>For the close action handler, we want to:</p>
+<p>Ensure that the action has signature from the host<br>Ensure that the game exists<br>Remove the game from the db</p>
+<pre class=" language-ts"><code class="language-ts">struct impl <span class="token punctuation">{</span>
+   <span class="token operator">...</span>
+   <span class="token comment" spellcheck="true">/**
+    * @brief Apply close action
+    * @param close - action to be applied
+    */</span>
+   <span class="token keyword">void</span> <span class="token function">on</span><span class="token punctuation">(</span><span class="token keyword">const</span> close<span class="token operator">&amp;</span> c<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">require_auth</span><span class="token punctuation">(</span>c<span class="token punctuation">.</span>host<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token comment" spellcheck="true">// Check if game exists</span>
+      games <span class="token function">existing_host_games</span><span class="token punctuation">(</span>code_account<span class="token punctuation">,</span> c<span class="token punctuation">.</span>host<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      auto itr <span class="token operator">=</span> existing_host_games<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span> c<span class="token punctuation">.</span>challenger <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">eosio_assert</span><span class="token punctuation">(</span>itr <span class="token operator">!=</span> existing_host_games<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"game doesn't exists"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token comment" spellcheck="true">// Remove game</span>
+      existing_host_games<span class="token punctuation">.</span><span class="token function">erase</span><span class="token punctuation">(</span>itr<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+   <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="Move-Action-Handler"><a href="#Move-Action-Handler" class="headerlink" title="Move Action Handler"></a>Move Action Handler</h3><p>For the move action handler, we want to:</p>
+<p>Ensure that the action has signature from the host/ challenger<br>Ensure that the game exists<br>Ensure that the game is not finished yet<br>Ensure that the move action is done by host/ challenger<br>Ensure that this is the right user’s turn<br>Verify movement is valid<br>Update board with the new move<br>Change the move_turn to the other player<br>Determine if there is a winner<br>Store the updated game to the db</p>
+<pre class=" language-ts"><code class="language-ts">struct impl <span class="token punctuation">{</span>
+   <span class="token operator">...</span>
+   bool <span class="token function">is_valid_movement</span><span class="token punctuation">(</span><span class="token keyword">const</span> movement<span class="token operator">&amp;</span> mvt<span class="token punctuation">,</span> <span class="token keyword">const</span> game<span class="token operator">&amp;</span> game_for_movement<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// Put code here</span>
+   <span class="token punctuation">}</span>
+
+   account_name <span class="token function">get_winner</span><span class="token punctuation">(</span><span class="token keyword">const</span> game<span class="token operator">&amp;</span> current_game<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token comment" spellcheck="true">// Put code here</span>
+   <span class="token punctuation">}</span>
+   <span class="token operator">...</span>
+   <span class="token comment" spellcheck="true">/**
+    * @brief Apply move action
+    * @param move - action to be applied
+    */</span>
+   <span class="token keyword">void</span> <span class="token function">on</span><span class="token punctuation">(</span><span class="token keyword">const</span> move<span class="token operator">&amp;</span> m<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token function">require_auth</span><span class="token punctuation">(</span>m<span class="token punctuation">.</span>by<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token comment" spellcheck="true">// Check if game exists</span>
+      games <span class="token function">existing_host_games</span><span class="token punctuation">(</span>code_account<span class="token punctuation">,</span> m<span class="token punctuation">.</span>host<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      auto itr <span class="token operator">=</span> existing_host_games<span class="token punctuation">.</span><span class="token function">find</span><span class="token punctuation">(</span> m<span class="token punctuation">.</span>challenger <span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token function">eosio_assert</span><span class="token punctuation">(</span>itr <span class="token operator">!=</span> existing_host_games<span class="token punctuation">.</span><span class="token function">end</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"game doesn't exists"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+      <span class="token comment" spellcheck="true">// Check if this game hasn't ended yet</span>
+      <span class="token function">eosio_assert</span><span class="token punctuation">(</span>itr<span class="token operator">-</span><span class="token operator">></span>winner <span class="token operator">==</span> <span class="token function">N</span><span class="token punctuation">(</span>none<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"the game has ended!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">// Check if this game belongs to the action sender</span>
+      <span class="token function">eosio_assert</span><span class="token punctuation">(</span>m<span class="token punctuation">.</span>by <span class="token operator">==</span> itr<span class="token operator">-</span><span class="token operator">></span>host <span class="token operator">||</span> m<span class="token punctuation">.</span>by <span class="token operator">==</span> itr<span class="token operator">-</span><span class="token operator">></span>challenger<span class="token punctuation">,</span> <span class="token string">"this is not your game!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token comment" spellcheck="true">// Check if this is the  action sender's turn</span>
+      <span class="token function">eosio_assert</span><span class="token punctuation">(</span>m<span class="token punctuation">.</span>by <span class="token operator">==</span> itr<span class="token operator">-</span><span class="token operator">></span>turn<span class="token punctuation">,</span> <span class="token string">"it's not your turn yet!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 
-  // Check if user makes a valid movement
-  eosio_assert(is_valid_movement(m.mvt, *itr), &quot;not a valid movement!&quot;);
+      <span class="token comment" spellcheck="true">// Check if user makes a valid movement</span>
+      <span class="token function">eosio_assert</span><span class="token punctuation">(</span><span class="token function">is_valid_movement</span><span class="token punctuation">(</span>m<span class="token punctuation">.</span>mvt<span class="token punctuation">,</span> <span class="token operator">*</span>itr<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"not a valid movement!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-  // Fill the cell, 1 for host, 2 for challenger
-  const auto cell_value = itr-&gt;turn == itr-&gt;host ? 1 : 2;
-  const auto turn = itr-&gt;turn == itr-&gt;host ? itr-&gt;challenger : itr-&gt;host;
-  existing_host_games.modify(itr, itr-&gt;host, [&amp;]( auto&amp; g ) {
-     g.board[m.mvt.row * 3 + m.mvt.column] = cell_value;
-     g.turn = turn;
+      <span class="token comment" spellcheck="true">// Fill the cell, 1 for host, 2 for challenger</span>
+      <span class="token keyword">const</span> auto cell_value <span class="token operator">=</span> itr<span class="token operator">-</span><span class="token operator">></span>turn <span class="token operator">==</span> itr<span class="token operator">-</span><span class="token operator">></span>host <span class="token operator">?</span> <span class="token number">1</span> <span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">;</span>
+      <span class="token keyword">const</span> auto turn <span class="token operator">=</span> itr<span class="token operator">-</span><span class="token operator">></span>turn <span class="token operator">==</span> itr<span class="token operator">-</span><span class="token operator">></span>host <span class="token operator">?</span> itr<span class="token operator">-</span><span class="token operator">></span>challenger <span class="token punctuation">:</span> itr<span class="token operator">-</span><span class="token operator">></span>host<span class="token punctuation">;</span>
+      existing_host_games<span class="token punctuation">.</span><span class="token function">modify</span><span class="token punctuation">(</span>itr<span class="token punctuation">,</span> itr<span class="token operator">-</span><span class="token operator">></span>host<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token operator">&amp;</span><span class="token punctuation">]</span><span class="token punctuation">(</span> auto<span class="token operator">&amp;</span> g <span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         g<span class="token punctuation">.</span>board<span class="token punctuation">[</span>m<span class="token punctuation">.</span>mvt<span class="token punctuation">.</span>row <span class="token operator">*</span> <span class="token number">3</span> <span class="token operator">+</span> m<span class="token punctuation">.</span>mvt<span class="token punctuation">.</span>column<span class="token punctuation">]</span> <span class="token operator">=</span> cell_value<span class="token punctuation">;</span>
+         g<span class="token punctuation">.</span>turn <span class="token operator">=</span> turn<span class="token punctuation">;</span>
 
-     //check to see if we have a winner
-     g.winner = get_winner(g);
-  });
-</code></pre><p>   }<br>   …<br>}<br>Movement Validation<br>Valid movement is defined as movement done inside the board on an empty cell:</p>
-<p>struct impl {<br>   …<br>   /**</p>
-<pre><code>* @brief Check if cell is empty
-* @param cell - value of the cell (should be either 0, 1, or 2)
-* @return true if cell is empty
-*/
-</code></pre><p>   bool is_empty_cell(const uint8_t&amp; cell) {<br>      return cell == 0;<br>   }</p>
-<p>   /**</p>
-<pre><code>* @brief Check for valid movement
-* @detail Movement is considered valid if it is inside the board and done on empty cell
-* @param movement - the movement made by the player
-* @param game - the game on which the movement is being made
-* @return true if movement is valid
-*/
-</code></pre><p>   bool is_valid_movement(const movement&amp; mvt, const game&amp; game_for_movement) {<br>      uint32_t movement_location = mvt.row * 3 + mvt.column;<br>      bool is_valid = movement_location &lt; board_len &amp;&amp; is_empty_cell(game_for_movement.board[movement_location]);<br>      return is_valid;<br>   }<br>   …<br>}<br>Get Winner<br>Winner is defined as the first player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row.</p>
-<p>struct impl {<br>   …<br>   /**</p>
-<pre><code>* @brief Get winner of the game
-* @detail Winner of the game is the first player who made three consecutive aligned movement
-* @param game - the game which we want to determine the winner of
-* @return winner of the game (can be either none/ draw/ account name of host/ account name of challenger)
-*/
-</code></pre><p>   account_name get_winner(const game&amp; current_game) {<br>      if((current_game.board[0] == current_game.board[4] &amp;&amp; current_game.board[4] == current_game.board[8]) ||<br>         (current_game.board[1] == current_game.board[4] &amp;&amp; current_game.board[4] == current_game.board[7]) ||<br>         (current_game.board[2] == current_game.board[4] &amp;&amp; current_game.board[4] == current_game.board[6]) ||<br>         (current_game.board[3] == current_game.board[4] &amp;&amp; current_game.board[4] == current_game.board[5])) {<br>         //  - | - | x    x | - | -    - | - | -    - | x | -<br>         //  - | x | -    - | x | -    x | x | x    - | x | -<br>         //  x | - | -    - | - | x    - | - | -    - | x | -<br>         if (current_game.board[4] == 1) {<br>            return current_game.host;<br>         } else if (current_game.board[4] == 2) {<br>            return current_game.challenger;<br>         }<br>      } else if ((current_game.board[0] == current_game.board[1] &amp;&amp; current_game.board[1] == current_game.board[2]) ||<br>                 (current_game.board[0] == current_game.board[3] &amp;&amp; current_game.board[3] == current_game.board[6])) {<br>         //  x | x | x       x | - | -<br>         //  - | - | -       x | - | -<br>         //  - | - | -       x | - | -<br>         if (current_game.board[0] == 1) {<br>            return current_game.host;<br>         } else if (current_game.board[0] == 2) {<br>            return current_game.challenger;<br>         }<br>      } else if ((current_game.board[2] == current_game.board[5] &amp;&amp; current_game.board[5] == current_game.board[8]) ||<br>                 (current_game.board[6] == current_game.board[7] &amp;&amp; current_game.board[7] == current_game.board[8])) {<br>         //  - | - | -       - | - | x<br>         //  - | - | -       - | - | x<br>         //  x | x | x       - | - | x<br>         if (current_game.board[8] == 1) {<br>            return current_game.host;<br>         } else if (current_game.board[8] == 2) {<br>            return current_game.challenger;<br>         }<br>      } else {<br>         bool is_board_full = true;<br>         for (uint8_t i = 0; i &lt; board_len; i++) {<br>            if (is_empty_cell(current_game.board[i])) {<br>               is_board_full = false;<br>               break;<br>            }<br>         }<br>         if (is_board_full) {<br>            return N(draw);<br>         }<br>      }<br>      return N(none);<br>   }<br>   …<br>}<br>You can see the final tic_tac_toe.cpp here</p>
-<p>Creating ABI<br>Abi (a.k.a Application Binary Interface) is needed here, so the contract can understand the action that you send as binary. Let’s open tic_tac_toe.abi and defines the boilerplate here:</p>
-<p>{<br>  “types”: [],<br>  “structs”: [{<br>      “name”: “…”,<br>      “base”: “…”,<br>      “fields”: { … }<br>  }, …],<br>  “actions”: [{<br>      “name”: “…”,<br>      “type”: “…”,<br>      “ricardian_contract”: “…”<br>  }, …],<br>  “tables”: [{<br>      “name”: “…”,<br>      “type”: “…”,<br>      “index_type”: “…”,<br>      “key_names” : […],<br>      “key_types” : […]<br>  }, …],<br>  “clauses: […]<br>types: list of types that can be represented by another data structure or built-in-type (think typedef in c/c++)<br>structs: list of data structures used by the action/ table in the contract<br>actions: list of actions available in the contract<br>tables: list of tables available in the contract<br>Table ABI<br>Remember that in tic_tac_toe.hpp, we create an single index i64 table called games. It stores game structure and use challenger as the key, which data type is account_name. Hence, the abi will be:</p>
-<p>{<br>  …<br>  “structs”: [{<br>      “name”: “game”,<br>      “base”: “”,<br>      “fields”: [<br>        {“name”:”challenger”, “type”:”account_name”},<br>        {“name”:”host”, “type”:”account_name”},<br>        {“name”:”turn”, “type”:”account_name”},<br>        {“name”:”winner”, “type”:”account_name”},<br>        {“name”:”board”, “type”:”uint8[]”}<br>      ]<br>    },…<br>  ],<br>  “tables”: [{<br>        “name”: “games”,<br>        “type”: “game”,<br>        “index_type”: “i64”,<br>        “key_names” : [“challenger”],<br>        “key_types” : [“account_name”]<br>      }<br>  ],<br>  …<br>}<br>Actions ABI<br>For the actions, we define the actions inside actions and the structure of the actions inside structs.</p>
-<p>{<br>  …<br>  “structs”: [{<br>    …<br>    },{<br>      “name”: “create”,<br>      “base”: “”,<br>      “fields”: [<br>        {“name”:”challenger”, “type”:”account_name”},<br>        {“name”:”host”, “type”:”account_name”}<br>      ]<br>    },{<br>      “name”: “restart”,<br>      “base”: “”,<br>      “fields”: [<br>        {“name”:”challenger”, “type”:”account_name”},<br>        {“name”:”host”, “type”:”account_name”},<br>        {“name”:”by”, “type”:”account_name”}<br>      ]<br>    },{<br>      “name”: “close”,<br>      “base”: “”,<br>      “fields”: [<br>        {“name”:”challenger”, “type”:”account_name”},<br>        {“name”:”host”, “type”:”account_name”}<br>      ]<br>    },{<br>      “name”: “movement”,<br>      “base”: “”,<br>      “fields”: [<br>        {“name”:”row”, “type”:”uint32”},<br>        {“name”:”column”, “type”:”uint32”}<br>      ]<br>    },{<br>      “name”: “move”,<br>      “base”: “”,<br>      “fields”: [<br>        {“name”:”challenger”, “type”:”account_name”},<br>        {“name”:”host”, “type”:”account_name”},<br>        {“name”:”by”, “type”:”account_name”},<br>        {“name”:”mvt”, “type”:”movement”}<br>      ]<br>    }<br>  ],<br>  “actions”: [{<br>      “name”: “create”,<br>      “type”: “create”,<br>      “ricardian_contract”: “”<br>    },{<br>      “name”: “restart”,<br>      “type”: “restart”,<br>      “ricardian_contract”: “”<br>    },{<br>      “name”: “close”,<br>      “type”: “close”,<br>      “ricardian_contract”: “”<br>    },{<br>      “name”: “move”,<br>      “type”: “move”,<br>      “ricardian_contract”: “”<br>    }<br>  ],<br>  …<br>}<br>Compile!<br>Now we need to compile tic_tac_toe.cpp to create the tic_tac_toe.wast file that we will use to deploy the contract into nodeos.</p>
-<p>$ eosiocpp -o tic_tac_toe.wast tic_tac_toe.cpp<br>Deploy!<br>Now the wast and abi files (tic_tac_toe.wast and tic_tac_toe.abi) are ready. Time to deploy! Create a directory (let’s call it tic_tac_toe) and copy your generated tic_tac_toe.wast tic_tac_toe.abi files.</p>
-<p>$ cleos set contract tic.tac.toe tic_tac_toe<br>Ensure that your wallet is unlocked and you have tic.tac.toe key imported. If you are going to upload the contract to another account beside tic.tac.toe, replace tic.tac.toe with your account name and ensure you have the key for that account in your wallet</p>
-<p>Play!<br>After the deployment and the transaction is confirmed, the contract is already available in the blockchain. You can play with it now!</p>
-<p>Create<br>$ cleos push action tic.tac.toe create ‘{“challenger”:”inita”, “host”:”initb”}’ –permission initb@active<br>Move<br>$ cleos push action tic.tac.toe move ‘{“challenger”:”inita”, “host”:”initb”, “by”:”initb”, “mvt”:{“row”:0, “column”:0} }’ –permission initb@active<br>$ cleos push action tic.tac.toe move ‘{“challenger”:”inita”, “host”:”initb”, “by”:”inita”, “mvt”:{“row”:1, “column”:1} }’ –permission inita@active<br>Restart<br>$ cleos push action tic.tac.toe restart ‘{“challenger”:”inita”, “host”:”initb”, “by”:”initb”}’ –permission initb@active<br>Close<br>$ cleos push action tic.tac.toe close ‘{“challenger”:”inita”, “host”:”initb”}’ –permission initb@active<br>See the game status<br>$ cleos get table tic.tac.toe initb games<br>{<br>  “rows”: [{<br>      “challenger”: “inita”,<br>      “host”: “initb”,<br>      “turn”: “inita”,<br>      “winner”: “none”,<br>      “board”: [<br>        1,<br>        0,<br>        0,<br>        0,<br>        2,<br>        0,<br>        0,<br>        0,<br>        0<br>      ]<br>    }<br>  ],<br>  “more”: false<br>}</p>
+         <span class="token comment" spellcheck="true">//check to see if we have a winner</span>
+         g<span class="token punctuation">.</span>winner <span class="token operator">=</span> <span class="token function">get_winner</span><span class="token punctuation">(</span>g<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+   <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="Movement-Validation"><a href="#Movement-Validation" class="headerlink" title="Movement Validation"></a>Movement Validation</h3><p>Valid movement is defined as movement done inside the board on an empty cell:</p>
+<pre class=" language-ts"><code class="language-ts">struct impl <span class="token punctuation">{</span>
+   <span class="token operator">...</span>
+   <span class="token comment" spellcheck="true">/**
+    * @brief Check if cell is empty
+    * @param cell - value of the cell (should be either 0, 1, or 2)
+    * @return true if cell is empty
+    */</span>
+   bool <span class="token function">is_empty_cell</span><span class="token punctuation">(</span><span class="token keyword">const</span> uint8_t<span class="token operator">&amp;</span> cell<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">return</span> cell <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+
+   <span class="token comment" spellcheck="true">/**
+    * @brief Check for valid movement
+    * @detail Movement is considered valid if it is inside the board and done on empty cell
+    * @param movement - the movement made by the player
+    * @param game - the game on which the movement is being made
+    * @return true if movement is valid
+    */</span>
+   bool <span class="token function">is_valid_movement</span><span class="token punctuation">(</span><span class="token keyword">const</span> movement<span class="token operator">&amp;</span> mvt<span class="token punctuation">,</span> <span class="token keyword">const</span> game<span class="token operator">&amp;</span> game_for_movement<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      uint32_t movement_location <span class="token operator">=</span> mvt<span class="token punctuation">.</span>row <span class="token operator">*</span> <span class="token number">3</span> <span class="token operator">+</span> mvt<span class="token punctuation">.</span>column<span class="token punctuation">;</span>
+      bool is_valid <span class="token operator">=</span> movement_location <span class="token operator">&lt;</span> board_len <span class="token operator">&amp;&amp;</span> <span class="token function">is_empty_cell</span><span class="token punctuation">(</span>game_for_movement<span class="token punctuation">.</span>board<span class="token punctuation">[</span>movement_location<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> is_valid<span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+   <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="Get-Winner"><a href="#Get-Winner" class="headerlink" title="Get Winner"></a>Get Winner</h3><p>Winner is defined as the first player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row.</p>
+<pre class=" language-ts"><code class="language-ts">struct impl <span class="token punctuation">{</span>
+   <span class="token operator">...</span>
+   <span class="token comment" spellcheck="true">/**
+    * @brief Get winner of the game
+    * @detail Winner of the game is the first player who made three consecutive aligned movement
+    * @param game - the game which we want to determine the winner of
+    * @return winner of the game (can be either none/ draw/ account name of host/ account name of challenger)
+    */</span>
+   account_name <span class="token function">get_winner</span><span class="token punctuation">(</span><span class="token keyword">const</span> game<span class="token operator">&amp;</span> current_game<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token keyword">if</span><span class="token punctuation">(</span><span class="token punctuation">(</span>current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">==</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">||</span>
+         <span class="token punctuation">(</span>current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">==</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">||</span>
+         <span class="token punctuation">(</span>current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">==</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">==</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">||</span>
+         <span class="token punctuation">(</span>current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">==</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">==</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token comment" spellcheck="true">//  - | - | x    x | - | -    - | - | -    - | x | -</span>
+         <span class="token comment" spellcheck="true">//  - | x | -    - | x | -    x | x | x    - | x | -</span>
+         <span class="token comment" spellcheck="true">//  x | - | -    - | - | x    - | - | -    - | x | -</span>
+         <span class="token keyword">if</span> <span class="token punctuation">(</span>current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> current_game<span class="token punctuation">.</span>host<span class="token punctuation">;</span>
+         <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">4</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> current_game<span class="token punctuation">.</span>challenger<span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">==</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">||</span>
+                 <span class="token punctuation">(</span>current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span> <span class="token operator">==</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token comment" spellcheck="true">//  x | x | x       x | - | -</span>
+         <span class="token comment" spellcheck="true">//  - | - | -       x | - | -</span>
+         <span class="token comment" spellcheck="true">//  - | - | -       x | - | -</span>
+         <span class="token keyword">if</span> <span class="token punctuation">(</span>current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> current_game<span class="token punctuation">.</span>host<span class="token punctuation">;</span>
+         <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> current_game<span class="token punctuation">.</span>challenger<span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">2</span><span class="token punctuation">]</span> <span class="token operator">==</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">5</span><span class="token punctuation">]</span> <span class="token operator">==</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">||</span>
+                 <span class="token punctuation">(</span>current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">==</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">]</span> <span class="token operator">&amp;&amp;</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">7</span><span class="token punctuation">]</span> <span class="token operator">==</span> current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+         <span class="token comment" spellcheck="true">//  - | - | -       - | - | x</span>
+         <span class="token comment" spellcheck="true">//  - | - | -       - | - | x</span>
+         <span class="token comment" spellcheck="true">//  x | x | x       - | - | x</span>
+         <span class="token keyword">if</span> <span class="token punctuation">(</span>current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> current_game<span class="token punctuation">.</span>host<span class="token punctuation">;</span>
+         <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span><span class="token number">8</span><span class="token punctuation">]</span> <span class="token operator">==</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> current_game<span class="token punctuation">.</span>challenger<span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+         bool is_board_full <span class="token operator">=</span> <span class="token keyword">true</span><span class="token punctuation">;</span>
+         <span class="token keyword">for</span> <span class="token punctuation">(</span>uint8_t i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> board_len<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">is_empty_cell</span><span class="token punctuation">(</span>current_game<span class="token punctuation">.</span>board<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+               is_board_full <span class="token operator">=</span> <span class="token keyword">false</span><span class="token punctuation">;</span>
+               <span class="token keyword">break</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+         <span class="token punctuation">}</span>
+         <span class="token keyword">if</span> <span class="token punctuation">(</span>is_board_full<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token function">N</span><span class="token punctuation">(</span>draw<span class="token punctuation">)</span><span class="token punctuation">;</span>
+         <span class="token punctuation">}</span>
+      <span class="token punctuation">}</span>
+      <span class="token keyword">return</span> <span class="token function">N</span><span class="token punctuation">(</span>none<span class="token punctuation">)</span><span class="token punctuation">;</span>
+   <span class="token punctuation">}</span>
+   <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>You can see the final tic_tac_toe.cpp here</p>
+<h2 id="Creating-ABI"><a href="#Creating-ABI" class="headerlink" title="Creating ABI"></a>Creating ABI</h2><p>Abi (a.k.a Application Binary Interface) is needed here, so the contract can understand the action that you send as binary. Let’s open tic_tac_toe.abi and defines the boilerplate here:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token punctuation">{</span>
+  <span class="token string">"types"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"structs"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> <span class="token operator">...</span> <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"actions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
+      <span class="token string">"ricardian_contract"</span><span class="token punctuation">:</span> <span class="token string">"..."</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"tables"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
+      <span class="token string">"index_type"</span><span class="token punctuation">:</span> <span class="token string">"..."</span><span class="token punctuation">,</span>
+      <span class="token string">"key_names"</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token string">"key_types"</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  "clauses<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span>
+</code></pre>
+<p>types: list of types that can be represented by another data structure or built-in-type (think typedef in c/c++)<br>structs: list of data structures used by the action/ table in the contract<br>actions: list of actions available in the contract<br>tables: list of tables available in the contract</p>
+<h3 id="Table-ABI"><a href="#Table-ABI" class="headerlink" title="Table ABI"></a>Table ABI</h3><p>Remember that in tic_tac_toe.hpp, we create an single index i64 table called games. It stores game structure and use challenger as the key, which data type is account_name. Hence, the abi will be:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token punctuation">{</span>
+  <span class="token operator">...</span>
+  <span class="token string">"structs"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"game"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"challenger"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"account_name"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"host"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"account_name"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"turn"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"account_name"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"winner"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"account_name"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"board"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"uint8[]"</span><span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token operator">...</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"tables"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+        <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"games"</span><span class="token punctuation">,</span>
+        <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"game"</span><span class="token punctuation">,</span>
+        <span class="token string">"index_type"</span><span class="token punctuation">:</span> <span class="token string">"i64"</span><span class="token punctuation">,</span>
+        <span class="token string">"key_names"</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"challenger"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        <span class="token string">"key_types"</span> <span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"account_name"</span><span class="token punctuation">]</span>
+      <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="Actions-ABI"><a href="#Actions-ABI" class="headerlink" title="Actions ABI"></a>Actions ABI</h3><p>For the actions, we define the actions inside actions and the structure of the actions inside structs.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token punctuation">{</span>
+  <span class="token operator">...</span>
+  <span class="token string">"structs"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"create"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"challenger"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"account_name"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"host"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"account_name"</span><span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"restart"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"challenger"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"account_name"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"host"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"account_name"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"by"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"account_name"</span><span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"close"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"challenger"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"account_name"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"host"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"account_name"</span><span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"movement"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"row"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"uint32"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"column"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"uint32"</span><span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"move"</span><span class="token punctuation">,</span>
+      <span class="token string">"base"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token string">"fields"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"challenger"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"account_name"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"host"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"account_name"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"by"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"account_name"</span><span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"mvt"</span><span class="token punctuation">,</span> <span class="token string">"type"</span><span class="token punctuation">:</span><span class="token string">"movement"</span><span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"actions"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"create"</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"create"</span><span class="token punctuation">,</span>
+      <span class="token string">"ricardian_contract"</span><span class="token punctuation">:</span> <span class="token string">""</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"restart"</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"restart"</span><span class="token punctuation">,</span>
+      <span class="token string">"ricardian_contract"</span><span class="token punctuation">:</span> <span class="token string">""</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"close"</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"close"</span><span class="token punctuation">,</span>
+      <span class="token string">"ricardian_contract"</span><span class="token punctuation">:</span> <span class="token string">""</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span><span class="token punctuation">{</span>
+      <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"move"</span><span class="token punctuation">,</span>
+      <span class="token string">"type"</span><span class="token punctuation">:</span> <span class="token string">"move"</span><span class="token punctuation">,</span>
+      <span class="token string">"ricardian_contract"</span><span class="token punctuation">:</span> <span class="token string">""</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token operator">...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="Compile"><a href="#Compile" class="headerlink" title="Compile!"></a>Compile!</h3><p>Now we need to compile tic_tac_toe.cpp to create the tic_tac_toe.wast file that we will use to deploy the contract into nodeos.</p>
+<pre class=" language-ts"><code class="language-ts">$ eosiocpp <span class="token operator">-</span>o tic_tac_toe<span class="token punctuation">.</span>wast tic_tac_toe<span class="token punctuation">.</span>cpp
+</code></pre>
+<h2 id="Deploy"><a href="#Deploy" class="headerlink" title="Deploy!"></a>Deploy!</h2><p>Now the wast and abi files (tic_tac_toe.wast and tic_tac_toe.abi) are ready. Time to deploy! Create a directory (let’s call it tic_tac_toe) and copy your generated tic_tac_toe.wast tic_tac_toe.abi files.</p>
+<pre class=" language-ts"><code class="language-ts">$ cleos <span class="token keyword">set</span> contract tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe tic_tac_toe
+</code></pre>
+<p>Ensure that your wallet is unlocked and you have tic.tac.toe key imported. If you are going to upload the contract to another account beside tic.tac.toe, replace tic.tac.toe with your account name and ensure you have the key for that account in your wallet</p>
+<h2 id="Play"><a href="#Play" class="headerlink" title="Play!"></a>Play!</h2><p>After the deployment and the transaction is confirmed, the contract is already available in the blockchain. You can play with it now!</p>
+<h3 id="Create-1"><a href="#Create-1" class="headerlink" title="Create"></a>Create</h3><pre class=" language-ts"><code class="language-ts">$ cleos push action tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe create <span class="token string">'{"challenger":"inita", "host":"initb"}'</span> <span class="token operator">--</span>permission initb@active
+</code></pre>
+<h3 id="Move-1"><a href="#Move-1" class="headerlink" title="Move"></a>Move</h3><pre class=" language-ts"><code class="language-ts">$ cleos push action tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe move <span class="token string">'{"challenger":"inita", "host":"initb", "by":"initb", "mvt":{"row":0, "column":0} }'</span> <span class="token operator">--</span>permission initb@active
+$ cleos push action tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe move <span class="token string">'{"challenger":"inita", "host":"initb", "by":"inita", "mvt":{"row":1, "column":1} }'</span> <span class="token operator">--</span>permission inita@active
+</code></pre>
+<h3 id="Restart-1"><a href="#Restart-1" class="headerlink" title="Restart"></a>Restart</h3><pre class=" language-ts"><code class="language-ts">$ cleos push action tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe restart <span class="token string">'{"challenger":"inita", "host":"initb", "by":"initb"}'</span> <span class="token operator">--</span>permission initb@active
+</code></pre>
+<h3 id="Close-1"><a href="#Close-1" class="headerlink" title="Close"></a>Close</h3><pre class=" language-ts"><code class="language-ts">$ cleos push action tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe close <span class="token string">'{"challenger":"inita", "host":"initb"}'</span> <span class="token operator">--</span>permission initb@active
+</code></pre>
+<h3 id="See-the-game-status"><a href="#See-the-game-status" class="headerlink" title="See the game status"></a>See the game status</h3><pre class=" language-ts"><code class="language-ts">$ cleos <span class="token keyword">get</span> table tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe initb games
+<span class="token punctuation">{</span>
+  <span class="token string">"rows"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+      <span class="token string">"challenger"</span><span class="token punctuation">:</span> <span class="token string">"inita"</span><span class="token punctuation">,</span>
+      <span class="token string">"host"</span><span class="token punctuation">:</span> <span class="token string">"initb"</span><span class="token punctuation">,</span>
+      <span class="token string">"turn"</span><span class="token punctuation">:</span> <span class="token string">"inita"</span><span class="token punctuation">,</span>
+      <span class="token string">"winner"</span><span class="token punctuation">:</span> <span class="token string">"none"</span><span class="token punctuation">,</span>
+      <span class="token string">"board"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">2</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span><span class="token punctuation">,</span>
+        <span class="token number">0</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token string">"more"</span><span class="token punctuation">:</span> <span class="token keyword">false</span>
+<span class="token punctuation">}</span>
+</code></pre>
 
   </div>
 </div>
