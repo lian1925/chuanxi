@@ -127,7 +127,7 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="All-command【命令】"><a href="#All-command【命令】" class="headerlink" title="All command【命令】"></a>All command【命令】</h2><p>cleos contains documentation for all of its commands. For a list of all commands known to cleos, simply run it with no arguments:</p>
+      <h2 id="All-command【命令】"><a href="#All-command【命令】" class="headerlink" title="All command【命令】"></a>All command【命令】</h2><p>cleos contains【包含】 documentation【文档】 for all of its commands. For a list【列表】 of all commands known to cleos, simply【简单】 run it with no arguments:</p>
 <pre class=" language-js"><code class="language-js">$ cleos
 ERROR<span class="token punctuation">:</span> RequiredError<span class="token punctuation">:</span> Subcommand required
 Command Line Interface <span class="token class-name">to</span> EOSIO Client
@@ -154,7 +154,7 @@ Subcommands<span class="token punctuation">:</span>
   multisig                    Multisig contract commands
   system                      Send eosio<span class="token punctuation">.</span>system contract action to the blockchain<span class="token punctuation">.</span>
 </code></pre>
-<h2 id="All-subcommand【子级命令】"><a href="#All-subcommand【子级命令】" class="headerlink" title="All subcommand【子级命令】"></a>All subcommand【子级命令】</h2><p>To get help with any particular subcommand, run it with no arguments【参数】 as well:</p>
+<h2 id="All-subcommand【子级命令】"><a href="#All-subcommand【子级命令】" class="headerlink" title="All subcommand【子级命令】"></a>All subcommand【子级命令】</h2><p>To get help with any particular【详细】 subcommand, run it with no arguments【参数】 as well:</p>
 <pre class=" language-js"><code class="language-js">$ cleos create
 ERROR<span class="token punctuation">:</span> RequiredError<span class="token punctuation">:</span> Subcommand required
 Create various items<span class="token punctuation">,</span> on and off the blockchain
@@ -174,15 +174,15 @@ Positionals<span class="token punctuation">:</span>
   OwnerKey TEXT               The owner <span class="token keyword">public</span> key <span class="token keyword">for</span> the account
   ActiveKey TEXT              The active <span class="token keyword">public</span> key <span class="token keyword">for</span> the account
 </code></pre>
-<h2 id="Connect-to-node"><a href="#Connect-to-node" class="headerlink" title="Connect to node"></a>Connect to node</h2><p>This will connect you to your local node</p>
+<h2 id="Connect【连接】-to-node【节点】"><a href="#Connect【连接】-to-node【节点】" class="headerlink" title="Connect【连接】 to node【节点】"></a>Connect【连接】 to node【节点】</h2><p>This will connect you to your local【本地】 node</p>
 <pre class=" language-js"><code class="language-js">$ cleos <span class="token operator">-</span>u localhost<span class="token punctuation">:</span><span class="token number">8889</span> <span class="token operator">&lt;</span>subcommand<span class="token operator">></span>
 $ cleos <span class="token operator">--</span>url localhost<span class="token punctuation">:</span><span class="token number">8889</span> <span class="token operator">&lt;</span>subcommand<span class="token operator">></span>
 </code></pre>
 <p>You can also adjust the node params to connect to a different node, e.g. the public testnet</p>
 <pre class=" language-js"><code class="language-js">$ cleos <span class="token operator">-</span>H test1<span class="token punctuation">.</span>eos<span class="token punctuation">.</span>io <span class="token operator">-</span>p <span class="token number">80</span> <span class="token operator">&lt;</span>subcommand<span class="token operator">></span>
 </code></pre>
-<p>Note You need to include the -H and -p arguments with each request to cleos</p>
-<h2 id="Query-blockchain-state"><a href="#Query-blockchain-state" class="headerlink" title="Query blockchain state"></a>Query blockchain state</h2><pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> info
+<p>Note You need to include【包含】 the -H and -p arguments with each request to cleos</p>
+<h2 id="Query【查询】-blockchain-state【状态】"><a href="#Query【查询】-blockchain-state【状态】" class="headerlink" title="Query【查询】 blockchain state【状态】"></a>Query【查询】 blockchain state【状态】</h2><pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> info
 <span class="token punctuation">{</span>
   <span class="token string">"server_version"</span><span class="token punctuation">:</span> <span class="token string">"7451e092"</span><span class="token punctuation">,</span>
   <span class="token string">"head_block_num"</span><span class="token punctuation">:</span> <span class="token number">6980</span><span class="token punctuation">,</span>
@@ -194,7 +194,7 @@ $ cleos <span class="token operator">--</span>url localhost<span class="token pu
   <span class="token string">"participation_rate"</span><span class="token punctuation">:</span> <span class="token string">"1.00000000000000000"</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="Get-Transaction-by-transaction-id"><a href="#Get-Transaction-by-transaction-id" class="headerlink" title="Get Transaction by transaction_id"></a>Get Transaction by transaction_id</h2><p>With history_api_plugin loaded in nodeos, we can query for particular transaction using the transaction_id</p>
+<h2 id="Get-Transaction【交易】-by-transaction-id"><a href="#Get-Transaction【交易】-by-transaction-id" class="headerlink" title="Get Transaction【交易】 by transaction_id"></a>Get Transaction【交易】 by transaction_id</h2><p>With history_api_plugin loaded in nodeos, we can query for particular【详细】 transaction using the transaction_id</p>
 <pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> transaction eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703
 <span class="token punctuation">{</span>
   <span class="token string">"transaction_id"</span><span class="token punctuation">:</span> <span class="token string">"eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703"</span><span class="token punctuation">,</span>
@@ -250,7 +250,7 @@ $ cleos <span class="token operator">--</span>url localhost<span class="token pu
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="Get-Transaction-by-account"><a href="#Get-Transaction-by-account" class="headerlink" title="Get Transaction by account"></a>Get Transaction by account</h2><p>We can also query list of transactions performed by certain account starting from recent one</p>
+<h2 id="Get【获取】-Transaction【交易】-by-account【账户】"><a href="#Get【获取】-Transaction【交易】-by-account【账户】" class="headerlink" title="Get【获取】 Transaction【交易】 by account【账户】"></a>Get【获取】 Transaction【交易】 by account【账户】</h2><p>We can also query【查询】 list of transactions performed by certain【确定的】 account starting from recent one</p>
 <pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> transactions inita
 <span class="token punctuation">[</span>
   <span class="token punctuation">{</span>
@@ -264,7 +264,7 @@ $ cleos <span class="token operator">--</span>url localhost<span class="token pu
   <span class="token operator">...</span>
 <span class="token punctuation">]</span>
 </code></pre>
-<h2 id="Transfer-Currency"><a href="#Transfer-Currency" class="headerlink" title="Transfer Currency"></a>Transfer Currency</h2><pre class=" language-js"><code class="language-js">$ cleos transfer inita tester <span class="token number">1000</span>
+<h2 id="Transfer【转移】-Currency"><a href="#Transfer【转移】-Currency" class="headerlink" title="Transfer【转移】 Currency"></a>Transfer【转移】 Currency</h2><pre class=" language-js"><code class="language-js">$ cleos transfer inita tester <span class="token number">1000</span>
 <span class="token punctuation">{</span>
   <span class="token string">"transaction_id"</span><span class="token punctuation">:</span> <span class="token string">"eb4b94b72718a369af09eb2e7885b3f494dd1d8a20278a6634611d5edd76b703"</span><span class="token punctuation">,</span>
   <span class="token string">"processed"</span><span class="token punctuation">:</span> <span class="token punctuation">{</span>
@@ -311,21 +311,21 @@ $ cleos <span class="token operator">--</span>url localhost<span class="token pu
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="Create-wallet"><a href="#Create-wallet" class="headerlink" title="Create wallet"></a>Create wallet</h2><p>Create wallet without specifying a name, the wallet will be created with the name ‘default’</p>
+<h2 id="Create【创建】-wallet"><a href="#Create【创建】-wallet" class="headerlink" title="Create【创建】 wallet"></a>Create【创建】 wallet</h2><p>Create wallet without【没有】 specifying a name【名称】, the wallet will be created with the name ‘default’</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet create
 Creating wallet<span class="token punctuation">:</span> <span class="token keyword">default</span>
 Save password to use <span class="token keyword">in</span> the future to unlock <span class="token keyword">this</span> wallet<span class="token punctuation">.</span>
 Without password imported keys will not be retrievable<span class="token punctuation">.</span>
 <span class="token string">"PW5JD9cw9YY288AXPvnbwUk5JK4Cy6YyZ83wzHcshu8F2akU9rRWE"</span>
 </code></pre>
-<p>You can name the wallet adding the -n ${wallet_name} in the command</p>
+<p>You can name【命名】 the wallet adding the -n ${wallet_name} in the command</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet create <span class="token operator">-</span>n second<span class="token operator">-</span>wallet
 Creating wallet<span class="token punctuation">:</span> second<span class="token operator">-</span>wallet
 Save password to use <span class="token keyword">in</span> the future to unlock <span class="token keyword">this</span> wallet<span class="token punctuation">.</span>
 Without password imported keys will not be retrievable<span class="token punctuation">.</span>
 <span class="token string">"PW5Ji6JUrLjhKAVn68nmacLxwhvtqUAV18J7iycZppsPKeoGGgBEw"</span>
 </code></pre>
-<h2 id="List-wallets"><a href="#List-wallets" class="headerlink" title="List wallets"></a>List wallets</h2><p>The list wallet command will list all wallet with status of each wallet, the * symbol indicates that the wallet is currently unlocked.</p>
+<h2 id="List【列表】-wallets"><a href="#List【列表】-wallets" class="headerlink" title="List【列表】 wallets"></a>List【列表】 wallets</h2><p>The list wallet command will list all【所有】 wallet with status of each wallet, the * symbol indicates【表明】 that the wallet is currently【当前】 unlocked.</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet list
 Wallets<span class="token punctuation">:</span>
 <span class="token punctuation">[</span>
@@ -333,11 +333,11 @@ Wallets<span class="token punctuation">:</span>
   <span class="token string">"second-wallet *"</span>
 <span class="token punctuation">]</span>
 </code></pre>
-<h2 id="Import-key-to-wallet"><a href="#Import-key-to-wallet" class="headerlink" title="Import key to wallet"></a>Import key to wallet</h2><p>Note: If you do not hold an account key, you will need to use the create account command to first create account keys.</p>
+<h2 id="Import【导入】-key【私钥】-to-wallet"><a href="#Import【导入】-key【私钥】-to-wallet" class="headerlink" title="Import【导入】 key【私钥】 to wallet"></a>Import【导入】 key【私钥】 to wallet</h2><p>Note: If you do not hold an account key, you will need to use the create account command to first create account keys.</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet <span class="token keyword">import</span> 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3
 imported <span class="token keyword">private</span> key <span class="token keyword">for</span><span class="token punctuation">:</span> EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV
 </code></pre>
-<h2 id="List-wallet-keys"><a href="#List-wallet-keys" class="headerlink" title="List wallet keys"></a>List wallet keys</h2><p>This will list all the keys stored in the wallet in public private key pair.</p>
+<h2 id="List-wallet-keys【钥匙列表】"><a href="#List-wallet-keys【钥匙列表】" class="headerlink" title="List wallet keys【钥匙列表】"></a>List wallet keys【钥匙列表】</h2><p>This will list all the keys stored【存储】 in the wallet in public private key pair【密钥对】.</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet keys
 <span class="token punctuation">[</span><span class="token punctuation">[</span>
     <span class="token string">"EOS6MRyAjQq8ud7hVNYcfnVPJqcVpscN5So8BhtHuGYqET5GDW5CV"</span><span class="token punctuation">,</span>
@@ -345,23 +345,22 @@ imported <span class="token keyword">private</span> key <span class="token keywo
   <span class="token punctuation">]</span>
 <span class="token punctuation">]</span>
 </code></pre>
-<h2 id="Lock-wallet"><a href="#Lock-wallet" class="headerlink" title="Lock wallet"></a>Lock wallet</h2><pre class=" language-js"><code class="language-js">$ cleos wallet lock <span class="token operator">-</span>n second<span class="token operator">-</span>wallet
+<h2 id="Lock【加锁】-wallet"><a href="#Lock【加锁】-wallet" class="headerlink" title="Lock【加锁】 wallet"></a>Lock【加锁】 wallet</h2><pre class=" language-js"><code class="language-js">$ cleos wallet lock <span class="token operator">-</span>n second<span class="token operator">-</span>wallet
 Locked<span class="token punctuation">:</span> <span class="token string">'second-wallet'</span>
-
-Notice that the locked wallet doesn't have <span class="token operator">*</span> symbol <span class="token keyword">in</span> the list
-
-$ cleos wallet list
+</code></pre>
+<p>Notice that the locked wallet doesn’t have * symbol in the list</p>
+<pre class=" language-js"><code class="language-js">$ cleos wallet list
 Wallets<span class="token punctuation">:</span>
 <span class="token punctuation">[</span>
   <span class="token string">"default *"</span><span class="token punctuation">,</span>
   <span class="token string">"second-wallet"</span>
 <span class="token punctuation">]</span>
 </code></pre>
-<h2 id="Unlock-wallet"><a href="#Unlock-wallet" class="headerlink" title="Unlock wallet"></a>Unlock wallet</h2><p>To unlock it specify the password you get when creating the wallet</p>
+<h2 id="Unlock【解锁】-wallet"><a href="#Unlock【解锁】-wallet" class="headerlink" title="Unlock【解锁】 wallet"></a>Unlock【解锁】 wallet</h2><p>To unlock it specify the password【密码】 you get when creating the wallet</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet unlock <span class="token operator">-</span>n second<span class="token operator">-</span>wallet <span class="token operator">--</span>password PW5Ji6JUrLjhKAVn68nmacLxwhvtqUAV18J7iycZppsPKeoGGgBEw
 Unlocked<span class="token punctuation">:</span> <span class="token string">'second-wallet'</span>
 </code></pre>
-<h2 id="Open-wallet"><a href="#Open-wallet" class="headerlink" title="Open wallet"></a>Open wallet</h2><pre class=" language-js"><code class="language-js">$ cleos wallet open
+<h2 id="Open【打开】-wallet"><a href="#Open【打开】-wallet" class="headerlink" title="Open【打开】 wallet"></a>Open【打开】 wallet</h2><pre class=" language-js"><code class="language-js">$ cleos wallet open
 Wallets<span class="token punctuation">:</span> <span class="token punctuation">[</span>
   <span class="token string">"default"</span>
 <span class="token punctuation">]</span>
@@ -371,7 +370,7 @@ Wallets<span class="token punctuation">:</span> <span class="token punctuation">
   <span class="token string">"second-wallet"</span>
 <span class="token punctuation">]</span>
 </code></pre>
-<h2 id="Create-keys"><a href="#Create-keys" class="headerlink" title="Create keys"></a>Create keys</h2><p>In order to create an account you will need two new keys: owner and active. You can ask cleos to create some keys for you:</p>
+<h2 id="Create【创建】-keys"><a href="#Create【创建】-keys" class="headerlink" title="Create【创建】 keys"></a>Create【创建】 keys</h2><p>In order to create an account you will need two new keys: owner and active. You can ask cleos to create some keys for you:</p>
 <p>This will be your owner key,</p>
 <pre class=" language-js"><code class="language-js">$ cleos create key
 <span class="token keyword">public</span><span class="token punctuation">:</span> EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq
@@ -383,7 +382,7 @@ Wallets<span class="token punctuation">:</span> <span class="token punctuation">
 <span class="token keyword">private</span><span class="token punctuation">:</span> 5Hv22aPcjnENBv6X9o9nKGdkfrW44En6z4zJUt2PobAvbQXrT9z
 </code></pre>
 <p>Note: cleos does not save the generated private key.</p>
-<h2 id="Create-account"><a href="#Create-account" class="headerlink" title="Create account"></a>Create account</h2><p>You will need your EOSIO keys in order to create an account, you must either have your EOSIO keys registered on the Ethereum network or you can use the create keys function to create a new sets of keys</p>
+<h2 id="Create【创建】-account【账户】"><a href="#Create【创建】-account【账户】" class="headerlink" title="Create【创建】 account【账户】"></a>Create【创建】 account【账户】</h2><p>You will need your EOSIO keys in order to create an account, you must either have your EOSIO keys registered on the Ethereum network or you can use the create keys function to create a new sets of keys</p>
 <pre class=" language-js"><code class="language-js">$ cleos create account inita tester EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA
 <span class="token punctuation">{</span>
   <span class="token string">"transaction_id"</span><span class="token punctuation">:</span> <span class="token string">"6acd2ece68c4b86c1fa209c3989235063384020781f2c67bbb80bc8d540ca120"</span><span class="token punctuation">,</span>
@@ -416,7 +415,7 @@ Wallets<span class="token punctuation">:</span> <span class="token punctuation">
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="Account-servants"><a href="#Account-servants" class="headerlink" title="Account servants"></a>Account servants</h2><p>To check the servant accounts created by an account (control account)</p>
+<h2 id="Account【账户】-servants【助手】"><a href="#Account【账户】-servants【助手】" class="headerlink" title="Account【账户】 servants【助手】"></a>Account【账户】 servants【助手】</h2><p>To check the servant accounts created by an account (control account)</p>
 <pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> servants inita
 <span class="token punctuation">{</span>
   <span class="token string">"controlled_accounts"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>
@@ -424,7 +423,7 @@ Wallets<span class="token punctuation">:</span> <span class="token punctuation">
   <span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="Check-account-balance"><a href="#Check-account-balance" class="headerlink" title="Check account balance"></a>Check account balance</h2><pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> account tester
+<h2 id="Check【检查】-account-balance"><a href="#Check【检查】-account-balance" class="headerlink" title="Check【检查】 account balance"></a>Check【检查】 account balance</h2><pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> account tester
 <span class="token punctuation">{</span>
   <span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"tester"</span><span class="token punctuation">,</span>
   <span class="token string">"eos_balance"</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
@@ -459,7 +458,7 @@ Wallets<span class="token punctuation">:</span> <span class="token punctuation">
   <span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="Create-or-Modify-Permissions"><a href="#Create-or-Modify-Permissions" class="headerlink" title="Create or Modify Permissions"></a>Create or Modify Permissions</h2><p>To modify permissions of an account, you must have the authority over the account and the permission of which you are modifying. The set account permission command is subject to change so it’s associated Class is not fully documented.</p>
+<h2 id="Create【创建】-or-Modify【更改】-Permissions"><a href="#Create【创建】-or-Modify【更改】-Permissions" class="headerlink" title="Create【创建】 or Modify【更改】 Permissions"></a>Create【创建】 or Modify【更改】 Permissions</h2><p>To modify permissions of an account, you must have the authority over the account and the permission of which you are modifying. The set account permission command is subject to change so it’s associated Class is not fully documented.</p>
 <p>The first example associates a new key to the active permissions of an account</p>
 <pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">set</span> account permission test active <span class="token string">'{"threshold" : 1, "keys" : [{"permission":{"key":"EOS8X7Mp7apQWtL6T2sfSZzBcQNUqZB7tARFEm9gA9Tn9nbMdsvBB","permission":"active"},"weight":1}], "accounts" : [{"permission":{"actor":"acc2","permission":"active"},"weight":50}]}'</span> owner
 This second example modifies the same account permission<span class="token punctuation">,</span> but removes the key <span class="token keyword">set</span> <span class="token keyword">in</span> the last example<span class="token punctuation">,</span> and grants active authority <span class="token keyword">of</span> the @test account to another account<span class="token punctuation">.</span>
@@ -497,7 +496,7 @@ $ cleos <span class="token keyword">set</span> account permission test active <s
 <span class="token punctuation">}</span>
 </code></pre>
 <p>You can read more about some practical uses of permissions here</p>
-<h2 id="Deploy-Contract"><a href="#Deploy-Contract" class="headerlink" title="Deploy Contract"></a>Deploy Contract</h2><p>To upload a contract to the blockchain, you must first hold an account and a wallet that holds the account unlocked. Secondly, you will need your contract files (.wast) and its abi (.abi). Then you may proceed with setting the code.</p>
+<h2 id="Deploy【发布】-Contract【合约】"><a href="#Deploy【发布】-Contract【合约】" class="headerlink" title="Deploy【发布】 Contract【合约】"></a>Deploy【发布】 Contract【合约】</h2><p>To upload a contract to the blockchain, you must first hold an account and a wallet that holds the account unlocked. Secondly, you will need your contract files (.wast) and its abi (.abi). Then you may proceed with setting the code.</p>
 <pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">set</span> contract currency <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token regex">/../</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">/</span>contracts<span class="token operator">/</span>currency<span class="token regex">/currency.wast ../</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">/</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">/</span>contracts<span class="token operator">/</span>currency<span class="token operator">/</span>currency<span class="token punctuation">.</span>abi
 Reading WAST<span class="token operator">...</span>
 Assembling WASM<span class="token operator">...</span>
@@ -533,7 +532,7 @@ Publishing contract<span class="token operator">...</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="Query-Contract-ABI"><a href="#Query-Contract-ABI" class="headerlink" title="Query Contract ABI"></a>Query Contract ABI</h2><p>We can query the blockchain for the .abi of the contract, on which we can check the list of available actions and their respective message structure</p>
+<h2 id="Query【查询】-Contract【合约】-ABI"><a href="#Query【查询】-Contract【合约】-ABI" class="headerlink" title="Query【查询】 Contract【合约】 ABI"></a>Query【查询】 Contract【合约】 ABI</h2><p>We can query the blockchain【区块链】 for the .abi of the contract, on which we can check【检查】 the list【列表】 of available actions【行为】 and their respective message【信息】 structure【结构】</p>
 <pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> code <span class="token operator">-</span>a currency<span class="token punctuation">.</span>abi currency
 code hash<span class="token punctuation">:</span> 9b9db1a7940503a88535517049e64467a6e8f4e9e03af15e9968ec89dd794975
 saving abi to currency<span class="token punctuation">.</span>abi
@@ -578,7 +577,7 @@ $ cat currency<span class="token punctuation">.</span>abi
   <span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="Push-Message-to-Contract"><a href="#Push-Message-to-Contract" class="headerlink" title="Push Message to Contract"></a>Push Message to Contract</h2><p>A message should be contract according to the contract ABI.</p>
+<h2 id="Push【推送】-Message【信息】-to-Contract【合约】"><a href="#Push【推送】-Message【信息】-to-Contract【合约】" class="headerlink" title="Push【推送】 Message【信息】 to Contract【合约】"></a>Push【推送】 Message【信息】 to Contract【合约】</h2><p>A message should be contract according to the contract ABI.</p>
 <p>For example, the ABI of the currency contract is contructed as follow.</p>
 <pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> code <span class="token operator">-</span>a currency<span class="token punctuation">.</span>abi currency
 code hash<span class="token punctuation">:</span> 9b9db1a7940503a88535517049e64467a6e8f4e9e03af15e9968ec89dd794975
@@ -672,7 +671,7 @@ $ cat currency<span class="token punctuation">.</span>abi
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="Querying-Contract"><a href="#Querying-Contract" class="headerlink" title="Querying Contract"></a>Querying Contract</h2><p>Depending on the table structure defines in the contract, you can query the data within the contract.</p>
+<h2 id="Querying【查询】-Contract"><a href="#Querying【查询】-Contract" class="headerlink" title="Querying【查询】 Contract"></a>Querying【查询】 Contract</h2><p>Depending on the table structure defines in the contract, you can query the data within the contract.</p>
 <p>For example, the currency contract ABI contains the account table.</p>
 <pre class=" language-js"><code class="language-js">$ cleos <span class="token keyword">get</span> code <span class="token operator">-</span>a currency<span class="token punctuation">.</span>abi currency
 code hash<span class="token punctuation">:</span> 9b9db1a7940503a88535517049e64467a6e8f4e9e03af15e9968ec89dd794975
@@ -703,19 +702,19 @@ $ cat currency<span class="token punctuation">.</span>abi
   <span class="token string">"more"</span><span class="token punctuation">:</span> <span class="token boolean">true</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="Skip-signatures"><a href="#Skip-signatures" class="headerlink" title="Skip signatures"></a>Skip signatures</h2><p>If you have nodeos running in your local, as an easy way for developers to test functionality without dealing with keys, nodeos can be run so that Transaction signatures are not required.</p>
+<h2 id="Skip【跳过】-signatures【签名】"><a href="#Skip【跳过】-signatures【签名】" class="headerlink" title="Skip【跳过】 signatures【签名】"></a>Skip【跳过】 signatures【签名】</h2><p>If you have nodeos running in your local, as an easy way for developers to test functionality without dealing with keys, nodeos can be run so that Transaction signatures are not required.</p>
 <pre class=" language-js"><code class="language-js">$ nodeos <span class="token operator">--</span>skip<span class="token operator">-</span>transaction<span class="token operator">-</span>signatures
 </code></pre>
 <p>And then for any operation that requires signing, use the -s option</p>
 <pre class=" language-js"><code class="language-js">$ cleos $<span class="token punctuation">{</span>command<span class="token punctuation">}</span> $<span class="token punctuation">{</span>subcommand<span class="token punctuation">}</span> <span class="token operator">-</span>s $<span class="token punctuation">{</span>param<span class="token punctuation">}</span>
 </code></pre>
-<h3 id="Using-Separate-Wallet-App"><a href="#Using-Separate-Wallet-App" class="headerlink" title="Using Separate Wallet App"></a>Using Separate Wallet App</h3><p>Instead of using the wallet functionality built-in to nodeos, you can also use a separate wallet app which can be found inside programs/keosd. By default, port 8888 is used by nodeos, so choose another port for the wallet app.</p>
+<h3 id="Using-Separate【分离】-Wallet-App"><a href="#Using-Separate【分离】-Wallet-App" class="headerlink" title="Using Separate【分离】 Wallet App"></a>Using Separate【分离】 Wallet App</h3><p>Instead of using the wallet functionality built-in to nodeos, you can also use a separate wallet app which can be found inside programs/keosd. By default, port 8888 is used by nodeos, so choose another port for the wallet app.</p>
 <pre class=" language-js"><code class="language-js">$ keosd <span class="token operator">--</span>http<span class="token operator">-</span>server<span class="token operator">-</span>endpoint <span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">8887</span>
 </code></pre>
 <p>Then for any operation that requires signing, use the –wallet-host and –wallet-port option</p>
 <pre class=" language-js"><code class="language-js">$ cleos —<span class="token operator">-</span>wallet<span class="token operator">-</span>url <span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">8887</span> $<span class="token punctuation">{</span>command<span class="token punctuation">}</span> $<span class="token punctuation">{</span>subcommand<span class="token punctuation">}</span> $<span class="token punctuation">{</span>param<span class="token punctuation">}</span>
 </code></pre>
-<h2 id="Error-Examples"><a href="#Error-Examples" class="headerlink" title="Error Examples"></a>Error Examples</h2><pre class=" language-js"><code class="language-js">status_code <span class="token operator">==</span> <span class="token number">200</span><span class="token punctuation">:</span> Error
+<h2 id="Error【错误】-Examples"><a href="#Error【错误】-Examples" class="headerlink" title="Error【错误】 Examples"></a>Error【错误】 Examples</h2><pre class=" language-js"><code class="language-js">status_code <span class="token operator">==</span> <span class="token number">200</span><span class="token punctuation">:</span> Error
 <span class="token punctuation">:</span> <span class="token number">10</span> assert_exception<span class="token punctuation">:</span> Assert Exception
 test<span class="token punctuation">:</span> assertion failed<span class="token punctuation">:</span> integer underflow subtracting token balance
     <span class="token punctuation">{</span><span class="token string">"s"</span><span class="token punctuation">:</span><span class="token string">"integer underflow subtracting token balance"</span><span class="token punctuation">,</span><span class="token string">"ptr"</span><span class="token punctuation">:</span><span class="token number">176</span><span class="token punctuation">}</span>
