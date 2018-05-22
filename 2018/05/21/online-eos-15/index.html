@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>Hello World Contract | 小沙丘的网络漫游记</title>
+  <title>Hello World Contract【合约】 | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -114,7 +114,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>Hello World Contract</h1>
+<h1>Hello World Contract【合约】</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -127,8 +127,8 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="Hello-World-Contract"><a href="#Hello-World-Contract" class="headerlink" title="Hello World Contract"></a>Hello World Contract</h2><p>This tutorial assumes that you have completed tutorials Getting Started With Contracts and Eosio.token, Exchange, and Eosio.msig Contracts.</p>
-<p>We will now create our first “hello world” contract. Create a new folder called “hello”, cd into the folder, then create a file “hello.cpp” with the following contents:</p>
+      <h2 id="Hello-World-Contract【合约】"><a href="#Hello-World-Contract【合约】" class="headerlink" title="Hello World Contract【合约】"></a>Hello World Contract【合约】</h2><p>This tutorial assumes【假想】 that you have completed tutorials Getting Started With Contracts【合约】 and Eosio.token【令牌】, Exchange【交换】, and Eosio.msig Contracts【合约】.</p>
+<p>We will now create our first “hello world” contract. Create a new folder called “hello”, cd into the folder, then create a file “hello.cpp” with the following contents【内容】:</p>
 <p>hello/hello.cpp</p>
 <pre class=" language-CPP"><code class="language-CPP">#include <eosiolib/eosio.hpp>
 #include <eosiolib/print.hpp>
@@ -146,15 +146,15 @@ class hello : public eosio::contract {
 
 EOSIO_ABI( hello, (hi) )
 </code></pre>
-<p>You can compile your code to web assembly (.wast) as follows:</p>
+<p>You can compile【编译】 your code to web assembly (.wast) as follows:</p>
 <pre class=" language-js"><code class="language-js">$ eosiocpp <span class="token operator">-</span>o hello<span class="token punctuation">.</span>wast hello<span class="token punctuation">.</span>cpp
 </code></pre>
-<p>NOTE: The compiler might generate warnings. These can be safely ignored.</p>
-<p>Now generate the abi:</p>
+<p>NOTE: The compiler might generate【生成】 warnings. These can be safely ignored.</p>
+<p>Now generate【生成】 the abi:</p>
 <pre class=" language-js"><code class="language-js">$ eosiocpp <span class="token operator">-</span>g hello<span class="token punctuation">.</span>abi hello<span class="token punctuation">.</span>cpp
 Generated hello<span class="token punctuation">.</span>abi
 </code></pre>
-<p>Create an account and upload the contract:</p>
+<p>Create an account【账户】 and upload【上传】 the contract:</p>
 <pre class=" language-js"><code class="language-js">$ cleos create account eosio hello<span class="token punctuation">.</span>code EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4 EOS7ijWCBmoXBi3CgtK7DJxentZZeTkeUnaSDvyro9dq7Sd1C3dC4
 <span class="token operator">...</span>
 $ cleos <span class="token keyword">set</span> contract hello<span class="token punctuation">.</span>code <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token operator">/</span>hello <span class="token operator">-</span>p hello<span class="token punctuation">.</span>code
@@ -172,7 +172,7 @@ executed transaction<span class="token punctuation">:</span> 28d92256c8ffd8b0255
 #    hello<span class="token punctuation">.</span>code <span class="token operator">&lt;=</span> hello<span class="token punctuation">.</span>code<span class="token punctuation">:</span><span class="token punctuation">:</span>hi               <span class="token punctuation">{</span><span class="token string">"user"</span><span class="token punctuation">:</span><span class="token string">"user"</span><span class="token punctuation">}</span>
 <span class="token operator">></span><span class="token operator">></span> Hello<span class="token punctuation">,</span> user
 </code></pre>
-<p>In this case tester is the one who authorized it and user is just an argument. If we want our contact to authenticate the user we are saying “hi” to, then we need to modify the contract to require authentication.</p>
+<p>In this case tester is the one who authorized it and user is just an argument【参数】. If we want our contact to authenticate the user we are saying “hi” to, then we need to modify【修改】 the contract to require authentication.</p>
 <p>Modify the hi() function in hello.cpp as follows:</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">void</span> <span class="token function">hi</span><span class="token punctuation">(</span> account_name user <span class="token punctuation">)</span> <span class="token punctuation">{</span>
    <span class="token function">require_auth</span><span class="token punctuation">(</span> user <span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -180,7 +180,7 @@ executed transaction<span class="token punctuation">:</span> 28d92256c8ffd8b0255
 <span class="token punctuation">}</span>
 </code></pre>
 <p>Repeat the steps to compile the wast file and generate the abi, then set the contract again to deploy the update.</p>
-<p>Now if we attempt to mismatch the user and the authority, the contract will throw an error:</p>
+<p>Now if we attempt to mismatch【不匹配】 the user and the authority, the contract will throw an error:</p>
 <pre class=" language-js"><code class="language-js">$ cleos push action hello<span class="token punctuation">.</span>code hi <span class="token string">'["tester"]'</span> <span class="token operator">-</span>p user
 Error <span class="token number">3030001</span><span class="token punctuation">:</span> missing required authority
 Ensure that you have the related authority inside your transaction<span class="token operator">!</span><span class="token punctuation">;</span>
@@ -194,7 +194,7 @@ executed transaction<span class="token punctuation">:</span> 235bd766c2097f4a698
 #    hello<span class="token punctuation">.</span>code <span class="token operator">&lt;=</span> hello<span class="token punctuation">.</span>code<span class="token punctuation">:</span><span class="token punctuation">:</span>hi               <span class="token punctuation">{</span><span class="token string">"user"</span><span class="token punctuation">:</span><span class="token string">"tester"</span><span class="token punctuation">}</span>
 <span class="token operator">></span><span class="token operator">></span> Hello<span class="token punctuation">,</span> tester
 </code></pre>
-<h2 id="Hello-World-Ricardian-Contract"><a href="#Hello-World-Ricardian-Contract" class="headerlink" title="Hello World Ricardian Contract"></a>Hello World Ricardian Contract</h2><p>Every smart contract must have a matching Ricardian contract. The Ricardian Contract specifies the legally binding behavior associated with each action of the smart contract. The Ricardian Contract for the Hello World Contract is listed here.</p>
+<h2 id="Hello-World-Ricardian-Contract【合约】"><a href="#Hello-World-Ricardian-Contract【合约】" class="headerlink" title="Hello World Ricardian Contract【合约】"></a>Hello World Ricardian Contract【合约】</h2><p>Every smart contract must have a matching Ricardian contract. The Ricardian Contract specifies the legally binding behavior associated with each action of the smart contract. The Ricardian Contract for the Hello World Contract is listed here.</p>
 <pre class=" language-js"><code class="language-js">## CONTRACT FOR HELLO WORLD
 
 ### Parameters
@@ -204,7 +204,7 @@ Implied parameters<span class="token punctuation">:</span>
 
 <span class="token operator">*</span> _<span class="token operator">**</span>account_name<span class="token operator">**</span>_ <span class="token punctuation">(</span>name <span class="token keyword">of</span> the party invoking and signing the contract<span class="token punctuation">)</span>
 
-### Intent
+### Intent【意图】
 INTENT<span class="token punctuation">.</span> The intention <span class="token keyword">of</span> the author and the invoker <span class="token keyword">of</span> <span class="token keyword">this</span> contract is to print output<span class="token punctuation">.</span> It shall have no other effect<span class="token punctuation">.</span>
 
 ### Term
