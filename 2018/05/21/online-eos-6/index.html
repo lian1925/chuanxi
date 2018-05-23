@@ -127,7 +127,7 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="Programs【编程】"><a href="#Programs【编程】" class="headerlink" title="Programs【编程】"></a>Programs【编程】</h2><h3 id="nodeos"><a href="#nodeos" class="headerlink" title="nodeos"></a>nodeos</h3><p>The core EOSIO daemon【进程】 that can be configured【配置】 with plugins【插件】 to run a node. Example uses are block production, dedicated【专用的】 API endpoints【终端】, and local【本地】 development.</p>
+      <h2 id="Programs【编程】"><a href="#Programs【编程】" class="headerlink" title="Programs【编程】"></a>Programs【编程】</h2><h3 id="nodeos"><a href="#nodeos" class="headerlink" title="nodeos"></a>nodeos</h3><p>The core EOSIO daemon【进程】 that can be configured【配置】 with plugins【插件】 to run a node. Example【示例】 uses are block production, dedicated【专用的】 API endpoints【终端】, and local【本地】 development.</p>
 <h3 id="cleos"><a href="#cleos" class="headerlink" title="cleos"></a>cleos</h3><p>cleos is a command line tool【命令行工具】 that interfaces【接口】 with the REST API exposed【暴露】 by nodeos. In order to use cleos you will need to have the end point (IP address【地址】 and port【端口】 number) to a nodeos instance【实例】 and also configure cleos to load the ‘eosio::chain_api_plugin’. cleos contains【包含】 documentation for all of its commands. For a list of all commands known to cleos, simply run【运行】 it with no arguments【参数】:</p>
 <pre class=" language-js"><code class="language-js">$ cleos
 ERROR<span class="token punctuation">:</span> RequiredError<span class="token punctuation">:</span> Subcommand required
@@ -154,7 +154,7 @@ Subcommands<span class="token punctuation">:</span>
   benchmark                   Configure and execute benchmarks
   push                        Push arbitrary transactions to the blockchain
 </code></pre>
-<p>To get help with any particular【详细】 subcommand, run it with no arguments as well:</p>
+<p>To get help【帮助】 with any particular【详细】 subcommand, run it with no arguments【无参数】 as well:</p>
 <pre class=" language-js"><code class="language-js">$ cleos create
 ERROR<span class="token punctuation">:</span> RequiredError<span class="token punctuation">:</span> Subcommand required
 Create various【不同】 items<span class="token punctuation">,</span> on and off the blockchain
@@ -181,16 +181,16 @@ Options<span class="token punctuation">:</span>
   <span class="token operator">-</span>x<span class="token punctuation">,</span><span class="token operator">--</span>expiration             <span class="token keyword">set</span> the time <span class="token keyword">in</span> seconds before a transaction expires<span class="token punctuation">,</span> defaults to 30s
   <span class="token operator">-</span>f<span class="token punctuation">,</span><span class="token operator">--</span>force<span class="token operator">-</span>unique           force the transaction to be unique<span class="token punctuation">.</span> <span class="token keyword">this</span> will consume extra bandwidth and remove any protections against accidently issuing the same transaction multiple times
 </code></pre>
-<h3 id="keosd"><a href="#keosd" class="headerlink" title="keosd"></a>keosd</h3><p>An EOSIO wallet【钱包】 daemon【进程】 that loads wallet related plugins【插件】, such as the HTTP interface【接口】 and RPC API</p>
-<h3 id="launcher【运行】"><a href="#launcher【运行】" class="headerlink" title="launcher【运行】"></a>launcher【运行】</h3><p>The launcher application simplifies【简化】 the distribution【分布】 of multiple【多个】 nodeos nodes across a LAN or a wider【更广】 network. It can be configured【配置】 via CLI to compose per-node configuration files, distribute these files securely【安全】 amongst the peer hosts and then start up the multiple instances【实例】 of nodeos.</p>
-<h2 id="tools【工具】"><a href="#tools【工具】" class="headerlink" title="tools【工具】"></a>tools【工具】</h2><h3 id="eosiocpp"><a href="#eosiocpp" class="headerlink" title="eosiocpp"></a>eosiocpp</h3><p>Using eosiocpp to generate【生成】 the ABI specification file<br>eosiocpp can generate the ABI specification【规格】 file by inspecting【检查】 the content of types declared in the contract【合约】 source code【源码】.</p>
-<p>To indicate that a type must be exported to the ABI (as an action or a table), the @abi annotation【标记】 must be used in the comment【评论】 attached to the type declaration【声明】.</p>
+<h3 id="keosd"><a href="#keosd" class="headerlink" title="keosd"></a>keosd</h3><p>An EOSIO wallet【钱包】 daemon【进程】 that loads wallet related plugins【插件】, such as the HTTP interface【接口】 and RPC【远程过程调用】 API</p>
+<h3 id="launcher【运行】"><a href="#launcher【运行】" class="headerlink" title="launcher【运行】"></a>launcher【运行】</h3><p>The launcher application simplifies【简化】 the distribution【分布】 of multiple【多个】 nodeos nodes across a LAN or a wider【更广】 network. It can be configured【配置】 via CLI to compose per-node configuration files, distribute these files securely【安全】 amongst the peer【点】 hosts and then start up the multiple instances【实例】 of nodeos.</p>
+<h2 id="tools【工具】"><a href="#tools【工具】" class="headerlink" title="tools【工具】"></a>tools【工具】</h2><h3 id="eosiocpp"><a href="#eosiocpp" class="headerlink" title="eosiocpp"></a>eosiocpp</h3><p>Using eosiocpp to generate【生成】 the ABI specification file<br>eosiocpp can generate the ABI specification【规格】 file by inspecting【检查】 the content of types declared【声明】 in the contract【合约】 source code【源码】.</p>
+<p>To indicate that a type must be exported【导出】 to the ABI (as an action or a table), the @abi annotation【标记】 must be used in the comment【评论】 attached to the type declaration【声明】.</p>
 <p>The syntax【语法】 for the annotation is as following.</p>
-<p>@abi action [name name2 … nameN]<br>@abi table [index_type name] To generate the ABI file, eosiocpp must be called with the -g option.</p>
+<p>@abi action [name name2 … nameN]<br>@abi table [index_type name] To generate the ABI file, eosiocpp must be called with the -g option【选项】.</p>
 <pre class=" language-js"><code class="language-js">➜ eosiocpp <span class="token operator">-</span>g abi<span class="token punctuation">.</span>json types<span class="token punctuation">.</span>hpp
 Generated abi<span class="token punctuation">.</span>json <span class="token operator">...</span>
 </code></pre>
-<p>eosiocpp can also be used to generate helper functions that serialize/deserialize the types defined in the ABI spec.</p>
+<p>eosiocpp can also be used to generate【生成】 helper【辅助】 functions that serialize/deserialize【序列化】 the types defined【定义】 in the ABI spec.</p>
 <pre class=" language-js"><code class="language-js">➜ eosiocpp <span class="token operator">-</span>g abi<span class="token punctuation">.</span>json <span class="token operator">-</span>gs types<span class="token punctuation">.</span>hpp
 Generated abi<span class="token punctuation">.</span>json <span class="token operator">...</span>
 Generated types<span class="token punctuation">.</span>gen<span class="token punctuation">.</span>hpp <span class="token operator">...</span>
@@ -453,7 +453,7 @@ struct test_action <span class="token punctuation">{</span>
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>NOTE: table names and action names cannot use an underscore (“_”).</p>
+<p>NOTE: table names and action names cannot【不能】 use an underscore (“_”).</p>
 <h3 id="Calling【调用】-contract【合约】-with-test【测试】-values"><a href="#Calling【调用】-contract【合约】-with-test【测试】-values" class="headerlink" title="Calling【调用】 contract【合约】 with test【测试】 values"></a>Calling【调用】 contract【合约】 with test【测试】 values</h3><pre class=" language-js"><code class="language-js">cleos push message mycontract testaction <span class="token string">'{"u32":"1000", "cplx":{"u64":"472", "str":"hello", "bytes":"B0CA", "pub":"EOS8CY2pCW5THmzvPTgEh5WLEAxgpVFXaPogPvgvVpVWCYMRdzmwx", "simple":{"u32":"164","s16":"small-string"}}}'</span> <span class="token operator">-</span>S mycontract
 </code></pre>
 <p>Will produce【生成】 the following output in nodeos console</p>
