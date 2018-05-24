@@ -127,27 +127,27 @@ if(isiOS){
 
   
   <div class="page">
-      <p>Handling events with React elements is very similar to handling events on DOM elements. There are some syntactic differences:</p>
+      <p>Handling events with React elements is very similar【类似】 to handling events on DOM elements. There are some syntactic【有趣】 differences:</p>
 <ul>
-<li>React events are named using camelCase, rather than lowercase.</li>
-<li>With JSX you pass a function as the event handler, rather than a string.</li>
+<li>React events are named using camelCase【骆驼】, rather than lowercase.</li>
+<li>With JSX you pass【传递】 a function【函数】 as the event handler, rather than a string.</li>
 </ul>
-<p>For example, the HTML:</p>
+<p>For example【示例】, the HTML:</p>
 <pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>button</span> <span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>activateLasers()<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
   Activate Lasers
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>button</span><span class="token punctuation">></span></span>
 </code></pre>
-<p>is slightly different in React:</p>
+<p>is slightly【轻微】 different in React:</p>
 <pre class=" language-js{1}"><code class="language-js{1}"><button onClick={activateLasers}>
   Activate Lasers
 </button>
 </code></pre>
-<p>Another difference is that you cannot return <code>false</code> to prevent default behavior in React. You must call <code>preventDefault</code> explicitly. For example, with plain HTML, to prevent the default link behavior of opening a new page, you can write:</p>
+<p>Another difference is that you cannot return <code>false</code> to prevent【阻止】 default【默认】 behavior【行为】 in React. You must call【调用】 <code>preventDefault</code> explicitly【明确】. For example, with plain HTML, to prevent【阻止】 the default link behavior of opening【打开】 a new page, you can write:</p>
 <pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>a</span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>#<span class="token punctuation">"</span></span> <span class="token attr-name">onclick</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>console.log(<span class="token punctuation">'</span>The link was clicked.<span class="token punctuation">'</span>); return false<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
   Click me
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>a</span><span class="token punctuation">></span></span>
 </code></pre>
-<p>In React, this could instead be:</p>
+<p>In React, this could【应该】 instead be:</p>
 <pre class=" language-js{2-5,8}"><code class="language-js{2-5,8}">function ActionLink() {
   function handleClick(e) {
     e.preventDefault();
@@ -161,9 +161,9 @@ if(isiOS){
   );
 }
 </code></pre>
-<p>Here, <code>e</code> is a synthetic event. React defines these synthetic events according to the <a href="https://www.w3.org/TR/DOM-Level-3-Events/" target="_blank" rel="external">W3C spec</a>, so you don’t need to worry about cross-browser compatibility. See the <a href="/docs/events.html"><code>SyntheticEvent</code></a> reference guide to learn more.</p>
-<p>When using React you should generally not need to call <code>addEventListener</code> to add listeners to a DOM element after it is created. Instead, just provide a listener when the element is initially rendered.</p>
-<p>When you define a component using an <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes" target="_blank" rel="external">ES6 class</a>, a common pattern is for an event handler to be a method on the class. For example, this <code>Toggle</code> component renders a button that lets the user toggle between “ON” and “OFF” states:</p>
+<p>Here, <code>e</code> is a synthetic event【事件】. React defines these synthetic events according to the <a href="https://www.w3.org/TR/DOM-Level-3-Events/" target="_blank" rel="external">W3C spec</a>, so you don’t need to worry about【担心】 cross-browser compatibility【兼容性】. See the <a href="/docs/events.html"><code>SyntheticEvent</code></a> reference guide to learn more.</p>
+<p>When using React you should generally not need【不需要】 to call【调用】 <code>addEventListener</code> to add listeners【监听器】 to a DOM element after it is created【创建】. Instead, just provide a listener when the element is initially【初始化】 rendered.</p>
+<p>When you define a component【组件】 using an <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes" target="_blank" rel="external">ES6 class</a>, a common pattern is for an event handler【助手】 to be a method【方法】 on the class. For example, this <code>Toggle</code> component【组件】 renders【渲染】 a button that lets the user toggle【切换】 between “ON” and “OFF” states:</p>
 <pre class=" language-js{6,7,10-14,18}"><code class="language-js{6,7,10-14,18}">class Toggle extends React.Component {
   constructor(props) {
     super(props);
@@ -194,9 +194,9 @@ ReactDOM.render(
 );
 </code></pre>
 <p><a href="http://codepen.io/gaearon/pen/xEmzGg?editors=0010" target="_blank" rel="external">Try it on CodePen.</a></p>
-<p>You have to be careful about the meaning of <code>this</code> in JSX callbacks. In JavaScript, class methods are not <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind" target="_blank" rel="external">bound</a> by default. If you forget to bind <code>this.handleClick</code> and pass it to <code>onClick</code>, <code>this</code> will be <code>undefined</code> when the function is actually called.</p>
-<p>This is not React-specific behavior; it is a part of <a href="https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/" target="_blank" rel="external">how functions work in JavaScript</a>. Generally, if you refer to a method without <code>()</code> after it, such as <code>onClick={this.handleClick}</code>, you should bind that method.</p>
-<p>If calling <code>bind</code> annoys you, there are two ways you can get around this. If you are using the experimental <a href="https://babeljs.io/docs/plugins/transform-class-properties/" target="_blank" rel="external">public class fields syntax</a>, you can use class fields to correctly bind callbacks:</p>
+<p>You have to be careful about【关心】 the meaning of <code>this</code> in JSX callbacks【回调】. In JavaScript, class methods are not <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind" target="_blank" rel="external">bound</a> by default. If you forget【忘记】 to bind <code>this.handleClick</code> and pass it to <code>onClick</code>, <code>this</code> will be <code>undefined</code> when the function is actually【实际】 called.</p>
+<p>This is not React-specific behavior【行为】; it is a part of <a href="https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/" target="_blank" rel="external">how functions work in JavaScript</a>. Generally, if you refer to a method without <code>()</code> after it, such as <code>onClick={this.handleClick}</code>, you should bind that method.</p>
+<p>If calling <code>bind</code> annoys【惹恼】 you, there are two ways you can get around this. If you are using the experimental【实验性】 <a href="https://babeljs.io/docs/plugins/transform-class-properties/" target="_blank" rel="external">public class fields syntax</a>, you can use class fields to correctly【正确】 bind callbacks:</p>
 <pre class=" language-js{2-6}"><code class="language-js{2-6}">class LoggingButton extends React.Component {
   // This syntax ensures `this` is bound within handleClick.
   // Warning: this is *experimental* syntax.
@@ -213,7 +213,7 @@ ReactDOM.render(
   }
 }
 </code></pre>
-<p>This syntax is enabled by default in <a href="https://github.com/facebookincubator/create-react-app" target="_blank" rel="external">Create React App</a>.</p>
+<p>This syntax【语法】 is enabled by default in <a href="https://github.com/facebookincubator/create-react-app" target="_blank" rel="external">Create React App</a>.</p>
 <p>If you aren’t using class fields syntax, you can use an <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank" rel="external">arrow function</a> in the callback:</p>
 <pre class=" language-js{7-9}"><code class="language-js{7-9}">class LoggingButton extends React.Component {
   handleClick() {
@@ -230,13 +230,13 @@ ReactDOM.render(
   }
 }
 </code></pre>
-<p>The problem with this syntax is that a different callback is created each time the <code>LoggingButton</code> renders. In most cases, this is fine. However, if this callback is passed as a prop to lower components, those components might do an extra re-rendering. We generally recommend binding in the constructor or using the class fields syntax, to avoid this sort of performance problem.</p>
-<h2 id="Passing-Arguments-to-Event-Handlers"><a href="#Passing-Arguments-to-Event-Handlers" class="headerlink" title="Passing Arguments to Event Handlers"></a>Passing Arguments to Event Handlers</h2><p>Inside a loop it is common to want to pass an extra parameter to an event handler. For example, if <code>id</code> is the row ID, either of the following would work:</p>
+<p>The problem with this syntax is that a different callback is created【创建】 each time the <code>LoggingButton</code> renders. In most cases, this is fine. However【但是】, if this callback is passed as a prop to lower【低级】 components, those components might do an extra【额外】 re-rendering. We generally recommend【推荐】 binding in the constructor or using the class fields syntax, to avoid【避免】 this sort of performance problem.</p>
+<h2 id="Passing【传递】-Arguments【参数】-to-Event-Handlers"><a href="#Passing【传递】-Arguments【参数】-to-Event-Handlers" class="headerlink" title="Passing【传递】 Arguments【参数】 to Event Handlers"></a>Passing【传递】 Arguments【参数】 to Event Handlers</h2><p>Inside a loop【循环】 it is common to want to pass an extra parameter【参数】 to an event handler. For example, if <code>id</code> is the row ID, either of the following would work:</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">deleteRow</span><span class="token punctuation">(</span>id<span class="token punctuation">,</span> e<span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">></span>Delete Row<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
 <span class="token operator">&lt;</span>button onClick<span class="token operator">=</span><span class="token punctuation">{</span><span class="token keyword">this</span><span class="token punctuation">.</span>deleteRow<span class="token punctuation">.</span><span class="token function">bind</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">,</span> id<span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token operator">></span>Delete Row<span class="token operator">&lt;</span><span class="token operator">/</span>button<span class="token operator">></span>
 </code></pre>
-<p>The above two lines are equivalent, and use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank" rel="external">arrow functions</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Function/bind" target="_blank" rel="external"><code>Function.prototype.bind</code></a> respectively.</p>
-<p>In both cases, the <code>e</code> argument representing the React event will be passed as a second argument after the ID. With an arrow function, we have to pass it explicitly, but with <code>bind</code> any further arguments are automatically forwarded.</p>
+<p>The above two lines are equivalent【等效】, and use <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions" target="_blank" rel="external">arrow functions</a> and <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Function/bind" target="_blank" rel="external"><code>Function.prototype.bind</code></a> respectively.</p>
+<p>In both cases, the <code>e</code> argument representing【表示】 the React event will be passed as a second argument【参数】 after the ID. With an arrow function, we have to pass it explicitly【明确的】, but with <code>bind</code> any further arguments are automatically【自动】 forwarded.</p>
 
   </div>
 </div>

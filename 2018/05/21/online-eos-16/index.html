@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>Comprehensive Accounts and Wallets | 小沙丘的网络漫游记</title>
+  <title>Comprehensive【理解】 Accounts【账户】 and Wallets【钱包】 | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -106,7 +106,7 @@ if(isiOS){
         <P>下一篇：
 
                 <a href="/2018/05/21/online-eos-17/">
-                    Bios Boot Sequence
+                    Bios Boot【启动】 Sequence【序列】
                 </a>
         </P>
     </div>
@@ -114,7 +114,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>Comprehensive Accounts and Wallets</h1>
+<h1>Comprehensive【理解】 Accounts【账户】 and Wallets【钱包】</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -127,14 +127,17 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="Comprehensive-Accounts-amp-Wallets-Tutorial"><a href="#Comprehensive-Accounts-amp-Wallets-Tutorial" class="headerlink" title="Comprehensive Accounts &amp; Wallets Tutorial"></a>Comprehensive Accounts &amp; Wallets Tutorial</h2><p>Note This tutorial is geared towards use on a private single node testnet, but will work on a public testnet with minor modifications.</p>
-<h3 id="Tutorial-Audience"><a href="#Tutorial-Audience" class="headerlink" title="Tutorial Audience"></a>Tutorial Audience</h3><p>This tutorial is for users who want to learn about wallet and account management, how to use cleos to manage wallets and accounts, and how the wallet and account management EOSIO components interact with each other. Additional information can be found in the Command Reference.</p>
-<h3 id="What-You’ll-Learn"><a href="#What-You’ll-Learn" class="headerlink" title="What You’ll Learn"></a>What You’ll Learn</h3><p>You’ll learn how to create and manage wallets, their keys and then use this wallet to interact with the blockchain through cleos. You will then learn how to create accounts using cleos. The tutorial will introduce you to some of the interaction between cleos, keosd, and nodeos to sign content published to the blockchain.</p>
-<h3 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h3><p>Built and running copy of cleos and keosd on your system.<br>Built and ready to run copy of nodeos on your system.<br>Basic understanding of command line interfaces.<br>Note: Instructions require slight modification when applied to a docker installation.</p>
-<h2 id="EOSIO-Accounts-and-Wallets-Conceptual-Overview"><a href="#EOSIO-Accounts-and-Wallets-Conceptual-Overview" class="headerlink" title="EOSIO Accounts and Wallets Conceptual Overview"></a>EOSIO Accounts and Wallets Conceptual Overview</h2><p>The diagram below provides a simple conceptual view of accounts and wallets in EOSIO. While there are other supported deployment configurations, this view matches the one that we will use for this tutorial.</p>
+      <h2 id="Comprehensive-Accounts-amp-Wallets-Tutorial【教程】"><a href="#Comprehensive-Accounts-amp-Wallets-Tutorial【教程】" class="headerlink" title="Comprehensive Accounts &amp; Wallets Tutorial【教程】"></a>Comprehensive Accounts &amp; Wallets Tutorial【教程】</h2><p>Note This tutorial is geared towards use on a private【私有】 single node testnet【测试节点】, but will work on a public【公共】 testnet with minor modifications【改变】.</p>
+<h3 id="Tutorial-Audience"><a href="#Tutorial-Audience" class="headerlink" title="Tutorial Audience"></a>Tutorial Audience</h3><p>This tutorial is for users who want to learn about wallet and account management【管理】, how to use cleos to manage wallets and accounts, and how the wallet and account management EOSIO components【组件】 interact with【交互】 each other. Additional information【信息】 can be found in the Command Reference【参考】.</p>
+<h3 id="What-You’ll-Learn【学习】"><a href="#What-You’ll-Learn【学习】" class="headerlink" title="What You’ll Learn【学习】"></a>What You’ll Learn【学习】</h3><p>You’ll learn how to create and manage wallets, their keys【密钥】 and then use this wallet to interact with the blockchain【区块链】 through cleos. You will then learn how to create【创建】 accounts using cleos. The tutorial will introduce【介绍】 you to some of the interaction【交互】 between cleos, keosd, and nodeos to sign content published to the blockchain.</p>
+<h3 id="Prerequisites【条件】"><a href="#Prerequisites【条件】" class="headerlink" title="Prerequisites【条件】"></a>Prerequisites【条件】</h3><p>Built and running copy【副本】 of cleos and keosd on your system.</p>
+<p>Built and ready to run copy of nodeos on your system.</p>
+<p>Basic understanding of command line interfaces【命令行接口】.</p>
+<p>Note: Instructions【指令】 require slight modification【改变】 when applied【应用】 to a docker installation.</p>
+<h2 id="EOSIO-Accounts【账户】-and-Wallets【钱包】-Conceptual-Overview"><a href="#EOSIO-Accounts【账户】-and-Wallets【钱包】-Conceptual-Overview" class="headerlink" title="EOSIO Accounts【账户】 and Wallets【钱包】 Conceptual Overview"></a>EOSIO Accounts【账户】 and Wallets【钱包】 Conceptual Overview</h2><p>The diagram【框图】 below provides a simple conceptual view of accounts and wallets in EOSIO. While there are other supported deployment【部署】 configurations, this view matches the one that we will use for this tutorial.</p>
 <p><img src="https://raw.githubusercontent.com/wiki/EOSIO/eos/assets/Accounts-and-Wallets-Overview.png" alt=""><br>Accounts and Wallets Conceptual Overview</p>
-<p>The wallet can be thought of as a repository of public-private key pairs. These are needed to sign operations performed on the blockchain. Wallets and their content are managed by keosd. Wallets are accessed using cleos.</p>
-<p>An account can be thought of as an on-chain identifier that has access permissions associated with it (i.e., a security principal). nodeos manages the publishing of accounts and account-related actions on the blockchain. The account management capabilities of nodeos are also accessed using cleos.</p>
+<p>The wallet can be thought of as a repository【仓库】 of public-private key pairs【密钥对】. These are needed to sign operations【操作】 performed on the blockchain. Wallets and their content are managed by keosd. Wallets are accessed using cleos.</p>
+<p>An account can be thought of as an on-chain identifier【识别】 that has access permissions【权限】 associated with it (i.e., a security principal). nodeos manages the publishing of accounts and account-related actions on the blockchain【区块链】. The account management capabilities of nodeos are also accessed using cleos.</p>
 <p>There is no inherent relationship between accounts and wallets. Accounts do not know about wallets, and vice versa. Correspondingly, there is no inherent relationship between nodeos and keosd. Their basic functions are fundamentally different. (Having said that, there are deployment configurations that blur the distinction. However, that topic is beyond the scope of this tutorial.)</p>
 <p>Where overlap occurs is when signatures are required, e.g., to sign transactions. The wallet facilitates obtaining signatures in a secure manner by storing keys locally in an encrypted store that can be locked. cleos effectively serves as an intermediary between keosd key retrieval operations and nodeos account (and other) blockchain actions that require signatures generated using those keys.</p>
 <h2 id="Creating-and-Managing-Wallets"><a href="#Creating-and-Managing-Wallets" class="headerlink" title="Creating and Managing Wallets"></a>Creating and Managing Wallets</h2><p>Open your terminal and change to the directory where EOSIO was built. This will make it easier for us to interact with cleos, which is a command line interface for interacting with nodeos and keosd.</p>
@@ -294,7 +297,7 @@ $ nodeos <span class="token operator">-</span>e <span class="token operator">-</
 
 <p class="nav-foot">
   <span class="left"><a href="/2018/05/21/online-eos-15/">« Hello Worl...</a></span>
-  <span class="right"><a href="/2018/05/21/online-eos-17/">Bios Boot ... »</a></span>
+  <span class="right"><a href="/2018/05/21/online-eos-17/">Bios Boot【... »</a></span>
 </p>
 
 <!-- 文档信息 -->

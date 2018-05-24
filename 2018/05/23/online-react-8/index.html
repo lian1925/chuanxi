@@ -127,31 +127,31 @@ if(isiOS){
 
   
   <div class="page">
-      <p>First, let’s review how you transform lists in JavaScript.</p>
-<p>Given the code below, we use the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map" target="_blank" rel="external"><code>map()</code></a> function to take an array of <code>numbers</code> and double their values. We assign the new array returned by <code>map()</code> to the variable <code>doubled</code> and log it:</p>
+      <p>First, let’s review【回顾】 how you transform【转换】 lists in JavaScript.</p>
+<p>Given the code below【下面】, we use the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map" target="_blank" rel="external"><code>map()</code></a> function to take an array【数组】 of <code>numbers</code> and double【两倍】 their values. We assign【分配】 the new array returned by <code>map()</code> to the variable【变量】 <code>doubled</code> and log it:</p>
 <pre class=" language-javascript{2}"><code class="language-javascript{2}">const numbers = [1, 2, 3, 4, 5];
 const doubled = numbers.map((number) => number * 2);
 console.log(doubled);
 </code></pre>
-<p>This code logs <code>[2, 4, 6, 8, 10]</code> to the console.</p>
-<p>In React, transforming arrays into lists of <a href="/docs/rendering-elements.html">elements</a> is nearly identical.</p>
-<h3 id="Rendering-Multiple-Components"><a href="#Rendering-Multiple-Components" class="headerlink" title="Rendering Multiple Components"></a>Rendering Multiple Components</h3><p>You can build collections of elements and <a href="/docs/introducing-jsx.html#embedding-expressions-in-jsx">include them in JSX</a> using curly braces <code>{}</code>.</p>
-<p>Below, we loop through the <code>numbers</code> array using the JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map" target="_blank" rel="external"><code>map()</code></a> function. We return an <code>&lt;li&gt;</code> element for each item. Finally, we assign the resulting array of elements to <code>listItems</code>:</p>
+<p>This code【代码】 logs <code>[2, 4, 6, 8, 10]</code> to the console.</p>
+<p>In React, transforming【转换】 arrays into lists of <a href="/docs/rendering-elements.html">elements</a> is nearly【几乎】 identical.</p>
+<h3 id="Rendering【渲染】-Multiple【多个】-Components"><a href="#Rendering【渲染】-Multiple【多个】-Components" class="headerlink" title="Rendering【渲染】 Multiple【多个】 Components"></a>Rendering【渲染】 Multiple【多个】 Components</h3><p>You can build【创建】 collections【集合】 of elements and <a href="/docs/introducing-jsx.html#embedding-expressions-in-jsx">include them in JSX</a> using curly braces <code>{}</code>.</p>
+<p>Below, we loop【遍历】 through the <code>numbers</code> array using the JavaScript <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map" target="_blank" rel="external"><code>map()</code></a> function. We return an <code>&lt;li&gt;</code> element【元素】 for each item. Finally, we assign the resulting【结果】 array of elements to <code>listItems</code>:</p>
 <pre class=" language-javascript{2-4}"><code class="language-javascript{2-4}">const numbers = [1, 2, 3, 4, 5];
 const listItems = numbers.map((number) =>
   <li>{number}</li>
 );
 </code></pre>
-<p>We include the entire <code>listItems</code> array inside a <code>&lt;ul&gt;</code> element, and <a href="/docs/rendering-elements.html#rendering-an-element-into-the-dom">render it to the DOM</a>:</p>
+<p>We include the entire【完整】 <code>listItems</code> array inside a <code>&lt;ul&gt;</code> element, and <a href="/docs/rendering-elements.html#rendering-an-element-into-the-dom">render it to the DOM</a>:</p>
 <pre class=" language-javascript{2}"><code class="language-javascript{2}">ReactDOM.render(
   <ul>{listItems}</ul>,
   document.getElementById('root')
 );
 </code></pre>
 <p><a href="https://codepen.io/gaearon/pen/GjPyQr?editors=0011" target="_blank" rel="external">Try it on CodePen.</a></p>
-<p>This code displays a bullet list of numbers between 1 and 5.</p>
-<h3 id="Basic-List-Component"><a href="#Basic-List-Component" class="headerlink" title="Basic List Component"></a>Basic List Component</h3><p>Usually you would render lists inside a <a href="/docs/components-and-props.html">component</a>.</p>
-<p>We can refactor the previous example into a component that accepts an array of <code>numbers</code> and outputs an unordered list of elements.</p>
+<p>This code displays【显示】 a bullet list of numbers between 1 and 5.</p>
+<h3 id="Basic【基本】-List【列表】-Component"><a href="#Basic【基本】-List【列表】-Component" class="headerlink" title="Basic【基本】 List【列表】 Component"></a>Basic【基本】 List【列表】 Component</h3><p>Usually you would render【渲染】 lists inside a <a href="/docs/components-and-props.html">component</a>.</p>
+<p>We can refactor【重构】 the previous example into a component that accepts【接收】 an array of <code>numbers</code> and outputs【输出】 an unordered【无序】 list of elements.</p>
 <pre class=" language-javascript{3-5,7,13}"><code class="language-javascript{3-5,7,13}">function NumberList(props) {
   const numbers = props.numbers;
   const listItems = numbers.map((number) =>
@@ -168,8 +168,8 @@ ReactDOM.render(
   document.getElementById('root')
 );
 </code></pre>
-<p>When you run this code, you’ll be given a warning that a key should be provided for list items. A “key” is a special string attribute you need to include when creating lists of elements. We’ll discuss why it’s important in the next section.</p>
-<p>Let’s assign a <code>key</code> to our list items inside <code>numbers.map()</code> and fix the missing key issue.</p>
+<p>When you run【运行】 this code, you’ll be given a warning【警告】 that a key should be provided【提供】 for list items. A “key” is a special【特殊】 string attribute you need to include when creating【创建】 lists of elements. We’ll discuss why it’s important【重要】 in the next section.</p>
+<p>Let’s assign【分配】 a <code>key</code> to our list items inside <code>numbers.map()</code> and fix【修正】 the missing key issue.</p>
 <pre class=" language-javascript{4}"><code class="language-javascript{4}">function NumberList(props) {
   const numbers = props.numbers;
   const listItems = numbers.map((number) =>
@@ -189,7 +189,7 @@ ReactDOM.render(
 );
 </code></pre>
 <p><a href="https://codepen.io/gaearon/pen/jrXYRR?editors=0011" target="_blank" rel="external">Try it on CodePen.</a></p>
-<h2 id="Keys"><a href="#Keys" class="headerlink" title="Keys"></a>Keys</h2><p>Keys help React identify which items have changed, are added, or are removed. Keys should be given to the elements inside the array to give the elements a stable identity:</p>
+<h2 id="Keys【钥匙】"><a href="#Keys【钥匙】" class="headerlink" title="Keys【钥匙】"></a>Keys【钥匙】</h2><p>Keys help【帮助】 React identify【识别】 which items have changed【改变】, are added【增加】, or are removed【删除】. Keys should be given to the elements inside the array to give the elements a stable identity【识别】:</p>
 <pre class=" language-js{3}"><code class="language-js{3}">const numbers = [1, 2, 3, 4, 5];
 const listItems = numbers.map((number) =>
   <li key={number.toString()}>
@@ -197,14 +197,14 @@ const listItems = numbers.map((number) =>
   </li>
 );
 </code></pre>
-<p>The best way to pick a key is to use a string that uniquely identifies a list item among its siblings. Most often you would use IDs from your data as keys:</p>
+<p>The best way to pick a key is to use【使用】 a string that uniquely【唯一】 identifies a list item among its siblings. Most often you would use IDs from your data as keys:</p>
 <pre class=" language-js{2}"><code class="language-js{2}">const todoItems = todos.map((todo) =>
   <li key={todo.id}>
     {todo.text}
   </li>
 );
 </code></pre>
-<p>When you don’t have stable IDs for rendered items, you may use the item index as a key as a last resort:</p>
+<p>When you don’t have stable【稳定】 IDs for rendered【渲染】 items, you may use the item【个体】 index as a key as a last resort:</p>
 <pre class=" language-js{2,3}"><code class="language-js{2,3}">const todoItems = todos.map((todo, index) =>
   // Only do this if items have no stable IDs
   <li key={index}>

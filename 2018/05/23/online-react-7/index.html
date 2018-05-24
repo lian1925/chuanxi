@@ -127,9 +127,9 @@ if(isiOS){
 
   
   <div class="page">
-      <p>In React, you can create distinct components that encapsulate behavior you need. Then, you can render only some of them, depending on the state of your application.</p>
-<p>Conditional rendering in React works the same way conditions work in JavaScript. Use JavaScript operators like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else" target="_blank" rel="external"><code>if</code></a> or the <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Conditional_Operator" target="_blank" rel="external">conditional operator</a> to create elements representing the current state, and let React update the UI to match them.</p>
-<p>Consider these two components:</p>
+      <p>In React, you can create distinct components that encapsulate【封装】 behavior【行为】 you need. Then, you can render only some of them, depending on the state【状态】 of your application.</p>
+<p>Conditional【条件】 rendering in React works the same【相同】 way conditions work in JavaScript. Use JavaScript operators【操作符】 like <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/if...else" target="_blank" rel="external"><code>if</code></a> or the <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Conditional_Operator" target="_blank" rel="external">conditional operator</a> to create elements representing the current【当前】 state, and let React update【更新】 the UI to match them.</p>
+<p>Consider【考虑】 these two components:</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">UserGreeting</span><span class="token punctuation">(</span>props<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>Welcome back<span class="token operator">!</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -138,7 +138,7 @@ if(isiOS){
   <span class="token keyword">return</span> <span class="token operator">&lt;</span>h1<span class="token operator">></span>Please sign up<span class="token punctuation">.</span><span class="token operator">&lt;</span><span class="token operator">/</span>h1<span class="token operator">></span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>We’ll create a <code>Greeting</code> component that displays either of these components depending on whether a user is logged in:</p>
+<p>We’ll create a <code>Greeting</code> component that displays【显示】 either of these components depending on whether【是否】 a user is logged in:</p>
 <pre class=" language-javascript{3-7,11,12}"><code class="language-javascript{3-7,11,12}">function Greeting(props) {
   const isLoggedIn = props.isLoggedIn;
   if (isLoggedIn) {
@@ -154,8 +154,8 @@ ReactDOM.render(
 );
 </code></pre>
 <p><a href="https://codepen.io/gaearon/pen/ZpVxNq?editors=0011" target="_blank" rel="external">Try it on CodePen.</a></p>
-<p>This example renders a different greeting depending on the value of <code>isLoggedIn</code> prop.</p>
-<h3 id="Element-Variables"><a href="#Element-Variables" class="headerlink" title="Element Variables"></a>Element Variables</h3><p>You can use variables to store elements. This can help you conditionally render a part of the component while the rest of the output doesn’t change.</p>
+<p>This example renders a different【不同】 greeting depending on the value of <code>isLoggedIn</code> prop.</p>
+<h3 id="Element-Variables【变量】"><a href="#Element-Variables【变量】" class="headerlink" title="Element Variables【变量】"></a>Element Variables【变量】</h3><p>You can use variables to store【存储】 elements. This can help you conditionally【条件】 render a part of the component while the rest【余下】 of the output doesn’t change【不改变】.</p>
 <p>Consider these two new components representing Logout and Login buttons:</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">LoginButton</span><span class="token punctuation">(</span>props<span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">return</span> <span class="token punctuation">(</span>
@@ -173,8 +173,8 @@ ReactDOM.render(
   <span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>In the example below, we will create a <a href="/docs/state-and-lifecycle.html#adding-local-state-to-a-class">stateful component</a> called <code>LoginControl</code>.</p>
-<p>It will render either <code>&lt;LoginButton /&gt;</code> or <code>&lt;LogoutButton /&gt;</code> depending on its current state. It will also render a <code>&lt;Greeting /&gt;</code> from the previous example:</p>
+<p>In the example below, we will create【创建】 a <a href="/docs/state-and-lifecycle.html#adding-local-state-to-a-class">stateful component</a> called <code>LoginControl</code>.</p>
+<p>It will render either <code>&lt;LoginButton /&gt;</code> or <code>&lt;LogoutButton /&gt;</code> depending on its current state【状态】. It will also render a <code>&lt;Greeting /&gt;</code> from the previous example:</p>
 <pre class=" language-javascript{20-25,29,30}"><code class="language-javascript{20-25,29,30}">class LoginControl extends React.Component {
   constructor(props) {
     super(props);
@@ -215,8 +215,8 @@ ReactDOM.render(
 );
 </code></pre>
 <p><a href="https://codepen.io/gaearon/pen/QKzAgB?editors=0010" target="_blank" rel="external">Try it on CodePen.</a></p>
-<p>While declaring a variable and using an <code>if</code> statement is a fine way to conditionally render a component, sometimes you might want to use a shorter syntax. There are a few ways to inline conditions in JSX, explained below.</p>
-<h3 id="Inline-If-with-Logical-amp-amp-Operator"><a href="#Inline-If-with-Logical-amp-amp-Operator" class="headerlink" title="Inline If with Logical &amp;&amp; Operator"></a>Inline If with Logical &amp;&amp; Operator</h3><p>You may <a href="/docs/introducing-jsx.html#embedding-expressions-in-jsx">embed any expressions in JSX</a> by wrapping them in curly braces. This includes the JavaScript logical <code>&amp;&amp;</code> operator. It can be handy for conditionally including an element:</p>
+<p>While declaring【声明】 a variable and using an <code>if</code> statement is a fine【很好】 way to conditionally render a component, sometimes you might want to use a shorter【更短】 syntax. There are a few ways to inline【内联】 conditions in JSX, explained below.</p>
+<h3 id="Inline【内联】-If-with-Logical【逻辑】-amp-amp-Operator"><a href="#Inline【内联】-If-with-Logical【逻辑】-amp-amp-Operator" class="headerlink" title="Inline【内联】 If with Logical【逻辑】 &amp;&amp; Operator"></a>Inline【内联】 If with Logical【逻辑】 &amp;&amp; Operator</h3><p>You may <a href="/docs/introducing-jsx.html#embedding-expressions-in-jsx">embed any expressions in JSX</a> by wrapping them in curly braces【大括号】. This includes the JavaScript logical <code>&amp;&amp;</code> operator. It can be handy for conditionally including【包括】 an element:</p>
 <pre class=" language-js{6-10}"><code class="language-js{6-10}">function Mailbox(props) {
   const unreadMessages = props.unreadMessages;
   return (
@@ -238,10 +238,10 @@ ReactDOM.render(
 );
 </code></pre>
 <p><a href="https://codepen.io/gaearon/pen/ozJddz?editors=0010" target="_blank" rel="external">Try it on CodePen.</a></p>
-<p>It works because in JavaScript, <code>true &amp;&amp; expression</code> always evaluates to <code>expression</code>, and <code>false &amp;&amp; expression</code> always evaluates to <code>false</code>.</p>
-<p>Therefore, if the condition is <code>true</code>, the element right after <code>&amp;&amp;</code> will appear in the output. If it is <code>false</code>, React will ignore and skip it.</p>
-<h3 id="Inline-If-Else-with-Conditional-Operator"><a href="#Inline-If-Else-with-Conditional-Operator" class="headerlink" title="Inline If-Else with Conditional Operator"></a>Inline If-Else with Conditional Operator</h3><p>Another method for conditionally rendering elements inline is to use the JavaScript conditional operator <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Conditional_Operator" target="_blank" rel="external"><code>condition ? true : false</code></a>.</p>
-<p>In the example below, we use it to conditionally render a small block of text.</p>
+<p>It works because【因为】 in JavaScript, <code>true &amp;&amp; expression</code> always evaluates【估值】 to <code>expression</code>, and <code>false &amp;&amp; expression</code> always evaluates to <code>false</code>.</p>
+<p>Therefore【因此】, if the condition is <code>true</code>, the element right after <code>&amp;&amp;</code> will appear in the output. If it is <code>false</code>, React will ignore and skip【跳过】 it.</p>
+<h3 id="Inline【内联】-If-Else-with-Conditional【条件性】-Operator"><a href="#Inline【内联】-If-Else-with-Conditional【条件性】-Operator" class="headerlink" title="Inline【内联】 If-Else with Conditional【条件性】 Operator"></a>Inline【内联】 If-Else with Conditional【条件性】 Operator</h3><p>Another【另外】 method for conditionally rendering elements inline is to use the JavaScript conditional operator <a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Operators/Conditional_Operator" target="_blank" rel="external"><code>condition ? true : false</code></a>.</p>
+<p>In the example below, we use it to conditionally render a small【小】 block of text.</p>
 <pre class=" language-javascript{5}"><code class="language-javascript{5}">render() {
   const isLoggedIn = this.state.isLoggedIn;
   return (
@@ -251,7 +251,7 @@ ReactDOM.render(
   );
 }
 </code></pre>
-<p>It can also be used for larger expressions although it is less obvious what’s going on:</p>
+<p>It can also be used for larger【更大】 expressions although it is less obvious what’s going on:</p>
 <pre class=" language-js{5,7,9}"><code class="language-js{5,7,9}">render() {
   const isLoggedIn = this.state.isLoggedIn;
   return (
@@ -265,9 +265,9 @@ ReactDOM.render(
   );
 }
 </code></pre>
-<p>Just like in JavaScript, it is up to you to choose an appropriate style based on what you and your team consider more readable. Also remember that whenever conditions become too complex, it might be a good time to <a href="/docs/components-and-props.html#extracting-components">extract a component</a>.</p>
-<h3 id="Preventing-Component-from-Rendering"><a href="#Preventing-Component-from-Rendering" class="headerlink" title="Preventing Component from Rendering"></a>Preventing Component from Rendering</h3><p>In rare cases you might want a component to hide itself even though it was rendered by another component. To do this return <code>null</code> instead of its render output.</p>
-<p>In the example below, the <code>&lt;WarningBanner /&gt;</code> is rendered depending on the value of the prop called <code>warn</code>. If the value of the prop is <code>false</code>, then the component does not render:</p>
+<p>Just like in JavaScript, it is up to you to choose an appropriate【合适】 style based on what you and your team consider more readable【可读性】. Also remember that whenever conditions become too complex【复杂】, it might be a good time to <a href="/docs/components-and-props.html#extracting-components">extract a component</a>.</p>
+<h3 id="Preventing【阻止】-Component-from-Rendering【渲染】"><a href="#Preventing【阻止】-Component-from-Rendering【渲染】" class="headerlink" title="Preventing【阻止】 Component from Rendering【渲染】"></a>Preventing【阻止】 Component from Rendering【渲染】</h3><p>In rare【很少】 cases you might want a component to hide【隐藏】 itself even though it was rendered by another component. To do this return <code>null</code> instead of its render output.</p>
+<p>In the example below, the <code>&lt;WarningBanner /&gt;</code> is rendered depending on【依赖】 the value of the prop called <code>warn</code>. If the value of the prop is <code>false</code>, then the component does not render:</p>
 <pre class=" language-javascript{2-4,29}"><code class="language-javascript{2-4,29}">function WarningBanner(props) {
   if (!props.warn) {
     return null;
@@ -311,7 +311,7 @@ ReactDOM.render(
 );
 </code></pre>
 <p><a href="https://codepen.io/gaearon/pen/Xjoqwm?editors=0010" target="_blank" rel="external">Try it on CodePen.</a></p>
-<p>Returning <code>null</code> from a component’s <code>render</code> method does not affect the firing of the component’s lifecycle methods. For instance, <code>componentWillUpdate</code> and <code>componentDidUpdate</code> will still be called.</p>
+<p>Returning <code>null</code> from a component’s <code>render</code> method does not affect【影响】 the firing of the component’s lifecycle methods【方法】. For instance, <code>componentWillUpdate</code> and <code>componentDidUpdate</code> will still be called【调用】.</p>
 
   </div>
 </div>

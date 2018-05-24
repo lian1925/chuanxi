@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>Tic Tac Toe | 小沙丘的网络漫游记</title>
+  <title>Tic Tac Toe【游戏】 | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -100,7 +100,7 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/05/21/online-eos-17/">
-                    Bios Boot Sequence
+                    Bios Boot【启动】 Sequence【序列】
                 </a>
         </P>
         <P>下一篇：
@@ -114,7 +114,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>Tic Tac Toe</h1>
+<h1>Tic Tac Toe【游戏】</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -127,36 +127,47 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="Objective"><a href="#Objective" class="headerlink" title="Objective"></a>Objective</h2><p>The following tutorial will guide the user to build a sample Player vs Player game contract. We will use tic tac toe game to demonstrate this. Final result of this tutorial can be found here.</p>
-<h2 id="Assumption"><a href="#Assumption" class="headerlink" title="Assumption"></a>Assumption</h2><p>For this game, we are using a standard 3x3 tic tac toe board. Players are divided into two roles: host and challenger. Host always makes the first move. Each pair of players can ONLY have up to two games at the same time, one where the first player becomes the host and the other one where the second player becomes the host.</p>
-<h3 id="Board"><a href="#Board" class="headerlink" title="Board"></a>Board</h3><p>Instead of using o and x as in the traditional tic tac toe game. We use 1 to denote movement by host, 2 to denote movement by challenger, and 0 to denote empty cell. Furthermore, we will use one dimensional array to store the board. Hence:</p>
-<p>(0,0)    (1,0)    (2,0)<br>(0,0)    -    o    x<br>(0,1)    -    x    -<br>(0,2)    x    o    o<br>Assuming x is host, the above board is equal to [0, 2, 1, 0, 1, 0, 1, 2, 2]</p>
-<h3 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h3><p>User will have the following actions to interact with this contract:</p>
-<p>create: create a new game<br>restart: restart an existing game, host or challenger is allowed to do this<br>close: close an existing game, which frees up the storage used to store the game, only host is allowed to do this<br>move: make a movement</p>
-<h3 id="Contract-account"><a href="#Contract-account" class="headerlink" title="Contract account"></a>Contract account</h3><p>For the following guide, we are going to push the contract to an account called tic.tac.toe. In case tic.tac.toe account name is already taken, you can also use another account by replacing any occurence of tic.tac.toe in the code with your account name. If you haven’t created the account, please create the account first.</p>
-<p>$ cleos create account ${creator_name} ${contract_account_name} ${contract_pub_owner_key} ${contract_pub_active_key} –permission ${creator_name}@active</p>
-<h1 id="e-g-cleos-create-account-inita-tic-tac-toe-EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq-EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA-–permission-inita-active"><a href="#e-g-cleos-create-account-inita-tic-tac-toe-EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq-EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA-–permission-inita-active" class="headerlink" title="e.g. $ cleos create account inita tic.tac.toe  EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA –permission inita@active"></a>e.g. $ cleos create account inita tic.tac.toe  EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA –permission inita@active</h1><p>Ensure that you have your wallet unlocked and the creator’s private active key in the wallet imported, otherwise the above command will fail.</p>
-<h2 id="Start"><a href="#Start" class="headerlink" title="Start!"></a>Start!</h2><p>We are going to create three files here:</p>
-<p>tic_tac_toe.hpp =&gt; header file where the structure of the contract is defined<br>tic_tac_toe.cpp =&gt; main logic of the contract<br>tic_tac_toe.abi =&gt; interface for user to interact with the contract NB: In this example we use the account name of N(tic.tac.toe) for the contract account. If you plan to use a differnt name for the contract account, then replace tic.tac.toe with your account name.</p>
-<h2 id="Defining-Structure"><a href="#Defining-Structure" class="headerlink" title="Defining Structure"></a>Defining Structure</h2><p>Let’s first start with the header file and define the structure of the contract. Open tic_tac_toe.hpp and start with the following boilerplate</p>
-<p>// Import necessary library</p>
-<p>#include <eosiolib eosio.hpp=""> // Generic eosio library, i.e. print, type, math, etc</eosiolib></p>
-<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">using</span> <span class="token keyword">namespace</span> eosio<span class="token punctuation">;</span>
+      <h2 id="Objective【目标】"><a href="#Objective【目标】" class="headerlink" title="Objective【目标】"></a>Objective【目标】</h2><p>The following tutorial【教程】 will guide【引导】 the user to build【建立】 a sample Player【播放器】 vs Player game contract【合约】. We will use tic tac toe game to demonstrate【实现】 this. Final result of this tutorial can be found here.</p>
+<h2 id="Assumption【假设】"><a href="#Assumption【假设】" class="headerlink" title="Assumption【假设】"></a>Assumption【假设】</h2><p>For this game, we are using a standard【标准】 3x3 tic tac toe board. Players are divided【分成】 into two roles【两组】: host【主场】 and challenger【挑战者】. Host always makes the first【首先】 move. Each pair of players can ONLY have up to【最多】 two games at the same time, one where the first player becomes the host and the other one where the second player becomes the host.</p>
+<h3 id="Board【场地】"><a href="#Board【场地】" class="headerlink" title="Board【场地】"></a>Board【场地】</h3><p>Instead of using o and x as in the traditional【传统】 tic tac toe game. We use 1 to denote movement【动作】 by host, 2 to denote movement by challenger, and 0 to denote empty【空】 cell. Furthermore, we will use one dimensional array【数组】 to store the board. Hence【因此】:</p>
+<p>(0,0)    (1,0)    (2,0)<br>(0,0)    -    o    x<br>(0,1)    -    x    -<br>(0,2)    x    o    o<br>Assuming【想象】 x is host, the above board is equal【等效】 to [0, 2, 1, 0, 1, 0, 1, 2, 2]</p>
+<h3 id="Action【行为】"><a href="#Action【行为】" class="headerlink" title="Action【行为】"></a>Action【行为】</h3><p>User will have the following【如下】 actions to interact with【交互】 this contract【合约】:</p>
+<p>create【创建】: create a new game<br>restart【重启】: restart an existing game, host or challenger is allowed to do this<br>close【关闭】: close an existing game, which frees up the storage used to store the game, only host is allowed to do this<br>move【移动】: make a movement</p>
+<h3 id="Contract【合约】-account【账户】"><a href="#Contract【合约】-account【账户】" class="headerlink" title="Contract【合约】 account【账户】"></a>Contract【合约】 account【账户】</h3><p>For the following guide【指导】, we are going to push the contract to an account called tic.tac.toe. In case tic.tac.toe account name is already【已经】 taken, you can also use another account by replacing【替换】 any occurence【冲突】 of tic.tac.toe in the code with your account name. If you haven’t created the account, please create the account first【首先】.</p>
+<pre class=" language-js"><code class="language-js">$ cleos create account $<span class="token punctuation">{</span>creator_name<span class="token punctuation">}</span> $<span class="token punctuation">{</span>contract_account_name<span class="token punctuation">}</span> $<span class="token punctuation">{</span>contract_pub_owner_key<span class="token punctuation">}</span> $<span class="token punctuation">{</span>contract_pub_active_key<span class="token punctuation">}</span> <span class="token operator">--</span>permission $<span class="token punctuation">{</span>creator_name<span class="token punctuation">}</span>@active
+# e<span class="token punctuation">.</span>g<span class="token punctuation">.</span> $ cleos create account inita tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe  EOS4toFS3YXEQCkuuw1aqDLrtHim86Gz9u3hBdcBw5KNPZcursVHq EOS7d9A3uLe6As66jzN8j44TXJUqJSK3bFjjEEqR4oTvNAB3iM9SA <span class="token operator">--</span>permission inita@active
+</code></pre>
+<p>Ensure that you have your wallet【钱包】 unlocked and the creator’s private【私有】 active key in the wallet imported【导入】, otherwise the above command will fail【失败】.</p>
+<h2 id="Start【开始】"><a href="#Start【开始】" class="headerlink" title="Start【开始】!"></a>Start【开始】!</h2><p>We are going to create three files【3个文件】 here:</p>
+<ul>
+<li><p>tic_tac_toe.hpp =&gt; header file where the structure of the contract is defined</p>
+</li>
+<li><p>tic_tac_toe.cpp =&gt; main logic【逻辑】 of the contract【合约】</p>
+</li>
+<li><p>tic_tac_toe.abi =&gt; interface【接口】 for user to interact with the contract NB: In this example we use the account name of N(tic.tac.toe) for the contract account. If you plan【计划】 to use a differnt【不同】 name for the contract account, then replace【替换】 tic.tac.toe with your account name.</p>
+</li>
+</ul>
+<h2 id="Defining【定义】-Structure【结构】"><a href="#Defining【定义】-Structure【结构】" class="headerlink" title="Defining【定义】 Structure【结构】"></a>Defining【定义】 Structure【结构】</h2><p>Let’s first start with the header file【头文件】 and define the structure【结构】 of the contract【合约】. Open tic_tac_toe.hpp and start with the following boilerplate【模板】</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">// Import necessary library</span>
+<span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">&lt;eosiolib/eosio.hpp></span> </span><span class="token comment" spellcheck="true">// Generic eosio library, i.e. print, type, math, etc</span>
+
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> eosio<span class="token punctuation">;</span>
 <span class="token keyword">namespace</span> tic_tac_toe <span class="token punctuation">{</span>
    <span class="token keyword">static</span> <span class="token keyword">const</span> account_name games_account <span class="token operator">=</span> <span class="token function">N</span><span class="token punctuation">(</span>games<span class="token punctuation">)</span><span class="token punctuation">;</span>
    <span class="token keyword">static</span> <span class="token keyword">const</span> account_name code_account <span class="token operator">=</span> <span class="token function">N</span><span class="token punctuation">(</span>tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe<span class="token punctuation">)</span><span class="token punctuation">;</span>
     <span class="token comment" spellcheck="true">// Your code here</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h3 id="Games-Table"><a href="#Games-Table" class="headerlink" title="Games Table"></a>Games Table</h3><p>For this contract, we will need to have a table that stores a list of games. Let’s define it:</p>
+<h3 id="Games-Table【表格】"><a href="#Games-Table【表格】" class="headerlink" title="Games Table【表格】"></a>Games Table【表格】</h3><p>For this contract, we will need to have a table that stores【存储】 a list of games. Let’s define【定义】 it:</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">...</span>
 namespace tic_tac_toe <span class="token punctuation">{</span>
     <span class="token operator">...</span>
     typedef eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>multi_index<span class="token operator">&lt;</span> games_account<span class="token punctuation">,</span> game<span class="token operator">></span> games<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>First template parameter defines the name of the table<br>Second template parameter defines the structure that it stores (will be defined in the next section)</p>
-<h2 id="Game-Structure"><a href="#Game-Structure" class="headerlink" title="Game Structure"></a>Game Structure</h2><p>Let’s define structure for the game. Ensure that this struct definition appears before the table definition in the code.</p>
+<p>First template parameter【参数】 defines the name of the table</p>
+<p>Second template parameter defines the structure【结构】 that it stores【结构】 (will be defined in the next section)</p>
+<h2 id="Game【游戏】-Structure【结构】"><a href="#Game【游戏】-Structure【结构】" class="headerlink" title="Game【游戏】 Structure【结构】"></a>Game【游戏】 Structure【结构】</h2><p>Let’s define structure for the game. Ensure【保证】 that this struct definition appears【出现】 before the table definition in the code.</p>
 <pre class=" language-cpp"><code class="language-cpp"><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
 <span class="token keyword">namespace</span> tic_tac_toe <span class="token punctuation">{</span>
    <span class="token keyword">static</span> <span class="token keyword">const</span> uint32_t board_len <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>
@@ -192,8 +203,8 @@ namespace tic_tac_toe <span class="token punctuation">{</span>
    <span class="token punctuation">}</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>The primary_key method is required by the above table definition for games. That is how the table knows what field is the lookup key for the table.</p>
-<h2 id="Action-Structure"><a href="#Action-Structure" class="headerlink" title="Action Structure"></a>Action Structure</h2><h3 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h3><p>To create the game, we need host account name and challenger’s account name. The EOSLIB_SERIALIZE macro provides serialize and deserialize methods so that actions can be passed back and forth between the contracts and the nodeos system.</p>
+<p>The primary_key【主键】 method is required by the above table definition【定义】 for games. That is how the table knows what field is the lookup key for the table.</p>
+<h2 id="Action【行为】-Structure【结构】"><a href="#Action【行为】-Structure【结构】" class="headerlink" title="Action【行为】 Structure【结构】"></a>Action【行为】 Structure【结构】</h2><h3 id="Create【创建】"><a href="#Create【创建】" class="headerlink" title="Create【创建】"></a>Create【创建】</h3><p>To create the game, we need host【主机】 account name and challenger’s account name. The EOSLIB_SERIALIZE macro provides serialize【序列化】 and deserialize【非序列化】 methods so that actions can be passed【传递】 back and forth between the contracts and the nodeos system.</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">...</span>
 namespace tic_tac_toe <span class="token punctuation">{</span>
    <span class="token operator">...</span>
@@ -206,7 +217,7 @@ namespace tic_tac_toe <span class="token punctuation">{</span>
    <span class="token operator">...</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="Restart"><a href="#Restart" class="headerlink" title="Restart"></a>Restart</h2><p>To restart the game, we need host account name and challenger’s account name to identify the game. Furthermore, we need to specify who wants to restart the game, so we can verify the correct signature is provided.</p>
+<h2 id="Restart【重启】"><a href="#Restart【重启】" class="headerlink" title="Restart【重启】"></a>Restart【重启】</h2><p>To restart the game, we need host account name and challenger’s account name to identify【识别】 the game. Furthermore【另外】, we need to specify【指定】 who wants to restart the game, so we can verify【校验】 the correct signature is provided.</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">...</span>
 namespace tic_tac_toe <span class="token punctuation">{</span>
    <span class="token operator">...</span>
@@ -220,7 +231,7 @@ namespace tic_tac_toe <span class="token punctuation">{</span>
    <span class="token operator">...</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="Close"><a href="#Close" class="headerlink" title="Close"></a>Close</h2><p>To close the game, we need host account name and challenger’s account name to identify the game.</p>
+<h2 id="Close【关闭】"><a href="#Close【关闭】" class="headerlink" title="Close【关闭】"></a>Close【关闭】</h2><p>To close the game, we need host account name and challenger’s account name to identify the game.</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">...</span>
 namespace tic_tac_toe <span class="token punctuation">{</span>
    <span class="token operator">...</span>
@@ -233,7 +244,7 @@ namespace tic_tac_toe <span class="token punctuation">{</span>
    <span class="token operator">...</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="Move"><a href="#Move" class="headerlink" title="Move"></a>Move</h2><p>To make a move, we need host account name and challenger’s account name to identify the game. Furthermore, we need to specify who makes this move and the movement he is making.</p>
+<h2 id="Move【删除】"><a href="#Move【删除】" class="headerlink" title="Move【删除】"></a>Move【删除】</h2><p>To make a move, we need host account name and challenger’s account name to identify the game. Furthermore, we need to specify【指定】 who makes this move and the movement【动作】 he is making.</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">...</span>
 namespace tic_tac_toe <span class="token punctuation">{</span>
    <span class="token operator">...</span>
@@ -255,8 +266,8 @@ namespace tic_tac_toe <span class="token punctuation">{</span>
    <span class="token operator">...</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>You can see the final tic_tac_toe.hpp here</p>
-<h2 id="Main"><a href="#Main" class="headerlink" title="Main"></a>Main</h2><p>Let’s open tic_tac_toe.cpp and setup the boilerplate</p>
+<p>You can see the final【最终】 tic_tac_toe.hpp here</p>
+<h2 id="Main【主要】"><a href="#Main【主要】" class="headerlink" title="Main【主要】"></a>Main【主要】</h2><p>Let’s open tic_tac_toe.cpp and setup the boilerplate【模板】</p>
 <pre class=" language-ts"><code class="language-ts">#include <span class="token string">"tic_tac_toe.hpp"</span>
 using namespace eosio<span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">/**
@@ -273,7 +284,7 @@ extern <span class="token string">"C"</span> <span class="token punctuation">{</
 
 <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// extern "C"</span>
 </code></pre>
-<h3 id="Action-handler"><a href="#Action-handler" class="headerlink" title="Action handler"></a>Action handler</h3><p>We want tic_tac_toe contract to only react to actions sent to the tic.tac.toe account and react differently according to the type of the action. Let’s add an impl struct with overloaded ‘on’ methods taking the different action types (this may seem like overkill for this example, but you will see this pattern employed in other contracts that you can extend, like currency):</p>
+<h3 id="Action-handler【管理者】"><a href="#Action-handler【管理者】" class="headerlink" title="Action handler【管理者】"></a>Action handler【管理者】</h3><p>We want tic_tac_toe contract【合约】 to only react to actions sent【发送】 to the tic.tac.toe account and react differently【不同】 according to the type【类型】 of the action. Let’s add an impl struct with overloaded ‘on’ methods taking the different action types【类型】 (this may seem like overkill for this example, but you will see this pattern employed in other contracts that you can extend, like currency):</p>
 <pre class=" language-ts"><code class="language-ts">using namespace eosio<span class="token punctuation">;</span>
 namespace tic_tac_toe <span class="token punctuation">{</span>
 struct impl <span class="token punctuation">{</span>
@@ -308,8 +319,8 @@ extern <span class="token string">"C"</span> <span class="token punctuation">{</
 
 <span class="token punctuation">}</span> <span class="token comment" spellcheck="true">// extern "C"</span>
 </code></pre>
-<p>Notice that we use unpack_action_data<t>() before passing it to specific handler, unpack_action_data<t>() is converting the action that the contract receives to struct T.</t></t></p>
-<p>To make things tidy, we will encapsulate the action handlers inside struct impl:</p>
+<p>Notice【注意】 that we use unpack_action_data<t>() before passing it to specific handler, unpack_action_data<t>() is converting the action that the contract receives to struct T.</t></t></p>
+<p>To make things tidy【简洁】, we will encapsulate【封装】 the action handlers inside struct impl:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token operator">...</span>
 struct impl <span class="token punctuation">{</span>
 <span class="token operator">...</span>
@@ -348,8 +359,11 @@ struct impl <span class="token punctuation">{</span>
    <span class="token keyword">void</span> <span class="token function">apply</span><span class="token punctuation">(</span> uint64_t receiver<span class="token punctuation">,</span> uint64_t code<span class="token punctuation">,</span> uint64_t action <span class="token punctuation">)</span> <span class="token punctuation">{</span>
 <span class="token operator">...</span>
 </code></pre>
-<h3 id="Create-Action-Handler"><a href="#Create-Action-Handler" class="headerlink" title="Create Action Handler"></a>Create Action Handler</h3><p>For the create action handler, we want to:</p>
-<p>Ensure that the action has signature from the host<br>Ensure that the challenger and host are not the same player<br>Ensure that there is no existing game<br>Store the newly created game into the db</p>
+<h3 id="Create【创建】-Action-Handler【管理器】"><a href="#Create【创建】-Action-Handler【管理器】" class="headerlink" title="Create【创建】 Action Handler【管理器】"></a>Create【创建】 Action Handler【管理器】</h3><p>For the create action handler, we want to:</p>
+<p>Ensure【保证】 that the action has signature【签名】 from the host</p>
+<p>Ensure that the challenger and host are not the same【相同】 player【玩家】</p>
+<p>Ensure that there is no existing【已存在】 game</p>
+<p>Store【存储】 the newly created game into the db</p>
 <pre class=" language-ts"><code class="language-ts">struct impl <span class="token punctuation">{</span>
    <span class="token operator">...</span>
    <span class="token comment" spellcheck="true">/**
@@ -374,8 +388,11 @@ struct impl <span class="token punctuation">{</span>
    <span class="token operator">...</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h3 id="Restart-Action-Handler"><a href="#Restart-Action-Handler" class="headerlink" title="Restart Action Handler"></a>Restart Action Handler</h3><p>For the restart action handler, we want to:</p>
-<p>Ensure that the action has signature from the host/ challenger<br>Ensure that the game exists<br>Ensure that the restart action is done by host/ challenger<br>Reset the game<br>Store the updated game to the db</p>
+<h3 id="Restart【重启】-Action-Handler"><a href="#Restart【重启】-Action-Handler" class="headerlink" title="Restart【重启】 Action Handler"></a>Restart【重启】 Action Handler</h3><p>For the restart action handler, we want to:</p>
+<p>Ensure that the action【行为】 has signature from the host/ challenger</p>
+<p>Ensure that the game exists【存在】</p>
+<p>Ensure that the restart action is done【执行】 by host/ challenger</p>
+<p>Reset【重设】 the game<br>Store【存储】 the updated game to the db</p>
 <pre class=" language-ts"><code class="language-ts">struct impl <span class="token punctuation">{</span>
    <span class="token operator">...</span>
    <span class="token comment" spellcheck="true">/**
@@ -401,8 +418,10 @@ struct impl <span class="token punctuation">{</span>
    <span class="token operator">...</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h3 id="Close-Action-Handler"><a href="#Close-Action-Handler" class="headerlink" title="Close Action Handler"></a>Close Action Handler</h3><p>For the close action handler, we want to:</p>
-<p>Ensure that the action has signature from the host<br>Ensure that the game exists<br>Remove the game from the db</p>
+<h3 id="Close【关闭】-Action-Handler"><a href="#Close【关闭】-Action-Handler" class="headerlink" title="Close【关闭】 Action Handler"></a>Close【关闭】 Action Handler</h3><p>For the close action handler, we want to:</p>
+<p>Ensure that the action has signature【签名】 from the host</p>
+<p>Ensure that the game exists【存在】</p>
+<p>Remove【删除】 the game from the db</p>
 <pre class=" language-ts"><code class="language-ts">struct impl <span class="token punctuation">{</span>
    <span class="token operator">...</span>
    <span class="token comment" spellcheck="true">/**
@@ -423,8 +442,17 @@ struct impl <span class="token punctuation">{</span>
    <span class="token operator">...</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h3 id="Move-Action-Handler"><a href="#Move-Action-Handler" class="headerlink" title="Move Action Handler"></a>Move Action Handler</h3><p>For the move action handler, we want to:</p>
-<p>Ensure that the action has signature from the host/ challenger<br>Ensure that the game exists<br>Ensure that the game is not finished yet<br>Ensure that the move action is done by host/ challenger<br>Ensure that this is the right user’s turn<br>Verify movement is valid<br>Update board with the new move<br>Change the move_turn to the other player<br>Determine if there is a winner<br>Store the updated game to the db</p>
+<h3 id="Move【删除】-Action-Handler"><a href="#Move【删除】-Action-Handler" class="headerlink" title="Move【删除】 Action Handler"></a>Move【删除】 Action Handler</h3><p>For the move action handler, we want to:</p>
+<p>Ensure that the action has signature【签名】 from the host/ challenger</p>
+<p>Ensure that the game exists</p>
+<p>Ensure that the game is not finished yet【还没】</p>
+<p>Ensure that the move action is done by host/ challenger</p>
+<p>Ensure that this is the right【权限】 user’s turn</p>
+<p>Verify movement is valid【有效】</p>
+<p>Update board with the new move【移动】</p>
+<p>Change the move_turn to the other player</p>
+<p>Determine【决定】 if there is a winner</p>
+<p>Store【存储】 the updated game to the db</p>
 <pre class=" language-ts"><code class="language-ts">struct impl <span class="token punctuation">{</span>
    <span class="token operator">...</span>
    bool <span class="token function">is_valid_movement</span><span class="token punctuation">(</span><span class="token keyword">const</span> movement<span class="token operator">&amp;</span> mvt<span class="token punctuation">,</span> <span class="token keyword">const</span> game<span class="token operator">&amp;</span> game_for_movement<span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -472,7 +500,7 @@ struct impl <span class="token punctuation">{</span>
    <span class="token operator">...</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h3 id="Movement-Validation"><a href="#Movement-Validation" class="headerlink" title="Movement Validation"></a>Movement Validation</h3><p>Valid movement is defined as movement done inside the board on an empty cell:</p>
+<h3 id="Movement【动作】-Validation【校验】"><a href="#Movement【动作】-Validation【校验】" class="headerlink" title="Movement【动作】 Validation【校验】"></a>Movement【动作】 Validation【校验】</h3><p>Valid movement is defined【定义】 as movement done inside the board on an empty【空】 cell:</p>
 <pre class=" language-ts"><code class="language-ts">struct impl <span class="token punctuation">{</span>
    <span class="token operator">...</span>
    <span class="token comment" spellcheck="true">/**
@@ -499,7 +527,7 @@ struct impl <span class="token punctuation">{</span>
    <span class="token operator">...</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h3 id="Get-Winner"><a href="#Get-Winner" class="headerlink" title="Get Winner"></a>Get Winner</h3><p>Winner is defined as the first player who succeeds in placing three of their marks in a horizontal, vertical, or diagonal row.</p>
+<h3 id="Get-Winner【胜利者】"><a href="#Get-Winner【胜利者】" class="headerlink" title="Get Winner【胜利者】"></a>Get Winner【胜利者】</h3><p>Winner is defined【定义】 as the first player who succeeds【成功】 in placing three【三个】 of their marks in a horizontal, vertical, or diagonal row.</p>
 <pre class=" language-ts"><code class="language-ts">struct impl <span class="token punctuation">{</span>
    <span class="token operator">...</span>
    <span class="token comment" spellcheck="true">/**
@@ -558,8 +586,8 @@ struct impl <span class="token punctuation">{</span>
    <span class="token operator">...</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>You can see the final tic_tac_toe.cpp here</p>
-<h2 id="Creating-ABI"><a href="#Creating-ABI" class="headerlink" title="Creating ABI"></a>Creating ABI</h2><p>Abi (a.k.a Application Binary Interface) is needed here, so the contract can understand the action that you send as binary. Let’s open tic_tac_toe.abi and defines the boilerplate here:</p>
+<p>You can see【看到】 the final tic_tac_toe.cpp here</p>
+<h2 id="Creating【创建】-ABI"><a href="#Creating【创建】-ABI" class="headerlink" title="Creating【创建】 ABI"></a>Creating【创建】 ABI</h2><p>Abi (a.k.a Application【应用】 Binary【二进制】 Interface【接口】) is needed here, so the contract can understand【明白】 the action【行为】 that you send as binary【二进制】. Let’s open tic_tac_toe.abi and defines【定义】 the boilerplate here:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token punctuation">{</span>
   <span class="token string">"types"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token string">"structs"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
@@ -581,8 +609,10 @@ struct impl <span class="token punctuation">{</span>
   <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token operator">...</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
   "clauses<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token operator">...</span><span class="token punctuation">]</span>
 </code></pre>
-<p>types: list of types that can be represented by another data structure or built-in-type (think typedef in c/c++)<br>structs: list of data structures used by the action/ table in the contract<br>actions: list of actions available in the contract<br>tables: list of tables available in the contract</p>
-<h3 id="Table-ABI"><a href="#Table-ABI" class="headerlink" title="Table ABI"></a>Table ABI</h3><p>Remember that in tic_tac_toe.hpp, we create an single index i64 table called games. It stores game structure and use challenger as the key, which data type is account_name. Hence, the abi will be:</p>
+<p>types【类型】: list【列出】 of types that can be represented【显示】 by another【另外】 data structure【结构】 or built-in-type (think typedef in c/c++)</p>
+<p>structs【结构】: list of data structures used by the action/ table in the contract</p>
+<p>actions【行为】: list of actions available in the contract<br>tables【表格】: list of tables available in the contract</p>
+<h3 id="Table【表格】-ABI"><a href="#Table【表格】-ABI" class="headerlink" title="Table【表格】 ABI"></a>Table【表格】 ABI</h3><p>Remember【记住】 that in tic_tac_toe.hpp, we create【创建】 an single index i64 table called games. It stores【存储】 game structure and use challenger as the key, which data type is account_name. Hence, the abi will be:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token punctuation">{</span>
   <span class="token operator">...</span>
   <span class="token string">"structs"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
@@ -608,7 +638,7 @@ struct impl <span class="token punctuation">{</span>
   <span class="token operator">...</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h3 id="Actions-ABI"><a href="#Actions-ABI" class="headerlink" title="Actions ABI"></a>Actions ABI</h3><p>For the actions, we define the actions inside actions and the structure of the actions inside structs.</p>
+<h3 id="Actions【行为】-ABI"><a href="#Actions【行为】-ABI" class="headerlink" title="Actions【行为】 ABI"></a>Actions【行为】 ABI</h3><p>For the actions, we define【定义】 the actions inside actions and the structure【结构】 of the actions inside structs.</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token punctuation">{</span>
   <span class="token operator">...</span>
   <span class="token string">"structs"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
@@ -674,24 +704,24 @@ struct impl <span class="token punctuation">{</span>
   <span class="token operator">...</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h3 id="Compile"><a href="#Compile" class="headerlink" title="Compile!"></a>Compile!</h3><p>Now we need to compile tic_tac_toe.cpp to create the tic_tac_toe.wast file that we will use to deploy the contract into nodeos.</p>
+<h3 id="Compile【编译】"><a href="#Compile【编译】" class="headerlink" title="Compile【编译】!"></a>Compile【编译】!</h3><p>Now we need to compile【编译】 tic_tac_toe.cpp to create【创建】 the tic_tac_toe.wast file that we will use to deploy【部署】 the contract into nodeos.</p>
 <pre class=" language-ts"><code class="language-ts">$ eosiocpp <span class="token operator">-</span>o tic_tac_toe<span class="token punctuation">.</span>wast tic_tac_toe<span class="token punctuation">.</span>cpp
 </code></pre>
-<h2 id="Deploy"><a href="#Deploy" class="headerlink" title="Deploy!"></a>Deploy!</h2><p>Now the wast and abi files (tic_tac_toe.wast and tic_tac_toe.abi) are ready. Time to deploy! Create a directory (let’s call it tic_tac_toe) and copy your generated tic_tac_toe.wast tic_tac_toe.abi files.</p>
+<h2 id="Deploy【部署】"><a href="#Deploy【部署】" class="headerlink" title="Deploy【部署】!"></a>Deploy【部署】!</h2><p>Now the wast and abi files【文件】 (tic_tac_toe.wast and tic_tac_toe.abi) are ready. Time to deploy! Create【创建】 a directory (let’s call it tic_tac_toe) and copy【复制】 your generated【生成】 tic_tac_toe.wast tic_tac_toe.abi files.</p>
 <pre class=" language-ts"><code class="language-ts">$ cleos <span class="token keyword">set</span> contract tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe tic_tac_toe
 </code></pre>
-<p>Ensure that your wallet is unlocked and you have tic.tac.toe key imported. If you are going to upload the contract to another account beside tic.tac.toe, replace tic.tac.toe with your account name and ensure you have the key for that account in your wallet</p>
-<h2 id="Play"><a href="#Play" class="headerlink" title="Play!"></a>Play!</h2><p>After the deployment and the transaction is confirmed, the contract is already available in the blockchain. You can play with it now!</p>
-<h3 id="Create-1"><a href="#Create-1" class="headerlink" title="Create"></a>Create</h3><pre class=" language-ts"><code class="language-ts">$ cleos push action tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe create <span class="token string">'{"challenger":"inita", "host":"initb"}'</span> <span class="token operator">--</span>permission initb@active
+<p>Ensure【保证】 that your wallet【钱包】 is unlocked and you have tic.tac.toe key imported【导入】. If you are going to upload【上传】 the contract to another【另外】 account beside tic.tac.toe, replace tic.tac.toe with your account name and ensure【保证】 you have the key for that account in your wallet</p>
+<h2 id="Play【玩耍】"><a href="#Play【玩耍】" class="headerlink" title="Play【玩耍】!"></a>Play【玩耍】!</h2><p>After the deployment【部署】 and the transaction【交易】 is confirmed【确认】, the contract is already available【可用】 in the blockchain【区块链】. You can play with it now!</p>
+<h3 id="Create【创建】-1"><a href="#Create【创建】-1" class="headerlink" title="Create【创建】"></a>Create【创建】</h3><pre class=" language-ts"><code class="language-ts">$ cleos push action tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe create <span class="token string">'{"challenger":"inita", "host":"initb"}'</span> <span class="token operator">--</span>permission initb@active
 </code></pre>
-<h3 id="Move-1"><a href="#Move-1" class="headerlink" title="Move"></a>Move</h3><pre class=" language-ts"><code class="language-ts">$ cleos push action tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe move <span class="token string">'{"challenger":"inita", "host":"initb", "by":"initb", "mvt":{"row":0, "column":0} }'</span> <span class="token operator">--</span>permission initb@active
+<h3 id="Move【移动】"><a href="#Move【移动】" class="headerlink" title="Move【移动】"></a>Move【移动】</h3><pre class=" language-ts"><code class="language-ts">$ cleos push action tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe move <span class="token string">'{"challenger":"inita", "host":"initb", "by":"initb", "mvt":{"row":0, "column":0} }'</span> <span class="token operator">--</span>permission initb@active
 $ cleos push action tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe move <span class="token string">'{"challenger":"inita", "host":"initb", "by":"inita", "mvt":{"row":1, "column":1} }'</span> <span class="token operator">--</span>permission inita@active
 </code></pre>
-<h3 id="Restart-1"><a href="#Restart-1" class="headerlink" title="Restart"></a>Restart</h3><pre class=" language-ts"><code class="language-ts">$ cleos push action tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe restart <span class="token string">'{"challenger":"inita", "host":"initb", "by":"initb"}'</span> <span class="token operator">--</span>permission initb@active
+<h3 id="Restart【重启】-1"><a href="#Restart【重启】-1" class="headerlink" title="Restart【重启】"></a>Restart【重启】</h3><pre class=" language-ts"><code class="language-ts">$ cleos push action tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe restart <span class="token string">'{"challenger":"inita", "host":"initb", "by":"initb"}'</span> <span class="token operator">--</span>permission initb@active
 </code></pre>
-<h3 id="Close-1"><a href="#Close-1" class="headerlink" title="Close"></a>Close</h3><pre class=" language-ts"><code class="language-ts">$ cleos push action tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe close <span class="token string">'{"challenger":"inita", "host":"initb"}'</span> <span class="token operator">--</span>permission initb@active
+<h3 id="Close【关闭】-1"><a href="#Close【关闭】-1" class="headerlink" title="Close【关闭】"></a>Close【关闭】</h3><pre class=" language-ts"><code class="language-ts">$ cleos push action tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe close <span class="token string">'{"challenger":"inita", "host":"initb"}'</span> <span class="token operator">--</span>permission initb@active
 </code></pre>
-<h3 id="See-the-game-status"><a href="#See-the-game-status" class="headerlink" title="See the game status"></a>See the game status</h3><pre class=" language-ts"><code class="language-ts">$ cleos <span class="token keyword">get</span> table tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe initb games
+<h3 id="See【看到】-the-game-status【状态】"><a href="#See【看到】-the-game-status【状态】" class="headerlink" title="See【看到】 the game status【状态】"></a>See【看到】 the game status【状态】</h3><pre class=" language-ts"><code class="language-ts">$ cleos <span class="token keyword">get</span> table tic<span class="token punctuation">.</span>tac<span class="token punctuation">.</span>toe initb games
 <span class="token punctuation">{</span>
   <span class="token string">"rows"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
       <span class="token string">"challenger"</span><span class="token punctuation">:</span> <span class="token string">"inita"</span><span class="token punctuation">,</span>
