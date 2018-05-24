@@ -277,6 +277,27 @@ ajax<span class="token punctuation">.</span>onreadystatechange <span class="toke
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<p>写出下面代码输出</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> a <span class="token operator">=</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> b <span class="token operator">=</span> <span class="token punctuation">{</span>key<span class="token punctuation">:</span><span class="token string">'b'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> c <span class="token operator">=</span> <span class="token punctuation">{</span>key<span class="token punctuation">:</span><span class="token string">'c'</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+a<span class="token punctuation">[</span>b<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">123</span><span class="token punctuation">;</span>
+a<span class="token punctuation">[</span>c<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">456</span><span class="token punctuation">;</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a<span class="token punctuation">[</span>b<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>output 456</p>
+<p>不借助中间变量，交换两个变量</p>
+<pre class=" language-js"><code class="language-js">a <span class="token operator">=</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
+b <span class="token operator">=</span> a <span class="token operator">-</span> b<span class="token punctuation">;</span>
+a <span class="token operator">=</span> a <span class="token operator">-</span> b<span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// or</span>
+a <span class="token operator">=</span> <span class="token punctuation">{</span>a<span class="token punctuation">:</span>a<span class="token punctuation">,</span> b<span class="token punctuation">:</span>b<span class="token punctuation">}</span><span class="token punctuation">;</span>
+b <span class="token operator">=</span> a<span class="token punctuation">.</span>b<span class="token punctuation">;</span>
+a <span class="token operator">=</span> a<span class="token punctuation">.</span>a
+</code></pre>
 
   </div>
 </div>

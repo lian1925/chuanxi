@@ -16,7 +16,7 @@
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
   <title>EOS.IO Software【软件】 Roadmap【蓝图】 | 小沙丘的网络漫游记</title>
- <meta name="description" content="&lt;p&gt;This document outlines the development【开发】 plan【计划】 from a high level and will be updated【更新】 as progress is made toward version 1.0. It should be noted that this roadmap applies only to the blockchain software and not to the other tools and utilities such as wallets【钱包】 and block explorers【观测器】 which will have their own teams and dedicated roadmaps once Phase 1 is complete.&lt;br&gt;" >
+ <meta name="description" content="&lt;p&gt;This document outlines the development【开发】 plan【计划】 from a high level【宏观】 and will be updated【更新】 as progress【进度】 is made toward version 1.0. It should be noted that this roadmap applies only to the blockchain software and not to the other tools and utilities such as wallets【钱包】 and block explorers【观测器】 which will have their own teams and dedicated【专门】 roadmaps once Phase 1 is complete.&lt;br&gt;" >
 
  <!-- 百度统计 -->
  <script>
@@ -100,7 +100,7 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/05/21/online-eos-19/">
-                    Single Host Multinode
+                    Single【单一】 Host【主机】 Multinode【多节点】
                 </a>
         </P>
         <P>下一篇：
@@ -127,15 +127,15 @@ if(isiOS){
 
   
   <div class="page">
-      <p>This document outlines the development【开发】 plan【计划】 from a high level and will be updated【更新】 as progress is made toward version 1.0. It should be noted that this roadmap applies only to the blockchain software and not to the other tools and utilities such as wallets【钱包】 and block explorers【观测器】 which will have their own teams and dedicated roadmaps once Phase 1 is complete.<br><a id="more"></a><br>Everything contained in this document is in draft【草稿】 form and subject to change at any time and provided for information purposes only. block.one does not guarantee【保证】 the accuracy of the information contained in this roadmap and the information is provided “as is” with no representations or warranties, express or implied.</p>
-<h2 id="Phase-1-Minimal【最小】-Viable-Testing-Environment-Summer-2017"><a href="#Phase-1-Minimal【最小】-Viable-Testing-Environment-Summer-2017" class="headerlink" title="Phase 1 - Minimal【最小】 Viable Testing Environment - Summer 2017"></a>Phase 1 - Minimal【最小】 Viable Testing Environment - Summer 2017</h2><p>The goal of this phase is to establish【建立】 the APIs that developers will require to start building【构建】 and testing【测试】 applications on EOS.IO. In order for developers to start testing their applications they will require the following to be implemented:</p>
-<h3 id="Standalone【独立】-Node【节点】-Dan-amp-Nathan"><a href="#Standalone【独立】-Node【节点】-Dan-amp-Nathan" class="headerlink" title="Standalone【独立】 Node【节点】 (Dan &amp; Nathan)"></a>Standalone【独立】 Node【节点】 (Dan &amp; Nathan)</h3><p>A standalone node operates【处理】 a test【测试】 blockchain and produces blocks while exposing【暴露】 an API. This node does not need to concern【关心】 itself with any P2P networking code.</p>
-<h3 id="Native【本地】-Contracts【合约】-Nathan"><a href="#Native【本地】-Contracts【合约】-Nathan" class="headerlink" title="Native【本地】 Contracts【合约】 (Nathan)"></a>Native【本地】 Contracts【合约】 (Nathan)</h3><p>The EOS.IO software has a number of native contracts. These are contracts that manage【管理】 the core【核心】 operations of the blockchain and exist outside the Web Assembly interface【接口】. These contracts include:</p>
+      <p>This document outlines the development【开发】 plan【计划】 from a high level【宏观】 and will be updated【更新】 as progress【进度】 is made toward version 1.0. It should be noted that this roadmap applies only to the blockchain software and not to the other tools and utilities such as wallets【钱包】 and block explorers【观测器】 which will have their own teams and dedicated【专门】 roadmaps once Phase 1 is complete.<br><a id="more"></a><br>Everything contained in this document is in draft【草稿】 form and subject to【旨在】 change at any time and provided for information purposes only. block.one does not guarantee【保证】 the accuracy of the information contained in this roadmap and the information is provided “as is” with no representations or warranties, express or implied.</p>
+<h2 id="Phase-1-Minimal【最小】-Viable-Testing-Environment-Summer-2017"><a href="#Phase-1-Minimal【最小】-Viable-Testing-Environment-Summer-2017" class="headerlink" title="Phase 1 - Minimal【最小】 Viable Testing Environment - Summer 2017"></a>Phase 1 - Minimal【最小】 Viable Testing Environment - Summer 2017</h2><p>The goal of this phase is to establish【建立】 the APIs【接口】 that developers will require to start building【构建】 and testing【测试】 applications on EOS.IO. In order for developers to start testing their applications they will require the following to be implemented【实现】:</p>
+<h3 id="Standalone【独立】-Node【节点】-Dan-amp-Nathan"><a href="#Standalone【独立】-Node【节点】-Dan-amp-Nathan" class="headerlink" title="Standalone【独立】 Node【节点】 (Dan &amp; Nathan)"></a>Standalone【独立】 Node【节点】 (Dan &amp; Nathan)</h3><p>A standalone node operates【处理】 a test【测试】 blockchain and produces blocks while exposing【暴露】 an API. This node does not need to concern【关心】 itself with any P2P networking【网络】 code.</p>
+<h3 id="Native【本地】-Contracts【合约】-Nathan"><a href="#Native【本地】-Contracts【合约】-Nathan" class="headerlink" title="Native【本地】 Contracts【合约】 (Nathan)"></a>Native【本地】 Contracts【合约】 (Nathan)</h3><p>The EOS.IO software has a number of native contracts. These are contracts that manage【管理】 the core【核心】 operations【操作】 of the blockchain and exist outside the Web Assembly interface【接口】. These contracts include:</p>
 <p>@eos - manages EOS token【令牌】 transfers【转换】<br>@stake【股权】 - manages locked【锁定】 EOS, voting【投票】, and Producer Election【选举】<br>@system - manages permissions【权限】, messages【消息】, and contact code updates【更新】</p>
-<h3 id="Virtual-Machine【虚拟机】-API-Dan"><a href="#Virtual-Machine【虚拟机】-API-Dan" class="headerlink" title="Virtual Machine【虚拟机】 API (Dan)"></a>Virtual Machine【虚拟机】 API (Dan)</h3><p>Contracts are compiled to WebAssembly (WASM) and WASM must interface with【通信】 the blockchain via a defined API. This API is what developers depend upon【依赖】 to build applications and be relatively stable【稳定】 before developers can really start to build on EOS.</p>
+<h3 id="Virtual-Machine【虚拟机】-API-Dan"><a href="#Virtual-Machine【虚拟机】-API-Dan" class="headerlink" title="Virtual Machine【虚拟机】 API (Dan)"></a>Virtual Machine【虚拟机】 API (Dan)</h3><p>Contracts are compiled【编译】 to WebAssembly (WASM) and WASM must interface with【通信】 the blockchain via a defined【定义】 API. This API is what developers depend upon【依赖】 to build applications and be relatively stable【稳定】 before developers can really start to build on EOS.</p>
 <h3 id="RPC-Interface【接口】-Arhag-Nathan"><a href="#RPC-Interface【接口】-Arhag-Nathan" class="headerlink" title="RPC Interface【接口】 (Arhag, Nathan)"></a>RPC Interface【接口】 (Arhag, Nathan)</h3><p>A simple【简单】 JSON RPC over HTTP interface【接口】 will be provided that enables developers to broadcast【广播】 transactions and query【查询】 application state. This is critical for both publishing【发布】 and interacting with【交互】 test applications.</p>
 <h3 id="Command-line-Tools【命令行】-Arhag"><a href="#Command-line-Tools【命令行】-Arhag" class="headerlink" title="Command line Tools【命令行】 (Arhag)"></a>Command line Tools【命令行】 (Arhag)</h3><p>Command line tools facilitate integrating【整合】 the RPC interface with developer build environments.</p>
-<h3 id="Basic-Developer-Documentation【文档】-Josh"><a href="#Basic-Developer-Documentation【文档】-Josh" class="headerlink" title="Basic Developer Documentation【文档】 (Josh)"></a>Basic Developer Documentation【文档】 (Josh)</h3><p>Documents that teach【指导】 developers how to get started with building on EOS.IO blockchains【区块链】. This includes documentations of the WASM API, RPC Interface, and Command Line Tools.</p>
+<h3 id="Basic【基本】-Developer-Documentation【文档】-Josh"><a href="#Basic【基本】-Developer-Documentation【文档】-Josh" class="headerlink" title="Basic【基本】 Developer Documentation【文档】 (Josh)"></a>Basic【基本】 Developer Documentation【文档】 (Josh)</h3><p>Documents that teach【指导】 developers how to get started with building on EOS.IO blockchains【区块链】. This includes documentations of the WASM API, RPC Interface, and Command Line Tools.</p>
 <h2 id="Phase-2-Minimal-Viable-Test-Network【测试网络】-Fall-2017"><a href="#Phase-2-Minimal-Viable-Test-Network【测试网络】-Fall-2017" class="headerlink" title="Phase 2 - Minimal Viable Test Network【测试网络】 - Fall 2017"></a>Phase 2 - Minimal Viable Test Network【测试网络】 - Fall 2017</h2><p>Everything in Phase 1 assumes a trusted【可信任】 environment that only runs the developer’s own【自己】 code. Before a test network can be deployed several additional features need to be implemented and tested.</p>
 <h3 id="P2P-Network【网络】-Code-Phil"><a href="#P2P-Network【网络】-Code-Phil" class="headerlink" title="P2P Network【网络】 Code (Phil)"></a>P2P Network【网络】 Code (Phil)</h3><p>This is a plugin【插件】 that is responsible for synchronizing【同步】 the blockchain state between two standalone【独立】 nodes.</p>
 <h3 id="WASM-Sanitation-amp-CPU-Sandboxing【沙盒】-Brian"><a href="#WASM-Sanitation-amp-CPU-Sandboxing【沙盒】-Brian" class="headerlink" title="WASM Sanitation &amp; CPU Sandboxing【沙盒】 (Brian)"></a>WASM Sanitation &amp; CPU Sandboxing【沙盒】 (Brian)</h3><p>The WASM code needs to be sanitized【清洁】 to check for non-deterministic behavior such as floating point【浮点】 operations and infinite【无限】 loops.</p>
@@ -153,7 +153,7 @@ if(isiOS){
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/05/21/online-eos-19/">« Single Hos...</a></span>
+  <span class="left"><a href="/2018/05/21/online-eos-19/">« Single【单一】...</a></span>
   <span class="right"><a href="/2018/05/21/online-eos-21/">DPOS BFT— ... »</a></span>
 </p>
 

@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>Single Host Multinode | 小沙丘的网络漫游记</title>
+  <title>Single【单一】 Host【主机】 Multinode【多节点】 | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -114,7 +114,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>Single Host Multinode</h1>
+<h1>Single【单一】 Host【主机】 Multinode【多节点】</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -127,14 +127,14 @@ if(isiOS){
 
   
   <div class="page">
-      <p>This tutorial describes how to set up a multi-node blockchain configuration running on a single host. This is referred to as a single host, multi-node testnet. We will set up two nodes on your local computer and have them communicate with each other. The examples in this section rely on three command-line applications, nodeos, keosd, and cleos. The following diagram depicts the desired testnet configuration. </p>
+      <p>This tutorial describes【描述】 how to set up a multi-node blockchain configuration【配置】 running on a single host. This is referred to as a single host, multi-node testnet【测试节点】. We will set up two nodes on your local【本地】 computer and have them communicate with【通信】 each other. The examples in this section rely on【依赖】 three command-line applications, nodeos, keosd, and cleos. The following diagram depicts【描述】 the desired testnet configuration. </p>
 <p><img src="https://raw.githubusercontent.com/wiki/EOSIO/eos/assets/Single-Host-Multi-Node-Testnet.png" alt=""><br>Single Host, Multi-Node Testnet</p>
-<p>It is assumed that keosd, cleos, and nodeos have been installed in your path, or that you know how to start these applications from the location in the file system. (See Setting Up A Local Environment)</p>
+<p>It is assumed【假想】 that keosd, cleos, and nodeos have been installed【安装好】 in your path, or that you know how to start these applications from the location in the file system. (See Setting Up A Local Environment)</p>
 <p>Open three “terminal” windows to perform the steps in this tutorial.</p>
-<h2 id="Create-a-Default-Wallet"><a href="#Create-a-Default-Wallet" class="headerlink" title="Create a Default Wallet"></a>Create a Default Wallet</h2><p>In the next terminal window, use cleos, the command-line utility, to create the default wallet.</p>
+<h2 id="Create【创建】-a-Default-Wallet【钱包】"><a href="#Create【创建】-a-Default-Wallet【钱包】" class="headerlink" title="Create【创建】 a Default Wallet【钱包】"></a>Create【创建】 a Default Wallet【钱包】</h2><p>In the next terminal【终端】 window, use cleos, the command-line utility【工具】, to create the default wallet.</p>
 <pre class=" language-ts"><code class="language-ts">cleos wallet create
 </code></pre>
-<p>cleos will indicate that it created the “default” wallet, and will provide a password for future wallet access. As the message says, be sure to preserve this password for future use. Here is an example of this output:</p>
+<p>cleos will indicate that it created the “default” wallet, and will provide【提供】 a password【密码】 for future wallet access. As the message says, be sure to preserve【保存】 this password for future use. Here is an example of this output:</p>
 <pre class=" language-ts"><code class="language-ts">cleos wallet create 
 <span class="token string">"/usr/local/bin/keosd"</span> launched
 Creating wallet<span class="token punctuation">:</span> <span class="token keyword">default</span>
@@ -142,17 +142,17 @@ Save password to use <span class="token keyword">in</span> the future to unlock 
 Without password imported keys will not be retrievable<span class="token punctuation">.</span>
 <span class="token string">"PW5K8UL1WFpRuMnuSe7VpB78CoNHu3PidALNrJsmhbcbafwvycWSS"</span>
 </code></pre>
-<p>We will continue to use this window for subsequent cleos commands.</p>
-<p>Note that keosd was automatically launched. This instance is running on the default wallet port (8900) and writing to the default wallet directory (~/eosio-wallet).</p>
-<h2 id="Start-the-First-Producer-Node"><a href="#Start-the-First-Producer-Node" class="headerlink" title="Start the First Producer Node"></a>Start the First Producer Node</h2><p>We can now start the first producer node. In the second terminal window run:</p>
+<p>We will continue【继续】 to use this window for subsequent cleos commands.</p>
+<p>Note that keosd was automatically【自动】 launched. This instance【实例】 is running on the default wallet port (8900) and writing to the default wallet directory【目录】 (~/eosio-wallet).</p>
+<h2 id="Start-the-First-Producer-Node【生产节点】"><a href="#Start-the-First-Producer-Node【生产节点】" class="headerlink" title="Start the First Producer Node【生产节点】"></a>Start the First Producer Node【生产节点】</h2><p>We can now start the first producer node. In the second terminal【第二个终端】 window run:</p>
 <pre class=" language-ts"><code class="language-ts">nodeos <span class="token operator">--</span>enable<span class="token operator">-</span>stale<span class="token operator">-</span>production <span class="token operator">--</span>producer<span class="token operator">-</span>name eosio <span class="token operator">--</span>plugin eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>chain_api_plugin <span class="token operator">--</span>plugin eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>net_api_plugin
 </code></pre>
-<p>This creates a special producer, known as the “bios” producer. Assuming everything has executed correctly to this point, you should see output from the nodeos process reporting block creation.</p>
-<h2 id="Start-the-Second-Producer-Node"><a href="#Start-the-Second-Producer-Node" class="headerlink" title="Start the Second Producer Node"></a>Start the Second Producer Node</h2><p>The following commands assume that you are running this tutorial from your ${EOSIO_SOURCE} directory, from which you ran ./eosio_build.sh to build. See Getting the Code for more information if this is not clear.</p>
-<p>To start additional nodes, you must first load the eosio.bios contract. This contract enables you to have direct control over the resource allocation of other accounts and to access other privileged API calls. Return to the second terminal window and run the following command to load the contract:</p>
+<p>This creates a special【特殊】 producer, known as the “bios” producer. Assuming【假设】 everything has executed correctly to this point, you should see output from the nodeos process reporting【报告】 block creation【创建】.</p>
+<h2 id="Start【启动】-the-Second-Producer-Node"><a href="#Start【启动】-the-Second-Producer-Node" class="headerlink" title="Start【启动】 the Second Producer Node"></a>Start【启动】 the Second Producer Node</h2><p>The following commands assume that you are running this tutorial【教程】 from your ${EOSIO_SOURCE} directory【目录】, from which you ran ./eosio_build.sh to build. See Getting the Code for more information if this is not clear.</p>
+<p>To start additional【另外】 nodes, you must first load the eosio.bios contract【合约】. This contract enables you to have direct【直接】 control over the resource allocation of other accounts and to access other privileged【专用】 API calls. Return to the second terminal window and run the following command to load the contract:</p>
 <pre class=" language-ts"><code class="language-ts">cleos <span class="token keyword">set</span> contract eosio build<span class="token operator">/</span>contracts<span class="token operator">/</span>eosio<span class="token punctuation">.</span>bios
 </code></pre>
-<p>You should see output similar to the following:</p>
+<p>You should see output similar【类似】 to the following:</p>
 <pre class=" language-ts"><code class="language-ts">Reading WAST<span class="token operator">/</span>WASM <span class="token keyword">from</span> build<span class="token operator">/</span>contracts<span class="token operator">/</span>eosio<span class="token punctuation">.</span>bios<span class="token operator">/</span>eosio<span class="token punctuation">.</span>bios<span class="token punctuation">.</span>wasm<span class="token operator">...</span>
 Using already assembled WASM<span class="token operator">...</span>
 Publishing contract<span class="token operator">...</span>
@@ -160,25 +160,25 @@ executed transaction<span class="token punctuation">:</span> d08a017c20398d3d939
 #         eosio <span class="token operator">&lt;=</span> eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>setcode               <span class="token punctuation">{</span><span class="token string">"account"</span><span class="token punctuation">:</span><span class="token string">"eosio"</span><span class="token punctuation">,</span><span class="token string">"vmtype"</span><span class="token punctuation">:</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token string">"vmversion"</span><span class="token punctuation">:</span><span class="token number">0</span><span class="token punctuation">,</span><span class="token string">"code"</span><span class="token punctuation">:</span>"0061736d01000000015c1160037f7e7f0060057f7e7e7e7e<span class="token operator">...</span>
 #         eosio <span class="token operator">&lt;=</span> eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>setabi                <span class="token punctuation">{</span><span class="token string">"account"</span><span class="token punctuation">:</span><span class="token string">"eosio"</span><span class="token punctuation">,</span><span class="token string">"abi"</span><span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token string">"types"</span><span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token string">"structs"</span><span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"set_account_limits"</span><span class="token punctuation">,</span><span class="token string">"base"</span><span class="token punctuation">:</span><span class="token string">""</span><span class="token punctuation">,</span><span class="token string">"fields"</span><span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token punctuation">{</span>"n<span class="token operator">...</span>
 </code></pre>
-<p>We will create an account to become a producer, using the account name producernde1. To create the account, we need to generate keys to associate with the account, and import those into our wallet.</p>
-<p>Run the create key command:</p>
+<p>We will create an account【账户】 to become a producer, using the account name producernde1. To create the account, we need to generate【生成】 keys to associate with【关联】 the account, and import those into our wallet.</p>
+<p>Run【运行】 the create key command:</p>
 <pre class=" language-ts"><code class="language-ts">cleos create key
 </code></pre>
-<p>This will report newly generated public and private keypairs that will look similar to the following.</p>
-<p>IMPORTANT: The command line instructions that follow use the keys shown below. In order to be able to cut-and-paste the command line instructions directly from this tutorial, do NOT use the keys that you just generated. If you want to use your newly generated keys, you will need to replace the key values with yours in the commands.</p>
+<p>This will report newly generated public and private keypairs【密钥对】 that will look similar to the following.</p>
+<p>IMPORTANT【重要】: The command line instructions that follow use the keys shown below. In order to be able to cut-and-paste the command line instructions directly from this tutorial, do NOT use the keys that you just【刚刚】 generated. If you want to use your newly generated keys, you will need to replace【替换】 the key values with yours in the commands.</p>
 <pre class=" language-ts"><code class="language-ts">Private key<span class="token punctuation">:</span> 5J2Hihw5VhnD3qsQYvegRsQixy55iB424PyqCLau4RrSxZNjrWp
 Public key<span class="token punctuation">:</span> EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCuKfSuHXsgRVsVH1LJPai
 </code></pre>
-<p>Now import the private key portion into your wallet. If successful, the matching public key will be reported. This should match the previously generated public key:</p>
+<p>Now import【导入】 the private key portion into your wallet【钱包】. If successful, the matching public key will be reported. This should match the previously generated public key:</p>
 <pre class=" language-ts"><code class="language-ts">cleos wallet <span class="token keyword">import</span> 5J2Hihw5VhnD3qsQYvegRsQixy55iB424PyqCLau4RrSxZNjrWp
 imported <span class="token keyword">private</span> key <span class="token keyword">for</span><span class="token punctuation">:</span> EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCuKfSuHXsgRVsVH1LJPai
 </code></pre>
-<p>Create the producernde1 account that we will use to become a producer. The create account command requires two public keys, one for the account’s owner key and one for its active key. In this example, the newly created public key is used twice, as both the owner key and the active key. Example output from the create command is shown:</p>
+<p>Create the producernde1 account that we will use to become a producer【生产者】. The create account command requires two【两份】 public keys, one for the account’s owner【拥有者】 key and one for its active【事物】 key. In this example, the newly created public key is used twice, as both the owner key and the active key. Example output from the create command is shown:</p>
 <pre class=" language-ts"><code class="language-ts">cleos create account eosio producernde1 EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCuKfSuHXsgRVsVH1LJPai EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCuKfSuHXsgRVsVH1LJPai
 executed transaction<span class="token punctuation">:</span> 3bfe642201152082a56cea776f049315fe224f662c5a5a1dff66c31292c4fac7  <span class="token number">200</span> bytes  <span class="token number">215</span> us
 #         eosio <span class="token operator">&lt;=</span> eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>newaccount            <span class="token punctuation">{</span><span class="token string">"creator"</span><span class="token punctuation">:</span><span class="token string">"eosio"</span><span class="token punctuation">,</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"producernde1"</span><span class="token punctuation">,</span><span class="token string">"owner"</span><span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token string">"threshold"</span><span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">"keys"</span><span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token string">"key"</span><span class="token punctuation">:</span>"EOS5wXTc92qD3DgSgdfi<span class="token operator">...</span>
 </code></pre>
-<p>We now have an account that is available to have a contract assigned to it, enabling it to do meaningful work. In other tutorials, the account has been used to establish simple contracts. In this case, the account will be designated as a block producer.</p>
+<p>We now have an account that is available to have a contract【合约】 assigned to it, enabling it to do meaningful【价值】 work. In other tutorials, the account has been used to establish【建立】 simple contracts. In this case, the account will be designated【指派】 as a block producer.</p>
 <p>In the third terminal window, start a second nodeos instance. Notice that this command line is substantially longer than the one we used above to create the first producer. This is necessary to avoid collisions with the first nodeos instance. Fortunately, you can just cut and paste this command line and adjust the keys:</p>
 <pre class=" language-ts"><code class="language-ts">nodeos <span class="token operator">--</span>producer<span class="token operator">-</span>name producernde1 <span class="token operator">--</span>plugin eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>chain_api_plugin <span class="token operator">--</span>plugin eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>net_api_plugin <span class="token operator">--</span>http<span class="token operator">-</span>server<span class="token operator">-</span>address <span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">8889</span> <span class="token operator">--</span>p2p<span class="token operator">-</span>listen<span class="token operator">-</span>endpoint <span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">9877</span> <span class="token operator">--</span>p2p<span class="token operator">-</span>peer<span class="token operator">-</span>address <span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">9876</span> <span class="token operator">--</span>config<span class="token operator">-</span>dir node2 <span class="token operator">--</span>data<span class="token operator">-</span>dir node2 <span class="token operator">--</span><span class="token keyword">private</span><span class="token operator">-</span>key <span class="token punctuation">[</span>\"EOS5wXTc92qD3DgSgdfiDXxSFacpBGpfCuKfSuHXsgRVsVH1LJPai\"<span class="token punctuation">,</span>\"5J2Hihw5VhnD3qsQYvegRsQixy55iB424PyqCLau4RrSxZNjrWp\"<span class="token punctuation">]</span>
 </code></pre>
