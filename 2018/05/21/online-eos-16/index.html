@@ -150,16 +150,16 @@ Save password to use <span class="token keyword">in</span> the future to unlock 
 Without password imported keys will not be retrievable<span class="token punctuation">.</span>
 <span class="token string">"A MASTER PASSWORD"</span>
 </code></pre>
-<p>A wallet called default is now inside keosd and has returned the master password for this wallet. Be sure to save this password somewhere safe. This password is used to unlock (decrypt) your wallet file.</p>
-<p>The file for this wallet is named default.wallet. By default, keosd stores wallets in the ~/eosio-wallet folder. The location of the wallet data folder can be specified on the command line using the –data-dir argument.</p>
-<h3 id="Managing-Multiple-Wallets-and-Wallet-Names"><a href="#Managing-Multiple-Wallets-and-Wallet-Names" class="headerlink" title="Managing Multiple Wallets and Wallet Names"></a>Managing Multiple Wallets and Wallet Names</h3><p>cleos is capable of managing multiple wallets. Each individual wallet is protected by different wallet master passwords. The example below creates another wallet and demonstrates how to name it by using the -n argument.</p>
+<p>A wallet called default【默认】 is now inside【内部】 keosd and has returned the master password【主密码】 for this wallet. Be sure【确保】 to save【保存】 this password somewhere safe. This password is used to unlock【解锁】 (decrypt) your wallet file.</p>
+<p>The file【文件】 for this wallet is named default.wallet. By default, keosd stores wallets in the ~/eosio-wallet folder. The location【位置】 of the wallet data【数据】 folder can be specified on the command line【命令行】 using the –data-dir argument.</p>
+<h3 id="Managing【管理】-Multiple【多个】-Wallets-and-Wallet-Names"><a href="#Managing【管理】-Multiple【多个】-Wallets-and-Wallet-Names" class="headerlink" title="Managing【管理】 Multiple【多个】 Wallets and Wallet Names"></a>Managing【管理】 Multiple【多个】 Wallets and Wallet Names</h3><p>cleos is capable【允许】 of managing multiple wallets. Each individual【个人】 wallet is protected【保护】 by different wallet master passwords. The example【示例】 below creates another wallet and demonstrates how to name it by using the -n argument【参数】.</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet create <span class="token operator">-</span>n periwinkle
 Creating wallet<span class="token punctuation">:</span> periwinkle
 Save password to use <span class="token keyword">in</span> the future to unlock <span class="token keyword">this</span> wallet<span class="token punctuation">.</span>
 Without password imported keys will not be retrievable<span class="token punctuation">.</span>
 <span class="token string">"A MASTER PASSWORD"</span>
 </code></pre>
-<p>Now confirm that the wallet was created with your chosen name.</p>
+<p>Now confirm【确认】 that the wallet was created with your chosen【选择】 name.</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet list
 Wallets<span class="token punctuation">:</span>
 <span class="token punctuation">[</span>
@@ -167,12 +167,12 @@ Wallets<span class="token punctuation">:</span>
   <span class="token string">"periwinkle *"</span>
 <span class="token punctuation">]</span>
 </code></pre>
-<p>It’s important to notice the asterisk (*) after each listed wallet, which means that the respective wallet is unlocked. When using create wallet the resulting wallet is unlocked by default for your convenience.</p>
-<p>Lock that second wallet using wallet lock</p>
+<p>It’s important to notice【注意】 the asterisk (*) after each listed【列出】 wallet, which means that the respective wallet is unlocked【解锁】. When using create wallet the resulting wallet is unlocked by default【默认】 for your convenience【方便】.</p>
+<p>Lock that second【第二个】 wallet using wallet lock</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet lock <span class="token operator">-</span>n periwinkle
 Locked<span class="token punctuation">:</span> <span class="token string">'periwinkle'</span>
 </code></pre>
-<p>Upon running wallet list again, you will see that the asterisk is gone, meaning that the wallet is now locked.</p>
+<p>Upon running【运行】 wallet list again, you will see that the asterisk is gone, meaning that the wallet is now locked【加锁】.</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet list
 Wallets<span class="token punctuation">:</span>
 <span class="token punctuation">[</span>
@@ -180,14 +180,14 @@ Wallets<span class="token punctuation">:</span>
   <span class="token string">"periwinkle"</span>
 <span class="token punctuation">]</span>
 </code></pre>
-<p>Unlocking a named wallet entails calling wallet unlock with an -n parameter followed by the name of the wallet and then entering the wallet’s master password in the password prompt (yes, you can paste the password). Go ahead and grab the master key for the second wallet you created, execute the command below and when the password prompt appears, paste and press enter. You’ll be presented with a confirmation.</p>
+<p>Unlocking【解锁】 a named wallet entails calling wallet unlock with an -n parameter【参数】 followed by the name of the wallet and then entering the wallet’s master password【主密码】 in the password prompt (yes, you can paste the password). Go ahead and grab the master key for the second wallet you created【创建】, execute【执行】 the command below and when the password prompt appears, paste and press enter. You’ll be presented with a confirmation【确认】.</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet unlock <span class="token operator">-</span>n periwinkle
 </code></pre>
-<p>cleos will let you know that the wallet was unlocked</p>
+<p>cleos will let you know【知道】 that the wallet was unlocked</p>
 <pre class=" language-js"><code class="language-js">Unlocked<span class="token punctuation">:</span> <span class="token string">'periwinkle'</span>
 </code></pre>
-<p>Note: You can also use a –password argument followed by the master password to skip the prompt, but this results in your master password being visible in the console history</p>
-<p>Now check your progress:</p>
+<p>Note【注意】: You can also use【使用】 a –password argument followed【跟随】 by the master password to skip【跳过】 the prompt, but this results in your master password being visible【可见】 in the console history【历史】</p>
+<p>Now check your progress【进度】:</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet list
 Wallets<span class="token punctuation">:</span>
 <span class="token punctuation">[</span>
@@ -195,14 +195,14 @@ Wallets<span class="token punctuation">:</span>
   <span class="token string">"periwinkle *"</span>
 <span class="token punctuation">]</span>
 </code></pre>
-<p>The periwinkle wallet is followed by an asterisk, so it is now unlocked.</p>
-<p>Note: Interacting with the ‘default’ wallet using the wallet command does not require the -n parameter</p>
-<p>Restart keosd now, and then go back to where you were calling cleos and run the following command</p>
+<p>The periwinkle wallet【钱包】 is followed by an asterisk, so it is now unlocked【解锁】.</p>
+<p>Note: Interacting with【交互】 the ‘default’ wallet using the wallet command does not require【不需要】 the -n parameter</p>
+<p>Restart【重启】 keosd now, and then go back to【返回】 where you were calling cleos and run the following command</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet list
 Wallets<span class="token punctuation">:</span>
 <span class="token punctuation">[</span><span class="token punctuation">]</span>
 </code></pre>
-<p>Wallets first need to be opened before they can be operated on, including listing them. The wallets were locked when you shut down keosd. When keosd was restarted, the wallet wasn’t open. Run the following commands to open, then list the default wallet.</p>
+<p>Wallets first【首先】 need to be opened before they can be operated【操作】 on, including listing them. The wallets were locked when you shut down【关闭】 keosd. When keosd was restarted, the wallet wasn’t open【打开】. Run【运行】 the following commands to open, then list the default wallet.</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet open
 $ cleos wallet list
 Wallets<span class="token punctuation">:</span>
@@ -210,13 +210,13 @@ Wallets<span class="token punctuation">:</span>
   <span class="token string">"default"</span>
 <span class="token punctuation">]</span>
 </code></pre>
-<p>Note: If you wanted to open a named wallet, you would run $ cleos wallet open -n periwinkle.</p>
-<p>You’ll notice in the last response that the default wallet is locked by default. Unlock the now; you’ll need it in the subsequent steps.</p>
-<p>Run the wallet unlock command and paste your default wallet’s master password when the password prompt appears.</p>
+<p>Note: If you wanted to open a named【命名】 wallet, you would run $ cleos wallet open -n periwinkle.</p>
+<p>You’ll notice【注意到】 in the last response that the default wallet is locked by default【默认】. Unlock the now; you’ll need it in the subsequent steps.</p>
+<p>Run the wallet unlock command and paste【黏贴】 your default wallet’s master password when the password prompt appears【出现】.</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet unlock
 Unlocked<span class="token punctuation">:</span> <span class="token string">'default'</span>
 </code></pre>
-<p>Check that the wallet is unlocked:</p>
+<p>Check【检查】 that the wallet is unlocked:</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet list
 Wallets<span class="token punctuation">:</span>
 <span class="token punctuation">[</span>
@@ -224,9 +224,9 @@ Wallets<span class="token punctuation">:</span>
 <span class="token punctuation">]</span>
 </code></pre>
 <p>The wallet is accompanied by an asterisk, so it’s unlocked.</p>
-<p>You’ve learned how to create multiple wallets, and interact with them in cleos. However, an empty wallet doesn’t do you much good. We will now learn to import keys into the wallet.</p>
-<h2 id="Generating-and-Importing-EOSIO-Keys"><a href="#Generating-and-Importing-EOSIO-Keys" class="headerlink" title="Generating and Importing EOSIO Keys"></a>Generating and Importing EOSIO Keys</h2><p>There are several ways to generate an EOSIO key pair, but this tutorial will focus on the create key command in cleos.</p>
-<p>Generate two public/private key pairs. Note the general format of the keys.</p>
+<p>You’ve learned how to create【创建】 multiple wallets, and interact with them in cleos. However, an empty wallet doesn’t do you much good. We will now learn to import【导入】 keys into the wallet.</p>
+<h2 id="Generating【生成】-and-Importing【导入】-EOSIO-Keys"><a href="#Generating【生成】-and-Importing【导入】-EOSIO-Keys" class="headerlink" title="Generating【生成】 and Importing【导入】 EOSIO Keys"></a>Generating【生成】 and Importing【导入】 EOSIO Keys</h2><p>There are several ways【方式】 to generate an EOSIO key pair【密钥对】, but this tutorial will focus on the create key command in cleos.</p>
+<p>Generate【生成】 two public/private key pairs. Note the general【一般】 format of the keys.</p>
 <pre class=" language-js"><code class="language-js">$ cleos create key
 Private key<span class="token punctuation">:</span> XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 Public key<span class="token punctuation">:</span> EOSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
@@ -234,19 +234,19 @@ $ cleos create key
 Private key<span class="token punctuation">:</span> XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 Public key<span class="token punctuation">:</span> EOSXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 </code></pre>
-<p>You now have two EOSIO keypairs. At this point, these are just arbitrary keypairs and by themselves have no authority.</p>
-<p>If you followed all of the previous steps, your default wallet should be open and unlocked.</p>
-<p>In this next step, we will import the private keys into the wallet. To do this, execute wallet import twice, once for each private key that was generated earlier.</p>
+<p>You now have two【两个】 EOSIO keypairs. At this point, these are just arbitrary【任意】 keypairs and by themselves have no authority【许可】.</p>
+<p>If you followed all of the previous【之前】 steps, your default【默认】 wallet should be open and unlocked.</p>
+<p>In this next step【步骤】, we will import the private keys【私钥】 into the wallet. To do this, execute【执行】 wallet import twice【两次】, once for each private key that was generated【生成】 earlier.</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet <span class="token keyword">import</span> $<span class="token punctuation">{</span>private_key_1<span class="token punctuation">}</span>
 </code></pre>
-<p>And then again with the second private key</p>
+<p>And then again【再次】 with the second【第二个】 private key</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet <span class="token keyword">import</span> $<span class="token punctuation">{</span>private_key_2<span class="token punctuation">}</span>
 </code></pre>
-<p>If successful, each time wallet import command responds with the public key corresponding to your private key, your console should look something like..</p>
+<p>If successful【成功】, each time wallet import【导入】 command responds with the public key corresponding to your private key, your console should look something like【看起来像】..</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet <span class="token keyword">import</span> 5Hvgh37WMCWAc4GuyRBiFrk4SArCnSQVMhNtEQVoszhBh6RgdWr
 imported <span class="token keyword">private</span> key <span class="token keyword">for</span><span class="token punctuation">:</span> EOS84jJqXj5XBz3RqLreXZCMxXRKspUadXg3AVy8eb5J2axj8cywc
 </code></pre>
-<p>We can check which keys are loaded by calling wallet keys</p>
+<p>We can check【检查】 which keys are loaded by calling【调用】 wallet keys</p>
 <pre class=" language-js"><code class="language-js">$ cleos wallet keys
 <span class="token punctuation">[</span><span class="token punctuation">[</span>
     <span class="token string">"EOS6...."</span><span class="token punctuation">,</span>
@@ -258,35 +258,35 @@ imported <span class="token keyword">private</span> key <span class="token keywo
   <span class="token punctuation">]</span>
 <span class="token punctuation">]</span>
 </code></pre>
-<p>the wallet file itself is encrypted, so the wallet will protect these keys when it’s locked. Accessing the keys in a locked wallet requires the master password that was provided to you during wallet creation.</p>
-<h2 id="Backing-up-your-wallet"><a href="#Backing-up-your-wallet" class="headerlink" title="Backing up your wallet"></a>Backing up your wallet</h2><p>Now that your wallet contains keys, it’s good to get into the habit of backing up the wallet, e.g., to a flash drive or other media, to protect against the loss of the wallet file. Without the password, the wallet file is encrypted with high entropy, and the keys inside are incredibly difficult (improbable by all reasonable measures) to access.</p>
-<p>You can find your wallet files in the data-dir. If you did not specify a –data-dir parameter when launching eos, your wallet files are stored in the ~/eosio-wallet folder.</p>
+<p>the wallet file itself is encrypted【加密】, so the wallet will protect【保护】 these keys when it’s locked. Accessing the keys in a locked【加锁】 wallet requires the master password that was provided to you during wallet creation【创建】.</p>
+<h2 id="Backing-up【备份】-your-wallet"><a href="#Backing-up【备份】-your-wallet" class="headerlink" title="Backing up【备份】 your wallet"></a>Backing up【备份】 your wallet</h2><p>Now that your wallet contains【包含】 keys, it’s good to get into the habit【习惯】 of backing up the wallet, e.g., to a flash drive or other media, to protect against the loss【损失】 of the wallet file. Without the password, the wallet file is encrypted【加密】 with high entropy, and the keys inside are incredibly difficult【苦难】 (improbable by all reasonable measures) to access.</p>
+<p>You can find your wallet files【文件】 in the data-dir. If you did not specify【指定】 a –data-dir parameter when launching eos, your wallet files are stored【存储】 in the ~/eosio-wallet folder.</p>
 <pre class=" language-js"><code class="language-js">$ cd <span class="token operator">~</span><span class="token operator">/</span>eosio<span class="token operator">-</span>wallet <span class="token operator">&amp;&amp;</span> ls
 blockchain   blocks   config<span class="token punctuation">.</span>ini   <span class="token keyword">default</span><span class="token punctuation">.</span>wallet   periwinkle<span class="token punctuation">.</span>wallet
 </code></pre>
-<p>If you’ve been following the steps of this tutorial, you will the two files, default.wallet and periwinkle.wallet. Save these files in a safe location.</p>
-<h2 id="Creating-an-Account"><a href="#Creating-an-Account" class="headerlink" title="Creating an Account"></a>Creating an Account</h2><p>Performing actions on the blockchain requires the use of accounts. We use cleos to request nodeos to create accounts and publish them on the blockchain. At this point in our tutorial, we need to start nodeos. The following command will start a single node testnet. See Creating and Launching a Single Node Testnet for more on setting up a local environment.</p>
-<p>To start nodeos, open a new terminal window, go to the folder that contains your nodeos executable, and run the following:</p>
+<p>If you’ve been following the steps of this tutorial, you will the two【两个】 files, default.wallet and periwinkle.wallet. Save these files in a safe location.</p>
+<h2 id="Creating【创建】-an-Account【账户】"><a href="#Creating【创建】-an-Account【账户】" class="headerlink" title="Creating【创建】 an Account【账户】"></a>Creating【创建】 an Account【账户】</h2><p>Performing actions on the blockchain【区块链】 requires the use【使用】 of accounts. We use cleos to request nodeos to create accounts and publish【发布】 them on the blockchain. At this point in our tutorial, we need to start【启动】 nodeos. The following command will start a single【单一】 node testnet. See Creating and Launching【运行】 a Single Node Testnet for more on setting up a local【本地】 environment【环境】.</p>
+<p>To start【启动】 nodeos, open a new terminal【终端】 window, go to the folder【目录】 that contains your nodeos executable【可执行文件】, and run【运行】 the following:</p>
 <pre class=" language-js"><code class="language-js">$ cd eos<span class="token operator">/</span>build<span class="token operator">/</span>programs<span class="token operator">/</span>nodeos
 $ nodeos <span class="token operator">-</span>e <span class="token operator">-</span>p eosio <span class="token operator">--</span>plugin eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>chain_api_plugin <span class="token operator">--</span>plugin eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>history_api_plugin
 </code></pre>
-<p>Now we can create the account. Here is the structure of the cleos create account command.</p>
+<p>Now we can create【创建】 the account. Here is the structure【结构】 of the cleos create account command【要求】.</p>
 <pre class=" language-js"><code class="language-js">$ cleos create account $<span class="token punctuation">{</span>authorizing_account<span class="token punctuation">}</span> $<span class="token punctuation">{</span>new_account<span class="token punctuation">}</span> $<span class="token punctuation">{</span>owner_key<span class="token punctuation">}</span> $<span class="token punctuation">{</span>active_key<span class="token punctuation">}</span>
 </code></pre>
-<p>authorizing_account is the name of the account that will fund the account creation, and subsequently the new account.</p>
-<p>new_account is the name of the account you would like to create</p>
-<p>owner_key is a public key to be assigned to the owner authority of the account. (See Accounts &amp; Permissions)</p>
-<p>active_key is a public key to be assigned to the active authority of the account. of your account, and the second one will be permissioned for the active authority of your account.</p>
-<p>In this tutorial, eosio is the authorizing account. The actions performed on the blockchain must be signed using the keys associated with the eosio account. The eosio account is a special account used to bootstrap EOSIO nodes. The keys for this account can be found in the nodeos config file, located at ~/.local/shared/eosio/config/config.ini on Linux platforms, and ~/Libraries/Application Support/eosio/nodeos/config/config.ini on MacOS.</p>
-<p>We need a name for our new account. Account names must conform to the following guidelines:</p>
-<p>Must be less than 13 characters</p>
+<p>authorizing_account is the name of the account that will fund【找到】 the account creation, and subsequently the new【新】 account.</p>
+<p>new_account is the name of the account you would like to create【创建】</p>
+<p>owner_key is a public key【公钥】 to be assigned【分配】 to the owner authority【许可】 of the account. (See Accounts &amp; Permissions)</p>
+<p>active_key is a public key to be assigned【分配】 to the active authority of the account【账户】. of your account, and the second【第二个】 one will be permissioned for the active authority of your account【账户】.</p>
+<p>In this tutorial, eosio is the authorizing account. The actions【行为】 performed on the blockchain must be signed【签名】 using the keys associated with the eosio account【账户】. The eosio account is a special【特殊】 account used to bootstrap【启动】 EOSIO nodes. The keys for this account can be found【找到】 in the nodeos config file, located【位于】 at ~/.local/shared/eosio/config/config.ini on Linux platforms, and ~/Libraries/Application Support/eosio/nodeos/config/config.ini on MacOS.</p>
+<p>We need a name【命名】 for our new account【账户】. Account names must conform【确认】 to the following guidelines:</p>
+<p>Must be less【少于】 than 13 characters</p>
 <p>Can only contain the following symbols: .12345abcdefghijklmnopqrstuvwxyz</p>
-<p>We will use the name “myaccount” for the new account.</p>
-<p>We will use the public keys that you generated above and imported into your wallet (recall that the public keys begin with EOS). The keys are arbitrary until you have assigned them to an authority. However, once assigned, it is important to remember the assignments. Your owner key equates to full control of your account, whereas your active key equates to full access over funds in your account.</p>
-<p>Use cleos create account to create your account:</p>
+<p>We will use【使用】 the name “myaccount” for the new account.</p>
+<p>We will use the public【公开】 keys that you generated【生成】 above and imported【导入】 into your wallet (recall that the public keys begin with EOS). The keys are arbitrary【任意】 until you have assigned them to an authority. However, once【一旦】 assigned【分配】, it is important to remember【记住】 the assignments. Your owner key equates【等效于】 to full control of your account, whereas your active key equates to full access over funds【找到】 in your account.</p>
+<p>Use cleos create【创建】 account to create your account:</p>
 <pre class=" language-js"><code class="language-js">$ cleos <span class="token operator">--</span>wallet<span class="token operator">-</span>port<span class="token operator">=</span><span class="token number">8899</span> create account eosio myaccount $<span class="token punctuation">{</span>public_key_1<span class="token punctuation">}</span> $<span class="token punctuation">{</span>public_key_2<span class="token punctuation">}</span>
 </code></pre>
-<p>If successful, you will see output similar to the following.</p>
+<p>If successful【成功】, you will see output【输出】 similar to the following.</p>
 <pre class=" language-js"><code class="language-js">executed transaction<span class="token punctuation">:</span> 7f1c6b87cd6573365a7bb3c6aa12f8162c3373d57d148f63f2a2d3373ad2fd54  <span class="token number">352</span> bytes  <span class="token number">102400</span> cycles
 #         eosio <span class="token operator">&lt;=</span> eosio<span class="token punctuation">:</span><span class="token punctuation">:</span>newaccount            <span class="token punctuation">{</span><span class="token string">"creator"</span><span class="token punctuation">:</span><span class="token string">"eosio"</span><span class="token punctuation">,</span><span class="token string">"name"</span><span class="token punctuation">:</span><span class="token string">"myaccount"</span><span class="token punctuation">,</span><span class="token string">"owner"</span><span class="token punctuation">:</span><span class="token punctuation">{</span><span class="token string">"threshold"</span><span class="token punctuation">:</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token string">"keys"</span><span class="token punctuation">:</span><span class="token punctuation">[</span><span class="token punctuation">{</span><span class="token string">"key"</span><span class="token punctuation">:</span>"EOS5kkAs8HZ88m2N7iZWy4J<span class="token operator">...</span>
 </code></pre>
