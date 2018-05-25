@@ -127,7 +127,53 @@ if(isiOS){
 
   
   <div class="page">
-      
+      <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Starting with ECMAScript 2015, <code>symbol</code> is a primitive data type, just like <code>number</code> and <code>string</code>.</p>
+<p><code>symbol</code> values are created by calling the <code>Symbol</code> constructor.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> sym1 <span class="token operator">=</span> <span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">let</span> sym2 <span class="token operator">=</span> <span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token string">"key"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// optional string key</span>
+</code></pre>
+<p>Symbols are immutable, and unique.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> sym2 <span class="token operator">=</span> <span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token string">"key"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> sym3 <span class="token operator">=</span> <span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token string">"key"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+sym2 <span class="token operator">===</span> sym3<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// false, symbols are unique</span>
+</code></pre>
+<p>Just like strings, symbols can be used as keys for object properties.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> sym <span class="token operator">=</span> <span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">let</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>sym<span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token string">"value"</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>obj<span class="token punctuation">[</span>sym<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// "value"</span>
+</code></pre>
+<p>Symbols can also be combined with computed property declarations to declare object properties and class members.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">const</span> getClassNameSymbol <span class="token operator">=</span> <span class="token function">Symbol</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">C</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>getClassNameSymbol<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+       <span class="token keyword">return</span> <span class="token string">"C"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> c <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">C</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> className <span class="token operator">=</span> c<span class="token punctuation">[</span>getClassNameSymbol<span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// "C"</span>
+</code></pre>
+<h1 id="Well-known-Symbols"><a href="#Well-known-Symbols" class="headerlink" title="Well-known Symbols"></a>Well-known Symbols</h1><p>In addition to user-defined symbols, there are well-known built-in symbols.<br>Built-in symbols are used to represent internal language behaviors.</p>
+<p>Here is a list of well-known symbols:</p>
+<h2 id="Symbol-hasInstance"><a href="#Symbol-hasInstance" class="headerlink" title="Symbol.hasInstance"></a><code>Symbol.hasInstance</code></h2><p>A method that determines if a constructor object recognizes an object as one of the constructor’s instances. Called by the semantics of the instanceof operator.</p>
+<h2 id="Symbol-isConcatSpreadable"><a href="#Symbol-isConcatSpreadable" class="headerlink" title="Symbol.isConcatSpreadable"></a><code>Symbol.isConcatSpreadable</code></h2><p>A Boolean value indicating that an object should be flatten to its array elements by Array.prototype.concat.</p>
+<h2 id="Symbol-iterator"><a href="#Symbol-iterator" class="headerlink" title="Symbol.iterator"></a><code>Symbol.iterator</code></h2><p>A method that returns the default iterator for an object. Called by the semantics of the for-of statement.</p>
+<h2 id="Symbol-match"><a href="#Symbol-match" class="headerlink" title="Symbol.match"></a><code>Symbol.match</code></h2><p>A regular expression method that matches the regular expression against a string. Called by the <code>String.prototype.match</code> method.</p>
+<h2 id="Symbol-replace"><a href="#Symbol-replace" class="headerlink" title="Symbol.replace"></a><code>Symbol.replace</code></h2><p>A regular expression method that replaces matched substrings of a string. Called by the <code>String.prototype.replace</code> method.</p>
+<h2 id="Symbol-search"><a href="#Symbol-search" class="headerlink" title="Symbol.search"></a><code>Symbol.search</code></h2><p>A regular expression method that returns the index within a string that matches the regular expression. Called by the <code>String.prototype.search</code> method.</p>
+<h2 id="Symbol-species"><a href="#Symbol-species" class="headerlink" title="Symbol.species"></a><code>Symbol.species</code></h2><p>A function valued property that is the constructor function that is used to create derived objects.</p>
+<h2 id="Symbol-split"><a href="#Symbol-split" class="headerlink" title="Symbol.split"></a><code>Symbol.split</code></h2><p>A regular expression method that splits a string at the indices that match the regular expression.<br>Called by the <code>String.prototype.split</code> method.</p>
+<h2 id="Symbol-toPrimitive"><a href="#Symbol-toPrimitive" class="headerlink" title="Symbol.toPrimitive"></a><code>Symbol.toPrimitive</code></h2><p>A method that converts an object to a corresponding primitive value.<br>Called by the <code>ToPrimitive</code> abstract operation.</p>
+<h2 id="Symbol-toStringTag"><a href="#Symbol-toStringTag" class="headerlink" title="Symbol.toStringTag"></a><code>Symbol.toStringTag</code></h2><p>A String value that is used in the creation of the default string description of an object.<br>Called by the built-in method <code>Object.prototype.toString</code>.</p>
+<h2 id="Symbol-unscopables"><a href="#Symbol-unscopables" class="headerlink" title="Symbol.unscopables"></a><code>Symbol.unscopables</code></h2><p>An Object whose own property names are property names that are excluded from the ‘with’ environment bindings of the associated objects.</p>
+
   </div>
 </div>
 

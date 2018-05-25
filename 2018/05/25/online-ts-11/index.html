@@ -127,7 +127,604 @@ if(isiOS){
 
   
   <div class="page">
-      
+      <h1 id="Intersection-Types"><a href="#Intersection-Types" class="headerlink" title="Intersection Types"></a>Intersection Types</h1><p>An intersection type combines multiple types into one.<br>This allows you to add together existing types to get a single type that has all the features you need.<br>For example, <code>Person &amp; Serializable &amp; Loggable</code> is a <code>Person</code> <em>and</em> <code>Serializable</code> <em>and</em> <code>Loggable</code>.<br>That means an object of this type will have all members of all three types.</p>
+<p>You will mostly see intersection types used for mixins and other concepts that don’t fit in the classic object-oriented mold.<br>(There are a lot of these in JavaScript!)<br>Here’s a simple example that shows how to create a mixin:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> extend<span class="token operator">&lt;</span>T<span class="token punctuation">,</span> U<span class="token operator">></span><span class="token punctuation">(</span>first<span class="token punctuation">:</span> T<span class="token punctuation">,</span> second<span class="token punctuation">:</span> U<span class="token punctuation">)</span><span class="token punctuation">:</span> T <span class="token operator">&amp;</span> U <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> result <span class="token operator">=</span> <span class="token operator">&lt;</span>T <span class="token operator">&amp;</span> U<span class="token operator">></span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> id <span class="token keyword">in</span> first<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token punctuation">(</span><span class="token operator">&lt;</span><span class="token keyword">any</span><span class="token operator">></span>result<span class="token punctuation">)</span><span class="token punctuation">[</span>id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">&lt;</span><span class="token keyword">any</span><span class="token operator">></span>first<span class="token punctuation">)</span><span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> id <span class="token keyword">in</span> second<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>result<span class="token punctuation">.</span><span class="token function">hasOwnProperty</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token punctuation">(</span><span class="token operator">&lt;</span><span class="token keyword">any</span><span class="token operator">></span>result<span class="token punctuation">)</span><span class="token punctuation">[</span>id<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token operator">&lt;</span><span class="token keyword">any</span><span class="token operator">></span>second<span class="token punctuation">)</span><span class="token punctuation">[</span>id<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">interface</span> <span class="token class-name">Loggable</span> <span class="token punctuation">{</span>
+    <span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">class</span> <span class="token class-name">ConsoleLogger</span> <span class="token keyword">implements</span> <span class="token class-name">Loggable</span> <span class="token punctuation">{</span>
+    <span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// ...</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">var</span> jim <span class="token operator">=</span> <span class="token function">extend</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token string">"Jim"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token keyword">new</span> <span class="token class-name">ConsoleLogger</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> n <span class="token operator">=</span> jim<span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+jim<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h1 id="Union-Types"><a href="#Union-Types" class="headerlink" title="Union Types"></a>Union Types</h1><p>Union types are closely related to intersection types, but they are used very differently.<br>Occasionally, you’ll run into a library that expects a parameter to be either a <code>number</code> or a <code>string</code>.<br>For instance, take the following function:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">/**
+ * Takes a string and adds "padding" to the left.
+ * If 'padding' is a string, then 'padding' is appended to the left side.
+ * If 'padding' is a number, then that number of spaces is added to the left side.
+ */</span>
+<span class="token keyword">function</span> <span class="token function">padLeft</span><span class="token punctuation">(</span>value<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">,</span> padding<span class="token punctuation">:</span> <span class="token keyword">any</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> padding <span class="token operator">===</span> <span class="token string">"number"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">Array</span><span class="token punctuation">(</span>padding <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span> <span class="token operator">+</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> padding <span class="token operator">===</span> <span class="token string">"string"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> padding <span class="token operator">+</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`Expected string or number, got '</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>padding<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'.`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">padLeft</span><span class="token punctuation">(</span><span class="token string">"Hello world"</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// returns "    Hello world"</span>
+</code></pre>
+<p>The problem with <code>padLeft</code> is that its <code>padding</code> parameter is typed as <code>any</code>.<br>That means that we can call it with an argument that’s neither a <code>number</code> nor a <code>string</code>, but TypeScript will be okay with it.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> indentedString <span class="token operator">=</span> <span class="token function">padLeft</span><span class="token punctuation">(</span><span class="token string">"Hello world"</span><span class="token punctuation">,</span> <span class="token keyword">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// passes at compile time, fails at runtime.</span>
+</code></pre>
+<p>In traditional object-oriented code, we might abstract over the two types by creating a hierarchy of types.<br>While this is much more explicit, it’s also a little bit overkill.<br>One of the nice things about the original version of <code>padLeft</code> was that we were able to just pass in primitives.<br>That meant that usage was simple and concise.<br>This new approach also wouldn’t help if we were just trying to use a function that already exists elsewhere.</p>
+<p>Instead of <code>any</code>, we can use a <em>union type</em> for the <code>padding</code> parameter:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">/**
+ * Takes a string and adds "padding" to the left.
+ * If 'padding' is a string, then 'padding' is appended to the left side.
+ * If 'padding' is a number, then that number of spaces is added to the left side.
+ */</span>
+<span class="token keyword">function</span> <span class="token function">padLeft</span><span class="token punctuation">(</span>value<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">,</span> padding<span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token operator">|</span> <span class="token keyword">number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> indentedString <span class="token operator">=</span> <span class="token function">padLeft</span><span class="token punctuation">(</span><span class="token string">"Hello world"</span><span class="token punctuation">,</span> <span class="token keyword">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// errors during compilation</span>
+</code></pre>
+<p>A union type describes a value that can be one of several types.<br>We use the vertical bar (<code>|</code>) to separate each type, so <code>number | string | boolean</code> is the type of a value that can be a <code>number</code>, a <code>string</code>, or a <code>boolean</code>.</p>
+<p>If we have a value that has a union type, we can only access members that are common to all types in the union.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">interface</span> <span class="token class-name">Bird</span> <span class="token punctuation">{</span>
+    <span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">layEggs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">Fish</span> <span class="token punctuation">{</span>
+    <span class="token function">swim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">layEggs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">getSmallPet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Fish <span class="token operator">|</span> Bird <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> pet <span class="token operator">=</span> <span class="token function">getSmallPet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+pet<span class="token punctuation">.</span><span class="token function">layEggs</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// okay</span>
+pet<span class="token punctuation">.</span><span class="token function">swim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// errors</span>
+</code></pre>
+<p>Union types can be a bit tricky here, but it just takes a bit of intuition to get used to.<br>If a value has the type <code>A | B</code>, we only know for <em>certain</em> that it has members that both <code>A</code> <em>and</em> <code>B</code> have.<br>In this example, <code>Bird</code> has a member named <code>fly</code>.<br>We can’t be sure whether a variable typed as <code>Bird | Fish</code> has a <code>fly</code> method.<br>If the variable is really a <code>Fish</code> at runtime, then calling <code>pet.fly()</code> will fail.</p>
+<h1 id="Type-Guards-and-Differentiating-Types"><a href="#Type-Guards-and-Differentiating-Types" class="headerlink" title="Type Guards and Differentiating Types"></a>Type Guards and Differentiating Types</h1><p>Union types are useful for modeling situations when values can overlap in the types they can take on.<br>What happens when we need to know specifically whether we have a <code>Fish</code>?<br>A common idiom in JavaScript to differentiate between two possible values is to check for the presence of a member.<br>As we mentioned, you can only access members that are guaranteed to be in all the constituents of a union type.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> pet <span class="token operator">=</span> <span class="token function">getSmallPet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// Each of these property accesses will cause an error</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>pet<span class="token punctuation">.</span>swim<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    pet<span class="token punctuation">.</span><span class="token function">swim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>pet<span class="token punctuation">.</span>fly<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    pet<span class="token punctuation">.</span><span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>To get the same code working, we’ll need to use a type assertion:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> pet <span class="token operator">=</span> <span class="token function">getSmallPet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token operator">&lt;</span>Fish<span class="token operator">></span>pet<span class="token punctuation">)</span><span class="token punctuation">.</span>swim<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">(</span><span class="token operator">&lt;</span>Fish<span class="token operator">></span>pet<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">swim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">(</span><span class="token operator">&lt;</span>Bird<span class="token operator">></span>pet<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="User-Defined-Type-Guards"><a href="#User-Defined-Type-Guards" class="headerlink" title="User-Defined Type Guards"></a>User-Defined Type Guards</h2><p>Notice that we had to use type assertions several times.<br>It would be much better if once we performed the check, we could know the type of <code>pet</code> within each branch.</p>
+<p>It just so happens that TypeScript has something called a <em>type guard</em>.<br>A type guard is some expression that performs a runtime check that guarantees the type in some scope.<br>To define a type guard, we simply need to define a function whose return type is a <em>type predicate</em>:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">isFish</span><span class="token punctuation">(</span>pet<span class="token punctuation">:</span> Fish <span class="token operator">|</span> Bird<span class="token punctuation">)</span><span class="token punctuation">:</span> pet is Fish <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span><span class="token operator">&lt;</span>Fish<span class="token operator">></span>pet<span class="token punctuation">)</span><span class="token punctuation">.</span>swim <span class="token operator">!==</span> undefined<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>pet is Fish</code> is our type predicate in this example.<br>A predicate takes the form <code>parameterName is Type</code>, where <code>parameterName</code> must be the name of a parameter from the current function signature.</p>
+<p>Any time <code>isFish</code> is called with some variable, TypeScript will <em>narrow</em> that variable to that specific type if the original type is compatible.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">// Both calls to 'swim' and 'fly' are now okay.</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isFish</span><span class="token punctuation">(</span>pet<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    pet<span class="token punctuation">.</span><span class="token function">swim</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">else</span> <span class="token punctuation">{</span>
+    pet<span class="token punctuation">.</span><span class="token function">fly</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Notice that TypeScript not only knows that <code>pet</code> is a <code>Fish</code> in the <code>if</code> branch;<br>it also knows that in the <code>else</code> branch, you <em>don’t</em> have a <code>Fish</code>, so you must have a <code>Bird</code>.</p>
+<h2 id="typeof-type-guards"><a href="#typeof-type-guards" class="headerlink" title="typeof type guards"></a><code>typeof</code> type guards</h2><p>Let’s go back and write the code for the version of <code>padLeft</code> that uses union types.<br>We could write it with type predicates as follows:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">isNumber</span><span class="token punctuation">(</span>x<span class="token punctuation">:</span> <span class="token keyword">any</span><span class="token punctuation">)</span><span class="token punctuation">:</span> x is <span class="token keyword">number</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">typeof</span> x <span class="token operator">===</span> <span class="token string">"number"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">isString</span><span class="token punctuation">(</span>x<span class="token punctuation">:</span> <span class="token keyword">any</span><span class="token punctuation">)</span><span class="token punctuation">:</span> x is <span class="token keyword">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> <span class="token keyword">typeof</span> x <span class="token operator">===</span> <span class="token string">"string"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">padLeft</span><span class="token punctuation">(</span>value<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">,</span> padding<span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token operator">|</span> <span class="token keyword">number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isNumber</span><span class="token punctuation">(</span>padding<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">Array</span><span class="token punctuation">(</span>padding <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span> <span class="token operator">+</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token function">isString</span><span class="token punctuation">(</span>padding<span class="token punctuation">)</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> padding <span class="token operator">+</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`Expected string or number, got '</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>padding<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'.`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>However, having to define a function to figure out if a type is a primitive is kind of a pain.<br>Luckily, you don’t need to abstract <code>typeof x === &quot;number&quot;</code> into its own function because TypeScript will recognize it as a type guard on its own.<br>That means we could just write these checks inline.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">padLeft</span><span class="token punctuation">(</span>value<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">,</span> padding<span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token operator">|</span> <span class="token keyword">number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> padding <span class="token operator">===</span> <span class="token string">"number"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">Array</span><span class="token punctuation">(</span>padding <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span> <span class="token operator">+</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> padding <span class="token operator">===</span> <span class="token string">"string"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> padding <span class="token operator">+</span> value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`Expected string or number, got '</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>padding<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">'.`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>These <em><code>typeof</code> type guards</em> are recognized in two different forms: <code>typeof v === &quot;typename&quot;</code> and <code>typeof v !== &quot;typename&quot;</code>, where <code>&quot;typename&quot;</code> must be <code>&quot;number&quot;</code>, <code>&quot;string&quot;</code>, <code>&quot;boolean&quot;</code>, or <code>&quot;symbol&quot;</code>.<br>While TypeScript won’t stop you from comparing to other strings, the language won’t recognize those expressions as type guards.</p>
+<h2 id="instanceof-type-guards"><a href="#instanceof-type-guards" class="headerlink" title="instanceof type guards"></a><code>instanceof</code> type guards</h2><p>If you’ve read about <code>typeof</code> type guards and are familiar with the <code>instanceof</code> operator in JavaScript, you probably have some idea of what this section is about.</p>
+<p><em><code>instanceof</code> type guards</em> are a way of narrowing types using their constructor function.<br>For instance, let’s borrow our industrial string-padder example from earlier:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">interface</span> <span class="token class-name">Padder</span> <span class="token punctuation">{</span>
+    <span class="token function">getPaddingString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">string</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">SpaceRepeatingPadder</span> <span class="token keyword">implements</span> <span class="token class-name">Padder</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> numSpaces<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+    <span class="token function">getPaddingString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">Array</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>numSpaces <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token string">" "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">StringPadder</span> <span class="token keyword">implements</span> <span class="token class-name">Padder</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">private</span> value<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+    <span class="token function">getPaddingString</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">getRandomPadder</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> Math<span class="token punctuation">.</span><span class="token function">random</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">0.5</span> <span class="token operator">?</span>
+        <span class="token keyword">new</span> <span class="token class-name">SpaceRepeatingPadder</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span> <span class="token punctuation">:</span>
+        <span class="token keyword">new</span> <span class="token class-name">StringPadder</span><span class="token punctuation">(</span><span class="token string">"  "</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// Type is 'SpaceRepeatingPadder | StringPadder'</span>
+<span class="token keyword">let</span> padder<span class="token punctuation">:</span> Padder <span class="token operator">=</span> <span class="token function">getRandomPadder</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">if</span> <span class="token punctuation">(</span>padder <span class="token keyword">instanceof</span> <span class="token class-name">SpaceRepeatingPadder</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    padder<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// type narrowed to 'SpaceRepeatingPadder'</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>padder <span class="token keyword">instanceof</span> <span class="token class-name">StringPadder</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    padder<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// type narrowed to 'StringPadder'</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The right side of the <code>instanceof</code> needs to be a constructor function, and TypeScript will narrow down to:</p>
+<ol>
+<li>the type of the function’s <code>prototype</code> property if its type is not <code>any</code></li>
+<li>the union of types returned by that type’s construct signatures</li>
+</ol>
+<p>in that order.</p>
+<h1 id="Nullable-types"><a href="#Nullable-types" class="headerlink" title="Nullable types"></a>Nullable types</h1><p>TypeScript has two special types, <code>null</code> and <code>undefined</code>, that have the values null and undefined respectively.<br>We mentioned these briefly in <a href="./Basic Types.md">the Basic Types section</a>.<br>By default, the type checker considers <code>null</code> and <code>undefined</code> assignable to anything.<br>Effectively, <code>null</code> and <code>undefined</code> are valid values of every type.<br>That means it’s not possible to <em>stop</em> them from being assigned to any type, even when you would like to prevent it.<br>The inventor of <code>null</code>, Tony Hoare, calls this his <a href="https://en.wikipedia.org/wiki/Null_pointer#History" target="_blank" rel="external">“billion dollar mistake”</a>.</p>
+<p>The <code>--strictNullChecks</code> flag fixes this: when you declare a variable, it doesn’t automatically include <code>null</code> or <code>undefined</code>.<br>You can include them explicitly using a union type:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> s <span class="token operator">=</span> <span class="token string">"foo"</span><span class="token punctuation">;</span>
+s <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error, 'null' is not assignable to 'string'</span>
+<span class="token keyword">let</span> sn<span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token operator">|</span> <span class="token keyword">null</span> <span class="token operator">=</span> <span class="token string">"bar"</span><span class="token punctuation">;</span>
+sn <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ok</span>
+
+sn <span class="token operator">=</span> undefined<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error, 'undefined' is not assignable to 'string | null'</span>
+</code></pre>
+<p>Note that TypeScript treats <code>null</code> and <code>undefined</code> differently in order to match JavaScript semantics.<br><code>string | null</code> is a different type than <code>string | undefined</code> and <code>string | undefined | null</code>.</p>
+<h2 id="Optional-parameters-and-properties"><a href="#Optional-parameters-and-properties" class="headerlink" title="Optional parameters and properties"></a>Optional parameters and properties</h2><p>With <code>--strictNullChecks</code>, an optional parameter automatically adds <code>| undefined</code>:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span>x<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">,</span> y<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> x <span class="token operator">+</span> <span class="token punctuation">(</span>y <span class="token operator">||</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> undefined<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error, 'null' is not assignable to 'number | undefined'</span>
+</code></pre>
+<p>The same is true for optional properties:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">C</span> <span class="token punctuation">{</span>
+    a<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+    b<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">let</span> c <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">C</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+c<span class="token punctuation">.</span>a <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
+c<span class="token punctuation">.</span>a <span class="token operator">=</span> undefined<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error, 'undefined' is not assignable to 'number'</span>
+c<span class="token punctuation">.</span>b <span class="token operator">=</span> <span class="token number">13</span><span class="token punctuation">;</span>
+c<span class="token punctuation">.</span>b <span class="token operator">=</span> undefined<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ok</span>
+c<span class="token punctuation">.</span>b <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error, 'null' is not assignable to 'number | undefined'</span>
+</code></pre>
+<h2 id="Type-guards-and-type-assertions"><a href="#Type-guards-and-type-assertions" class="headerlink" title="Type guards and type assertions"></a>Type guards and type assertions</h2><p>Since nullable types are implemented with a union, you need to use a type guard to get rid of the <code>null</code>.<br>Fortunately, this is the same code you’d write in JavaScript:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span>sn<span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>sn <span class="token operator">==</span> <span class="token keyword">null</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"default"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> sn<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The <code>null</code> elimination is pretty obvious here, but you can use terser operators too:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span>sn<span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> sn <span class="token operator">||</span> <span class="token string">"default"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>In cases where the compiler can’t eliminate <code>null</code> or <code>undefined</code>, you can use the type assertion operator to manually remove them.<br>The syntax is postfix <code>!</code>: <code>identifier!</code> removes <code>null</code> and <code>undefined</code> from the type of <code>identifier</code>:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">broken</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token punctuation">{</span>
+  <span class="token keyword">function</span> <span class="token function">postfix</span><span class="token punctuation">(</span>epithet<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> name<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'.  the '</span> <span class="token operator">+</span> epithet<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error, 'name' is possibly null</span>
+  <span class="token punctuation">}</span>
+  name <span class="token operator">=</span> name <span class="token operator">||</span> <span class="token string">"Bob"</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">postfix</span><span class="token punctuation">(</span><span class="token string">"great"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">fixed</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token operator">|</span> <span class="token keyword">null</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token punctuation">{</span>
+  <span class="token keyword">function</span> <span class="token function">postfix</span><span class="token punctuation">(</span>epithet<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> name<span class="token operator">!</span><span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">'.  the '</span> <span class="token operator">+</span> epithet<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ok</span>
+  <span class="token punctuation">}</span>
+  name <span class="token operator">=</span> name <span class="token operator">||</span> <span class="token string">"Bob"</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token function">postfix</span><span class="token punctuation">(</span><span class="token string">"great"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The example uses a nested function here because the compiler can’t eliminate nulls inside a nested function (except immediately-invoked function expressions).<br>That’s because it can’t track all calls to the nested function, especially if you return it from the outer function.<br>Without knowing where the function is called, it can’t know what the type of <code>name</code> will be at the time the body executes.</p>
+<h1 id="Type-Aliases"><a href="#Type-Aliases" class="headerlink" title="Type Aliases"></a>Type Aliases</h1><p>Type aliases create a new name for a type.<br>Type aliases are sometimes similar to interfaces, but can name primitives, unions, tuples, and any other types that you’d otherwise have to write by hand.</p>
+<pre class=" language-ts"><code class="language-ts">type Name <span class="token operator">=</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+type NameResolver <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+type NameOrResolver <span class="token operator">=</span> Name <span class="token operator">|</span> NameResolver<span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">getName</span><span class="token punctuation">(</span>n<span class="token punctuation">:</span> NameOrResolver<span class="token punctuation">)</span><span class="token punctuation">:</span> Name <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">typeof</span> n <span class="token operator">===</span> <span class="token string">"string"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> n<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">else</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token function">n</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Aliasing doesn’t actually create a new type - it creates a new <em>name</em> to refer to that type.<br>Aliasing a primitive is not terribly useful, though it can be used as a form of documentation.</p>
+<p>Just like interfaces, type aliases can also be generic - we can just add type parameters and use them on the right side of the alias declaration:</p>
+<pre class=" language-ts"><code class="language-ts">type Container<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token operator">=</span> <span class="token punctuation">{</span> value<span class="token punctuation">:</span> T <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>We can also have a type alias refer to itself in a property:</p>
+<pre class=" language-ts"><code class="language-ts">type Tree<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    value<span class="token punctuation">:</span> T<span class="token punctuation">;</span>
+    left<span class="token punctuation">:</span> Tree<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">;</span>
+    right<span class="token punctuation">:</span> Tree<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Together with intersection types, we can make some pretty mind-bending types:</p>
+<pre class=" language-ts"><code class="language-ts">type LinkedList<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token operator">=</span> T <span class="token operator">&amp;</span> <span class="token punctuation">{</span> next<span class="token punctuation">:</span> LinkedList<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> people<span class="token punctuation">:</span> LinkedList<span class="token operator">&lt;</span>Person<span class="token operator">></span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> s <span class="token operator">=</span> people<span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+<span class="token keyword">var</span> s <span class="token operator">=</span> people<span class="token punctuation">.</span>next<span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+<span class="token keyword">var</span> s <span class="token operator">=</span> people<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+<span class="token keyword">var</span> s <span class="token operator">=</span> people<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">.</span>next<span class="token punctuation">.</span>name<span class="token punctuation">;</span>
+</code></pre>
+<p>However, it’s not possible for a type alias to appear anywhere else on the right side of the declaration:</p>
+<pre class=" language-ts"><code class="language-ts">type Yikes <span class="token operator">=</span> <span class="token keyword">Array</span><span class="token operator">&lt;</span>Yikes<span class="token operator">></span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error</span>
+</code></pre>
+<h2 id="Interfaces-vs-Type-Aliases"><a href="#Interfaces-vs-Type-Aliases" class="headerlink" title="Interfaces vs. Type Aliases"></a>Interfaces vs. Type Aliases</h2><p>As we mentioned, type aliases can act sort of like interfaces; however, there are some subtle differences.</p>
+<p>One difference is that interfaces create a new name that is used everywhere.<br>Type aliases don’t create a new name &mdash; for instance, error messages won’t use the alias name.<br>In the code below, hovering over <code>interfaced</code> in an editor will show that it returns an <code>Interface</code>, but will show that <code>aliased</code> returns object literal type.</p>
+<pre class=" language-ts"><code class="language-ts">type Alias <span class="token operator">=</span> <span class="token punctuation">{</span> num<span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token punctuation">}</span>
+<span class="token keyword">interface</span> <span class="token class-name">Interface</span> <span class="token punctuation">{</span>
+    num<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">declare</span> <span class="token keyword">function</span> <span class="token function">aliased</span><span class="token punctuation">(</span>arg<span class="token punctuation">:</span> Alias<span class="token punctuation">)</span><span class="token punctuation">:</span> Alias<span class="token punctuation">;</span>
+<span class="token keyword">declare</span> <span class="token keyword">function</span> <span class="token function">interfaced</span><span class="token punctuation">(</span>arg<span class="token punctuation">:</span> Interface<span class="token punctuation">)</span><span class="token punctuation">:</span> Interface<span class="token punctuation">;</span>
+</code></pre>
+<p>A second more important difference is that type aliases cannot be extended or implemented from (nor can they extend/implement other types).<br>Because <a href="https://en.wikipedia.org/wiki/Open/closed_principle" target="_blank" rel="external">an ideal property of software is being open to extension</a>, you should always use an interface over a type alias if possible.</p>
+<p>On the other hand, if you can’t express some shape with an interface and you need to use a union or tuple type, type aliases are usually the way to go.</p>
+<h1 id="String-Literal-Types"><a href="#String-Literal-Types" class="headerlink" title="String Literal Types"></a>String Literal Types</h1><p>String literal types allow you to specify the exact value a string must have.<br>In practice string literal types combine nicely with union types, type guards, and type aliases.<br>You can use these features together to get enum-like behavior with strings.</p>
+<pre class=" language-ts"><code class="language-ts">type Easing <span class="token operator">=</span> <span class="token string">"ease-in"</span> <span class="token operator">|</span> <span class="token string">"ease-out"</span> <span class="token operator">|</span> <span class="token string">"ease-in-out"</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">UIElement</span> <span class="token punctuation">{</span>
+    <span class="token function">animate</span><span class="token punctuation">(</span>dx<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">,</span> dy<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">,</span> easing<span class="token punctuation">:</span> Easing<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>easing <span class="token operator">===</span> <span class="token string">"ease-in"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// ...</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>easing <span class="token operator">===</span> <span class="token string">"ease-out"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>easing <span class="token operator">===</span> <span class="token string">"ease-in-out"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// error! should not pass null or undefined.</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> button <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">UIElement</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+button<span class="token punctuation">.</span><span class="token function">animate</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">"ease-in"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+button<span class="token punctuation">.</span><span class="token function">animate</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">"uneasy"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error: "uneasy" is not allowed here</span>
+</code></pre>
+<p>You can pass any of the three allowed strings, but any other string will give the error</p>
+<pre class=" language-text"><code class="language-text">Argument of type '"uneasy"' is not assignable to parameter of type '"ease-in" | "ease-out" | "ease-in-out"'
+</code></pre>
+<p>String literal types can be used in the same way to distinguish overloads:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">createElement</span><span class="token punctuation">(</span>tagName<span class="token punctuation">:</span> <span class="token string">"img"</span><span class="token punctuation">)</span><span class="token punctuation">:</span> HTMLImageElement<span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">createElement</span><span class="token punctuation">(</span>tagName<span class="token punctuation">:</span> <span class="token string">"input"</span><span class="token punctuation">)</span><span class="token punctuation">:</span> HTMLInputElement<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// ... more overloads ...</span>
+<span class="token keyword">function</span> <span class="token function">createElement</span><span class="token punctuation">(</span>tagName<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span><span class="token punctuation">:</span> Element <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// ... code goes here ...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="Numeric-Literal-Types"><a href="#Numeric-Literal-Types" class="headerlink" title="Numeric Literal Types"></a>Numeric Literal Types</h1><p>TypeScript also has numeric literal types.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">rollDie</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token number">1</span> <span class="token operator">|</span> <span class="token number">2</span> <span class="token operator">|</span> <span class="token number">3</span> <span class="token operator">|</span> <span class="token number">4</span> <span class="token operator">|</span> <span class="token number">5</span> <span class="token operator">|</span> <span class="token number">6</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>These are seldom written explicitly, they can be useful when narrowing can catch bugs:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span>x<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>x <span class="token operator">!==</span> <span class="token number">1</span> <span class="token operator">||</span> x <span class="token operator">!==</span> <span class="token number">2</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//         ~~~~~~~</span>
+        <span class="token comment" spellcheck="true">// Operator '!==' cannot be applied to types '1' and '2'.</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>In other words, <code>x</code> must be <code>1</code> when it gets compared to <code>2</code>, meaning that the above check is making an invalid comparison.</p>
+<h1 id="Enum-Member-Types"><a href="#Enum-Member-Types" class="headerlink" title="Enum Member Types"></a>Enum Member Types</h1><p>As mentioned in <a href="./Enums.md#union-enums-and-enum-member-types">our section on enums</a>, enum members have types when every member is literal-initialized.</p>
+<p>Much of the time when we talk about “singleton types”, we’re referring to both enum member types as well as numeric/string literal types, though many users will use “singleton types” and “literal types” interchangeably.</p>
+<h1 id="Discriminated-Unions"><a href="#Discriminated-Unions" class="headerlink" title="Discriminated Unions"></a>Discriminated Unions</h1><p>You can combine singleton types, union types, type guards, and type aliases to build an advanced pattern called <em>discriminated unions</em>, also known as <em>tagged unions</em> or <em>algebraic data types</em>.<br>Discriminated unions are useful in functional programming.<br>Some languages automatically discriminate unions for you; TypeScript instead builds on JavaScript patterns as they exist today.<br>There are three ingredients:</p>
+<ol>
+<li>Types that have a common, singleton type property &mdash; the <em>discriminant</em>.</li>
+<li>A type alias that takes the union of those types &mdash; the <em>union</em>.</li>
+<li>Type guards on the common property.</li>
+</ol>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">interface</span> <span class="token class-name">Square</span> <span class="token punctuation">{</span>
+    kind<span class="token punctuation">:</span> <span class="token string">"square"</span><span class="token punctuation">;</span>
+    size<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">interface</span> <span class="token class-name">Rectangle</span> <span class="token punctuation">{</span>
+    kind<span class="token punctuation">:</span> <span class="token string">"rectangle"</span><span class="token punctuation">;</span>
+    width<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+    height<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">interface</span> <span class="token class-name">Circle</span> <span class="token punctuation">{</span>
+    kind<span class="token punctuation">:</span> <span class="token string">"circle"</span><span class="token punctuation">;</span>
+    radius<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>First we declare the interfaces we will union.<br>Each interface has a <code>kind</code> property with a different string literal type.<br>The <code>kind</code> property is called the <em>discriminant</em> or <em>tag</em>.<br>The other properties are specific to each interface.<br>Notice that the interfaces are currently unrelated.<br>Let’s put them into a union:</p>
+<pre class=" language-ts"><code class="language-ts">type Shape <span class="token operator">=</span> Square <span class="token operator">|</span> Rectangle <span class="token operator">|</span> Circle<span class="token punctuation">;</span>
+</code></pre>
+<p>Now let’s use the discriminated union:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">area</span><span class="token punctuation">(</span>s<span class="token punctuation">:</span> Shape<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">switch</span> <span class="token punctuation">(</span>s<span class="token punctuation">.</span>kind<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">case</span> <span class="token string">"square"</span><span class="token punctuation">:</span> <span class="token keyword">return</span> s<span class="token punctuation">.</span>size <span class="token operator">*</span> s<span class="token punctuation">.</span>size<span class="token punctuation">;</span>
+        <span class="token keyword">case</span> <span class="token string">"rectangle"</span><span class="token punctuation">:</span> <span class="token keyword">return</span> s<span class="token punctuation">.</span>height <span class="token operator">*</span> s<span class="token punctuation">.</span>width<span class="token punctuation">;</span>
+        <span class="token keyword">case</span> <span class="token string">"circle"</span><span class="token punctuation">:</span> <span class="token keyword">return</span> Math<span class="token punctuation">.</span>PI <span class="token operator">*</span> s<span class="token punctuation">.</span>radius <span class="token operator">**</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Exhaustiveness-checking"><a href="#Exhaustiveness-checking" class="headerlink" title="Exhaustiveness checking"></a>Exhaustiveness checking</h2><p>We would like the compiler to tell us when we don’t cover all variants of the discriminated union.<br>For example, if we add <code>Triangle</code> to <code>Shape</code>, we need to update <code>area</code> as well:</p>
+<pre class=" language-ts"><code class="language-ts">type Shape <span class="token operator">=</span> Square <span class="token operator">|</span> Rectangle <span class="token operator">|</span> Circle <span class="token operator">|</span> Triangle<span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">area</span><span class="token punctuation">(</span>s<span class="token punctuation">:</span> Shape<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">switch</span> <span class="token punctuation">(</span>s<span class="token punctuation">.</span>kind<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">case</span> <span class="token string">"square"</span><span class="token punctuation">:</span> <span class="token keyword">return</span> s<span class="token punctuation">.</span>size <span class="token operator">*</span> s<span class="token punctuation">.</span>size<span class="token punctuation">;</span>
+        <span class="token keyword">case</span> <span class="token string">"rectangle"</span><span class="token punctuation">:</span> <span class="token keyword">return</span> s<span class="token punctuation">.</span>height <span class="token operator">*</span> s<span class="token punctuation">.</span>width<span class="token punctuation">;</span>
+        <span class="token keyword">case</span> <span class="token string">"circle"</span><span class="token punctuation">:</span> <span class="token keyword">return</span> Math<span class="token punctuation">.</span>PI <span class="token operator">*</span> s<span class="token punctuation">.</span>radius <span class="token operator">**</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// should error here - we didn't handle case "triangle"</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>There are two ways to do this.<br>The first is to turn on <code>--strictNullChecks</code> and specify a return type:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">area</span><span class="token punctuation">(</span>s<span class="token punctuation">:</span> Shape<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">// error: returns number | undefined</span>
+    <span class="token keyword">switch</span> <span class="token punctuation">(</span>s<span class="token punctuation">.</span>kind<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">case</span> <span class="token string">"square"</span><span class="token punctuation">:</span> <span class="token keyword">return</span> s<span class="token punctuation">.</span>size <span class="token operator">*</span> s<span class="token punctuation">.</span>size<span class="token punctuation">;</span>
+        <span class="token keyword">case</span> <span class="token string">"rectangle"</span><span class="token punctuation">:</span> <span class="token keyword">return</span> s<span class="token punctuation">.</span>height <span class="token operator">*</span> s<span class="token punctuation">.</span>width<span class="token punctuation">;</span>
+        <span class="token keyword">case</span> <span class="token string">"circle"</span><span class="token punctuation">:</span> <span class="token keyword">return</span> Math<span class="token punctuation">.</span>PI <span class="token operator">*</span> s<span class="token punctuation">.</span>radius <span class="token operator">**</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Because the <code>switch</code> is no longer exhaustive, TypeScript is aware that the function could sometimes return <code>undefined</code>.<br>If you have an explicit return type <code>number</code>, then you will get an error that the return type is actually <code>number | undefined</code>.<br>However, this method is quite subtle and, besides, <code>--strictNullChecks</code> does not always work with old code.</p>
+<p>The second method uses the <code>never</code> type that the compiler uses to check for exhaustiveness:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">assertNever</span><span class="token punctuation">(</span>x<span class="token punctuation">:</span> never<span class="token punctuation">)</span><span class="token punctuation">:</span> never <span class="token punctuation">{</span>
+    <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">Error</span><span class="token punctuation">(</span><span class="token string">"Unexpected object: "</span> <span class="token operator">+</span> x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">area</span><span class="token punctuation">(</span>s<span class="token punctuation">:</span> Shape<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">switch</span> <span class="token punctuation">(</span>s<span class="token punctuation">.</span>kind<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">case</span> <span class="token string">"square"</span><span class="token punctuation">:</span> <span class="token keyword">return</span> s<span class="token punctuation">.</span>size <span class="token operator">*</span> s<span class="token punctuation">.</span>size<span class="token punctuation">;</span>
+        <span class="token keyword">case</span> <span class="token string">"rectangle"</span><span class="token punctuation">:</span> <span class="token keyword">return</span> s<span class="token punctuation">.</span>height <span class="token operator">*</span> s<span class="token punctuation">.</span>width<span class="token punctuation">;</span>
+        <span class="token keyword">case</span> <span class="token string">"circle"</span><span class="token punctuation">:</span> <span class="token keyword">return</span> Math<span class="token punctuation">.</span>PI <span class="token operator">*</span> s<span class="token punctuation">.</span>radius <span class="token operator">**</span> <span class="token number">2</span><span class="token punctuation">;</span>
+        <span class="token keyword">default</span><span class="token punctuation">:</span> <span class="token keyword">return</span> <span class="token function">assertNever</span><span class="token punctuation">(</span>s<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error here if there are missing cases</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Here, <code>assertNever</code> checks that <code>s</code> is of type <code>never</code> &mdash; the type that’s left after all other cases have been removed.<br>If you forget a case, then <code>s</code> will have a real type and you will get a type error.<br>This method requires you to define an extra function, but it’s much more obvious when you forget it.</p>
+<h1 id="Polymorphic-this-types"><a href="#Polymorphic-this-types" class="headerlink" title="Polymorphic this types"></a>Polymorphic <code>this</code> types</h1><p>A polymorphic <code>this</code> type represents a type that is the <em>subtype</em> of the containing class or interface.<br>This is called <em>F</em>-bounded polymorphism.<br>This makes hierarchical fluent interfaces much easier to express, for example.<br>Take a simple calculator that returns <code>this</code> after each operation:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">BasicCalculator</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">protected</span> value<span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token function">currentValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token function">add</span><span class="token punctuation">(</span>operand<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">this</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">+</span><span class="token operator">=</span> operand<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token function">multiply</span><span class="token punctuation">(</span>operand<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">this</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">*</span><span class="token operator">=</span> operand<span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// ... other operations go here ...</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> v <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">BasicCalculator</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">multiply</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+            <span class="token punctuation">.</span><span class="token function">currentValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Since the class uses <code>this</code> types, you can extend it and the new class can use the old methods with no changes.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">ScientificCalculator</span> <span class="token keyword">extends</span> <span class="token class-name">BasicCalculator</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> <span class="token keyword">constructor</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token function">sin</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>value <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">sin</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token comment" spellcheck="true">// ... other operations go here ...</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> v <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ScientificCalculator</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">multiply</span><span class="token punctuation">(</span><span class="token number">5</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">sin</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span>
+        <span class="token punctuation">.</span><span class="token function">currentValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Without <code>this</code> types, <code>ScientificCalculator</code> would not have been able to extend <code>BasicCalculator</code> and keep the fluent interface.<br><code>multiply</code> would have returned <code>BasicCalculator</code>, which doesn’t have the <code>sin</code> method.<br>However, with <code>this</code> types, <code>multiply</code> returns <code>this</code>, which is <code>ScientificCalculator</code> here.</p>
+<h1 id="Index-types"><a href="#Index-types" class="headerlink" title="Index types"></a>Index types</h1><p>With index types, you can get the compiler to check code that uses dynamic property names.<br>For example, a common Javascript pattern is to pick a subset of properties from an object:</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">pluck</span><span class="token punctuation">(</span>o<span class="token punctuation">,</span> names<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> names<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>n <span class="token operator">=</span><span class="token operator">></span> o<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Here’s how you would write and use this function in TypeScript, using the <strong>index type query</strong> and <strong>indexed access</strong> operators:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> pluck<span class="token operator">&lt;</span>T<span class="token punctuation">,</span> K <span class="token keyword">extends</span> <span class="token class-name">keyof</span> T<span class="token operator">></span><span class="token punctuation">(</span>o<span class="token punctuation">:</span> T<span class="token punctuation">,</span> names<span class="token punctuation">:</span> K<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span> T<span class="token punctuation">[</span>K<span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> names<span class="token punctuation">.</span><span class="token function">map</span><span class="token punctuation">(</span>n <span class="token operator">=</span><span class="token operator">></span> o<span class="token punctuation">[</span>n<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+    age<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">let</span> person<span class="token punctuation">:</span> Person <span class="token operator">=</span> <span class="token punctuation">{</span>
+    name<span class="token punctuation">:</span> <span class="token string">'Jarid'</span><span class="token punctuation">,</span>
+    age<span class="token punctuation">:</span> <span class="token number">35</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> strings<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token function">pluck</span><span class="token punctuation">(</span>person<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'name'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ok, string[]</span>
+</code></pre>
+<p>The compiler checks that <code>name</code> is actually a property on <code>Person</code>.<br>The example introduces a couple of new type operators.<br>First is <code>keyof T</code>, the <strong>index type query operator</strong>.<br>For any type <code>T</code>, <code>keyof T</code> is the union of known, public property names of <code>T</code>.<br>For example:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> personProps<span class="token punctuation">:</span> keyof Person<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// 'name' | 'age'</span>
+</code></pre>
+<p><code>keyof Person</code> is completely interchangeable with <code>&#39;name&#39; | &#39;age&#39;</code>.<br>The difference is that if you add another property to <code>Person</code>, say <code>address: string</code>, then <code>keyof Person</code> will automatically update to be <code>&#39;name&#39; | &#39;age&#39; | &#39;address&#39;</code>.<br>And you can use <code>keyof</code> in generic contexts like <code>pluck</code>, where you can’t possibly know the property names ahead of time.<br>That means the compiler will check that you pass the right set of property names to <code>pluck</code>:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token function">pluck</span><span class="token punctuation">(</span>person<span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token string">'age'</span><span class="token punctuation">,</span> <span class="token string">'unknown'</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error, 'unknown' is not in 'name' | 'age'</span>
+</code></pre>
+<p>The second operator is <code>T[K]</code>, the <strong>indexed access operator</strong>.<br>Here, the type syntax reflects the expression syntax.<br>That means that <code>person[&#39;name&#39;]</code> has the type <code>Person[&#39;name&#39;]</code> &mdash; which in our example is just <code>string</code>.<br>However, just like index type queries, you can use <code>T[K]</code> in a generic context, which is where its real power comes to life.<br>You just have to make sure that the type variable <code>K extends keyof T</code>.<br>Here’s another example with a function named <code>getProperty</code>.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> getProperty<span class="token operator">&lt;</span>T<span class="token punctuation">,</span> K <span class="token keyword">extends</span> <span class="token class-name">keyof</span> T<span class="token operator">></span><span class="token punctuation">(</span>o<span class="token punctuation">:</span> T<span class="token punctuation">,</span> name<span class="token punctuation">:</span> K<span class="token punctuation">)</span><span class="token punctuation">:</span> T<span class="token punctuation">[</span>K<span class="token punctuation">]</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> o<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// o[name] is of type T[K]</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>In <code>getProperty</code>, <code>o: T</code> and <code>name: K</code>, so that means <code>o[name]: T[K]</code>.<br>Once you return the T[K] result, the compiler will instantiate the actual type of the key, so the return type of <code>getProperty</code> will vary according to which property you request.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> name<span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token operator">=</span> <span class="token function">getProperty</span><span class="token punctuation">(</span>person<span class="token punctuation">,</span> <span class="token string">'name'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> age<span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token operator">=</span> <span class="token function">getProperty</span><span class="token punctuation">(</span>person<span class="token punctuation">,</span> <span class="token string">'age'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> unknown <span class="token operator">=</span> <span class="token function">getProperty</span><span class="token punctuation">(</span>person<span class="token punctuation">,</span> <span class="token string">'unknown'</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error, 'unknown' is not in 'name' | 'age'</span>
+</code></pre>
+<h2 id="Index-types-and-string-index-signatures"><a href="#Index-types-and-string-index-signatures" class="headerlink" title="Index types and string index signatures"></a>Index types and string index signatures</h2><p><code>keyof</code> and <code>T[K]</code> interact with string index signatures.<br>If you have a type with a string index signature, <code>keyof T</code> will just be <code>string</code>.<br>And <code>T[string]</code> is just the type of the index signature:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">interface</span> <span class="token class-name">Map</span><span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>key<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">]</span><span class="token punctuation">:</span> T<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">let</span> keys<span class="token punctuation">:</span> keyof Map<span class="token operator">&lt;</span><span class="token keyword">number</span><span class="token operator">></span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// string</span>
+<span class="token keyword">let</span> value<span class="token punctuation">:</span> Map<span class="token operator">&lt;</span><span class="token keyword">number</span><span class="token operator">></span><span class="token punctuation">[</span><span class="token string">'foo'</span><span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// number</span>
+</code></pre>
+<h1 id="Mapped-types"><a href="#Mapped-types" class="headerlink" title="Mapped types"></a>Mapped types</h1><p>A common task is to take an existing type and make each of its properties optional:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">interface</span> <span class="token class-name">PersonPartial</span> <span class="token punctuation">{</span>
+    name<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+    age<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Or we might want a readonly version:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">interface</span> <span class="token class-name">PersonReadonly</span> <span class="token punctuation">{</span>
+    readonly name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+    readonly age<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>This happens often enough in Javascript that TypeScript provides a way to create new types based on old types &mdash; <strong>mapped types</strong>.<br>In a mapped type, the new type transforms each property in the old type in the same way.<br>For example, you can make all properties of a type <code>readonly</code> or optional.<br>Here are a couple of examples:</p>
+<pre class=" language-ts"><code class="language-ts">type Readonly<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    readonly <span class="token punctuation">[</span>P <span class="token keyword">in</span> keyof T<span class="token punctuation">]</span><span class="token punctuation">:</span> T<span class="token punctuation">[</span>P<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+type Partial<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>P <span class="token keyword">in</span> keyof T<span class="token punctuation">]</span><span class="token operator">?</span><span class="token punctuation">:</span> T<span class="token punctuation">[</span>P<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>And to use it:</p>
+<pre class=" language-ts"><code class="language-ts">type PersonPartial <span class="token operator">=</span> Partial<span class="token operator">&lt;</span>Person<span class="token operator">></span><span class="token punctuation">;</span>
+type ReadonlyPerson <span class="token operator">=</span> Readonly<span class="token operator">&lt;</span>Person<span class="token operator">></span><span class="token punctuation">;</span>
+</code></pre>
+<p>Let’s take a look at the simplest mapped type and its parts:</p>
+<pre class=" language-ts"><code class="language-ts">type Keys <span class="token operator">=</span> <span class="token string">'option1'</span> <span class="token operator">|</span> <span class="token string">'option2'</span><span class="token punctuation">;</span>
+type Flags <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">[</span>K <span class="token keyword">in</span> Keys<span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token keyword">boolean</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>The syntax resembles the syntax for index signatures with a <code>for .. in</code> inside.<br>There are three parts:</p>
+<ol>
+<li>The type variable <code>K</code>, which gets bound to each property in turn.</li>
+<li>The string literal union <code>Keys</code>, which contains the names of properties to iterate over.</li>
+<li>The resulting type of the property.</li>
+</ol>
+<p>In this simple example, <code>Keys</code> is a hard-coded list of property names and the property type is always <code>boolean</code>, so this mapped type is equivalent to writing:</p>
+<pre class=" language-ts"><code class="language-ts">type Flags <span class="token operator">=</span> <span class="token punctuation">{</span>
+    option1<span class="token punctuation">:</span> <span class="token keyword">boolean</span><span class="token punctuation">;</span>
+    option2<span class="token punctuation">:</span> <span class="token keyword">boolean</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Real applications, however, look like <code>Readonly</code> or <code>Partial</code> above.<br>They’re based on some existing type, and they transform the fields in some way.<br>That’s where <code>keyof</code> and indexed access types come in:</p>
+<pre class=" language-ts"><code class="language-ts">type NullablePerson <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">[</span>P <span class="token keyword">in</span> keyof Person<span class="token punctuation">]</span><span class="token punctuation">:</span> Person<span class="token punctuation">[</span>P<span class="token punctuation">]</span> <span class="token operator">|</span> <span class="token keyword">null</span> <span class="token punctuation">}</span>
+type PartialPerson <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">[</span>P <span class="token keyword">in</span> keyof Person<span class="token punctuation">]</span><span class="token operator">?</span><span class="token punctuation">:</span> Person<span class="token punctuation">[</span>P<span class="token punctuation">]</span> <span class="token punctuation">}</span>
+</code></pre>
+<p>But it’s more useful to have a general version.</p>
+<pre class=" language-ts"><code class="language-ts">type Nullable<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">[</span>P <span class="token keyword">in</span> keyof T<span class="token punctuation">]</span><span class="token punctuation">:</span> T<span class="token punctuation">[</span>P<span class="token punctuation">]</span> <span class="token operator">|</span> <span class="token keyword">null</span> <span class="token punctuation">}</span>
+type Partial<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token punctuation">[</span>P <span class="token keyword">in</span> keyof T<span class="token punctuation">]</span><span class="token operator">?</span><span class="token punctuation">:</span> T<span class="token punctuation">[</span>P<span class="token punctuation">]</span> <span class="token punctuation">}</span>
+</code></pre>
+<p>In these examples, the properties list is <code>keyof T</code> and the resulting type is some variant of <code>T[P]</code>.<br>This is a good template for any general use of mapped types.<br>That’s because this kind of transformation is <a href="https://en.wikipedia.org/wiki/Homomorphism" target="_blank" rel="external">homomorphic</a>, which means that the mapping applies only to properties of <code>T</code> and no others.<br>The compiler knows that it can copy all the existing property modifiers before adding any new ones.<br>For example, if <code>Person.name</code> was readonly, <code>Partial&lt;Person&gt;.name</code> would be readonly and optional.</p>
+<p>Here’s one more example, in which <code>T[P]</code> is wrapped in a <code>Proxy&lt;T&gt;</code> class:</p>
+<pre class=" language-ts"><code class="language-ts">type Proxy<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token keyword">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> T<span class="token punctuation">;</span>
+    <span class="token keyword">set</span><span class="token punctuation">(</span>value<span class="token punctuation">:</span> T<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+type Proxify<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>P <span class="token keyword">in</span> keyof T<span class="token punctuation">]</span><span class="token punctuation">:</span> Proxy<span class="token operator">&lt;</span>T<span class="token punctuation">[</span>P<span class="token punctuation">]</span><span class="token operator">></span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">function</span> proxify<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">(</span>o<span class="token punctuation">:</span> T<span class="token punctuation">)</span><span class="token punctuation">:</span> Proxify<span class="token operator">&lt;</span>T<span class="token operator">></span> <span class="token punctuation">{</span>
+   <span class="token comment" spellcheck="true">// ... wrap proxies ...</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">let</span> proxyProps <span class="token operator">=</span> <span class="token function">proxify</span><span class="token punctuation">(</span>props<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Note that <code>Readonly&lt;T&gt;</code> and <code>Partial&lt;T&gt;</code> are so useful, they are included in TypeScript’s standard library along with <code>Pick</code> and <code>Record</code>:</p>
+<pre class=" language-ts"><code class="language-ts">type Pick<span class="token operator">&lt;</span>T<span class="token punctuation">,</span> K <span class="token keyword">extends</span> <span class="token class-name">keyof</span> T<span class="token operator">></span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>P <span class="token keyword">in</span> K<span class="token punctuation">]</span><span class="token punctuation">:</span> T<span class="token punctuation">[</span>P<span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+type Record<span class="token operator">&lt;</span>K <span class="token keyword">extends</span> <span class="token class-name">string</span><span class="token punctuation">,</span> T<span class="token operator">></span> <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">[</span>P <span class="token keyword">in</span> K<span class="token punctuation">]</span><span class="token punctuation">:</span> T<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>Readonly</code>, <code>Partial</code> and <code>Pick</code> are homomorphic whereas <code>Record</code> is not.<br>One clue that <code>Record</code> is not homomorphic is that it doesn’t take an input type to copy properties from:</p>
+<pre class=" language-ts"><code class="language-ts">type ThreeStringProps <span class="token operator">=</span> Record<span class="token operator">&lt;</span><span class="token string">'prop1'</span> <span class="token operator">|</span> <span class="token string">'prop2'</span> <span class="token operator">|</span> <span class="token string">'prop3'</span><span class="token punctuation">,</span> <span class="token keyword">string</span><span class="token operator">></span>
+</code></pre>
+<p>Non-homomorphic types are essentially creating new properties, so they can’t copy property modifiers from anywhere.</p>
+<h2 id="Inference-from-mapped-types"><a href="#Inference-from-mapped-types" class="headerlink" title="Inference from mapped types"></a>Inference from mapped types</h2><p>Now that you know how to wrap the properties of a type, the next thing you’ll want to do is unwrap them.<br>Fortunately, that’s pretty easy:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> unproxify<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">(</span>t<span class="token punctuation">:</span> Proxify<span class="token operator">&lt;</span>T<span class="token operator">></span><span class="token punctuation">)</span><span class="token punctuation">:</span> T <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> result <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span> as T<span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> k <span class="token keyword">in</span> t<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        result<span class="token punctuation">[</span>k<span class="token punctuation">]</span> <span class="token operator">=</span> t<span class="token punctuation">[</span>k<span class="token punctuation">]</span><span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> result<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> originalProps <span class="token operator">=</span> <span class="token function">unproxify</span><span class="token punctuation">(</span>proxyProps<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Note that this unwrapping inference only works on homomorphic mapped types.<br>If the mapped type is not homomorphic you’ll have to give an explicit type parameter to your unwrapping function.</p>
+
   </div>
 </div>
 

@@ -127,7 +127,121 @@ if(isiOS){
 
   
   <div class="page">
-      
+      <p>TypeScript 2.3 and later support a mode of type-checking and reporting errors in <code>.js</code> files with <code>--checkJs</code>.</p>
+<p>You can skip checking some files by adding <code>// @ts-nocheck</code> comment to them; conversely you can choose to check only a few <code>.js</code> files by adding <code>// @ts-check</code> comment to them without setting <code>--checkJs</code>.<br>You can also ignore errors on specific lines by adding <code>// @ts-ignore</code> on the preceding line.</p>
+<p>Here are some notable differences on how checking work in <code>.js</code> file from <code>.ts</code> file:</p>
+<h2 id="Using-types-in-JSDoc"><a href="#Using-types-in-JSDoc" class="headerlink" title="Using types in JSDoc"></a>Using types in JSDoc</h2><p>In a <code>.js</code> file, types can often be inferred just like in <code>.ts</code> files.<br>Likewise, when types can’t be inferred, they can be specified using JSDoc the same way that type annotations do in a <code>.ts</code> file. </p>
+<p>JSDoc annotations adorning a declaration will be used to set the type of that declaration. For example:</p>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">/** @type {number} */</span>
+<span class="token keyword">var</span> x<span class="token punctuation">;</span>
+
+x <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>      <span class="token comment" spellcheck="true">// OK</span>
+x <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// Error: boolean is not assignable to number</span>
+</code></pre>
+<p>You can find the full list of supported JSDoc patterns in the <a href="https://github.com/Microsoft/TypeScript/wiki/JSDoc-support-in-JavaScript" target="_blank" rel="external">JSDoc support in JavaScript documentation</a>.</p>
+<h2 id="Property-declaration-inferred-from-assignments-in-class-bodies"><a href="#Property-declaration-inferred-from-assignments-in-class-bodies" class="headerlink" title="Property declaration inferred from assignments in class bodies"></a>Property declaration inferred from assignments in class bodies</h2><p>ES2015/ES6 does not have a means for declaring properties on classes. Properties are dynamically assigned, just like in the case of object literals. </p>
+<p>In a <code>.js</code> file property declarations are inferred from assignments to the properties inside the class body. The type of properties is the union of the types of all the right-hand values in these assignments. Properties defined in the constructor are always assumed to exist, where as ones defined in methods, getters, or setters are considered optional.</p>
+<p>Adorn property assignments with JSDoc to specify the type of the property as needed. For instance:</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">class</span> <span class="token class-name">C</span> <span class="token punctuation">{</span>
+    <span class="token function">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">/** @type {number | undefined} */</span>
+    <span class="token keyword">this</span><span class="token punctuation">.</span>prop <span class="token operator">=</span> undefined<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+
+<span class="token keyword">let</span> c <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">C</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+c<span class="token punctuation">.</span>prop <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>         <span class="token comment" spellcheck="true">// OK</span>
+c<span class="token punctuation">.</span>prop <span class="token operator">=</span> <span class="token string">"string"</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// Error: string is not assignable to number|undefined</span>
+</code></pre>
+<p>If properties are never set in the class body, they are considered unknown. If your class has properties that are only read from, consider adding an initialization in the constructor to undefined, e.g. <code>this.prop = undefined;</code>.</p>
+<h2 id="CommonJS-module-input-support"><a href="#CommonJS-module-input-support" class="headerlink" title="CommonJS module input support"></a>CommonJS module input support</h2><p>In a <code>.js</code> files CommonJS module format is allowed as an input module format. Assignments to <code>exports</code>, and <code>module.exports</code> are recognized as export declarations. Similarly, <code>require</code> function calls are recognized as module imports. For example:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">// import module "fs"</span>
+<span class="token keyword">const</span> fs <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"fs"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+
+<span class="token comment" spellcheck="true">// export function readFile</span>
+<span class="token keyword">module</span><span class="token punctuation">.</span>exports<span class="token punctuation">.</span>readFile <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> fs<span class="token punctuation">.</span><span class="token function">readFileSync</span><span class="token punctuation">(</span>f<span class="token punctuation">)</span><span class="token punctuation">;</span>    
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Object-literals-are-open-ended"><a href="#Object-literals-are-open-ended" class="headerlink" title="Object literals are open-ended"></a>Object literals are open-ended</h2><p>By default object literals in variable declarations provide the type of a declaration. No new members can be added that were not specified in the original initialization. This rule is relaxed in a <code>.js</code> file; object literals have an open-ended type, allowing adding and looking up properties that were not defined originally. For instance:</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span> a<span class="token punctuation">:</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+obj<span class="token punctuation">.</span>b <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// Allowed</span>
+</code></pre>
+<p>Object literals get a default index signature <code>[x:string]: any</code> that allows them to be treated as open maps instead of closed objects.</p>
+<p>Similar to other special JS checking behaviors, this behavior can be changed by specifying a JSDoc type for the variable. For example:</p>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">/** @type {{a: number}} */</span>
+<span class="token keyword">var</span> obj <span class="token operator">=</span> <span class="token punctuation">{</span> a<span class="token punctuation">:</span> <span class="token number">1</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+obj<span class="token punctuation">.</span>b <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// Error, type {a: number} does not have property b</span>
+</code></pre>
+<h2 id="Function-parameters-are-optional-by-default"><a href="#Function-parameters-are-optional-by-default" class="headerlink" title="Function parameters are optional by default"></a>Function parameters are optional by default</h2><p>Since there is no way to specify optionality on parameters in JS (without specifying a default value), all function parameters in <code>.js</code> file are considered optional. Calls with fewer arguments are allowed. </p>
+<p>It is important to note that it is an error to call a function with too many arguments.</p>
+<p>For instance:</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">bar</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>a <span class="token operator">+</span> <span class="token string">" "</span> <span class="token operator">+</span> b<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">bar</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>       <span class="token comment" spellcheck="true">// OK, second argument considered optional</span>
+<span class="token function">bar</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">bar</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Error, too many arguments</span>
+</code></pre>
+<p>JSDoc annotated functions are excluded from this rule. Use JSDoc optional parameter syntax to express optionality. e.g.:</p>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">/**
+ * @param {string} [somebody] - Somebody's name.
+ */</span>
+<span class="token keyword">function</span> <span class="token function">sayHello</span><span class="token punctuation">(</span>somebody<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>somebody<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        somebody <span class="token operator">=</span> <span class="token string">'John Doe'</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">'Hello '</span> <span class="token operator">+</span> somebody<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">sayHello</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="Var-args-parameter-declaration-inferred-from-use-of-arguments"><a href="#Var-args-parameter-declaration-inferred-from-use-of-arguments" class="headerlink" title="Var-args parameter declaration inferred from use of arguments"></a>Var-args parameter declaration inferred from use of <code>arguments</code></h2><p>A function whose body has a reference to the <code>arguments</code> reference is implicitly considered to have a var-arg parameter (i.e. <code>(...arg: any[]) =&gt; any</code>). Use JSDoc var-arg syntax to specify the type of the arguments.</p>
+<h2 id="Unspecified-type-parameters-default-to-any"><a href="#Unspecified-type-parameters-default-to-any" class="headerlink" title="Unspecified type parameters default to any"></a>Unspecified type parameters default to <code>any</code></h2><p>An unspecified generic type parameter defaults to <code>any</code>. There are few places where this happens:</p>
+<h4 id="In-extends-clause"><a href="#In-extends-clause" class="headerlink" title="In extends clause:"></a>In extends clause:</h4><p>For instance, <code>React.Component</code> is defined to have two generic type parameters, <code>Props</code> and <code>State</code>.<br>In a <code>.js</code> file, there is no legal way to specify these in the extends clause. By default the type arguments will be <code>any</code>:</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> Component <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">MyComponent</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+       <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>b<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Allowed, since this.props is of type any</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Use JSDoc <code>@augments</code> to specify the types explicitly. for instance:</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">import</span> <span class="token punctuation">{</span> Component <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">"react"</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">/**
+ * @augments {Component&lt;{a: number}, State>}
+ */</span>
+<span class="token keyword">class</span> <span class="token class-name">MyComponent</span> <span class="token keyword">extends</span> <span class="token class-name">Component</span> <span class="token punctuation">{</span>
+    <span class="token function">render</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>props<span class="token punctuation">.</span>b<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Error: b does not exist on {a:number}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="In-JSDoc-references"><a href="#In-JSDoc-references" class="headerlink" title="In JSDoc references"></a>In JSDoc references</h4><p>An unspecified generic type argument in JSDoc defaults to any:</p>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">/** @type{Array} */</span>
+<span class="token keyword">var</span> x <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+x<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">// OK</span>
+x<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"string"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// OK, x is of type Array&lt;any></span>
+
+
+<span class="token comment" spellcheck="true">/** @type{Array.&lt;number>} */</span>
+<span class="token keyword">var</span> y <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+
+y<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">// OK</span>
+y<span class="token punctuation">.</span><span class="token function">push</span><span class="token punctuation">(</span><span class="token string">"string"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Error, string is not assignable to number</span>
+</code></pre>
+<h4 id="In-function-calls"><a href="#In-function-calls" class="headerlink" title="In function calls"></a>In function calls</h4><p>A call to generic functions uses arguments to infer the generic type parameters. Sometimes this process fails to infer any types, mainly because of lack on inference sources; in these cases, the generic type parameters will default to <code>any</code>. For example:</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> p <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Promise</span><span class="token punctuation">(</span><span class="token punctuation">(</span>resolve<span class="token punctuation">,</span> reject<span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span> <span class="token function">reject</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+p<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Promise&lt;any>;</span>
+</code></pre>
+
   </div>
 </div>
 

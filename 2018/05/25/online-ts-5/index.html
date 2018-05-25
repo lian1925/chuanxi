@@ -127,7 +127,366 @@ if(isiOS){
 
   
   <div class="page">
-      
+      <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Traditional JavaScript uses functions and prototype-based inheritance to build up reusable components, but this may feel a bit awkward to programmers more comfortable with an object-oriented approach, where classes inherit functionality and objects are built from these classes.<br>Starting with ECMAScript 2015, also known as ECMAScript 6, JavaScript programmers will be able to build their applications using this object-oriented class-based approach.<br>In TypeScript, we allow developers to use these techniques now, and compile them down to JavaScript that works across all major browsers and platforms, without having to wait for the next version of JavaScript.</p>
+<h1 id="Classes"><a href="#Classes" class="headerlink" title="Classes"></a>Classes</h1><p>Let’s take a look at a simple class-based example:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Greeter</span> <span class="token punctuation">{</span>
+    greeting<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>message<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>greeting <span class="token operator">=</span> message<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Hello, "</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>greeting<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> greeter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Greeter</span><span class="token punctuation">(</span><span class="token string">"world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>The syntax should look familiar if you’ve used C# or Java before.<br>We declare a new class <code>Greeter</code>. This class has three members: a property called <code>greeting</code>, a constructor, and a method <code>greet</code>.</p>
+<p>You’ll notice that in the class when we refer to one of the members of the class we prepend <code>this.</code>.<br>This denotes that it’s a member access.</p>
+<p>In the last line we construct an instance of the <code>Greeter</code> class using <code>new</code>.<br>This calls into the constructor we defined earlier, creating a new object with the <code>Greeter</code> shape, and running the constructor to initialize it.</p>
+<h1 id="Inheritance"><a href="#Inheritance" class="headerlink" title="Inheritance"></a>Inheritance</h1><p>In TypeScript, we can use common object-oriented patterns.<br>One of the most fundamental patterns in class-based programming is being able to extend existing classes to create new ones using inheritance.</p>
+<p>Let’s take a look at an example:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+    <span class="token function">move</span><span class="token punctuation">(</span>distanceInMeters<span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`Animal moved </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>distanceInMeters<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">m.`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Dog</span> <span class="token keyword">extends</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+    <span class="token function">bark</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Woof! Woof!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">const</span> dog <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Dog</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+dog<span class="token punctuation">.</span><span class="token function">bark</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+dog<span class="token punctuation">.</span><span class="token function">move</span><span class="token punctuation">(</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+dog<span class="token punctuation">.</span><span class="token function">bark</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>This example show the most basic inheritance feature: classes inherit properties and methods from base classes.<br>Here, <code>Dog</code> is a <em>derived</em> class that derives from the <code>Animal</code> <em>base</em> class using the <code>extends</code> keyword.<br>Derived classes are often called <em>subclasses</em>, and base classes are often called <em>superclasses</em>.</p>
+<p>Because <code>Dog</code> extends the functionality from <code>Animal</code>, we were able to create an instance of <code>Dog</code> that could both <code>bark()</code> and <code>move()</code>.</p>
+<p>Let’s now look at a more complex example.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+    name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>theName<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> theName<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token function">move</span><span class="token punctuation">(</span>distanceInMeters<span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> moved </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>distanceInMeters<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">m.`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Snake</span> <span class="token keyword">extends</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">super</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token function">move</span><span class="token punctuation">(</span>distanceInMeters <span class="token operator">=</span> <span class="token number">5</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"Slithering..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">move</span><span class="token punctuation">(</span>distanceInMeters<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Horse</span> <span class="token keyword">extends</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">super</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token function">move</span><span class="token punctuation">(</span>distanceInMeters <span class="token operator">=</span> <span class="token number">45</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"Galloping..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token function">move</span><span class="token punctuation">(</span>distanceInMeters<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> sam <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Snake</span><span class="token punctuation">(</span><span class="token string">"Sammy the Python"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> tom<span class="token punctuation">:</span> Animal <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Horse</span><span class="token punctuation">(</span><span class="token string">"Tommy the Palomino"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+sam<span class="token punctuation">.</span><span class="token function">move</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+tom<span class="token punctuation">.</span><span class="token function">move</span><span class="token punctuation">(</span><span class="token number">34</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>This example covers a few other features we didn’t previously mention.<br>Again, we see the <code>extends</code> keywords used to create two new subclasses of <code>Animal</code>: <code>Horse</code> and <code>Snake</code>.</p>
+<p>One difference from the prior example is that each derived class that contains a constructor function <em>must</em> call <code>super()</code> which will execute the constructor of the base class.<br>What’s more, before we <em>ever</em> access a property on <code>this</code> in a constructor body, we <em>have</em> to call <code>super()</code>.<br>This is an important rule that TypeScript will enforce.</p>
+<p>The example also shows how to override methods in the base class with methods that are specialized for the subclass.<br>Here both <code>Snake</code> and <code>Horse</code> create a <code>move</code> method that overrides the <code>move</code> from <code>Animal</code>, giving it functionality specific to each class.<br>Note that even though <code>tom</code> is declared as an <code>Animal</code>, since its value is a <code>Horse</code>, calling <code>tom.move(34)</code> will call the overriding method in <code>Horse</code>:</p>
+<pre class=" language-Text"><code class="language-Text">Slithering...
+Sammy the Python moved 5m.
+Galloping...
+Tommy the Palomino moved 34m.
+</code></pre>
+<h1 id="Public-private-and-protected-modifiers"><a href="#Public-private-and-protected-modifiers" class="headerlink" title="Public, private, and protected modifiers"></a>Public, private, and protected modifiers</h1><h2 id="Public-by-default"><a href="#Public-by-default" class="headerlink" title="Public by default"></a>Public by default</h2><p>In our examples, we’ve been able to freely access the members that we declared throughout our programs.<br>If you’re familiar with classes in other languages, you may have noticed in the above examples we haven’t had to use the word <code>public</code> to accomplish this; for instance, C# requires that each member be explicitly labeled <code>public</code> to be visible.<br>In TypeScript, each member is <code>public</code> by default.</p>
+<p>You may still mark a member <code>public</code> explicitly.<br>We could have written the <code>Animal</code> class from the previous section in the following way:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+    <span class="token keyword">public</span> name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+    <span class="token keyword">public</span> <span class="token keyword">constructor</span><span class="token punctuation">(</span>theName<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> theName<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+    <span class="token keyword">public</span> <span class="token function">move</span><span class="token punctuation">(</span>distanceInMeters<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token template-string"><span class="token string">`</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> moved </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>distanceInMeters<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">m.`</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Understanding-private"><a href="#Understanding-private" class="headerlink" title="Understanding private"></a>Understanding <code>private</code></h2><p>When a member is marked <code>private</code>, it cannot be accessed from outside of its containing class. For example:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>theName<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> theName<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">new</span> <span class="token class-name">Animal</span><span class="token punctuation">(</span><span class="token string">"Cat"</span><span class="token punctuation">)</span><span class="token punctuation">.</span>name<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Error: 'name' is private;</span>
+</code></pre>
+<p>TypeScript is a structural type system.<br>When we compare two different types, regardless of where they came from, if the types of all members are compatible, then we say the types themselves are compatible.</p>
+<p>However, when comparing types that have <code>private</code> and <code>protected</code> members, we treat these types differently.<br>For two types to be considered compatible, if one of them has a <code>private</code> member, then the other must have a <code>private</code> member that originated in the same declaration.<br>The same applies to <code>protected</code> members.</p>
+<p>Let’s look at an example to better see how this plays out in practice:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>theName<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> theName<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Rhino</span> <span class="token keyword">extends</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token string">"Rhino"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Employee</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>theName<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> theName<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> animal <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Animal</span><span class="token punctuation">(</span><span class="token string">"Goat"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> rhino <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Rhino</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> employee <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Employee</span><span class="token punctuation">(</span><span class="token string">"Bob"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+animal <span class="token operator">=</span> rhino<span class="token punctuation">;</span>
+animal <span class="token operator">=</span> employee<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Error: 'Animal' and 'Employee' are not compatible</span>
+</code></pre>
+<p>In this example, we have an <code>Animal</code> and a <code>Rhino</code>, with <code>Rhino</code> being a subclass of <code>Animal</code>.<br>We also have a new class <code>Employee</code> that looks identical to <code>Animal</code> in terms of shape.<br>We create some instances of these classes and then try to assign them to each other to see what will happen.<br>Because <code>Animal</code> and <code>Rhino</code> share the <code>private</code> side of their shape from the same declaration of <code>private name: string</code> in <code>Animal</code>, they are compatible. However, this is not the case for <code>Employee</code>.<br>When we try to assign from an <code>Employee</code> to <code>Animal</code> we get an error that these types are not compatible.<br>Even though <code>Employee</code> also has a <code>private</code> member called <code>name</code>, it’s not the one we declared in <code>Animal</code>.</p>
+<h2 id="Understanding-protected"><a href="#Understanding-protected" class="headerlink" title="Understanding protected"></a>Understanding <code>protected</code></h2><p>The <code>protected</code> modifier acts much like the <code>private</code> modifier with the exception that members declared <code>protected</code> can also be accessed by instances of deriving classes. For example,</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token keyword">protected</span> name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> name<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Employee</span> <span class="token keyword">extends</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> department<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">,</span> department<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>department <span class="token operator">=</span> department<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token function">getElevatorPitch</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token template-string"><span class="token string">`Hello, my name is </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> and I work in </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>department<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">.`</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> howard <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Employee</span><span class="token punctuation">(</span><span class="token string">"Howard"</span><span class="token punctuation">,</span> <span class="token string">"Sales"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>howard<span class="token punctuation">.</span><span class="token function">getElevatorPitch</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>howard<span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error</span>
+</code></pre>
+<p>Notice that while we can’t use <code>name</code> from outside of <code>Person</code>, we can still use it from within an instance method of <code>Employee</code> because <code>Employee</code> derives from <code>Person</code>.</p>
+<p>A constructor may also be marked <code>protected</code>.<br>This means that the class cannot be instantiated outside of its containing class, but can be extended. For example,</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token keyword">protected</span> name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+    <span class="token keyword">protected</span> <span class="token keyword">constructor</span><span class="token punctuation">(</span>theName<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> theName<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// Employee can extend Person</span>
+<span class="token keyword">class</span> <span class="token class-name">Employee</span> <span class="token keyword">extends</span> <span class="token class-name">Person</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> department<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">,</span> department<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>department <span class="token operator">=</span> department<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">public</span> <span class="token function">getElevatorPitch</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token template-string"><span class="token string">`Hello, my name is </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string"> and I work in </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span><span class="token keyword">this</span><span class="token punctuation">.</span>department<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">.`</span></span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> howard <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Employee</span><span class="token punctuation">(</span><span class="token string">"Howard"</span><span class="token punctuation">,</span> <span class="token string">"Sales"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> john <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Person</span><span class="token punctuation">(</span><span class="token string">"John"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Error: The 'Person' constructor is protected</span>
+</code></pre>
+<h1 id="Readonly-modifier"><a href="#Readonly-modifier" class="headerlink" title="Readonly modifier"></a>Readonly modifier</h1><p>You can make properties readonly by using the <code>readonly</code> keyword.<br>Readonly properties must be initialized at their declaration or in the constructor.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Octopus</span> <span class="token punctuation">{</span>
+    readonly name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+    readonly numberOfLegs<span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
+    <span class="token keyword">constructor</span> <span class="token punctuation">(</span>theName<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>name <span class="token operator">=</span> theName<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">let</span> dad <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Octopus</span><span class="token punctuation">(</span><span class="token string">"Man with the 8 strong legs"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+dad<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"Man with the 3-piece suit"</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error! name is readonly.</span>
+</code></pre>
+<h2 id="Parameter-properties"><a href="#Parameter-properties" class="headerlink" title="Parameter properties"></a>Parameter properties</h2><p>In our last example, we had to declare a readonly member <code>name</code> and a constructor parameter <code>theName</code> in the <code>Octopus</code> class, and we then immediately set <code>name</code> to <code>theName</code>.<br>This turns out to be a very common practice.<br><em>Parameter properties</em> let you create and initialize a member in one place.<br>Here’s a further revision of the previous <code>Octopus</code> class using a parameter property:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Octopus</span> <span class="token punctuation">{</span>
+    readonly numberOfLegs<span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token operator">=</span> <span class="token number">8</span><span class="token punctuation">;</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>readonly name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Notice how we dropped <code>theName</code> altogether and just use the shortened <code>readonly name: string</code> parameter on the constructor to create and initialize the <code>name</code> member.<br>We’ve consolidated the declarations and assignment into one location.</p>
+<p>Parameter properties are declared by prefixing a constructor parameter with an accessibility modifier or <code>readonly</code>, or both.<br>Using <code>private</code> for a parameter property declares and initializes a private member; likewise, the same is done for <code>public</code>, <code>protected</code>, and <code>readonly</code>.</p>
+<h1 id="Accessors"><a href="#Accessors" class="headerlink" title="Accessors"></a>Accessors</h1><p>TypeScript supports getters/setters as a way of intercepting accesses to a member of an object.<br>This gives you a way of having finer-grained control over how a member is accessed on each object.</p>
+<p>Let’s convert a simple class to use <code>get</code> and <code>set</code>.<br>First, let’s start with an example without getters and setters.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Employee</span> <span class="token punctuation">{</span>
+    fullName<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> employee <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Employee</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+employee<span class="token punctuation">.</span>fullName <span class="token operator">=</span> <span class="token string">"Bob Smith"</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>employee<span class="token punctuation">.</span>fullName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>employee<span class="token punctuation">.</span>fullName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>While allowing people to randomly set <code>fullName</code> directly is pretty handy, this might get us in trouble if people can change names on a whim.</p>
+<p>In this version, we check to make sure the user has a secret passcode available before we allow them to modify the employee.<br>We do this by replacing the direct access to <code>fullName</code> with a <code>set</code> that will check the passcode.<br>We add a corresponding <code>get</code> to allow the previous example to continue to work seamlessly.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> passcode <span class="token operator">=</span> <span class="token string">"secret passcode"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Employee</span> <span class="token punctuation">{</span>
+    <span class="token keyword">private</span> _fullName<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">get</span> <span class="token function">fullName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token keyword">this</span><span class="token punctuation">.</span>_fullName<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">set</span> <span class="token function">fullName</span><span class="token punctuation">(</span>newName<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span>passcode <span class="token operator">&amp;&amp;</span> passcode <span class="token operator">==</span> <span class="token string">"secret passcode"</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">this</span><span class="token punctuation">.</span>_fullName <span class="token operator">=</span> newName<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"Error: Unauthorized update of employee!"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> employee <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Employee</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+employee<span class="token punctuation">.</span>fullName <span class="token operator">=</span> <span class="token string">"Bob Smith"</span><span class="token punctuation">;</span>
+<span class="token keyword">if</span> <span class="token punctuation">(</span>employee<span class="token punctuation">.</span>fullName<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>employee<span class="token punctuation">.</span>fullName<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>To prove to ourselves that our accessor is now checking the passcode, we can modify the passcode and see that when it doesn’t match we instead get the message warning us we don’t have access to update the employee.</p>
+<p>A couple of things to note about accessors:</p>
+<p>First, accessors require you to set the compiler to output ECMAScript 5 or higher.<br>Downlevelling to ECMAScript 3 is not supported.<br>Second, accessors with a <code>get</code> and no <code>set</code> are automatically inferred to be <code>readonly</code>.<br>This is helpful when generating a <code>.d.ts</code> file from your code, because users of your property can see that they can’t change it.</p>
+<h1 id="Static-Properties"><a href="#Static-Properties" class="headerlink" title="Static Properties"></a>Static Properties</h1><p>Up to this point, we’ve only talked about the <em>instance</em> members of the class, those that show up on the object when it’s instantiated.<br>We can also create <em>static</em> members of a class, those that are visible on the class itself rather than on the instances.<br>In this example, we use <code>static</code> on the origin, as it’s a general value for all grids.<br>Each instance accesses this value through prepending the name of the class.<br>Similarly to prepending <code>this.</code> in front of instance accesses, here we prepend <code>Grid.</code> in front of static accesses.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Grid</span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> origin <span class="token operator">=</span> <span class="token punctuation">{</span>x<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span> y<span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token function">calculateDistanceFromOrigin</span><span class="token punctuation">(</span>point<span class="token punctuation">:</span> <span class="token punctuation">{</span>x<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span> y<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span><span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> xDist <span class="token operator">=</span> <span class="token punctuation">(</span>point<span class="token punctuation">.</span>x <span class="token operator">-</span> Grid<span class="token punctuation">.</span>origin<span class="token punctuation">.</span>x<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">let</span> yDist <span class="token operator">=</span> <span class="token punctuation">(</span>point<span class="token punctuation">.</span>y <span class="token operator">-</span> Grid<span class="token punctuation">.</span>origin<span class="token punctuation">.</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> Math<span class="token punctuation">.</span><span class="token function">sqrt</span><span class="token punctuation">(</span>xDist <span class="token operator">*</span> xDist <span class="token operator">+</span> yDist <span class="token operator">*</span> yDist<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token keyword">this</span><span class="token punctuation">.</span>scale<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">constructor</span> <span class="token punctuation">(</span><span class="token keyword">public</span> scale<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> grid1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Grid</span><span class="token punctuation">(</span><span class="token number">1.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// 1x scale</span>
+<span class="token keyword">let</span> grid2 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Grid</span><span class="token punctuation">(</span><span class="token number">5.0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// 5x scale</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>grid1<span class="token punctuation">.</span><span class="token function">calculateDistanceFromOrigin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>x<span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">,</span> y<span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>grid2<span class="token punctuation">.</span><span class="token function">calculateDistanceFromOrigin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>x<span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">,</span> y<span class="token punctuation">:</span> <span class="token number">10</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h1 id="Abstract-Classes"><a href="#Abstract-Classes" class="headerlink" title="Abstract Classes"></a>Abstract Classes</h1><p>Abstract classes are base classes from which other classes may be derived.<br>They may not be instantiated directly.<br>Unlike an interface, an abstract class may contain implementation details for its members.<br>The <code>abstract</code> keyword is used to define abstract classes as well as abstract methods within an abstract class.</p>
+<pre class=" language-ts"><code class="language-ts">abstract <span class="token keyword">class</span> <span class="token class-name">Animal</span> <span class="token punctuation">{</span>
+    abstract <span class="token function">makeSound</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+    <span class="token function">move</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"roaming the earth..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Methods within an abstract class that are marked as abstract do not contain an implementation and must be implemented in derived classes.<br>Abstract methods share a similar syntax to interface methods.<br>Both define the signature of a method without including a method body.<br>However, abstract methods must include the <code>abstract</code> keyword and may optionally include access modifiers.</p>
+<pre class=" language-ts"><code class="language-ts">abstract <span class="token keyword">class</span> <span class="token class-name">Department</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token keyword">public</span> name<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">printName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"Department name: "</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    abstract <span class="token function">printMeeting</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// must be implemented in derived classes</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">AccountingDepartment</span> <span class="token keyword">extends</span> <span class="token class-name">Department</span> <span class="token punctuation">{</span>
+
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token string">"Accounting and Auditing"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// constructors in derived classes must call super()</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">printMeeting</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"The Accounting Department meets each Monday at 10am."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">generateReports</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+        console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"Generating accounting reports..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> department<span class="token punctuation">:</span> Department<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ok to create a reference to an abstract type</span>
+department <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Department</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error: cannot create an instance of an abstract class</span>
+department <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">AccountingDepartment</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ok to create and assign a non-abstract subclass</span>
+department<span class="token punctuation">.</span><span class="token function">printName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+department<span class="token punctuation">.</span><span class="token function">printMeeting</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+department<span class="token punctuation">.</span><span class="token function">generateReports</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error: method doesn't exist on declared abstract type</span>
+</code></pre>
+<h1 id="Advanced-Techniques"><a href="#Advanced-Techniques" class="headerlink" title="Advanced Techniques"></a>Advanced Techniques</h1><h2 id="Constructor-functions"><a href="#Constructor-functions" class="headerlink" title="Constructor functions"></a>Constructor functions</h2><p>When you declare a class in TypeScript, you are actually creating multiple declarations at the same time.<br>The first is the type of the <em>instance</em> of the class.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Greeter</span> <span class="token punctuation">{</span>
+    greeting<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span>message<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>greeting <span class="token operator">=</span> message<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Hello, "</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>greeting<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> greeter<span class="token punctuation">:</span> Greeter<span class="token punctuation">;</span>
+greeter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Greeter</span><span class="token punctuation">(</span><span class="token string">"world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>greeter<span class="token punctuation">.</span><span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Here, when we say <code>let greeter: Greeter</code>, we’re using <code>Greeter</code> as the type of instances of the class <code>Greeter</code>.<br>This is almost second nature to programmers from other object-oriented languages.</p>
+<p>We’re also creating another value that we call the <em>constructor function</em>.<br>This is the function that is called when we <code>new</code> up instances of the class.<br>To see what this looks like in practice, let’s take a look at the JavaScript created by the above example:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> Greeter <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">function</span> <span class="token function">Greeter</span><span class="token punctuation">(</span>message<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>greeting <span class="token operator">=</span> message<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    Greeter<span class="token punctuation">.</span>prototype<span class="token punctuation">.</span>greet <span class="token operator">=</span> <span class="token keyword">function</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> <span class="token string">"Hello, "</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>greeting<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> Greeter<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">let</span> greeter<span class="token punctuation">;</span>
+greeter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Greeter</span><span class="token punctuation">(</span><span class="token string">"world"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>greeter<span class="token punctuation">.</span><span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Here, <code>let Greeter</code> is going to be assigned the constructor function.<br>When we call <code>new</code> and run this function, we get an instance of the class.<br>The constructor function also contains all of the static members of the class.<br>Another way to think of each class is that there is an <em>instance</em> side and a <em>static</em> side.</p>
+<p>Let’s modify the example a bit to show this difference:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Greeter</span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> standardGreeting <span class="token operator">=</span> <span class="token string">"Hello, there"</span><span class="token punctuation">;</span>
+    greeting<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
+    <span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>greeting<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> <span class="token string">"Hello, "</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>greeting<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+        <span class="token keyword">else</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> Greeter<span class="token punctuation">.</span>standardGreeting<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> greeter1<span class="token punctuation">:</span> Greeter<span class="token punctuation">;</span>
+greeter1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Greeter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>greeter1<span class="token punctuation">.</span><span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">let</span> greeterMaker<span class="token punctuation">:</span> <span class="token keyword">typeof</span> Greeter <span class="token operator">=</span> Greeter<span class="token punctuation">;</span>
+greeterMaker<span class="token punctuation">.</span>standardGreeting <span class="token operator">=</span> <span class="token string">"Hey there!"</span><span class="token punctuation">;</span>
+
+<span class="token keyword">let</span> greeter2<span class="token punctuation">:</span> Greeter <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">greeterMaker</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>greeter2<span class="token punctuation">.</span><span class="token function">greet</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>In this example, <code>greeter1</code> works similarly to before.<br>We instantiate the <code>Greeter</code> class, and use this object.<br>This we have seen before.</p>
+<p>Next, we then use the class directly.<br>Here we create a new variable called <code>greeterMaker</code>.<br>This variable will hold the class itself, or said another way its constructor function.<br>Here we use <code>typeof Greeter</code>, that is “give me the type of the <code>Greeter</code> class itself” rather than the instance type.<br>Or, more precisely, “give me the type of the symbol called <code>Greeter</code>,” which is the type of the constructor function.<br>This type will contain all of the static members of Greeter along with the constructor that creates instances of the <code>Greeter</code> class.<br>We show this by using <code>new</code> on <code>greeterMaker</code>, creating new instances of <code>Greeter</code> and invoking them as before.</p>
+<h2 id="Using-a-class-as-an-interface"><a href="#Using-a-class-as-an-interface" class="headerlink" title="Using a class as an interface"></a>Using a class as an interface</h2><p>As we said in the previous section, a class declaration creates two things: a type representing instances of the class and a constructor function.<br>Because classes create types, you can use them in the same places you would be able to use interfaces.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
+    x<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+    y<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">Point3d</span> <span class="token keyword">extends</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
+    z<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> point3d<span class="token punctuation">:</span> Point3d <span class="token operator">=</span> <span class="token punctuation">{</span>x<span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> y<span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> z<span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+
   </div>
 </div>
 

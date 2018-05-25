@@ -127,7 +127,198 @@ if(isiOS){
 
   
   <div class="page">
-      
+      <h1 id="Enums"><a href="#Enums" class="headerlink" title="Enums"></a>Enums</h1><p>Enums allow us to define a set of named constants.<br>Using enums can make it easier to document intent, or create a set of distinct cases.<br>TypeScript provides both numeric and string-based enums.</p>
+<h2 id="Numeric-enums"><a href="#Numeric-enums" class="headerlink" title="Numeric enums"></a>Numeric enums</h2><p>We’ll first start off with numeric enums, which are probably more familiar if you’re coming from other languages.<br>An enum can be defined using the <code>enum</code> keyword.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">enum</span> Direction <span class="token punctuation">{</span>
+    Up <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    Down<span class="token punctuation">,</span>
+    Left<span class="token punctuation">,</span>
+    Right<span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Above, we have a numeric enum where <code>Up</code> is initialized with <code>1</code>.<br>All of the following members are auto-incremented from that point on.<br>In other words, <code>Direction.Up</code> has the value <code>1</code>,  <code>Down</code> has <code>2</code>, <code>Left</code> has <code>3</code>, and <code>Right</code> has <code>4</code>.</p>
+<p>If we wanted, we could leave off the initializers entirely:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">enum</span> Direction <span class="token punctuation">{</span>
+    Up<span class="token punctuation">,</span>
+    Down<span class="token punctuation">,</span>
+    Left<span class="token punctuation">,</span>
+    Right<span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Here, <code>Up</code> would have the value <code>0</code>, <code>Down</code> would have <code>1</code>, etc.<br>This auto-incrementing behavior is useful for cases where we might not care about the member values themselves, but do care that each value is distinct from other values in the same enum.</p>
+<p>Using an enum is simple: just access any member as a property off of the enum itself, and declare types using the name of the enum:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">enum</span> Response <span class="token punctuation">{</span>
+    No <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    Yes <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">respond</span><span class="token punctuation">(</span>recipient<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">,</span> message<span class="token punctuation">:</span> Response<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">respond</span><span class="token punctuation">(</span><span class="token string">"Princess Caroline"</span><span class="token punctuation">,</span> Response<span class="token punctuation">.</span>Yes<span class="token punctuation">)</span>
+</code></pre>
+<p>Numeric enums can be mixed in <a href="#computed-and-constant-members">computed and constant members (see below)</a>.<br>The short story is, enums without initializers either need to be first, or have to come after numeric enums initialized with numeric constants or other constant enum members.<br>In other words, the following isn’t allowed:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">enum</span> E <span class="token punctuation">{</span>
+    A <span class="token operator">=</span> <span class="token function">getSomeValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+    B<span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// error! 'A' is not constant-initialized, so 'B' needs an initializer</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="String-enums"><a href="#String-enums" class="headerlink" title="String enums"></a>String enums</h2><p>String enums are a similar concept, but have some subtle <a href="#enums-at-runtime">runtime differences</a> as documented below.<br>In a string enum, each member has to be constant-initialized with a string literal, or with another string enum member.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">enum</span> Direction <span class="token punctuation">{</span>
+    Up <span class="token operator">=</span> <span class="token string">"UP"</span><span class="token punctuation">,</span>
+    Down <span class="token operator">=</span> <span class="token string">"DOWN"</span><span class="token punctuation">,</span>
+    Left <span class="token operator">=</span> <span class="token string">"LEFT"</span><span class="token punctuation">,</span>
+    Right <span class="token operator">=</span> <span class="token string">"RIGHT"</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>While string enums don’t have auto-incrementing behavior, string enums have the benefit that they “serialize” well.<br>In other words, if you were debugging and had to read the runtime value of a numeric enum, the value is often opaque - it doesn’t convey any useful meaning on its own (though <a href="#enums-at-runtime">reverse mapping</a> can often help), string enums allow you to give a meaningful and readable value when your code runs, independent of the name of the enum member itself.</p>
+<h2 id="Heterogeneous-enums"><a href="#Heterogeneous-enums" class="headerlink" title="Heterogeneous enums"></a>Heterogeneous enums</h2><p>Technically enums can be mixed with string and numeric members, but it’s not clear why you would ever want to do so:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">enum</span> BooleanLikeHeterogeneousEnum <span class="token punctuation">{</span>
+    No <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    Yes <span class="token operator">=</span> <span class="token string">"YES"</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Unless you’re really trying to take advantage of JavaScript’s runtime behavior in a clever way, it’s advised that you don’t do this.</p>
+<h2 id="Computed-and-constant-members"><a href="#Computed-and-constant-members" class="headerlink" title="Computed and constant members"></a>Computed and constant members</h2><p>Each enum member has a value associated with it which can be either <em>constant</em> or <em>computed</em>.<br>An enum member is considered constant if:</p>
+<ul>
+<li><p>It is the first member in the enum and it has no initializer, in which case it’s assigned the value <code>0</code>:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">// E.X is constant:</span>
+<span class="token keyword">enum</span> E <span class="token punctuation">{</span> X <span class="token punctuation">}</span>
+</code></pre>
+</li>
+<li><p>It does not have an initializer and the preceding enum member was a <em>numeric</em> constant.<br>In this case the value of the current enum member will be the value of the preceding enum member plus one.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">// All enum members in 'E1' and 'E2' are constant.</span>
+
+<span class="token keyword">enum</span> E1 <span class="token punctuation">{</span> X<span class="token punctuation">,</span> Y<span class="token punctuation">,</span> Z <span class="token punctuation">}</span>
+
+<span class="token keyword">enum</span> E2 <span class="token punctuation">{</span>
+    A <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span> B<span class="token punctuation">,</span> C
+<span class="token punctuation">}</span>
+</code></pre>
+</li>
+<li><p>The enum member is initialized with a constant enum expression.<br>A constant enum expression is a subset of TypeScript expressions that can be fully evaluated at compile time.<br>An expression is a constant enum expression if it is:</p>
+<ol>
+<li>a literal enum expression (basically a string literal or a numeric literal)</li>
+<li>a reference to previously defined constant enum member (which can originate from a different enum).</li>
+<li>a parenthesized constant enum expression</li>
+<li>one of the <code>+</code>, <code>-</code>, <code>~</code> unary operators applied to constant enum expression</li>
+<li><code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>, <code>%</code>, <code>&lt;&lt;</code>, <code>&gt;&gt;</code>, <code>&gt;&gt;&gt;</code>, <code>&amp;</code>, <code>|</code>, <code>^</code> binary operators with constant enum expressions as  operands<br>It is a compile time error for constant enum expressions to be evaluated to <code>NaN</code> or <code>Infinity</code>.</li>
+</ol>
+</li>
+</ul>
+<p>In all other cases enum member is considered computed.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">enum</span> FileAccess <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// constant members</span>
+    None<span class="token punctuation">,</span>
+    Read    <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">&lt;</span><span class="token operator">&lt;</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    Write   <span class="token operator">=</span> <span class="token number">1</span> <span class="token operator">&lt;</span><span class="token operator">&lt;</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    ReadWrite  <span class="token operator">=</span> Read <span class="token operator">|</span> Write<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">// computed member</span>
+    G <span class="token operator">=</span> <span class="token string">"123"</span><span class="token punctuation">.</span>length
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="Union-enums-and-enum-member-types"><a href="#Union-enums-and-enum-member-types" class="headerlink" title="Union enums and enum member types"></a>Union enums and enum member types</h2><p>There is a special subset of constant enum members that aren’t calculated: literal enum members.<br>A literal enum member is a constant enum member with no initialized value, or with values that are initialized to</p>
+<ul>
+<li>any string literal (e.g. <code>&quot;foo&quot;</code>, <code>&quot;bar</code>, <code>&quot;baz&quot;</code>)</li>
+<li>any numeric literal (e.g. <code>1</code>, <code>100</code>)</li>
+<li>a unary minus applied to any numeric literal (e.g. <code>-1</code>, <code>-100</code>)</li>
+</ul>
+<p>When all members in an enum have literal enum values, some special semantics come to play.</p>
+<p>The first is that enum members also become types as well!<br>For example, we can say that certain members can <em>only</em> have the value of an enum member:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">enum</span> ShapeKind <span class="token punctuation">{</span>
+    Circle<span class="token punctuation">,</span>
+    Square<span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">Circle</span> <span class="token punctuation">{</span>
+    kind<span class="token punctuation">:</span> ShapeKind<span class="token punctuation">.</span>Circle<span class="token punctuation">;</span>
+    radius<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">interface</span> <span class="token class-name">Square</span> <span class="token punctuation">{</span>
+    kind<span class="token punctuation">:</span> ShapeKind<span class="token punctuation">.</span>Square<span class="token punctuation">;</span>
+    sideLength<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> c<span class="token punctuation">:</span> Circle <span class="token operator">=</span> <span class="token punctuation">{</span>
+    kind<span class="token punctuation">:</span> ShapeKind<span class="token punctuation">.</span>Square<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//    ~~~~~~~~~~~~~~~~ Error!</span>
+    radius<span class="token punctuation">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The other change is that enum types themselves effectively become a <em>union</em> of each enum member.<br>While we haven’t discussed <a href="./Advanced Types.md#union-types">union types</a> yet, all that you need to know is that with union enums, the type system is able to leverage the fact that it knows the exact set of values that exist in the enum itself.<br>Because of that, TypeScript can catch silly bugs where we might be comparing values incorrectly.<br>For example:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">enum</span> E <span class="token punctuation">{</span>
+    Foo<span class="token punctuation">,</span>
+    Bar<span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span>x<span class="token punctuation">:</span> E<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>x <span class="token operator">!==</span> E<span class="token punctuation">.</span>Foo <span class="token operator">||</span> x <span class="token operator">!==</span> E<span class="token punctuation">.</span>Bar<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">//             ~~~~~~~~~~~</span>
+        <span class="token comment" spellcheck="true">// Error! Operator '!==' cannot be applied to types 'E.Foo' and 'E.Bar'.</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>In that example, we first checked whether <code>x</code> was <em>not</em> <code>E.Foo</code>.<br>If that check succeeds, then our <code>||</code> will short-circuit, and the body of the ‘if’ will get run.<br>However, if the check didn’t succeed, then <code>x</code> can <em>only</em> be <code>E.Foo</code>, so it doesn’t make sense to see whether it’s equal to <code>E.Bar</code>.</p>
+<h2 id="Enums-at-runtime"><a href="#Enums-at-runtime" class="headerlink" title="Enums at runtime"></a>Enums at runtime</h2><p>Enums are real objects that exist at runtime.<br>For example, the following enum</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">enum</span> E <span class="token punctuation">{</span>
+    X<span class="token punctuation">,</span> Y<span class="token punctuation">,</span> Z
+<span class="token punctuation">}</span>
+</code></pre>
+<p>can actually be passed around to functions</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span>obj<span class="token punctuation">:</span> <span class="token punctuation">{</span> X<span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> obj<span class="token punctuation">.</span>X<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// Works, since 'E' has a property named 'X' which is a number.</span>
+<span class="token function">f</span><span class="token punctuation">(</span>E<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="Reverse-mappings"><a href="#Reverse-mappings" class="headerlink" title="Reverse mappings"></a>Reverse mappings</h3><p>In addition to creating an object with property names for members, numeric enums members also get a <em>reverse mapping</em> from enum values to enum names.<br>For example, in this example:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">enum</span> Enum <span class="token punctuation">{</span>
+    A
+<span class="token punctuation">}</span>
+<span class="token keyword">let</span> a <span class="token operator">=</span> Enum<span class="token punctuation">.</span>A<span class="token punctuation">;</span>
+<span class="token keyword">let</span> nameOfA <span class="token operator">=</span> Enum<span class="token punctuation">[</span>a<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// "A"</span>
+</code></pre>
+<p>TypeScript might compile this down to something like the the following JavaScript:</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> Enum<span class="token punctuation">;</span>
+<span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token punctuation">(</span>Enum<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    Enum<span class="token punctuation">[</span>Enum<span class="token punctuation">[</span><span class="token string">"A"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"A"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span>Enum <span class="token operator">||</span> <span class="token punctuation">(</span>Enum <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">var</span> a <span class="token operator">=</span> Enum<span class="token punctuation">.</span>A<span class="token punctuation">;</span>
+<span class="token keyword">var</span> nameOfA <span class="token operator">=</span> Enum<span class="token punctuation">[</span>a<span class="token punctuation">]</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// "A"</span>
+</code></pre>
+<p>In this generated code, an enum is compiled into an object that stores both forward (<code>name</code> -&gt; <code>value</code>) and reverse (<code>value</code> -&gt; <code>name</code>) mappings.<br>References to other enum members are always emitted as property accesses and never inlined.</p>
+<p>Keep in mind that string enum members <em>do not</em> get a reverse mapping generated at all.</p>
+<h3 id="const-enums"><a href="#const-enums" class="headerlink" title="const enums"></a><code>const</code> enums</h3><p>In most cases, enums are a perfectly valid solution.<br>However sometimes requirements are tighter.<br>To avoid paying the cost of extra generated code and additional indirection when accessing enum values, it’s possible to use <code>const</code> enums.<br>Const enums are defined using the <code>const</code> modifier on our enums:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">const</span> <span class="token keyword">enum</span> Enum <span class="token punctuation">{</span>
+    A <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    B <span class="token operator">=</span> A <span class="token operator">*</span> <span class="token number">2</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Const enums can only use constant enum expressions and unlike regular enums they are completely removed during compilation.<br>Const enum members are inlined at use sites.<br>This is possible since const enums cannot have computed members.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">const</span> <span class="token keyword">enum</span> Directions <span class="token punctuation">{</span>
+    Up<span class="token punctuation">,</span>
+    Down<span class="token punctuation">,</span>
+    Left<span class="token punctuation">,</span>
+    Right
+<span class="token punctuation">}</span>
+
+<span class="token keyword">let</span> directions <span class="token operator">=</span> <span class="token punctuation">[</span>Directions<span class="token punctuation">.</span>Up<span class="token punctuation">,</span> Directions<span class="token punctuation">.</span>Down<span class="token punctuation">,</span> Directions<span class="token punctuation">.</span>Left<span class="token punctuation">,</span> Directions<span class="token punctuation">.</span>Right<span class="token punctuation">]</span>
+</code></pre>
+<p>in generated code will become</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> directions <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span> <span class="token comment" spellcheck="true">/* Up */</span><span class="token punctuation">,</span> <span class="token number">1</span> <span class="token comment" spellcheck="true">/* Down */</span><span class="token punctuation">,</span> <span class="token number">2</span> <span class="token comment" spellcheck="true">/* Left */</span><span class="token punctuation">,</span> <span class="token number">3</span> <span class="token comment" spellcheck="true">/* Right */</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="Ambient-enums"><a href="#Ambient-enums" class="headerlink" title="Ambient enums"></a>Ambient enums</h2><p>Ambient enums are used to describe the shape of already existing enum types.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">declare</span> <span class="token keyword">enum</span> Enum <span class="token punctuation">{</span>
+    A <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    B<span class="token punctuation">,</span>
+    C <span class="token operator">=</span> <span class="token number">2</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>One important difference between ambient and non-ambient enums is that, in regular enums, members that don’t have an initializer will be considered constant if its preceding enum member is considered constant.<br>In contrast, an ambient (and non-const) enum member that does not have initializer is <em>always</em> considered computed.</p>
+
   </div>
 </div>
 

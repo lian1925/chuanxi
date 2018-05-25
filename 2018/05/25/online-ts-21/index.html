@@ -127,7 +127,109 @@ if(isiOS){
 
   
   <div class="page">
-      
+      <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>Along with traditional OO hierarchies, another popular way of building up classes from reusable components is to build them by combining simpler partial classes.<br>You may be familiar with the idea of mixins or traits for languages like Scala, and the pattern has also reached some popularity in the JavaScript community.</p>
+<h1 id="Mixin-sample"><a href="#Mixin-sample" class="headerlink" title="Mixin sample"></a>Mixin sample</h1><p>In the code below, we show how you can model mixins in TypeScript.<br>After the code, we’ll break down how it works.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">// Disposable Mixin</span>
+<span class="token keyword">class</span> <span class="token class-name">Disposable</span> <span class="token punctuation">{</span>
+    isDisposed<span class="token punctuation">:</span> <span class="token keyword">boolean</span><span class="token punctuation">;</span>
+    <span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>isDisposed <span class="token operator">=</span> <span class="token keyword">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// Activatable Mixin</span>
+<span class="token keyword">class</span> <span class="token class-name">Activatable</span> <span class="token punctuation">{</span>
+    isActive<span class="token punctuation">:</span> <span class="token keyword">boolean</span><span class="token punctuation">;</span>
+    <span class="token function">activate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>isActive <span class="token operator">=</span> <span class="token keyword">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">deactivate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>isActive <span class="token operator">=</span> <span class="token keyword">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">class</span> <span class="token class-name">SmartObject</span> <span class="token keyword">implements</span> <span class="token class-name">Disposable</span><span class="token punctuation">,</span> Activatable <span class="token punctuation">{</span>
+    <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">setInterval</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">.</span>isActive <span class="token operator">+</span> <span class="token string">" : "</span> <span class="token operator">+</span> <span class="token keyword">this</span><span class="token punctuation">.</span>isDisposed<span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token function">interact</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span><span class="token function">activate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// Disposable</span>
+    isDisposed<span class="token punctuation">:</span> <span class="token keyword">boolean</span> <span class="token operator">=</span> <span class="token keyword">false</span><span class="token punctuation">;</span>
+    dispose<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// Activatable</span>
+    isActive<span class="token punctuation">:</span> <span class="token keyword">boolean</span> <span class="token operator">=</span> <span class="token keyword">false</span><span class="token punctuation">;</span>
+    activate<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+    deactivate<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">applyMixins</span><span class="token punctuation">(</span>SmartObject<span class="token punctuation">,</span> <span class="token punctuation">[</span>Disposable<span class="token punctuation">,</span> Activatable<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">let</span> smartObj <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">SmartObject</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> smartObj<span class="token punctuation">.</span><span class="token function">interact</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">1000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">////////////////////////////////////////</span>
+<span class="token comment" spellcheck="true">// In your runtime library somewhere</span>
+<span class="token comment" spellcheck="true">////////////////////////////////////////</span>
+
+<span class="token keyword">function</span> <span class="token function">applyMixins</span><span class="token punctuation">(</span>derivedCtor<span class="token punctuation">:</span> <span class="token keyword">any</span><span class="token punctuation">,</span> baseCtors<span class="token punctuation">:</span> <span class="token keyword">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    baseCtors<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>baseCtor <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        Object<span class="token punctuation">.</span><span class="token function">getOwnPropertyNames</span><span class="token punctuation">(</span>baseCtor<span class="token punctuation">.</span>prototype<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>name <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            derivedCtor<span class="token punctuation">.</span>prototype<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> baseCtor<span class="token punctuation">.</span>prototype<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h1 id="Understanding-the-sample"><a href="#Understanding-the-sample" class="headerlink" title="Understanding the sample"></a>Understanding the sample</h1><p>The code sample starts with the two classes that will act as our mixins.<br>You can see each one is focused on a particular activity or capability.<br>We’ll later mix these together to form a new class from both capabilities.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">// Disposable Mixin</span>
+<span class="token keyword">class</span> <span class="token class-name">Disposable</span> <span class="token punctuation">{</span>
+    isDisposed<span class="token punctuation">:</span> <span class="token keyword">boolean</span><span class="token punctuation">;</span>
+    <span class="token function">dispose</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>isDisposed <span class="token operator">=</span> <span class="token keyword">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// Activatable Mixin</span>
+<span class="token keyword">class</span> <span class="token class-name">Activatable</span> <span class="token punctuation">{</span>
+    isActive<span class="token punctuation">:</span> <span class="token keyword">boolean</span><span class="token punctuation">;</span>
+    <span class="token function">activate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>isActive <span class="token operator">=</span> <span class="token keyword">true</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token function">deactivate</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">this</span><span class="token punctuation">.</span>isActive <span class="token operator">=</span> <span class="token keyword">false</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Next, we’ll create the class that will handle the combination of the two mixins.<br>Let’s look at this in more detail to see how it does this:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">SmartObject</span> <span class="token keyword">implements</span> <span class="token class-name">Disposable</span><span class="token punctuation">,</span> Activatable <span class="token punctuation">{</span>
+</code></pre>
+<p>The first thing you may notice in the above is that instead of using <code>extends</code>, we use <code>implements</code>.<br>This treats the classes as interfaces, and only uses the types behind Disposable and Activatable rather than the implementation.<br>This means that we’ll have to provide the implementation in class.<br>Except, that’s exactly what we want to avoid by using mixins.</p>
+<p>To satisfy this requirement, we create stand-in properties and their types for the members that will come from our mixins.<br>This satisfies the compiler that these members will be available at runtime.<br>This lets us still get the benefit of the mixins, albeit with some bookkeeping overhead.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">// Disposable</span>
+isDisposed<span class="token punctuation">:</span> <span class="token keyword">boolean</span> <span class="token operator">=</span> <span class="token keyword">false</span><span class="token punctuation">;</span>
+dispose<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">// Activatable</span>
+isActive<span class="token punctuation">:</span> <span class="token keyword">boolean</span> <span class="token operator">=</span> <span class="token keyword">false</span><span class="token punctuation">;</span>
+activate<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+deactivate<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token keyword">void</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Finally, we mix our mixins into the class, creating the full implementation.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token function">applyMixins</span><span class="token punctuation">(</span>SmartObject<span class="token punctuation">,</span> <span class="token punctuation">[</span>Disposable<span class="token punctuation">,</span> Activatable<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Lastly, we create a helper function that will do the mixing for us.<br>This will run through the properties of each of the mixins and copy them over to the target of the mixins, filling out the stand-in properties with their implementations.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">applyMixins</span><span class="token punctuation">(</span>derivedCtor<span class="token punctuation">:</span> <span class="token keyword">any</span><span class="token punctuation">,</span> baseCtors<span class="token punctuation">:</span> <span class="token keyword">any</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    baseCtors<span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>baseCtor <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+        Object<span class="token punctuation">.</span><span class="token function">getOwnPropertyNames</span><span class="token punctuation">(</span>baseCtor<span class="token punctuation">.</span>prototype<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">forEach</span><span class="token punctuation">(</span>name <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+            derivedCtor<span class="token punctuation">.</span>prototype<span class="token punctuation">[</span>name<span class="token punctuation">]</span> <span class="token operator">=</span> baseCtor<span class="token punctuation">.</span>prototype<span class="token punctuation">[</span>name<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
   </div>
 </div>
 
