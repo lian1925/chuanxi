@@ -1,0 +1,702 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>Variable Declarations | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/Typescript/">
+            Typescript
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/Typescript/">
+              Typescript
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/25/online-ts-2/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/25/online-ts-4/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/25/online-ts-2/">
+                    Basic Types
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/25/online-ts-4/">
+                    Interfaces
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>Variable Declarations</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月25日 17:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <h1 id="Variable-Declarations"><a href="#Variable-Declarations" class="headerlink" title="Variable Declarations"></a>Variable Declarations</h1><p><code>let</code> and <code>const</code> are two relatively new types of variable declarations in JavaScript.<br>As we mentioned earlier, <code>let</code> is similar to <code>var</code> in some respects, but allows users to avoid some of the common “gotchas” that users run into in JavaScript.<br><code>const</code> is an augmentation of <code>let</code> in that it prevents re-assignment to a variable.</p>
+<p>With TypeScript being a superset of JavaScript, the language naturally supports <code>let</code> and <code>const</code>.<br>Here we’ll elaborate more on these new declarations and why they’re preferable to <code>var</code>.</p>
+<p>If you’ve used JavaScript offhandedly, the next section might be a good way to refresh your memory.<br>If you’re intimately familiar with all the quirks of <code>var</code> declarations in JavaScript, you might find it easier to skip ahead.</p>
+<h1 id="var-declarations"><a href="#var-declarations" class="headerlink" title="var declarations"></a><code>var</code> declarations</h1><p>Declaring a variable in JavaScript has always traditionally been done with the <code>var</code> keyword.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+</code></pre>
+<p>As you might’ve figured out, we just declared a variable named <code>a</code> with the value <code>10</code>.</p>
+<p>We can also declare a variable inside of a function:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> message <span class="token operator">=</span> <span class="token string">"Hello, world!"</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> message<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>and we can also access those same variables within other functions:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token keyword">function</span> <span class="token function">g</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> b <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">var</span> g <span class="token operator">=</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">g</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// returns '11'</span>
+</code></pre>
+<p>In this above example, <code>g</code> captured the variable <code>a</code> declared in <code>f</code>.<br>At any point that <code>g</code> gets called, the value of <code>a</code> will be tied to the value of <code>a</code> in <code>f</code>.<br>Even if <code>g</code> is called once <code>f</code> is done running, it will be able to access and modify <code>a</code>.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> a <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+
+    a <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> b <span class="token operator">=</span> <span class="token function">g</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    a <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> b<span class="token punctuation">;</span>
+
+    <span class="token keyword">function</span> <span class="token function">g</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">return</span> a<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// returns '2'</span>
+</code></pre>
+<h2 id="Scoping-rules"><a href="#Scoping-rules" class="headerlink" title="Scoping rules"></a>Scoping rules</h2><p><code>var</code> declarations have some odd scoping rules for those used to other languages.<br>Take the following example:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span>shouldInitialize<span class="token punctuation">:</span> <span class="token keyword">boolean</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>shouldInitialize<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> x <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> x<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// returns '10'</span>
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword">false</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// returns 'undefined'</span>
+</code></pre>
+<p>Some readers might do a double-take at this example.<br>The variable <code>x</code> was declared <em>within the <code>if</code> block</em>, and yet we were able to access it from outside that block.<br>That’s because <code>var</code> declarations are accessible anywhere within their containing function, module, namespace, or global scope - all which we’ll go over later on - regardless of the containing block.<br>Some people call this <em><code>var</code>-scoping</em> or <em>function-scoping</em>.<br>Parameters are also function scoped.</p>
+<p>These scoping rules can cause several types of mistakes.<br>One problem they exacerbate is the fact that it is not an error to declare the same variable multiple times:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">sumMatrix</span><span class="token punctuation">(</span>matrix<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> matrix<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> currentRow <span class="token operator">=</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> currentRow<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            sum <span class="token operator">+</span><span class="token operator">=</span> currentRow<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> sum<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Maybe it was easy to spot out for some, but the inner <code>for</code>-loop will accidentally overwrite the variable <code>i</code> because <code>i</code> refers to the same function-scoped variable.<br>As experienced developers know by now, similar sorts of bugs slip through code reviews and can be an endless source of frustration.</p>
+<h2 id="Variable-capturing-quirks"><a href="#Variable-capturing-quirks" class="headerlink" title="Variable capturing quirks"></a>Variable capturing quirks</h2><p>Take a quick second to guess what the output of the following snippet is:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">100</span> <span class="token operator">*</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>For those unfamiliar, <code>setTimeout</code> will try to execute a function after a certain number of milliseconds (though waiting for anything else to stop running).</p>
+<p>Ready? Take a look:</p>
+<pre class=" language-text"><code class="language-text">10
+10
+10
+10
+10
+10
+10
+10
+10
+10
+</code></pre>
+<p>Many JavaScript developers are intimately familiar with this behavior, but if you’re surprised, you’re certainly not alone.<br>Most people expect the output to be</p>
+<pre class=" language-text"><code class="language-text">0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+</code></pre>
+<p>Remember what we mentioned earlier about variable capturing?<br>Every function expression we pass to <code>setTimeout</code> actually refers to the same <code>i</code> from the same scope.</p>
+<p>Let’s take a minute to consider what that means.<br><code>setTimeout</code> will run a function after some number of milliseconds, <em>but only</em> after the <code>for</code> loop has stopped executing;<br>By the time the <code>for</code> loop has stopped executing, the value of <code>i</code> is <code>10</code>.<br>So each time the given function gets called, it will print out <code>10</code>!</p>
+<p>A common work around is to use an IIFE - an Immediately Invoked Function Expression - to capture <code>i</code> at each iteration:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">var</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span><span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// capture the current state of 'i'</span>
+    <span class="token comment" spellcheck="true">// by invoking a function with its current value</span>
+    <span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">100</span> <span class="token operator">*</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>This odd-looking pattern is actually pretty common.<br>The <code>i</code> in the parameter list actually shadows the <code>i</code> declared in the <code>for</code> loop, but since we named them the same, we didn’t have to modify the loop body too much.</p>
+<h1 id="let-declarations"><a href="#let-declarations" class="headerlink" title="let declarations"></a><code>let</code> declarations</h1><p>By now you’ve figured out that <code>var</code> has some problems, which is precisely why <code>let</code> statements were introduced.<br>Apart from the keyword used, <code>let</code> statements are written the same way <code>var</code> statements are.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> hello <span class="token operator">=</span> <span class="token string">"Hello!"</span><span class="token punctuation">;</span>
+</code></pre>
+<p>The key difference is not in the syntax, but in the semantics, which we’ll now dive into.</p>
+<h2 id="Block-scoping"><a href="#Block-scoping" class="headerlink" title="Block-scoping"></a>Block-scoping</h2><p>When a variable is declared using <code>let</code>, it uses what some call <em>lexical-scoping</em> or <em>block-scoping</em>.<br>Unlike variables declared with <code>var</code> whose scopes leak out to their containing function, block-scoped variables are not visible outside of their nearest containing block or <code>for</code>-loop.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span>input<span class="token punctuation">:</span> <span class="token keyword">boolean</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> a <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>input<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token comment" spellcheck="true">// Still okay to reference 'a'</span>
+        <span class="token keyword">let</span> b <span class="token operator">=</span> a <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> b<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token comment" spellcheck="true">// Error: 'b' doesn't exist here</span>
+    <span class="token keyword">return</span> b<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Here, we have two local variables <code>a</code> and <code>b</code>.<br><code>a</code>‘s scope is limited to the body of <code>f</code> while <code>b</code>‘s scope is limited to the containing <code>if</code> statement’s block.</p>
+<p>Variables declared in a <code>catch</code> clause also have similar scoping rules.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">try</span> <span class="token punctuation">{</span>
+    <span class="token keyword">throw</span> <span class="token string">"oh no!"</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">catch</span> <span class="token punctuation">(</span><span class="token class-name">e</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">"Oh well."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// Error: 'e' doesn't exist here</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>e<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Another property of block-scoped variables is that they can’t be read or written to before they’re actually declared.<br>While these variables are “present” throughout their scope, all points up until their declaration are part of their <em>temporal dead zone</em>.<br>This is just a sophisticated way of saying you can’t access them before the <code>let</code> statement, and luckily TypeScript will let you know that.</p>
+<pre class=" language-ts"><code class="language-ts">a<span class="token operator">++</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// illegal to use 'a' before it's declared;</span>
+<span class="token keyword">let</span> a<span class="token punctuation">;</span>
+</code></pre>
+<p>Something to note is that you can still <em>capture</em> a block-scoped variable before it’s declared.<br>The only catch is that it’s illegal to call that function before the declaration.<br>If targeting ES2015, a modern runtime will throw an error; however, right now TypeScript is permissive and won’t report this as an error.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// okay to capture 'a'</span>
+    <span class="token keyword">return</span> a<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// illegal call 'foo' before 'a' is declared</span>
+<span class="token comment" spellcheck="true">// runtimes should throw an error here</span>
+<span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token keyword">let</span> a<span class="token punctuation">;</span>
+</code></pre>
+<p>For more information on temporal dead zones, see relevant content on the <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/let#Temporal_dead_zone_and_errors_with_let" target="_blank" rel="external">Mozilla Developer Network</a>.</p>
+<h2 id="Re-declarations-and-Shadowing"><a href="#Re-declarations-and-Shadowing" class="headerlink" title="Re-declarations and Shadowing"></a>Re-declarations and Shadowing</h2><p>With <code>var</code> declarations, we mentioned that it didn’t matter how many times you declared your variables; you just got one.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> x<span class="token punctuation">;</span>
+    <span class="token keyword">var</span> x<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> x<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>In the above example, all declarations of <code>x</code> actually refer to the <em>same</em> <code>x</code>, and this is perfectly valid.<br>This often ends up being a source of bugs.<br>Thankfully, <code>let</code> declarations are not as forgiving.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">20</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error: can't re-declare 'x' in the same scope</span>
+</code></pre>
+<p>The variables don’t necessarily need to both be block-scoped for TypeScript to tell us that there’s a problem.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span>x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error: interferes with parameter declaration</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">function</span> <span class="token function">g</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+    <span class="token keyword">var</span> x <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error: can't have both declarations of 'x'</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>That’s not to say that block-scoped variable can never be declared with a function-scoped variable.<br>The block-scoped variable just needs to be declared within a distinctly different block.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span>condition<span class="token punctuation">,</span> x<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>condition<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> x <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> x<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> x<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword">false</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// returns '0'</span>
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// returns '100'</span>
+</code></pre>
+<p>The act of introducing a new name in a more nested scope is called <em>shadowing</em>.<br>It is a bit of a double-edged sword in that it can introduce certain bugs on its own in the event of accidental shadowing, while also preventing certain bugs.<br>For instance, imagine we had written our earlier <code>sumMatrix</code> function using <code>let</code> variables.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">sumMatrix</span><span class="token punctuation">(</span>matrix<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> sum <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> matrix<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">var</span> currentRow <span class="token operator">=</span> matrix<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> currentRow<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            sum <span class="token operator">+</span><span class="token operator">=</span> currentRow<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> sum<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>This version of the loop will actually perform the summation correctly because the inner loop’s <code>i</code> shadows <code>i</code> from the outer loop.</p>
+<p>Shadowing should <em>usually</em> be avoided in the interest of writing clearer code.<br>While there are some scenarios where it may be fitting to take advantage of it, you should use your best judgement.</p>
+<h2 id="Block-scoped-variable-capturing"><a href="#Block-scoped-variable-capturing" class="headerlink" title="Block-scoped variable capturing"></a>Block-scoped variable capturing</h2><p>When we first touched on the idea of variable capturing with <code>var</code> declaration, we briefly went into how variables act once captured.<br>To give a better intuition of this, each time a scope is run, it creates an “environment” of variables.<br>That environment and its captured variables can exist even after everything within its scope has finished executing.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">theCityThatAlwaysSleeps</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> getCity<span class="token punctuation">;</span>
+
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">let</span> city <span class="token operator">=</span> <span class="token string">"Seattle"</span><span class="token punctuation">;</span>
+        getCity <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            <span class="token keyword">return</span> city<span class="token punctuation">;</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword">return</span> <span class="token function">getCity</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>Because we’ve captured <code>city</code> from within its environment, we’re still able to access it despite the fact that the <code>if</code> block finished executing.</p>
+<p>Recall that with our earlier <code>setTimeout</code> example, we ended up needing to use an IIFE to capture the state of a variable for every iteration of the <code>for</code> loop.<br>In effect, what we were doing was creating a new variable environment for our captured variables.<br>That was a bit of a pain, but luckily, you’ll never have to do that again in TypeScript.</p>
+<p><code>let</code> declarations have drastically different behavior when declared as part of a loop.<br>Rather than just introducing a new environment to the loop itself, these declarations sort of create a new scope <em>per iteration</em>.<br>Since this is what we were doing anyway with our IIFE, we can change our old <code>setTimeout</code> example to just use a <code>let</code> declaration.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> <span class="token number">10</span> <span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>i<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">100</span> <span class="token operator">*</span> i<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>and as expected, this will print out</p>
+<pre class=" language-text"><code class="language-text">0
+1
+2
+3
+4
+5
+6
+7
+8
+9
+</code></pre>
+<h1 id="const-declarations"><a href="#const-declarations" class="headerlink" title="const declarations"></a><code>const</code> declarations</h1><p><code>const</code> declarations are another way of declaring variables.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">const</span> numLivesForCat <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>
+</code></pre>
+<p>They are like <code>let</code> declarations but, as their name implies, their value cannot be changed once they are bound.<br>In other words, they have the same scoping rules as <code>let</code>, but you can’t re-assign to them.</p>
+<p>This should not be confused with the idea that the values they refer to are <em>immutable</em>.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">const</span> numLivesForCat <span class="token operator">=</span> <span class="token number">9</span><span class="token punctuation">;</span>
+<span class="token keyword">const</span> kitty <span class="token operator">=</span> <span class="token punctuation">{</span>
+    name<span class="token punctuation">:</span> <span class="token string">"Aurora"</span><span class="token punctuation">,</span>
+    numLives<span class="token punctuation">:</span> numLivesForCat<span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// Error</span>
+kitty <span class="token operator">=</span> <span class="token punctuation">{</span>
+    name<span class="token punctuation">:</span> <span class="token string">"Danielle"</span><span class="token punctuation">,</span>
+    numLives<span class="token punctuation">:</span> numLivesForCat
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token comment" spellcheck="true">// all "okay"</span>
+kitty<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"Rory"</span><span class="token punctuation">;</span>
+kitty<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"Kitty"</span><span class="token punctuation">;</span>
+kitty<span class="token punctuation">.</span>name <span class="token operator">=</span> <span class="token string">"Cat"</span><span class="token punctuation">;</span>
+kitty<span class="token punctuation">.</span>numLives<span class="token operator">--</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Unless you take specific measures to avoid it, the internal state of a <code>const</code> variable is still modifiable.<br>Fortunately, TypeScript allows you to specify that members of an object are <code>readonly</code>.<br>The <a href="./Interfaces.md">chapter on Interfaces</a> has the details.</p>
+<h1 id="let-vs-const"><a href="#let-vs-const" class="headerlink" title="let vs. const"></a><code>let</code> vs. <code>const</code></h1><p>Given that we have two types of declarations with similar scoping semantics, it’s natural to find ourselves asking which one to use.<br>Like most broad questions, the answer is: it depends.</p>
+<p>Applying the <a href="https://en.wikipedia.org/wiki/Principle_of_least_privilege" target="_blank" rel="external">principle of least privilege</a>, all declarations other than those you plan to modify should use <code>const</code>.<br>The rationale is that if a variable didn’t need to get written to, others working on the same codebase shouldn’t automatically be able to write to the object, and will need to consider whether they really need to reassign to the variable.<br>Using <code>const</code> also makes code more predictable when reasoning about flow of data.</p>
+<p>Use your best judgement, and if applicable, consult the matter with the rest of your team.</p>
+<p>The majority of this handbook uses <code>let</code> declarations.</p>
+<h1 id="Destructuring"><a href="#Destructuring" class="headerlink" title="Destructuring"></a>Destructuring</h1><p>Another ECMAScript 2015 feature that TypeScript has is destructuring.<br>For a complete reference, see <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment" target="_blank" rel="external">the article on the Mozilla Developer Network</a>.<br>In this section, we’ll give a short overview.</p>
+<h2 id="Array-destructuring"><a href="#Array-destructuring" class="headerlink" title="Array destructuring"></a>Array destructuring</h2><p>The simplest form of destructuring is array destructuring assignment:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> input <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> <span class="token punctuation">[</span>first<span class="token punctuation">,</span> second<span class="token punctuation">]</span> <span class="token operator">=</span> input<span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>first<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// outputs 1</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>second<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// outputs 2</span>
+</code></pre>
+<p>This creates two new variables named <code>first</code> and <code>second</code>.<br>This is equivalent to using indexing, but is much more convenient:</p>
+<pre class=" language-ts"><code class="language-ts">first <span class="token operator">=</span> input<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+second <span class="token operator">=</span> input<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Destructuring works with already-declared variables as well:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">// swap variables</span>
+<span class="token punctuation">[</span>first<span class="token punctuation">,</span> second<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span>second<span class="token punctuation">,</span> first<span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre>
+<p>And with parameters to a function:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">[</span>first<span class="token punctuation">,</span> second<span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token keyword">number</span><span class="token punctuation">,</span> <span class="token keyword">number</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>first<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>second<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>You can create a variable for the remaining items in a list using the syntax <code>...</code>:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> <span class="token punctuation">[</span>first<span class="token punctuation">,</span> <span class="token operator">...</span>rest<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>first<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// outputs 1</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>rest<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// outputs [ 2, 3, 4 ]</span>
+</code></pre>
+<p>Of course, since this is JavaScript, you can just ignore trailing elements you don’t care about:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> <span class="token punctuation">[</span>first<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>first<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// outputs 1</span>
+</code></pre>
+<p>Or other elements:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> <span class="token punctuation">[</span><span class="token punctuation">,</span> second<span class="token punctuation">,</span> <span class="token punctuation">,</span> fourth<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="Object-destructuring"><a href="#Object-destructuring" class="headerlink" title="Object destructuring"></a>Object destructuring</h2><p>You can also destructure objects:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> o <span class="token operator">=</span> <span class="token punctuation">{</span>
+    a<span class="token punctuation">:</span> <span class="token string">"foo"</span><span class="token punctuation">,</span>
+    b<span class="token punctuation">:</span> <span class="token number">12</span><span class="token punctuation">,</span>
+    c<span class="token punctuation">:</span> <span class="token string">"bar"</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> <span class="token punctuation">{</span> a<span class="token punctuation">,</span> b <span class="token punctuation">}</span> <span class="token operator">=</span> o<span class="token punctuation">;</span>
+</code></pre>
+<p>This creates new variables <code>a</code> and <code>b</code> from <code>o.a</code> and <code>o.b</code>.<br>Notice that you can skip <code>c</code> if you don’t need it.</p>
+<p>Like array destructuring, you can have assignment without declaration:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token punctuation">(</span><span class="token punctuation">{</span> a<span class="token punctuation">,</span> b <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token punctuation">{</span> a<span class="token punctuation">:</span> <span class="token string">"baz"</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token number">101</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Notice that we had to surround this statement with parentheses.<br>JavaScript normally parses a <code>{</code> as the start of block.</p>
+<p>You can create a variable for the remaining items in an object using the syntax <code>...</code>:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> <span class="token punctuation">{</span> a<span class="token punctuation">,</span> <span class="token operator">...</span>passthrough <span class="token punctuation">}</span> <span class="token operator">=</span> o<span class="token punctuation">;</span>
+<span class="token keyword">let</span> total <span class="token operator">=</span> passthrough<span class="token punctuation">.</span>b <span class="token operator">+</span> passthrough<span class="token punctuation">.</span>c<span class="token punctuation">.</span>length<span class="token punctuation">;</span>
+</code></pre>
+<h3 id="Property-renaming"><a href="#Property-renaming" class="headerlink" title="Property renaming"></a>Property renaming</h3><p>You can also give different names to properties:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> <span class="token punctuation">{</span> a<span class="token punctuation">:</span> newName1<span class="token punctuation">,</span> b<span class="token punctuation">:</span> newName2 <span class="token punctuation">}</span> <span class="token operator">=</span> o<span class="token punctuation">;</span>
+</code></pre>
+<p>Here the syntax starts to get confusing.<br>You can read <code>a: newName1</code> as “<code>a</code> as <code>newName1</code>“.<br>The direction is left-to-right, as if you had written:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> newName1 <span class="token operator">=</span> o<span class="token punctuation">.</span>a<span class="token punctuation">;</span>
+<span class="token keyword">let</span> newName2 <span class="token operator">=</span> o<span class="token punctuation">.</span>b<span class="token punctuation">;</span>
+</code></pre>
+<p>Confusingly, the colon here does <em>not</em> indicate the type.<br>The type, if you specify it, still needs to be written after the entire destructuring:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> <span class="token punctuation">{</span> a<span class="token punctuation">,</span> b <span class="token punctuation">}</span><span class="token punctuation">:</span> <span class="token punctuation">{</span> a<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token punctuation">}</span> <span class="token operator">=</span> o<span class="token punctuation">;</span>
+</code></pre>
+<h3 id="Default-values"><a href="#Default-values" class="headerlink" title="Default values"></a>Default values</h3><p>Default values let you specify a default value in case a property is undefined:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">keepWholeObject</span><span class="token punctuation">(</span>wholeObject<span class="token punctuation">:</span> <span class="token punctuation">{</span> a<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">,</span> b<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> <span class="token punctuation">{</span> a<span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">1001</span> <span class="token punctuation">}</span> <span class="token operator">=</span> wholeObject<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p><code>keepWholeObject</code> now has a variable for <code>wholeObject</code> as well as the properties <code>a</code> and <code>b</code>, even if <code>b</code> is undefined.</p>
+<h2 id="Function-declarations"><a href="#Function-declarations" class="headerlink" title="Function declarations"></a>Function declarations</h2><p>Destructuring also works in function declarations.<br>For simple cases this is straightforward:</p>
+<pre class=" language-ts"><code class="language-ts">type C <span class="token operator">=</span> <span class="token punctuation">{</span> a<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">,</span> b<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">{</span> a<span class="token punctuation">,</span> b <span class="token punctuation">}</span><span class="token punctuation">:</span> C<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>But specifying defaults is more common for parameters, and getting defaults right with destructuring can be tricky.<br>First of all, you need to remember to put the pattern before the default value.</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">{</span> a<span class="token punctuation">,</span> b <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token punctuation">{</span> a<span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token number">0</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span>
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ok, default to { a: "", b: 0 }</span>
+</code></pre>
+<blockquote>
+<p>The snippet above is an example of type inference, explained later in the handbook.</p>
+</blockquote>
+<p>Then, you need to remember to give a default for optional properties on the destructured property instead of the main initializer.<br>Remember that <code>C</code> was defined with <code>b</code> optional:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">{</span> a<span class="token punctuation">,</span> b <span class="token operator">=</span> <span class="token number">0</span> <span class="token punctuation">}</span> <span class="token operator">=</span> <span class="token punctuation">{</span> a<span class="token punctuation">:</span> <span class="token string">""</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span>
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">{</span> a<span class="token punctuation">:</span> <span class="token string">"yes"</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ok, default b = 0</span>
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ok, default to { a: "" }, which then defaults b = 0</span>
+<span class="token function">f</span><span class="token punctuation">(</span><span class="token punctuation">{</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error, 'a' is required if you supply an argument</span>
+</code></pre>
+<p>Use destructuring with care.<br>As the previous example demonstrates, anything but the simplest destructuring expression is confusing.<br>This is especially true with deeply nested destructuring, which gets <em>really</em> hard to understand even without piling on renaming, default values, and type annotations.<br>Try to keep destructuring expressions small and simple.<br>You can always write the assignments that destructuring would generate yourself.</p>
+<h2 id="Spread"><a href="#Spread" class="headerlink" title="Spread"></a>Spread</h2><p>The spread operator is the opposite of destructuring.<br>It allows you to spread an array into another array, or an object into another object.<br>For example:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> first <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> second <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> bothPlus <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">,</span> <span class="token operator">...</span>first<span class="token punctuation">,</span> <span class="token operator">...</span>second<span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+</code></pre>
+<p>This gives bothPlus the value <code>[0, 1, 2, 3, 4, 5]</code>.<br>Spreading creates a shallow copy of <code>first</code> and <code>second</code>.<br>They are not changed by the spread.</p>
+<p>You can also spread objects:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> defaults <span class="token operator">=</span> <span class="token punctuation">{</span> food<span class="token punctuation">:</span> <span class="token string">"spicy"</span><span class="token punctuation">,</span> price<span class="token punctuation">:</span> <span class="token string">"$$"</span><span class="token punctuation">,</span> ambiance<span class="token punctuation">:</span> <span class="token string">"noisy"</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> search <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span>defaults<span class="token punctuation">,</span> food<span class="token punctuation">:</span> <span class="token string">"rich"</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Now <code>search</code> is <code>{ food: &quot;rich&quot;, price: &quot;$$&quot;, ambiance: &quot;noisy&quot; }</code>.<br>Object spreading is more complex than array spreading.<br>Like array spreading, it proceeds from left-to-right, but the result is still an object.<br>This means that properties that come later in the spread object overwrite properties that come earlier.<br>So if we modify the previous example to spread at the end:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> defaults <span class="token operator">=</span> <span class="token punctuation">{</span> food<span class="token punctuation">:</span> <span class="token string">"spicy"</span><span class="token punctuation">,</span> price<span class="token punctuation">:</span> <span class="token string">"$$"</span><span class="token punctuation">,</span> ambiance<span class="token punctuation">:</span> <span class="token string">"noisy"</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> search <span class="token operator">=</span> <span class="token punctuation">{</span> food<span class="token punctuation">:</span> <span class="token string">"rich"</span><span class="token punctuation">,</span> <span class="token operator">...</span>defaults <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Then the <code>food</code> property in <code>defaults</code> overwrites <code>food: &quot;rich&quot;</code>, which is not what we want in this case.</p>
+<p>Object spread also has a couple of other surprising limits.<br>First, it only includes an objects’<br><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Enumerability_and_ownership_of_properties" target="_blank" rel="external">own, enumerable properties</a>.<br>Basically, that means you lose methods when you spread instances of an object:</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">class</span> <span class="token class-name">C</span> <span class="token punctuation">{</span>
+  p <span class="token operator">=</span> <span class="token number">12</span><span class="token punctuation">;</span>
+  <span class="token function">m</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">let</span> c <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">C</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword">let</span> clone <span class="token operator">=</span> <span class="token punctuation">{</span> <span class="token operator">...</span>c <span class="token punctuation">}</span><span class="token punctuation">;</span>
+clone<span class="token punctuation">.</span>p<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// ok</span>
+clone<span class="token punctuation">.</span><span class="token function">m</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// error!</span>
+</code></pre>
+<p>Second, the Typescript compiler doesn’t allow spreads of type parameters from generic functions.<br>That feature is expected in future versions of the language.</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="#">« 无</a></span>
+  <span class="right"><a href="/2018/05/25/online-ts-4/">Interfaces »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月25日 17:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-ts-3
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+
