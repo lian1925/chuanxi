@@ -1,0 +1,353 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>EOS.IO DAWN 2.0 Released &amp; Development Update | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/EOS/">
+            EOS
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/EOS/">
+              EOS
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/26/online-pxt-19/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="#">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/26/online-pxt-19/">
+                    Extension【扩展】 Approval【批准】
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="#">
+                    无
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>EOS.IO DAWN 2.0 Released &amp; Development Update</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月27日 10:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>EOS.IO Dawn 2.0 has been released along with a public test network which will be maintained by the block.one team. This release provides an Alpha implementation of most of the remaining features described in our Roadmap for Fall 2017 and originally targeted for completion by December 21, 2017. As published in our Roadmap, “Phase 2 — Minimal Viable Test Network” was to demonstrate the following by Fall 2017:</p>
+<p>P2P Network Code<br>Wasm Sanitation &amp; CPU Sandboxing<br>Resource Usage Tracking / Rate Limiting<br>Genesis Import Testing<br>Inter-Blockchain Communication<br>At this time, we have achieved the initial implementation of most of these features; however, due to parallel development paths our implementation of Inter-Blockchain Communication exists on a separate branch that will not be used for the initial test network.</p>
+<p>Those interested in performance-testing our EOS.IO Dawn 2.0 release will find that all blockchain and network code necessary to launch and operate a private network can be found in our Github repository. Our internal testing shows we can sustain several thousand transfers per second and 1 second blocks using our single-threaded implementation on average hardware. That said, there are known attack vectors for which we have unimplemented solutions. For example, compilation of new contracts for the first time can take up to 34ms, which if exploited could cause the network to fragment at transaction rates over 30 TPS.</p>
+<p>Our solution for this issue is to place limits on the frequency with which contract code can be updated, as well as a time delay between when code is updated and when transactions using that new code can be processed. This time delay will be on the order of 60 seconds to allow all block producers time to compile/cache the optimized x86 instructions from the web assembly.</p>
+<p>Because of these outstanding attack vectors, performance testing will remain a task for private test networks, but feature testing can now be performed on a public test network which we are artificially limiting to 30 TPS to ensure uptime and access.</p>
+<p>Over the next 6 months, we will be continuously testing and debugging the network to improve stability and performance.</p>
+<p>New Features in Dawn 2.0<br>Genesis Import Testing<br>We have implemented a snapshot tool that will import initial state based upon the EOS ERC-20 token distribution on the Ethereum network. Our test network will only include balances which registered a valid EOS public key. About 20% of ERC-20 tokens have been properly registered to an EOS public key. Our snapshot tool also implements a fallback tool for all unregistered ERC-20 tokens held by an Ethereum account for which we can recover a public key from signed ethereum transactions. This covers 99% of all EOS ERC-20 tokens, but will require importing your Ethereum private key into your EOS.IO wallet.</p>
+<p>For security purposes, our test network will not ask users to import their Ethereum private keys recovered via the fallback process. If your EOS private key is compromised while testing, you can always register a new key on the Ethereum network.</p>
+<p>Token Faucets<br>We have also implemented a “faucet” facility to allow testing of the network by those who do not hold tokens or have not yet registered a valid EOS public key.</p>
+<p>Resource Usage &amp; Rate Limiting<br>We have implemented basic rate limiting and resource usage tracking. This tracks bandwidth, database storage, and computational usage. At this time there are some known bugs with our rate limiting algorithm, but nothing that should interfere with testing and developing of applications.</p>
+<p>We know that many people have been asking for more information about how rate limiting will operate, who will be billed, and how they can lease their staked tokens for income.</p>
+<p>Bandwidth<br>All transactions consume some of the maximum network bandwidth as configured by the block producers. All accounts whose authority is required for the transaction will have their 3-day average bandwidth incremented based upon the size of the transaction. Bandwidth will require the authorizing account (not the contract) to have staked tokens or to be delegated staked tokens by the application provider.</p>
+<p>Computational Bandwidth<br>All transactions consume some computation. Computation can be executed in parallel, so it can be viewed as a multi-lane highway with each lane having different congestion. Each scope (lane) will have its own independent rate limit and a user will be billed O(S²) for the number of simultaneous scopes (lanes) requested and rate limited based upon the most congested scope.</p>
+<p>Database Storage<br>EOS.IO contracts have access to an in-memory database where they can store application state. The contract is billed based upon the total data they store plus a constant overhead factor for each independent database entry. This in-memory database is independent and separate from the EOS.IO Storage protocol for decentralized bulk hosting and storage.</p>
+<p>P2P Network Code<br>We have a basic implementation of mesh network code that is being demonstrated by our public test network. Block.one is operating 21 independent servers each with one of the initial producers configured.</p>
+<p>EOS Dawn 3.0<br>EOS Dawn 3.0 will re-introduce horizontal scaling of single chains and infinite scaling via secure inter-blockchain communication. With these two features there will be no limit to what can be built on blockchain technology, nor for how decentralized the network of blockchains can become.</p>
+<p>Infinite Scaling and Infinite Decentralization<br>The holy grail of blockchain technology is to enable secure communication between two independent blockchains without requiring both blockchains to validate everything on the other blockchain. This requires making one blockchain a light-client of another blockchain.</p>
+<p>Light clients authenticate transactions using only the block headers and merkle proofs. EOS.IO will be the first proof-of-stake protocol with support for light client validation. More importantly, it will be the only one capable of generating proof-of-completeness. This means it will be possible to prove you have received all relevant prior messages from another chain in order without having a waiting/challenge period.</p>
+<p>Whereas traditionally light clients have to process all block headers, EOS.IO will enable light clients that only have to process block headers when producers change or when a new message is required from a more recent block. This will enable efficient infrequent communication between chains along with frequent communication. In the worst case, the overhead of two blockchains communicating every 500 ms will be about 2 transactions per second above the total number of messages sent.</p>
+<p>Under this model, the communication will be secured so long as at least ⅓ of producers are honest. Furthermore, if even one producer is corrupt they can be automatically punished if they sign any message that could potentially corrupt a light client (aka foreign blockchain).</p>
+<p>Lastly, the round-trip time for communicating to another blockchain depends upon the latency until irreversibility of each chain. An EOS.IO based chains will be able to send a message to a foreign EOS.IO chain and get a cryptographically verified response in under 3 seconds.</p>
+<p>This level of interchain communication and security enables the creation of two-way pegs between chains with very low latency. While the two-way peg is the most obvious example, any business-to-business communication can be performed using this same method.</p>
+<p>Public / Private Communication<br>With interchain communication it will be possible for private blockchains to have secure two-way communication with public blockchains. This enables all kinds of blockchain applications which are not well suited to the public nature of traditional blockchains. For example, someone could create the Swiss-Bank of blockchains that is super secret to everyone but the bank owners and the individuals.</p>
+<p>Development Progress<br>In order to deliver our public test network, we divided our development into two parallel paths so that we could refactor significant portions of our code for readability, performance, and inter-blockchain communication. This refactoring work has been occurring in the eos-noon branch.</p>
+<p>In past updates we indicated our intention to focus on shared-memory architectures so that developers could easily perform synchronous read-access and atomic transactions with other contracts. The consequence of this approach was a loss of horizontal scaling beyond a single high end machine.</p>
+<p>With EOS Dawn 3.0 we will be restoring the ability to do multi-machine horizontal scaling by use of up to 65,000 different regions. All regions will share the same accounts and contract code, but have independent in memory databases. Contracts within one region must use asynchronous transactions to communicate with their counterparts in other regions. With this architecture a single block producer could be implemented as a cluster.</p>
+<p>Working Integration with Apple’s Secure Enclave<br>In our last update we announced our intention to support the same elliptic curve used by Apple, Android, and many smart cards. Our eos-noon branch now includes a fully functional proof-of-concept where messages are signed and verified using Touch ID (and also Face ID) on the latest MacBook Pro’s. Similar code also works on native iPhone applications. This means that EOS.IO based mobile applications will be among the most secure blockchain wallets known.</p>
+<p>Furthermore, the eos-noon branch has now integrated this support for multiple signature types which means it is possible to use secure enclave to sign transactions which will be validated on eos-noon.</p>
+<p>500 ms Block Confirmation<br>On our eos-noon branch we have implemented a number of changes to the underlying DPOS framework to support 500 ms blocks (2 blocks every second). This change will dramatically increase the responsiveness of decentralized applications. To achieve this we have introduced some changes in how block scheduling occurs.</p>
+<p>The same producer will now produce 12 blocks in a row before handing off to the next producer. This solves the single biggest bottleneck on block production which is producer-to-producer handoff. Under the new structure unexpected latency may cause a few blocks to be missed every time there is a hand off, but between handoffs there should be very fast confirmation. We will be experimenting with different hand-off periods. The longer the handoff period the fewer missed blocks during normal operation, but the longer the outage will be if a single node goes down. With 500ms and hand off every 12 blocks, the “down time” is no worse than when a single producer misses a single block on Steem and BitShares. In this event it could take 6 seconds for first confirmation.</p>
+<p>Removing Runner Up Producers<br>Inter-blockchain communication requires light clients to keep track of all blocks where the set of active producers changes. The “runner up producer list” causes a new producer to be added or removed every minute which forces light clients to process at least one block header per minute, if not more. In order to reduce the frequency of producer set changes we have changed block scheduling to only include the top 21 producers. We are considering offering some kind of stand-by pay for the runner ups, but they will not actually be tasked with producing blocks.</p>
+<p>One Second Irreversibility<br>Every block producer will sign every block which will enable a block to be marked irreversible as soon as ⅔+ producers have signed it. Producers are only allowed to sign one block header per block height. This means that in the event of a fork producers cannot sign blocks at the same height on both forks. Any such a signature will be cryptographic proof of misbehavior of a producer which can be dealt with by a number of methods including automatic loss of producer position, potential loss of bond, and potentially liability for damages under arbitration.</p>
+<p>Unlike other protocols which gather ⅔+ signatures before the next block can be produced, EOS DPOS does optimistic pipelining that allows the blockchain to advance in “pending state” while the signatures are gathered. These additional signatures occur outside the blockchain and can be pruned after a block becomes irreversible under traditional DPOS rules of Steem or BitShares.</p>
+<p>Under this model, it is possible to achieve byzantine fault tolerance because it is impossible for any block to receive ⅔+ signatures without cryptographic evidence of the byzantine nodes.</p>
+<p>Removing Producer Schedule Shuffling<br>In order to minimize the number of missed blocks during producer handoff, it is desirable to minimize the latency between consecutive producers. If a producer in New York is scheduled to follow a producer in China it may take 250ms to receive a block under normal conditions (50% of block interval) and potentially much longer if there is network congestion. A producer in New York and Texas on the other hand would only have 50ms of latency (10% of block interval). This means there is a significantly lower probability of missing blocks during a handoff from New York to Texas than from New York to China.</p>
+<p>If we schedule block production such that it rotates from New York, to Texas, to California, to Hawaii, to Japan, China, India, Israel, Italy, England, Iceland, and back to New York then there is never a hand off of more than 50 to 100ms. However if the order is randomized then the average hand off will be significantly higher.</p>
+<p>Producer shuffling was introduced to minimize the potential of one producer to pick on a subsequent producer. This risk was in a world where producers were presumed to be potentially malicious, but in the world of highly vetted, public, producers with high quality data centers it no longer makes sense. There is a constitution and expected level of behavior along with a process for resolving disputes in the event one producer intentionally harms his neighbor.</p>
+<p>Under EOS the producers will vote on the production rotation order in a way that minimizes average latency and minimizes total missed blocks due to Internet network congestion.</p>
+<p>Known Issues<br>There are a number of known issues with EOS Dawn 2.0 and it is expected for there to be significant instability with this early release. The purpose of this release is to demonstrate a basic capability and our team will be ironing out bugs and improving stability and performance over the the next 6 months.</p>
+<p>In order to support stability of the test network, we have disabled producer voting.</p>
+<p>Conclusion<br>We would like to thank our development team for working around the clock and around the globe to build and deliver EOS Dawn 2.0, an alpha version of what will become the most robust, highest performance, most decentralized application platform available. We are executing according to our published roadmap and delivering more features and capabilities than originally planned. We look forward to 2018 and are confident that all features will be complete and bugs resolved by the time the EOS token distribution is concluded.</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/25/online-eos-23/">« Developing...</a></span>
+  <span class="right"><a href="/2018/05/21/online-eos-18/">Tic Tac To... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月27日 10:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-eos-25
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

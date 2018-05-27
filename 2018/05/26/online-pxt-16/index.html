@@ -1,0 +1,376 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>pxt.json Manual【手动】 Page | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/PXT/">
+            PXT
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/PXT/">
+              PXT
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/26/online-pxt-15/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/26/online-pxt-17/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/26/online-pxt-15/">
+                    Building【构建】 your own【自己】 package
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/26/online-pxt-17/">
+                    Package Versioning【版本】
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>pxt.json Manual【手动】 Page</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月26日 12:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>A <a href="/packages">PXT package</a> lives in its own directory【目录】, locally【本地】 under <code>libs/</code> in a PXT target【目标】. A package<br>is described【描述】 by the <code>pxt.json</code> file. To show a real example, here is the <a href="https://github.com/Microsoft/pxt-neopixel/blob/master/pxt.json" target="_blank" rel="external">pxt.json</a> file for the <strong>pxt-neopixel</strong> package.</p>
+<p>The <code>pxt.json</code> is described by the interface <code>PackageConfig</code> in <a href="https://github.com/Microsoft/pxt/blob/master/localtypings/pxtpackage.d.ts#L15-L43" target="_blank" rel="external">pxtpackage.d.ts</a>:</p>
+<pre class=" language-typescript-ignore"><code class="language-typescript-ignore">interface PackageConfig {
+    name: string;                 // public:true -> name must match ^[a-z][a-z0-9\-_]+
+    description?: string;         // longer description of package
+    license?: string;             // name of license (as found on github)
+    authors?: string[];      
+
+    files: string[];              // files to be included and compiled in package
+    additionalFilePath?: string;  // another directory to find files from
+
+    dependencies: Map<string>;    // package dependencies (see below for more)
+    public?: boolean;             // set true to enable the package to be published (to cloud),
+                                    // in support of publishing user scripts
+
+    icon?: string;                // url to icon -- support for built-in packages only
+    card?: CodeCard;
+    documentation?: string; // doc page to open when loading project
+
+    // semver description for support target version
+    version?: string;
+    installedVersion?: string;
+    targetVersions?: TargetVersions; // versions of the target/pxt the package was compiled against
+
+    testFiles?: string[];
+    testDependencies?: string[];
+    simFiles?: string[];
+
+    binaryonly?: boolean;
+    platformio?: PlatformIOConfig;
+    yotta?: YottaConfig;
+
+
+    gistId?: string;
+}
+</code></pre>
+<h2 id="dependencies-on-other-packages"><a href="#dependencies-on-other-packages" class="headerlink" title="dependencies (on other packages)"></a>dependencies (on other packages)</h2><p>Simple packages generally just depend on their own target’s core package:</p>
+<pre class=" language-typescript-ignore"><code class="language-typescript-ignore">    "dependencies": {
+        "core": "file:../core"
+    }
+</code></pre>
+<p>A number of targets use <a href="https://github.com/Microsoft/pxt-common-packages" target="_blank" rel="external"><strong>pxt-common-packages</strong></a> and specialize<br>them to fit their target’s needs. For example, the Adafruit Circuit Playground Express<br><a href="https://github.com/Microsoft/pxt-adafruit/blob/master/libs/circuit-playground/pxt.json" target="_blank" rel="external">package</a> is the union of a number of packages. </p>
+<pre class=" language-typescript-ignore"><code class="language-typescript-ignore">    "dependencies": {
+        "base": "file:../base",
+        "core": "file:../core",
+        "buttons": "file:../buttons",
+        "accelerometer": "file:../accelerometer",
+        "lightsensor": "file:../lightsensor",
+        "thermometer": "file:../thermometer",
+        "music": "file:../music",
+        "light": "file:../light",
+        "switch": "file:../switch",
+        "infrared": "file:../infrared",
+        "microphone": "file:../microphone",
+        "touch": "file:../touch"
+    }
+</code></pre>
+<p>Each of the above packages is local to the target but inherits code from <strong>pxt-common-packages</strong>,<br>which it can then override or specialize, as the target needs. For example, the button <a href="https://github.com/Microsoft/pxt-adafruit/blob/master/libs/buttons/pxt.json" target="_blank" rel="external">package</a><br>in the target <a href="https://github.com/Microsoft/pxt-adafruit" target="_blank" rel="external"><strong>pxt-adafruit</strong></a> is defined in terms of the button <a href="https://github.com/Microsoft/pxt-common-packages/blob/master/libs/buttons/pxt.json" target="_blank" rel="external">package</a> from<br><strong>pxt-common-packages</strong> using the <code>additionalFilePath</code> field:</p>
+<pre class=" language-typescript-ignore"><code class="language-typescript-ignore">{
+    "description": "Button A and B drivers",
+    "additionalFilePath": "../../node_modules/pxt-common-packages/libs/buttons"
+}
+</code></pre>
+<p>The <code>additionalFilePath</code> field refers to the <code>node_modules</code> directory of the target.<br>The <code>pxt.json</code> file need to only specify what’s changed (in the example above <code>description</code>)<br>with respect to the <code>pxt.json</code> in <code>additionalFilePath</code>.</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/26/online-pxt-15/">« Building【构...</a></span>
+  <span class="right"><a href="/2018/05/26/online-pxt-17/">Package Ve... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月26日 12:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-pxt-16
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+
