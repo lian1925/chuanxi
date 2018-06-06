@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>Embedding resources in projects | 小沙丘的网络漫游记</title>
+  <title>Embedding【嵌入】 resources【资源】 in projects【项目】 | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -100,7 +100,7 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/05/26/online-pxt-13/">
-                    Theming
+                    Theming【主题】
                 </a>
         </P>
         <P>下一篇：
@@ -114,7 +114,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>Embedding resources in projects</h1>
+<h1>Embedding【嵌入】 resources【资源】 in projects【项目】</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -127,7 +127,7 @@ if(isiOS){
 
   
   <div class="page">
-      <h1 id="Embedding-resources-in-projects"><a href="#Embedding-resources-in-projects" class="headerlink" title="Embedding resources in projects"></a>Embedding resources in projects</h1><p>Let’s say you want to add some sound resources.</p>
+      <p>Let’s say you want to add some sound resources.</p>
 <p>In <code>mysounds.ts</code> you put definitions of constants for all sounds. You pass an empty<br>hex literal to the constructor - it will be replaced with the data from <code>sounds.jres</code><br>file, based on the <code>jres=...</code> annotation. The <code>jres=...</code> also implies <code>whenUsed</code>, ie., the<br>sound object will only be created if it is actually referenced from somewhere.</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">namespace sfx {
     //% fixedInstance jres=sounds.bark
@@ -153,7 +153,7 @@ if(isiOS){
 <span class="token punctuation">}</span>
 </code></pre>
 <p>Currently, only <code>base64</code> is supported as data encoding. If you skip <code>dataEncoding</code> in the <code>.jres</code> file,<br>it will now and in future default to <code>base64</code>.</p>
-<h2 id="Short-forms"><a href="#Short-forms" class="headerlink" title="Short forms"></a>Short forms</h2><p>In case, there’s only the <code>&quot;data&quot;</code> field present, the file can be shortened:</p>
+<h2 id="Short【简短】-forms"><a href="#Short【简短】-forms" class="headerlink" title="Short【简短】 forms"></a>Short【简短】 forms</h2><p>In case, there’s only the <code>&quot;data&quot;</code> field present, the file can be shortened:</p>
 <pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
     <span class="token property">"*"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
         <span class="token property">"namespace"</span><span class="token operator">:</span> <span class="token string">"images"</span><span class="token punctuation">,</span>
@@ -170,7 +170,7 @@ if(isiOS){
     export const eyes = new Image(hex ``) 
 }
 </code></pre>
-<h2 id="Building-JRES-files"><a href="#Building-JRES-files" class="headerlink" title="Building JRES files"></a>Building JRES files</h2><p>The <a href="/cli">command line</a> provides a command, <code>buildjres</code> that will automatically expand files into a jres resource.</p>
+<h2 id="Building【创建】-JRES-files"><a href="#Building【创建】-JRES-files" class="headerlink" title="Building【创建】 JRES files"></a>Building【创建】 JRES files</h2><p>The <a href="/cli">command line</a> provides a command, <code>buildjres</code> that will automatically expand files into a jres resource.</p>
 <ul>
 <li>create a jres file with empty resources</li>
 </ul>
@@ -193,8 +193,8 @@ if(isiOS){
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/05/26/online-pxt-13/">« Theming</a></span>
-  <span class="right"><a href="/2018/05/26/online-pxt-15/">Building【构 »</a></span>
+  <span class="left"><a href="/2018/05/26/online-pxt-13/">« Theming【主题...</a></span>
+  <span class="right"><a href="/2018/05/26/online-pxt-15/">Building【构... »</a></span>
 </p>
 
 <!-- 文档信息 -->

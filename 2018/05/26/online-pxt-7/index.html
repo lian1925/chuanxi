@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>Accessibility | 小沙丘的网络漫游记</title>
+  <title>Accessibility【可接入】 | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -100,13 +100,13 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/05/26/online-pxt-6/">
-                    Blockly Upgrade
+                    Blockly【块】 Upgrade【升级】
                 </a>
         </P>
         <P>下一篇：
 
                 <a href="/2018/05/26/online-pxt-8/">
-                    pxtarget.json Manual Page
+                    pxtarget.json Manual【手动】 Page
                 </a>
         </P>
     </div>
@@ -114,7 +114,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>Accessibility</h1>
+<h1>Accessibility【可接入】</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -127,12 +127,12 @@ if(isiOS){
 
   
   <div class="page">
-      <h1 id="Accessibility"><a href="#Accessibility" class="headerlink" title="Accessibility"></a>Accessibility</h1><p>Accessibility features are included as a core part of <strong>Microsoft MakeCode</strong>. Any MakeCode target can extend accessibility to itself by following the recommendations provided in this guide.</p>
-<h2 id="Being-responsible"><a href="#Being-responsible" class="headerlink" title="Being responsible"></a>Being responsible</h2><p>We can ensure that MakeCode achieves it’s accessibility goals only if every contributor is responsible to ensure the accessibility of their own features or changes. The guidance given here will help you know what is important and what to keep in mind while designing and developing for MakeCode.</p>
-<h2 id="Accessible-Rich-Internet-Applications-WAI-ARIA-1-1"><a href="#Accessible-Rich-Internet-Applications-WAI-ARIA-1-1" class="headerlink" title="Accessible Rich Internet Applications (WAI-ARIA) 1.1"></a>Accessible Rich Internet Applications (WAI-ARIA) 1.1</h2><p><a href="http://www.w3.org/TR/wai-aria-1.1/" target="_blank" rel="external">WAI-ARIA</a> is the specification that describes the standard support for accessibility in web apps. It defines a set of best practices and available markup extensions (mostly as attributes for HTML5 elements) which are used to make web pages accessible with keyboards and screen readers.</p>
+      <p>Accessibility features are included as a core part of <strong>Microsoft MakeCode</strong>. Any MakeCode target can extend accessibility to itself by following the recommendations provided in this guide.</p>
+<h2 id="Being-responsible【责任】"><a href="#Being-responsible【责任】" class="headerlink" title="Being responsible【责任】"></a>Being responsible【责任】</h2><p>We can ensure that MakeCode achieves it’s accessibility goals only if every contributor is responsible to ensure the accessibility of their own features or changes. The guidance given here will help you know what is important and what to keep in mind while designing and developing for MakeCode.</p>
+<h2 id="Accessible-Rich-Internet【复互联网】-Applications-WAI-ARIA-1-1"><a href="#Accessible-Rich-Internet【复互联网】-Applications-WAI-ARIA-1-1" class="headerlink" title="Accessible Rich Internet【复互联网】 Applications (WAI-ARIA) 1.1"></a>Accessible Rich Internet【复互联网】 Applications (WAI-ARIA) 1.1</h2><p><a href="http://www.w3.org/TR/wai-aria-1.1/" target="_blank" rel="external">WAI-ARIA</a> is the specification that describes the standard support for accessibility in web apps. It defines a set of best practices and available markup extensions (mostly as attributes for HTML5 elements) which are used to make web pages accessible with keyboards and screen readers.</p>
 <p>The WAI-ARIA specification provides a standards and guidance for keyboard navigation that combines the use of HTML and JavaScript. Most of the ARIA markup extensions for HTML5 elements define how a screen reader must react when the user is focused on the element.</p>
 <p>For example, often a DIV element is clickable and visually looks like a button or menu. The ARIA markup extension provides additional information to the user such as the role of the DIV (is it a button, a menu item, a header?), the description, and how to interact with it.</p>
-<h2 id="What-to-consider-when-editing-MakeCode"><a href="#What-to-consider-when-editing-MakeCode" class="headerlink" title="What to consider when editing MakeCode"></a>What to consider when editing MakeCode</h2><ul>
+<h2 id="What-to-consider【考虑】-when-editing-MakeCode"><a href="#What-to-consider【考虑】-when-editing-MakeCode" class="headerlink" title="What to consider【考虑】 when editing MakeCode"></a>What to consider【考虑】 when editing MakeCode</h2><ul>
 <li>Many of the SUI (available in <a href="https://github.com/Microsoft/pxt/blob/master/webapp/src/sui.tsx" target="_blank" rel="external">sui.tsx</a>) elements are already accessible, such as the buttons, code cards, modals. But for some other elements, like hyperlinks, which do not have a SUI implementation, you will have to make them accessible yourself.</li>
 <li>You might want to include new libraries in PXT, or one of the targets, to quickly add a new feature (like charts, a grid, etc.). You are now required to include accessibility as design consideration when including or developing libraries. If a library you wish to use is not accessible, find an alternative one or consider adding the required accessibility features to it.</li>
 <li>As a general rule, you can expect an additional 5% to 15% of development time for adding the necessary accessibility features to a library you create or modify for your use.</li>
@@ -143,14 +143,14 @@ if(isiOS){
 <li><a href="/develop/accessibility/accessibility-screen-reader">Assistive technologies</a></li>
 <li><a href="/develop/accessibility/accessibility-high-contrast">High contrast</a></li>
 </ul>
-<h2 id="Testing-the-accessibility-features"><a href="#Testing-the-accessibility-features" class="headerlink" title="Testing the accessibility features"></a>Testing the accessibility features</h2><p>When you do your changes on the accessibility, be sure to do the right tests.<br><a href="/develop/accessibility/accessibility-testing">How to test the accessibility features and what to test</a></p>
+<h2 id="Testing【测试】-the-accessibility-features"><a href="#Testing【测试】-the-accessibility-features" class="headerlink" title="Testing【测试】 the accessibility features"></a>Testing【测试】 the accessibility features</h2><p>When you do your changes on the accessibility, be sure to do the right tests.<br><a href="/develop/accessibility/accessibility-testing">How to test the accessibility features and what to test</a></p>
 
   </div>
 </div>
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/05/26/online-pxt-6/">« Blockly Up...</a></span>
+  <span class="left"><a href="/2018/05/26/online-pxt-6/">« Blockly【块】...</a></span>
   <span class="right"><a href="/2018/05/26/online-pxt-8/">pxtarget.j... »</a></span>
 </p>
 

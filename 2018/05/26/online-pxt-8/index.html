@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>pxtarget.json Manual Page | 小沙丘的网络漫游记</title>
+  <title>pxtarget.json Manual【手动】 Page | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -100,13 +100,13 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/05/26/online-pxt-7/">
-                    Accessibility
+                    Accessibility【可接入】
                 </a>
         </P>
         <P>下一篇：
 
                 <a href="/2018/05/26/online-pxt-9/">
-                    Defining blocks
+                    Defining【定义】 blocks【块】
                 </a>
         </P>
     </div>
@@ -114,7 +114,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>pxtarget.json Manual Page</h1>
+<h1>pxtarget.json Manual【手动】 Page</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -127,31 +127,31 @@ if(isiOS){
 
   
   <div class="page">
-      <h1 id="pxtarget-json-Manual-Page"><a href="#pxtarget-json-Manual-Page" class="headerlink" title="pxtarget.json Manual Page"></a>pxtarget.json Manual Page</h1><p>A PXT target is described by a <code>pxtarget.json</code> JSON file.<br>Here are two examples of <code>pxtarget.json</code> files, one simple and one more complex:</p>
+      <h1 id="pxtarget-json-Manual-Page"><a href="#pxtarget-json-Manual-Page" class="headerlink" title="pxtarget.json Manual Page"></a>pxtarget.json Manual Page</h1><p>A PXT target is described【描述】 by a <code>pxtarget.json</code> JSON file.<br>Here are two examples【示例】 of <code>pxtarget.json</code> files, one simple and one more complex【复杂】:</p>
 <ul>
 <li><a href="https://github.com/Microsoft/pxt-sample/blob/master/pxtarget.json" target="_blank" rel="external">https://github.com/Microsoft/pxt-sample/blob/master/pxtarget.json</a></li>
 <li><a href="https://github.com/Microsoft/pxt-microbit/blob/master/pxtarget.json" target="_blank" rel="external">https://github.com/Microsoft/pxt-microbit/blob/master/pxtarget.json</a></li>
 </ul>
-<p>The JSON file <code>pxtarget.json</code> is described at the top-level by the interfaces <code>TargetBundle</code><br>and <code>AppTarget</code>, shown below.<br>Fields labelled as “DERIVED” in the comments are populated by PXT from other sources,<br>as indicated. All other fields below are user-supplied. Optional fields have a “?” after their name. </p>
-<p>All PXT targets also must supply an NPM <a href="https://docs.npmjs.com/files/package.json" target="_blank" rel="external">package.json</a><br>file, which describes the versioning, dependency and resources required to build the target.<br>You can find examples for pxt-sample and pxt-microbit here:</p>
+<p>The JSON file <code>pxtarget.json</code> is described【描述】 at the top-level by the interfaces【接口】 <code>TargetBundle</code><br>and <code>AppTarget</code>, shown below.<br>Fields labelled as “DERIVED” in the comments【注释】 are populated by PXT from other sources【源文件】, as indicated. All other fields below are user-supplied. Optional fields have a “?” after their name. </p>
+<p>All PXT targets also must supply an NPM <a href="https://docs.npmjs.com/files/package.json" target="_blank" rel="external">package.json</a> file, which describes the versioning, dependency and resources required to build the target.<br>You can find examples for pxt-sample and pxt-microbit here:</p>
 <ul>
 <li><a href="https://github.com/Microsoft/pxt-sample/blob/master/package.json" target="_blank" rel="external">https://github.com/Microsoft/pxt-sample/blob/master/package.json</a></li>
 <li><a href="https://github.com/Microsoft/pxt-microbit/blob/master/package.json" target="_blank" rel="external">https://github.com/Microsoft/pxt-microbit/blob/master/package.json</a></li>
 </ul>
 <p>Here’s more about <a href="/target-creation">creating a target</a></p>
-<h2 id="TargetBundle"><a href="#TargetBundle" class="headerlink" title="TargetBundle"></a>TargetBundle</h2><p>The interface <code>TargetBundle</code> describes the PXT packages that come bundled<br>with the target (as opposed to being pulled from the web), as well as the semantic<br>version of the target:</p>
+<h2 id="TargetBundle【目标】"><a href="#TargetBundle【目标】" class="headerlink" title="TargetBundle【目标】"></a>TargetBundle【目标】</h2><p>The interface <code>TargetBundle</code> describes【描述】 the PXT packages that come bundled<br>with the target (as opposed to being pulled from the web), as well as the semantic<br>version of the target:</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">    interface TargetBundle extends AppTarget {
         versions: TargetVersions;       // DERIVED: defines the semantic versioning for the target
         bundleddirs: string[];          // packages to be bundled into web app (libs/*)
     }
 </code></pre>
-<h3 id="versions-TargetVersions"><a href="#versions-TargetVersions" class="headerlink" title="versions: TargetVersions"></a>versions: TargetVersions</h3><p>PXT uses <a href="http://semver.org/" target="_blank" rel="external">semantic versioning</a> of its targets and packages.  The TargetVersions<br>interface has two relevant fields that are populated as specified below:</p>
+<h3 id="versions-TargetVersions【目标版本】"><a href="#versions-TargetVersions【目标版本】" class="headerlink" title="versions: TargetVersions【目标版本】"></a>versions: TargetVersions【目标版本】</h3><p>PXT uses <a href="http://semver.org/" target="_blank" rel="external">semantic versioning</a> of its targets and packages.  The TargetVersions interface has two relevant fields that are populated as specified below:</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">    interface TargetVersions {
         target: string; // equal to version field in "package.json"
         pxt: string;    // equal to version field in "package.json" or "node_modules/pxt-core/package.json"
     }
 </code></pre>
-<h3 id="bundleddirs-string"><a href="#bundleddirs-string" class="headerlink" title="bundleddirs: string[]"></a>bundleddirs: string[]</h3><p>A target can use many packages in addition to the required “corepkg”. To<br>ensure that a package is bundled into the web app, you must include it in this list. For<br>example in <a href="http://github.com/microsoft/pxt-microbit/blob/master" target="_blank" rel="external">http://github.com/microsoft/pxt-microbit/blob/master</a>, we see:</p>
+<h3 id="bundleddirs-string-【绑定文件目录】"><a href="#bundleddirs-string-【绑定文件目录】" class="headerlink" title="bundleddirs: string[] 【绑定文件目录】"></a>bundleddirs: string[] 【绑定文件目录】</h3><p>A target can use many packages in addition to the required “corepkg”. To<br>ensure that a package is bundled into the web app, you must include it in this list. For<br>example in <a href="http://github.com/microsoft/pxt-microbit/blob/master" target="_blank" rel="external">http://github.com/microsoft/pxt-microbit/blob/master</a>, we see:</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">    "bundleddirs": [
         "libs/core",
         "libs/radio",
@@ -160,7 +160,7 @@ if(isiOS){
     ],
 </code></pre>
 <p>This ensures that the above four packages are compiled/bundled into the web app and delivered on the initial<br>download of the web app. Other packages for the micro:bit, such as <a href="http://github.com/microsoft/pxt-neopixel" target="_blank" rel="external">http://github.com/microsoft/pxt-neopixel</a><br>are not bundled and remain on github.com, where they are loaded as needed by the web app (usually<br>via an “Extensions” request by the end user).</p>
-<h2 id="AppTarget"><a href="#AppTarget" class="headerlink" title="AppTarget"></a>AppTarget</h2><p>Most of the user-defined fields for <code>pxttarget.json</code> are described by the interface <code>AppTarget</code>.</p>
+<h2 id="AppTarget【目标】"><a href="#AppTarget【目标】" class="headerlink" title="AppTarget【目标】"></a>AppTarget【目标】</h2><p>Most of the user-defined fields for <code>pxttarget.json</code> are described by the interface <code>AppTarget</code>.</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">    interface AppTarget {
         id: string;             // unique id: should match ^[a-z]+$; used in URLs and domain names
         name: string;           // friendly name (spaces allowed)
@@ -182,13 +182,13 @@ if(isiOS){
         compileService?: TargetCompileService;
     }
 </code></pre>
-<h3 id="corepkg-string"><a href="#corepkg-string" class="headerlink" title="corepkg: string"></a>corepkg: string</h3><p>A target must have a core <a href="/packages">package</a> under the libs/ directory<br>where the core APIs for the target reside.<br>The core package should always be bundled with the web app, as shown below:</p>
+<h3 id="corepkg【核心包】-string"><a href="#corepkg【核心包】-string" class="headerlink" title="corepkg【核心包】: string"></a>corepkg【核心包】: string</h3><p>A target must have a core <a href="/packages">package</a> under the libs/ directory<br>where the core APIs for the target reside.<br>The core package should always be bundled with the web app, as shown below:</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">    "corepkg": "core",
     "bundleddirs": [
         "libs/core"
     ]
 </code></pre>
-<h3 id="compile-CompileTarget"><a href="#compile-CompileTarget" class="headerlink" title="compile: CompileTarget"></a>compile: CompileTarget</h3><p>PXT supports compilation to both JavaScript and ARM machine code (native). Web-only targets<br>will not need the native compilation path.</p>
+<h3 id="compile【编译器】-CompileTarget"><a href="#compile【编译器】-CompileTarget" class="headerlink" title="compile【编译器】: CompileTarget"></a>compile【编译器】: CompileTarget</h3><p>PXT supports compilation to both JavaScript and ARM machine code (native). Web-only targets<br>will not need the native compilation path.</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">    interface CompileTarget {
         isNative: boolean;      // false -> JavaScript compilation only, for simulator
         hasHex: boolean;        // output binary file (implies isNative)
@@ -213,7 +213,7 @@ if(isiOS){
         openocdScript?: string;
     }
 </code></pre>
-<h3 id="appTheme-AppTheme"><a href="#appTheme-AppTheme" class="headerlink" title="appTheme: AppTheme"></a>appTheme: AppTheme</h3><p>PXT has a large number of options for controlling<br>the <a href="/targets/theming">look and feel</a> of a target.<br>Here is the appTheme from pxt-sample with some comments:</p>
+<h3 id="appTheme【应用主题】-AppTheme"><a href="#appTheme【应用主题】-AppTheme" class="headerlink" title="appTheme【应用主题】: AppTheme"></a>appTheme【应用主题】: AppTheme</h3><p>PXT has a large number of options for controlling<br>the <a href="/targets/theming">look and feel</a> of a target.<br>Here is the appTheme from pxt-sample with some comments:</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">    "appTheme": {
         // URLs to use for various components of the UI
         "logoUrl": "https://microsoft.github.io/pxt-sample/",
@@ -240,7 +240,7 @@ if(isiOS){
         "simAnimationExit": "rotate out"
     }
 </code></pre>
-<h3 id="cloud-AppCloud"><a href="#cloud-AppCloud" class="headerlink" title="cloud?: AppCloud"></a>cloud?: AppCloud</h3><p>PXT has a cloud backend that provides a set of services to the web app.  The services are configured using<br>the <code>cloud</code> field in pxttarget.json, defined by the <code>AppCloud</code> interface:</p>
+<h3 id="cloud【云】-AppCloud"><a href="#cloud【云】-AppCloud" class="headerlink" title="cloud【云】?: AppCloud"></a>cloud【云】?: AppCloud</h3><p>PXT has a cloud backend that provides a set of services to the web app.  The services are configured using the <code>cloud</code> field in pxttarget.json, defined by the <code>AppCloud</code> interface:</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">    interface AppCloud {
         sharing?: boolean;      // enable anonymous sharing of projects via URL
         importing?: boolean;    // enable import of a previously shared project from 
@@ -270,7 +270,7 @@ if(isiOS){
         "githubPackages": true
     }
 </code></pre>
-<h3 id="simulator-AppSimulator"><a href="#simulator-AppSimulator" class="headerlink" title="simulator?: AppSimulator;"></a>simulator?: AppSimulator;</h3><p>PXT provides a JavaScript-based simulation environment on the left side of the web<br>app (typically for physical computing devices like the micro:bit).  PXT uses the<br>term <a href="/targets/board">board</a> to refer to the main physical computing device shown in the simulator.<br>Each target has one board (plus optional parts).</p>
+<h3 id="simulator【模拟器】-AppSimulator"><a href="#simulator【模拟器】-AppSimulator" class="headerlink" title="simulator【模拟器】?: AppSimulator;"></a>simulator【模拟器】?: AppSimulator;</h3><p>PXT provides a JavaScript-based simulation environment on the left side of the web<br>app (typically for physical computing devices like the micro:bit).  PXT uses the<br>term <a href="/targets/board">board</a> to refer to the main physical computing device shown in the simulator.<br>Each target has one board (plus optional parts).</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">    interface AppSimulator {
         // define aspects of physical computing device
         boardDefinition?: BoardDefinition;
@@ -297,7 +297,7 @@ if(isiOS){
     }
 </code></pre>
 <p>The <code>boardDefinition</code> can be also defined in the <a href="/targets/board">core board package</a>.</p>
-<h3 id="runtime-RuntimeOptions"><a href="#runtime-RuntimeOptions" class="headerlink" title="runtime?: RuntimeOptions;"></a>runtime?: RuntimeOptions;</h3><p>This severely misnamed option controls the available blocks in the Blockly editor:</p>
+<h3 id="runtime【运行环境】-RuntimeOptions"><a href="#runtime【运行环境】-RuntimeOptions" class="headerlink" title="runtime【运行环境】?: RuntimeOptions;"></a>runtime【运行环境】?: RuntimeOptions;</h3><p>This severely misnamed option controls the available blocks in the Blockly editor:</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">    interface RuntimeOptions {
         // control whether or not Blockly built-in categories appear
         mathBlocks?: boolean;       
@@ -314,7 +314,7 @@ if(isiOS){
         onStartUnDeletable?: boolean;
     }
 </code></pre>
-<h3 id="compileService-TargetCompileService"><a href="#compileService-TargetCompileService" class="headerlink" title="compileService?: TargetCompileService;"></a>compileService?: TargetCompileService;</h3><p>PXT provides a compile service for C/C++ code that may be included in a target/package.<br>Currently, this compile service can be configured<br>to use either <a href="https://www.mbed.com/en/platform/software/mbed-yotta/" target="_blank" rel="external">yotta</a><br>or <a href="http://platformio.org/" target="_blank" rel="external">platformio</a>.<br>PXT defaults to using local installs of yotta and platformio.<br>PXT expects to find the C/C++ sources on github.</p>
+<h3 id="compileService【编译服务】-TargetCompileService"><a href="#compileService【编译服务】-TargetCompileService" class="headerlink" title="compileService【编译服务】?: TargetCompileService;"></a>compileService【编译服务】?: TargetCompileService;</h3><p>PXT provides a compile service for C/C++ code that may be included in a target/package.<br>Currently, this compile service can be configured<br>to use either <a href="https://www.mbed.com/en/platform/software/mbed-yotta/" target="_blank" rel="external">yotta</a><br>or <a href="http://platformio.org/" target="_blank" rel="external">platformio</a>.<br>PXT defaults to using local installs of yotta and platformio.<br>PXT expects to find the C/C++ sources on github.</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">    interface TargetCompileService {
         buildEngine?: string;           // default is yotta, set to platformio
         // where are the sources
@@ -338,7 +338,7 @@ if(isiOS){
 
 <p class="nav-foot">
   <span class="left"><a href="/2018/05/26/online-pxt-7/">« Accessibil...</a></span>
-  <span class="right"><a href="/2018/05/26/online-pxt-9/">Defining b... »</a></span>
+  <span class="right"><a href="/2018/05/26/online-pxt-9/">Defining【定... »</a></span>
 </p>
 
 <!-- 文档信息 -->

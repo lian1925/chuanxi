@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>Source Embedding | 小沙丘的网络漫游记</title>
+  <title>Source【原文件】 Embedding【嵌入】 | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -100,13 +100,13 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/05/26/online-pxt-4/">
-                    Partial flashing
+                    Partial【部分】 flashing
                 </a>
         </P>
         <P>下一篇：
 
                 <a href="/2018/05/26/online-pxt-6/">
-                    Blockly Upgrade
+                    Blockly【块】 Upgrade【升级】
                 </a>
         </P>
     </div>
@@ -114,7 +114,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>Source Embedding</h1>
+<h1>Source【原文件】 Embedding【嵌入】</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -127,9 +127,9 @@ if(isiOS){
 
   
   <div class="page">
-      <h1 id="Source-Embedding"><a href="#Source-Embedding" class="headerlink" title="Source Embedding"></a>Source Embedding</h1><p>The sources of a program can be embedded in HEX file, or any other format.  They are<br>flashed with the program on the device, so if the device supports read-back they<br>can be recovered from there.</p>
-<p>This specification is in terms of the contents of the flash of the device,<br>not the particular file format, HEX or otherwise.</p>
-<h2 id="Binary-Header"><a href="#Binary-Header" class="headerlink" title="Binary Header"></a>Binary Header</h2><p>The header is aligned to 16 bytes, and sits somewhere in the flash.<br>All numbers are unsigned little endian integers.</p>
+      <h1 id="Source-Embedding"><a href="#Source-Embedding" class="headerlink" title="Source Embedding"></a>Source Embedding</h1><p>The sources of a program can be embedded【嵌入】 in HEX file, or any other format【其他格式】.  They are flashed with the program on the device【设备】, so if【如果】 the device supports read-back they can be recovered【恢复】 from there.</p>
+<p>This specification【规格说明】 is in terms of the contents of the flash of the device, not the particular file format, HEX or otherwise.</p>
+<h2 id="Binary【二进制】-Header"><a href="#Binary【二进制】-Header" class="headerlink" title="Binary【二进制】 Header"></a>Binary【二进制】 Header</h2><p>The header is aligned【分配】 to 16 bytes, and sits somewhere in the flash.<br>All numbers are unsigned little endian integers.</p>
 <table>
 <thead>
 <tr>
@@ -161,27 +161,27 @@ if(isiOS){
 </tr>
 </tbody>
 </table>
-<p>Note that text length is not naturally aligned. This is due to<br>historical reasons (it used to be 16 bit long).</p>
-<p>What follows is the JSON header and the text (possibly compressed), both<br>with the specified length.</p>
-<h2 id="JSON-header"><a href="#JSON-header" class="headerlink" title="JSON header"></a>JSON header</h2><p>The JSON header is UTF8 encoded JSON with the following fields:</p>
+<p>Note that text length is not naturally aligned【排列】. This is due to historical【历史】 reasons (it used to be 16 bit long).</p>
+<p>What follows is the JSON header and the text (possibly compressed), both with the specified【指定】 length.</p>
+<h2 id="JSON-header【头部】"><a href="#JSON-header【头部】" class="headerlink" title="JSON header【头部】"></a>JSON header【头部】</h2><p>The JSON header is UTF8 encoded JSON with the following fields:</p>
 <ul>
 <li><code>eURL</code> (string): the URL of the editor</li>
 <li><code>eVER</code> (string): semver of the editor</li>
 <li><code>name</code> (string): name of the script (can be displayed by flashing tools)</li>
 <li><code>compression</code> (string): specifies compression method; optional</li>
 </ul>
-<p>Compression field specifies the encoding of the text section.<br>It can have one of the following values:</p>
+<p>Compression【压缩】 field specifies the encoding of the text section.<br>It can have one of the following values:</p>
 <ul>
 <li><code>&quot;&quot;</code> (or <code>null</code> or missing field) - no compression</li>
 <li><code>&quot;LZMA&quot;</code> - LZMA raw compression</li>
 </ul>
-<p>Editors should always check if the project was meant for them (ie., <code>eURL</code> and<br><code>eVER</code> have sensible values). If not, the editor should present the user with a<br>dialog with an option to redirect to <code>eURL</code> (where the file needs to be loaded<br>again), or if it seems possible, with option to try to load the file in the current<br>editor.</p>
+<p>Editors should always check【检查】 if the project was meant for them (ie., <code>eURL</code> and<br><code>eVER</code> have sensible values). If not, the editor should present the user with a dialog【对话框】 with an option to redirect to <code>eURL</code> (where the file needs to be loaded again), or if it seems possible, with option to try to load the file in the current editor.</p>
 <p>There may be other fields, which are editor-specific.</p>
 <p>This header should be kept small, since it is not compressed.</p>
-<h2 id="Text"><a href="#Text" class="headerlink" title="Text"></a>Text</h2><p>The interpretation of this section is editor-specific.</p>
-<p>In case of PXT, the text is always LZMA compressed. If <code>headerSize</code> field of JSON header<br>is present and non-zero, then the first <code>headerSize</code> characters (not bytes) of the decompressed text<br>contain a JSON object that logically extends fields of the JSON header (but is compressed).<br>The remainder of the uncompressed text (or the entire text, if there is no header) is JSON files -<br>a map from file name to file content for all files in the project.</p>
-<p>In case of a scripting language, the text can be raw, uncompressed,<br>and used straight by the interpreter.</p>
-<h2 id="Caveats"><a href="#Caveats" class="headerlink" title="Caveats"></a>Caveats</h2><p>Older versions of PXT and Touch Develop (as implemented in the legacy micro:bit programming<br>environment) didn’t use <code>eURL</code>/<code>eVER</code>.</p>
+<h2 id="Text【文本】"><a href="#Text【文本】" class="headerlink" title="Text【文本】"></a>Text【文本】</h2><p>The interpretation of this section【章节】 is editor-specific.</p>
+<p>In case of PXT, the text is always LZMA compressed. If <code>headerSize</code> field of JSON header is present and non-zero, then the first <code>headerSize</code> characters【字符】 (not bytes) of the decompressed text contain【包含】 a JSON object that logically extends fields of the JSON header (but is compressed).<br>The remainder of the uncompressed text (or the entire text, if there is no header) is JSON files - a map from file name to file content for all files in the project.</p>
+<p>In case of a scripting language, the text can be raw, uncompressed, and used straight by the interpreter.</p>
+<h2 id="Caveats【警告】"><a href="#Caveats【警告】" class="headerlink" title="Caveats【警告】"></a>Caveats【警告】</h2><p>Older【旧版本】 versions of PXT and Touch Develop (as implemented in the legacy micro:bit programming environment) didn’t use <code>eURL</code>/<code>eVER</code>.</p>
 <p>If the source is too large for the flash size it is not embedded.</p>
 
   </div>
@@ -189,8 +189,8 @@ if(isiOS){
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/05/26/online-pxt-4/">« Partial fl...</a></span>
-  <span class="right"><a href="/2018/05/26/online-pxt-6/">Blockly Up... »</a></span>
+  <span class="left"><a href="/2018/05/26/online-pxt-4/">« Partial【部分...</a></span>
+  <span class="right"><a href="/2018/05/26/online-pxt-6/">Blockly【块】... »</a></span>
 </p>
 
 <!-- 文档信息 -->

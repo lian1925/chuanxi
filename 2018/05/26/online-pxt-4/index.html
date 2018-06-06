@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>Partial flashing | 小沙丘的网络漫游记</title>
+  <title>Partial【部分】 flashing | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -100,13 +100,13 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/05/26/online-pxt-3/">
-                    Async and threads
+                    Async【异步】 and threads【线程】
                 </a>
         </P>
         <P>下一篇：
 
                 <a href="/2018/05/26/online-pxt-5/">
-                    Source Embedding
+                    Source【原文件】 Embedding【嵌入】
                 </a>
         </P>
     </div>
@@ -114,7 +114,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>Partial flashing</h1>
+<h1>Partial【部分】 flashing</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -127,12 +127,12 @@ if(isiOS){
 
   
   <div class="page">
-      <h1 id="Partial-flashing"><a href="#Partial-flashing" class="headerlink" title="Partial flashing"></a>Partial flashing</h1><p><strong>This is draft spec</strong></p>
-<p>When working interactively and re-flashing the device frequently, it is often<br>the case that only small part of the program changes (for example, the runtime<br>stays the same). For best (fastest) user experience, it is thus desirable to<br>only flash the parts that changed.</p>
-<p>If there is a fast link between the computer, the MCU doing the flashing,<br>and MCU being flashed (the last two can be the same), then it’s possible<br>to just read every page to see if it needs re-flashing. This is a very robust,<br>simple and effective solution, and works great for example in<br>case of a MSD bootloader and no separate interface chip.</p>
-<p>OTOH, if some of the links are slower, it’s desirable to include some meta-data<br>to aid with partial flashing. This is especially true over various radio connections.</p>
+      <h1 id="Partial-flashing"><a href="#Partial-flashing" class="headerlink" title="Partial flashing"></a>Partial flashing</h1><p><strong>This is draft【草稿】 spec</strong></p>
+<p>When working interactively and re-flashing the device frequently【经常】, it is often the case that only small part of the program changes (for example, the runtime<br>stays the same). For best (fastest) user experience, it is thus desirable to only flash the parts that changed.</p>
+<p>If there is a fast link between the computer, the MCU doing the flashing, and MCU being flashed (the last two can be the same), then it’s possible to just read every page to see if it needs re-flashing. This is a very robust, simple and effective solution, and works great for example in<br>case of a MSD bootloader and no separate interface chip.</p>
+<p>OTOH, if some of the links are slower, it’s desirable to include some meta-data to aid with partial flashing. This is especially true over various radio connections.</p>
 <p>This document defines a format for specifying checksums for regions of flash.</p>
-<h2 id="Checksum-block"><a href="#Checksum-block" class="headerlink" title="Checksum block"></a>Checksum block</h2><table>
+<h2 id="Checksum【检查】-block【块】"><a href="#Checksum【检查】-block【块】" class="headerlink" title="Checksum【检查】 block【块】"></a>Checksum【检查】 block【块】</h2><table>
 <thead>
 <tr>
 <th>Offset</th>
@@ -174,10 +174,10 @@ if(isiOS){
 </tbody>
 </table>
 <p>All numbers are little endian.</p>
-<p>The magic number of <code>0x87eeb07c</code> indicates that the bootloader<br>should optimize for frequent re-flashing (for example, by starting after a<br>single (and not double) click on the reset button).  The magic number <code>0x07eeb07c</code><br>indicates no such preference.</p>
-<p>The end marker is used to mitigate partial flashing. It should be<br>either random, or derived from checksum of the entire program.<br>It should be placed so it is written at the end of the flashing<br>process (typically at the end of the program).<br>The flashing process should check if flash contains the end marker<br>at indicated position. If it doesn’t, the entire checksum block<br>should be treated as invalid.</p>
-<p>The low-order byte of the end marker value should contain page size,<br>in powers of two. If end marker is <code>X</code>, then page size is <code>1 &lt;&lt; (X &amp; 0xff)</code>.</p>
-<h3 id="Region-descriptor"><a href="#Region-descriptor" class="headerlink" title="Region descriptor"></a>Region descriptor</h3><table>
+<p>The magic number of <code>0x87eeb07c</code> indicates that the bootloader should optimize for frequent re-flashing (for example, by starting after a single (and not double) click on the reset button).  The magic number <code>0x07eeb07c</code><br>indicates no such preference.</p>
+<p>The end marker is used to mitigate partial flashing. It should be either random, or derived from checksum of the entire program.<br>It should be placed so it is written at the end of the flashing process (typically at the end of the program).<br>The flashing process should check if flash contains the end marker at indicated position. If it doesn’t, the entire checksum block should be treated as invalid.</p>
+<p>The low-order byte of the end marker value should contain page size, in powers of two. If end marker is <code>X</code>, then page size is <code>1 &lt;&lt; (X &amp; 0xff)</code>.</p>
+<h3 id="Region-descriptor【标识符】"><a href="#Region-descriptor【标识符】" class="headerlink" title="Region descriptor【标识符】"></a>Region descriptor【标识符】</h3><table>
 <thead>
 <tr>
 <th>Offset</th>
@@ -203,17 +203,17 @@ if(isiOS){
 </tr>
 </tbody>
 </table>
-<p>The checksum can be computed in any way by the application.<br>For example, one can take first 4 bytes of a SHA256 of the contents of<br>the region.</p>
-<p>There is no need for region descriptors to cover the entire flash, or even the<br>entire contents of the flashed file. If there is no region descriptor<br>for a given location in the flashed file, the location should always be flashed.</p>
-<h2 id="Typical-usage"><a href="#Typical-usage" class="headerlink" title="Typical usage"></a>Typical usage</h2><p>For example, on micro:bit one would have the following regions:</p>
+<p>The checksum can be computed in any way by the application.<br>For example, one can take first 4 bytes of a SHA256 of the contents of the region.</p>
+<p>There is no need for region descriptors to cover the entire flash, or even the entire contents of the flashed file. If there is no region descriptor for a given location in the flashed file, the location should always be flashed.</p>
+<h2 id="Typical-usage【用法】"><a href="#Typical-usage【用法】" class="headerlink" title="Typical usage【用法】"></a>Typical usage【用法】</h2><p>For example, on micro:bit one would have the following regions:</p>
 <ul>
 <li>bootloader + softdevice</li>
 <li>DAL + compiled C++ code</li>
 <li>user code</li>
 </ul>
-<p>On SAMD21 one wouldn’t have the bootloader and softdevice regions, as bootloader is normally<br>not included in .UF2 files and there is no softdevice.</p>
-<p>The checksum for user code may or may not be included. It can prevent re-flashing of<br>the exact same user code, but this isn’t a very common usage scenario.</p>
-<h2 id="Position-of-the-checksum-block"><a href="#Position-of-the-checksum-block" class="headerlink" title="Position of the checksum block"></a>Position of the checksum block</h2><p>The position of the checksum block is MCU-specific.</p>
+<p>On SAMD21 one wouldn’t have the bootloader and softdevice regions, as bootloader is normally not included in .UF2 files and there is no softdevice.</p>
+<p>The checksum for user code may or may not be included. It can prevent re-flashing of the exact same user code, but this isn’t a very common usage scenario.</p>
+<h2 id="Position【位置】-of-the-checksum-block"><a href="#Position【位置】-of-the-checksum-block" class="headerlink" title="Position【位置】 of the checksum block"></a>Position【位置】 of the checksum block</h2><p>The position of the checksum block is MCU-specific.</p>
 <ul>
 <li>SAMD21 - <code>0x20B4</code> (after application vectors, plus one word reserved by Arduino)</li>
 <li>nRF51 - <code>0x100010C0</code> (<code>CUSTOMER[16]</code> and onwards in UICR)</li>
@@ -224,8 +224,8 @@ if(isiOS){
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/05/26/online-pxt-3/">« Async and ...</a></span>
-  <span class="right"><a href="/2018/05/26/online-pxt-5/">Source Emb... »</a></span>
+  <span class="left"><a href="/2018/05/26/online-pxt-3/">« Async【异步】 ...</a></span>
+  <span class="right"><a href="/2018/05/26/online-pxt-5/">Source【原文件... »</a></span>
 </p>
 
 <!-- 文档信息 -->

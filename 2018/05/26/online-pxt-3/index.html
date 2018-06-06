@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>Async and threads | 小沙丘的网络漫游记</title>
+  <title>Async【异步】 and threads【线程】 | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -100,13 +100,13 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/05/26/online-pxt-2/">
-                    Static TypeScript
+                    Static【静态】 TypeScript
                 </a>
         </P>
         <P>下一篇：
 
                 <a href="/2018/05/26/online-pxt-4/">
-                    Partial flashing
+                    Partial【部分】 flashing
                 </a>
         </P>
     </div>
@@ -114,7 +114,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>Async and threads</h1>
+<h1>Async【异步】 and threads【线程】</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -127,7 +127,7 @@ if(isiOS){
 
   
   <div class="page">
-      <h1 id="Async-and-threads"><a href="#Async-and-threads" class="headerlink" title="Async and threads"></a>Async and threads</h1><h2 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h2><p>JavaScript is generally speaking single threaded (there are web workers and other such inventions, but these are generally considered separate processes, that share no address space with the main process). If a function needs to wait for<br>some input (e.g., web request), you need to supply a callback function that gets<br>executed when the data is available. </p>
+      <h1 id="Async-and-threads"><a href="#Async-and-threads" class="headerlink" title="Async and threads"></a>Async and threads</h1><h2 id="Background【背景】"><a href="#Background【背景】" class="headerlink" title="Background【背景】"></a>Background【背景】</h2><p>JavaScript is generally speaking single threaded (there are web workers and other such inventions, but these are generally considered separate processes, that share no address space with the main process). If a function needs to wait for some input (e.g., web request), you need to supply a callback function that gets executed when the data is available. </p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">downloadData("https://example.com/", (err, data) => {
     if (err) { ... }
     else {
@@ -137,7 +137,7 @@ if(isiOS){
 })
 </code></pre>
 <p>This becomes somewhat problematic when you start to nest these.<br>A simple web search on “callback hell” will tell why.</p>
-<p>One way to fix this is to use promises, but the idea<br>remains the same — in the <code>.then()</code> handler you provide the function to execute<br>when data is available, but the advantage is that you can often avoid nesting<br>them (functions returning promises are often by convention called <code>somethingAsync</code>):</p>
+<p>One way to fix this is to use promises, but the idea<br>remains the same — in the <code>.then()</code> handler you provide the function to execute when data is available, but the advantage is that you can often avoid nesting them (functions returning promises are often by convention called <code>somethingAsync</code>):</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">downloadDataAsync("https://example.com/")
     .then(data => {
         let parsed = JSON.parse(data)
@@ -146,22 +146,22 @@ if(isiOS){
     .then(() => downloadDataAsync("https://somewhere-else.com/"))
     .then(somewhere => ...)
 </code></pre>
-<p>There are proposals of introducing C#-style <code>async</code>/<code>await</code> to JavaScript.<br>In fact TypeScript can compile <code>async/await</code> to ES6 generators (yield).<br>In that case you can use <code>await</code> operator to make a call to a promise-returning<br>function look sequential:</p>
+<p>There are proposals of introducing C#-style <code>async</code>/<code>await</code> to JavaScript.<br>In fact TypeScript can compile <code>async/await</code> to ES6 generators (yield).<br>In that case you can use <code>await</code> operator to make a call to a promise-returning function look sequential:</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">let parsed = JSON.parse(await downloadDataAsync("https://example.com/"))
 ...
 let somewhere = await downloadDataAsync("https://somewhere-else.com/")
 ...
 </code></pre>
-<p>Needless to say, this is way more readable and easier to get right than<br>the previous two solutions. In fact, it lets you simulate<br>cooperative multithreading — you think you have multiple threads,<br>but only one of them runs at any given time, and you can be sure<br>your thread will not get interrupted until the point where it uses <code>await</code>.</p>
-<h2 id="Promise-Await-And-what-is-that-for-loop-thing-again"><a href="#Promise-Await-And-what-is-that-for-loop-thing-again" class="headerlink" title="Promise? Await? And what is that for loop thing again?"></a>Promise? Await? And what is that <code>for</code> loop thing again?</h2><p>Now, all of this is great, but not really something you want to explain<br>to someone who’s just trying to learn what a <code>for</code> loop is.</p>
-<p>For this reason, PXT lets users call async functions, as if they were<br>regular functions. This loses information about where your thread can<br>be interrupted, but we can hopefully recover that in the IDE (by for example<br>displaying a little clock next to async calls).</p>
+<p>Needless to say, this is way more readable and easier to get right than the previous two solutions. In fact, it lets you simulate cooperative multithreading — you think you have multiple threads, but only one of them runs at any given time, and you can be sure your thread will not get interrupted until the point where it uses <code>await</code>.</p>
+<h2 id="Promise-Await-And-what-is-that-for-loop【循环】-thing-again"><a href="#Promise-Await-And-what-is-that-for-loop【循环】-thing-again" class="headerlink" title="Promise? Await? And what is that for loop【循环】 thing again?"></a>Promise? Await? And what is that <code>for</code> loop【循环】 thing again?</h2><p>Now, all of this is great, but not really something you want to explain to someone who’s just trying to learn what a <code>for</code> loop is.</p>
+<p>For this reason, PXT lets users call async functions, as if they were regular functions. This loses information about where your thread can be interrupted, but we can hopefully recover that in the IDE (by for example displaying a little clock next to async calls).</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">let parsed = JSON.parse(downloadData("https://example.com/"))
 ...
 let somewhere = downloadData("https://somewhere-else.com/")
 ...
 </code></pre>
-<p>Supporting async functions this way is one of the main reasons why we have<br>our own compilation scheme from TypeScript to JavaScript (cross-browser<br>debugger is another major one).</p>
-<h2 id="Implementing-async-functions"><a href="#Implementing-async-functions" class="headerlink" title="Implementing async functions"></a>Implementing async functions</h2><p>Currently, to implement an async function, you first need to add <code>//% promise</code><br>attribute to the declaration:</p>
+<p>Supporting async functions this way is one of the main reasons why we have our own compilation scheme from TypeScript to JavaScript (cross-browser<br>debugger is another major one).</p>
+<h2 id="Implementing【实现】-async【异步】-functions【函数】"><a href="#Implementing【实现】-async【异步】-functions【函数】" class="headerlink" title="Implementing【实现】 async【异步】 functions【函数】"></a>Implementing【实现】 async【异步】 functions【函数】</h2><p>Currently, to implement an async function, you first need to add <code>//% promise</code> attribute to the declaration:</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">//? Downloads data from remote site.
 //% promise shim=basic::downloadData
 export function downloadData(url:string) { return "" }
@@ -174,16 +174,16 @@ export function downloadData(url:string) { return "" }
         }))
 }
 </code></pre>
-<p>It is also possible to use <code>//% async</code> and use <code>getResume()</code> function<br>to get a callback. You can see some older code do that.</p>
-<p>Note, that you can <a href="/simshim">generate TypeScript definition</a> from the<br>simulator files, which will take care of the <code>//% promise</code> and <code>//% shim=...</code> annotations.</p>
+<p>It is also possible to use <code>//% async</code> and use <code>getResume()</code> function to get a callback. You can see some older code do that.</p>
+<p>Note, that you can <a href="/simshim">generate TypeScript definition</a> from the simulator files, which will take care of the <code>//% promise</code> and <code>//% shim=...</code> annotations.</p>
 
   </div>
 </div>
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/05/26/online-pxt-2/">« Static Typ...</a></span>
-  <span class="right"><a href="/2018/05/26/online-pxt-4/">Partial fl... »</a></span>
+  <span class="left"><a href="/2018/05/26/online-pxt-2/">« Static【静态】...</a></span>
+  <span class="right"><a href="/2018/05/26/online-pxt-4/">Partial【部分... »</a></span>
 </p>
 
 <!-- 文档信息 -->

@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>Auto-generation of library files | 小沙丘的网络漫游记</title>
+  <title>Auto-generation【自动生成】 of library【库】 files | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -100,13 +100,13 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/05/26/online-pxt-9/">
-                    Defining blocks
+                    Defining【定义】 blocks【块】
                 </a>
         </P>
         <P>下一篇：
 
                 <a href="/2018/05/26/online-pxt-11/">
-                    pxt-staticpkg Manual Page
+                    pxt-staticpkg Manual【手动】 Page
                 </a>
         </P>
     </div>
@@ -114,7 +114,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>Auto-generation of library files</h1>
+<h1>Auto-generation【自动生成】 of library【库】 files</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -130,17 +130,17 @@ if(isiOS){
       <h1 id="Auto-generation-of-library-files"><a href="#Auto-generation-of-library-files" class="headerlink" title="Auto-generation of library files"></a>Auto-generation of library files</h1><p>The APIs visible to PXT user (as TypeScript functions/classes or blocks)<br>expose behaviors defined in the C++ library files (in case of hardware targets)<br>and also the JavaScript simulator (runtime environment).<br>These are defined in TypeScript files (usually <code>.d.ts</code>) under <code>/libs</code> folder<br>in the target definition. Let’s call these <strong>shim files</strong>.</p>
 <p>The definitions in shim files include JSDoc comments and<br>annotations starting with <code>//%</code>. In particular, <code>//% shim=foo::bar</code> means<br>that the current function should be mapped to the C++ function <code>foo::bar</code><br>and also to the simulator function <code>pxsim.foo.bar</code>.</p>
 <p>PXT can generate shim files from either C++<br>in case of hardware targets, or from the simulator sources.<br>In both cases, PXT will copy over all JSDoc style comments and <code>//%</code> annotations,<br>add <code>shim=...</code> annotation, and also map the type appropriately (for example, C++ <code>int</code> type<br>is mapped to <code>number</code>, and TypeScript <code>RefAction</code> to <code>()=&gt;void</code>).<br>We refer to the information copied as API meta-data.</p>
-<h2 id="Auto-generation-from-C"><a href="#Auto-generation-from-C" class="headerlink" title="Auto-generation from C++"></a>Auto-generation from C++</h2><p>In case of hardware targets, the API meta-data should be defined in C++, and not the simulator.<br>This is mostly because debugging mismatches on the C++ side is much harder than on the JS<br>side.</p>
+<h2 id="Auto-generation-from【源自】-C"><a href="#Auto-generation-from【源自】-C" class="headerlink" title="Auto-generation from【源自】 C++"></a>Auto-generation from【源自】 C++</h2><p>In case of hardware targets, the API meta-data should be defined in C++, and not the simulator.<br>This is mostly because debugging mismatches on the C++ side is much harder than on the JS<br>side.</p>
 <p>The shims are generated per-package under <code>/libs</code> when building the target.<br>The shims files are called <code>shims.d.ts</code> and <code>enums.d.ts</code>. Enums are generated<br>separately, so that they can be <code>&lt;referenced ...&gt;</code> from simulator sources.</p>
 <p>Both files should be listed in <code>&quot;files&quot;</code> section of <code>pxt.json</code>, and we also recommend<br>they are checked into git.</p>
 <p>PXT implements a simple parser for a fragment of C++. This parser will not handle<br>everything you throw at it. In particular, it is line based and doesn’t take<br>multi-line comments (other than doc comments) very well. To comment out a piece of C++<br>code use <code>#if 0 .... #endif</code>.</p>
 <p>The <a href="/cpp2ts">type mapping</a> from C++ to TypeScript is quite limited.<br>Checkout the <a href="https://github.com/Microsoft/pxt-microbit" target="_blank" rel="external">microbit target</a> for an example.</p>
-<h2 id="Auto-generation-from-the-simulator"><a href="#Auto-generation-from-the-simulator" class="headerlink" title="Auto-generation from the simulator"></a>Auto-generation from the simulator</h2><p>This should be used in case of software-only targets.</p>
+<h2 id="Auto-generation-from-the-simulator【模拟器】"><a href="#Auto-generation-from-the-simulator【模拟器】" class="headerlink" title="Auto-generation from the simulator【模拟器】"></a>Auto-generation from the simulator【模拟器】</h2><p>This should be used in case of software-only targets.</p>
 <p>The shim file is called <code>sims.d.ts</code> and is generated from <code>/sim/*.ts</code> while building<br>the target. The file will be generated in the <code>&quot;corepkg&quot;</code> of the target. In future, we may<br>allow splitting between packages. Similarly, to the C++ generation, <code>sims.d.ts</code> should<br>be included in <code>pxt.json</code> and checked in.</p>
 <p>Checkout the <a href="https://github.com/Microsoft/pxt-sample" target="_blank" rel="external">sample target</a> for an example.</p>
-<h3 id="functionAsync-handling"><a href="#functionAsync-handling" class="headerlink" title="functionAsync handling"></a>functionAsync handling</h3><p>A function (or method) named <code>fooAsync</code> will be exposed as <code>foo</code>. It is expected<br>to return a promise. This will generate <code>//% promise</code> annotation, which will let<br>the compiler know about this calling convention.</p>
-<h3 id="Legacy-async-handling"><a href="#Legacy-async-handling" class="headerlink" title="Legacy async handling"></a>Legacy async handling</h3><p>The simulator function can also get hold of a callback function using <code>getResume()</code><br>and then call the resulting function when the function is supposed to resume.<br>You need to include the <code>//% async</code> annotation in that case.</p>
-<h2 id="Simulator-implementations"><a href="#Simulator-implementations" class="headerlink" title="Simulator implementations"></a>Simulator implementations</h2><p>If you’re adding your own C++ or assembly functions in packages<br>and you either cannot or don’t want to add a corresponding function to the simulator,<br>you can provide a simulator-only implementation. For example:</p>
+<h3 id="functionAsync【异步函数】-handling"><a href="#functionAsync【异步函数】-handling" class="headerlink" title="functionAsync【异步函数】 handling"></a>functionAsync【异步函数】 handling</h3><p>A function (or method) named <code>fooAsync</code> will be exposed as <code>foo</code>. It is expected<br>to return a promise. This will generate <code>//% promise</code> annotation, which will let<br>the compiler know about this calling convention.</p>
+<h3 id="Legacy【合法】-async-handling【操作】"><a href="#Legacy【合法】-async-handling【操作】" class="headerlink" title="Legacy【合法】 async handling【操作】"></a>Legacy【合法】 async handling【操作】</h3><p>The simulator function can also get hold of a callback function using <code>getResume()</code><br>and then call the resulting function when the function is supposed to resume.<br>You need to include the <code>//% async</code> annotation in that case.</p>
+<h2 id="Simulator-implementations【实现】"><a href="#Simulator-implementations【实现】" class="headerlink" title="Simulator implementations【实现】"></a>Simulator implementations【实现】</h2><p>If you’re adding your own C++ or assembly functions in packages<br>and you either cannot or don’t want to add a corresponding function to the simulator,<br>you can provide a simulator-only implementation. For example:</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">/**
  *  Writes to the Bluetooth UART service buffer.
  */
@@ -160,7 +160,7 @@ export function uartWrite(data: string): void {
 <span class="token punctuation">}</span>
 </code></pre>
 <p>When PXT sees a call to function annotated with <code>shim=</code>, it will always use the<br>shim in the native compilation. In simulator compilation it will use the shim only<br>if the function has no body or empty body. If you don’t want your simulator implementation<br>to do anything, you can for example put a single <code>return</code> statement as the body.</p>
-<h2 id="Indexed-Instances"><a href="#Indexed-Instances" class="headerlink" title="Indexed Instances"></a>Indexed Instances</h2><p>A typical pattern to expose pins on a device is something like follows:</p>
+<h2 id="Indexed-Instances【实例】"><a href="#Indexed-Instances【实例】" class="headerlink" title="Indexed Instances【实例】"></a>Indexed Instances【实例】</h2><p>A typical pattern to expose pins on a device is something like follows:</p>
 <pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">DeviceIO</span> <span class="token punctuation">{</span>
   <span class="token keyword">public</span><span class="token operator">:</span>
     DevicePin pins<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
@@ -216,7 +216,7 @@ declare interface DevicePin {
 <p>You can also specify inheritance in such a declaration:</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">interface AnalogPin extends DigitalPin {}
 </code></pre>
-<h2 id="Configuring-instances-from-TypeScript"><a href="#Configuring-instances-from-TypeScript" class="headerlink" title="Configuring instances from TypeScript"></a>Configuring instances from TypeScript</h2><p>The method above with <code>indexedInstanceShim</code> works well when the set of instances<br>(eg. pins) is defined in C++. However, sometimes you will want to define these on the<br>TypeScript side, potentially limiting code size, and allowing the definitions to be<br>changed without altering the C++ code (and thus avoiding cloud recompilation).</p>
+<h2 id="Configuring【配置】-instances-from-TypeScript"><a href="#Configuring【配置】-instances-from-TypeScript" class="headerlink" title="Configuring【配置】 instances from TypeScript"></a>Configuring【配置】 instances from TypeScript</h2><p>The method above with <code>indexedInstanceShim</code> works well when the set of instances<br>(eg. pins) is defined in C++. However, sometimes you will want to define these on the<br>TypeScript side, potentially limiting code size, and allowing the definitions to be<br>changed without altering the C++ code (and thus avoiding cloud recompilation).</p>
 <p>This comes in handy especially when there are multiple boards defined in one target.<br>The <a href="/targets/board">core board package</a> includes at least two configuration files. Here,<br>we use <code>device.d.ts</code> and <code>config.ts</code>, but you can call them something else.</p>
 <p>You would then use something like this:</p>
 <pre class=" language-typescript-ignore"><code class="language-typescript-ignore">// In device.d.ts
@@ -265,7 +265,7 @@ namespace userconfig {
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/05/26/online-pxt-9/">« Defining b...</a></span>
+  <span class="left"><a href="/2018/05/26/online-pxt-9/">« Defining【定...</a></span>
   <span class="right"><a href="/2018/05/26/online-pxt-11/">pxt-static... »</a></span>
 </p>
 
