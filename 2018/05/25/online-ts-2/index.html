@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>Basic Types | 小沙丘的网络漫游记</title>
+  <title>Basic【基本】 Types【类型】 | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -106,7 +106,7 @@ if(isiOS){
         <P>下一篇：
 
                 <a href="/2018/05/25/online-ts-3/">
-                    Variable Declarations
+                    Variable【变量】 Declarations【声明】
                 </a>
         </P>
     </div>
@@ -114,7 +114,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>Basic Types</h1>
+<h1>Basic【基本】 Types【类型】</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -127,17 +127,17 @@ if(isiOS){
 
   
   <div class="page">
-      <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>For programs to be useful, we need to be able to work with some of the simplest units of data: numbers, strings, structures, boolean values, and the like.<br>In TypeScript, we support much the same types as you would expect in JavaScript, with a convenient enumeration type thrown in to help things along.</p>
-<h1 id="Boolean"><a href="#Boolean" class="headerlink" title="Boolean"></a>Boolean</h1><p>The most basic datatype is the simple true/false value, which JavaScript and TypeScript call a <code>boolean</code> value.</p>
+      <h1 id="Introduction【介绍】"><a href="#Introduction【介绍】" class="headerlink" title="Introduction【介绍】"></a>Introduction【介绍】</h1><p>For programs to be useful, we need to be able to work with some of the simplest units of data: numbers, strings, structures, boolean values, and the like.<br>In TypeScript, we support much the same types as you would expect in JavaScript, with a convenient enumeration type thrown in to help things along.</p>
+<h1 id="Boolean【布尔】"><a href="#Boolean【布尔】" class="headerlink" title="Boolean【布尔】"></a>Boolean【布尔】</h1><p>The most basic datatype is the simple true/false value, which JavaScript and TypeScript call a <code>boolean</code> value.</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> isDone<span class="token punctuation">:</span> <span class="token keyword">boolean</span> <span class="token operator">=</span> <span class="token keyword">false</span><span class="token punctuation">;</span>
 </code></pre>
-<h1 id="Number"><a href="#Number" class="headerlink" title="Number"></a>Number</h1><p>As in JavaScript, all numbers in TypeScript are floating point values.<br>These floating point numbers get the type <code>number</code>.<br>In addition to hexadecimal and decimal literals, TypeScript also supports binary and octal literals introduced in ECMAScript 2015.</p>
+<h1 id="Number【数值】"><a href="#Number【数值】" class="headerlink" title="Number【数值】"></a>Number【数值】</h1><p>As in JavaScript, all numbers in TypeScript are floating point values.<br>These floating point numbers get the type <code>number</code>.<br>In addition to hexadecimal and decimal literals, TypeScript also supports binary and octal literals introduced in ECMAScript 2015.</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> decimal<span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token operator">=</span> <span class="token number">6</span><span class="token punctuation">;</span>
 <span class="token keyword">let</span> hex<span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token operator">=</span> <span class="token number">0xf00d</span><span class="token punctuation">;</span>
 <span class="token keyword">let</span> binary<span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token operator">=</span> <span class="token number">0b1010</span><span class="token punctuation">;</span>
 <span class="token keyword">let</span> octal<span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token operator">=</span> <span class="token number">0o744</span><span class="token punctuation">;</span>
 </code></pre>
-<h1 id="String"><a href="#String" class="headerlink" title="String"></a>String</h1><p>Another fundamental part of creating programs in JavaScript for webpages and servers alike is working with textual data.<br>As in other languages, we use the type <code>string</code> to refer to these textual datatypes.<br>Just like JavaScript, TypeScript also uses double quotes (<code>&quot;</code>) or single quotes (<code>&#39;</code>) to surround string data.</p>
+<h1 id="String【字符串】"><a href="#String【字符串】" class="headerlink" title="String【字符串】"></a>String【字符串】</h1><p>Another fundamental part of creating programs in JavaScript for webpages and servers alike is working with textual data.<br>As in other languages, we use the type <code>string</code> to refer to these textual datatypes.<br>Just like JavaScript, TypeScript also uses double quotes (<code>&quot;</code>) or single quotes (<code>&#39;</code>) to surround string data.</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> color<span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token operator">=</span> <span class="token string">"blue"</span><span class="token punctuation">;</span>
 color <span class="token operator">=</span> <span class="token string">'red'</span><span class="token punctuation">;</span>
 </code></pre>
@@ -152,13 +152,13 @@ I'll be </span><span class="token interpolation"><span class="token interpolatio
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> sentence<span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token operator">=</span> <span class="token string">"Hello, my name is "</span> <span class="token operator">+</span> fullName <span class="token operator">+</span> <span class="token string">".\n\n"</span> <span class="token operator">+</span>
     <span class="token string">"I'll be "</span> <span class="token operator">+</span> <span class="token punctuation">(</span>age <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token string">" years old next month."</span><span class="token punctuation">;</span>
 </code></pre>
-<h1 id="Array"><a href="#Array" class="headerlink" title="Array"></a>Array</h1><p>TypeScript, like JavaScript, allows you to work with arrays of values.<br>Array types can be written in one of two ways.<br>In the first, you use the type of the elements followed by <code>[]</code> to denote an array of that element type:</p>
+<h1 id="Array【数组】"><a href="#Array【数组】" class="headerlink" title="Array【数组】"></a>Array【数组】</h1><p>TypeScript, like JavaScript, allows you to work with arrays of values.<br>Array types can be written in one of two ways.<br>In the first, you use the type of the elements followed by <code>[]</code> to denote an array of that element type:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> list<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 </code></pre>
 <p>The second way uses a generic array type, <code>Array&lt;elemType&gt;</code>:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> list<span class="token punctuation">:</span> <span class="token keyword">Array</span><span class="token operator">&lt;</span><span class="token keyword">number</span><span class="token operator">></span> <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 </code></pre>
-<h1 id="Tuple"><a href="#Tuple" class="headerlink" title="Tuple"></a>Tuple</h1><p>Tuple types allow you to express an array where the type of a fixed number of elements is known, but need not be the same.<br>For example, you may want to represent a value as a pair of a <code>string</code> and a <code>number</code>:</p>
+<h1 id="Tuple【新类型】"><a href="#Tuple【新类型】" class="headerlink" title="Tuple【新类型】"></a>Tuple【新类型】</h1><p>Tuple types allow you to express an array where the type of a fixed number of elements is known, but need not be the same.<br>For example, you may want to represent a value as a pair of a <code>string</code> and a <code>number</code>:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">// Declare a tuple type</span>
 <span class="token keyword">let</span> x<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token keyword">string</span><span class="token punctuation">,</span> <span class="token keyword">number</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 <span class="token comment" spellcheck="true">// Initialize it</span>
@@ -178,7 +178,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 x<span class="token punctuation">[</span><span class="token number">6</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">true</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Error, 'boolean' isn't 'string | number'</span>
 </code></pre>
 <p>Union types are an advanced topic that we’ll cover in a later chapter.</p>
-<h1 id="Enum"><a href="#Enum" class="headerlink" title="Enum"></a>Enum</h1><p>A helpful addition to the standard set of datatypes from JavaScript is the <code>enum</code>.<br>As in languages like C#, an enum is a way of giving more friendly names to sets of numeric values.</p>
+<h1 id="Enum【枚举】"><a href="#Enum【枚举】" class="headerlink" title="Enum【枚举】"></a>Enum【枚举】</h1><p>A helpful addition to the standard set of datatypes from JavaScript is the <code>enum</code>.<br>As in languages like C#, an enum is a way of giving more friendly names to sets of numeric values.</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">enum</span> Color <span class="token punctuation">{</span>Red<span class="token punctuation">,</span> Green<span class="token punctuation">,</span> Blue<span class="token punctuation">}</span>
 <span class="token keyword">let</span> c<span class="token punctuation">:</span> Color <span class="token operator">=</span> Color<span class="token punctuation">.</span>Green<span class="token punctuation">;</span>
 </code></pre>
@@ -196,7 +196,7 @@ x<span class="token punctuation">[</span><span class="token number">6</span><spa
 
 <span class="token function">alert</span><span class="token punctuation">(</span>colorName<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// Displays 'Green' as it's value is 2 above</span>
 </code></pre>
-<h1 id="Any"><a href="#Any" class="headerlink" title="Any"></a>Any</h1><p>We may need to describe the type of variables that we do not know when we are writing an application.<br>These values may come from dynamic content, e.g. from the user or a 3rd party library.<br>In these cases, we want to opt-out of type-checking and let the values pass through compile-time checks.<br>To do so, we label these with the <code>any</code> type:</p>
+<h1 id="Any【任意】"><a href="#Any【任意】" class="headerlink" title="Any【任意】"></a>Any【任意】</h1><p>We may need to describe the type of variables that we do not know when we are writing an application.<br>These values may come from dynamic content, e.g. from the user or a 3rd party library.<br>In these cases, we want to opt-out of type-checking and let the values pass through compile-time checks.<br>To do so, we label these with the <code>any</code> type:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> notSure<span class="token punctuation">:</span> <span class="token keyword">any</span> <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">;</span>
 notSure <span class="token operator">=</span> <span class="token string">"maybe a string instead"</span><span class="token punctuation">;</span>
 notSure <span class="token operator">=</span> <span class="token keyword">false</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// okay, definitely a boolean</span>
@@ -214,7 +214,7 @@ prettySure<span class="token punctuation">.</span><span class="token function">t
 
 list<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">;</span>
 </code></pre>
-<h1 id="Void"><a href="#Void" class="headerlink" title="Void"></a>Void</h1><p><code>void</code> is a little like the opposite of <code>any</code>: the absence of having any type at all.<br>You may commonly see this as the return type of functions that do not return a value:</p>
+<h1 id="Void【空类型】"><a href="#Void【空类型】" class="headerlink" title="Void【空类型】"></a>Void【空类型】</h1><p><code>void</code> is a little like the opposite of <code>any</code>: the absence of having any type at all.<br>You may commonly see this as the return type of functions that do not return a value:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">warnUser</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
     <span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">"This is my warning message"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -222,7 +222,7 @@ list<span class="token punctuation">[</span><span class="token number">1</span><
 <p>Declaring variables of type <code>void</code> is not useful because you can only assign <code>undefined</code> or <code>null</code> to them:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> unusable<span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token operator">=</span> undefined<span class="token punctuation">;</span>
 </code></pre>
-<h1 id="Null-and-Undefined"><a href="#Null-and-Undefined" class="headerlink" title="Null and Undefined"></a>Null and Undefined</h1><p>In TypeScript, both <code>undefined</code> and <code>null</code> actually have their own types named <code>undefined</code> and <code>null</code> respectively.<br>Much like <code>void</code>, they’re not extremely useful on their own:</p>
+<h1 id="Null-and-Undefined【空-未定义】"><a href="#Null-and-Undefined【空-未定义】" class="headerlink" title="Null and Undefined【空 未定义】"></a>Null and Undefined【空 未定义】</h1><p>In TypeScript, both <code>undefined</code> and <code>null</code> actually have their own types named <code>undefined</code> and <code>null</code> respectively.<br>Much like <code>void</code>, they’re not extremely useful on their own:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">// Not much else we can assign to these variables!</span>
 <span class="token keyword">let</span> u<span class="token punctuation">:</span> undefined <span class="token operator">=</span> undefined<span class="token punctuation">;</span>
 <span class="token keyword">let</span> n<span class="token punctuation">:</span> <span class="token keyword">null</span> <span class="token operator">=</span> <span class="token keyword">null</span><span class="token punctuation">;</span>
@@ -232,7 +232,7 @@ list<span class="token punctuation">[</span><span class="token number">1</span><
 <blockquote>
 <p>As a note: we encourage the use of <code>--strictNullChecks</code> when possible, but for the purposes of this handbook, we will assume it is turned off.</p>
 </blockquote>
-<h1 id="Never"><a href="#Never" class="headerlink" title="Never"></a>Never</h1><p>The <code>never</code> type represents the type of values that never occur.<br>For instance, <code>never</code> is the return type for a function expression or an arrow function expression that always throws an exception or one that never returns;<br>Variables also acquire the type <code>never</code> when narrowed by any type guards that can never be true.</p>
+<h1 id="Never【不曾有】"><a href="#Never【不曾有】" class="headerlink" title="Never【不曾有】"></a>Never【不曾有】</h1><p>The <code>never</code> type represents the type of values that never occur.<br>For instance, <code>never</code> is the return type for a function expression or an arrow function expression that always throws an exception or one that never returns;<br>Variables also acquire the type <code>never</code> when narrowed by any type guards that can never be true.</p>
 <p>The <code>never</code> type is a subtype of, and assignable to, every type; however, <em>no</em> type is a subtype of, or assignable to, <code>never</code> (except <code>never</code> itself).<br>Even <code>any</code> isn’t assignable to <code>never</code>.</p>
 <p>Some examples of functions returning <code>never</code>:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">// Function returning never must have unreachable end point</span>
@@ -251,7 +251,7 @@ list<span class="token punctuation">[</span><span class="token number">1</span><
     <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h1 id="Type-assertions"><a href="#Type-assertions" class="headerlink" title="Type assertions"></a>Type assertions</h1><p>Sometimes you’ll end up in a situation where you’ll know more about a value than TypeScript does.<br>Usually this will happen when you know the type of some entity could be more specific than its current type.</p>
+<h1 id="Type-assertions【断言】"><a href="#Type-assertions【断言】" class="headerlink" title="Type assertions【断言】"></a>Type assertions【断言】</h1><p>Sometimes you’ll end up in a situation where you’ll know more about a value than TypeScript does.<br>Usually this will happen when you know the type of some entity could be more specific than its current type.</p>
 <p><em>Type assertions</em> are a way to tell the compiler “trust me, I know what I’m doing.”<br>A type assertion is like a type cast in other languages, but performs no special checking or restructuring of data.<br>It has no runtime impact, and is used purely by the compiler.<br>TypeScript assumes that you, the programmer, have performed any special checks that you need.</p>
 <p>Type assertions have two forms.<br>One is the “angle-bracket” syntax:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">let</span> someValue<span class="token punctuation">:</span> <span class="token keyword">any</span> <span class="token operator">=</span> <span class="token string">"this is a string"</span><span class="token punctuation">;</span>
@@ -264,7 +264,7 @@ list<span class="token punctuation">[</span><span class="token number">1</span><
 <span class="token keyword">let</span> strLength<span class="token punctuation">:</span> <span class="token keyword">number</span> <span class="token operator">=</span> <span class="token punctuation">(</span>someValue as <span class="token keyword">string</span><span class="token punctuation">)</span><span class="token punctuation">.</span>length<span class="token punctuation">;</span>
 </code></pre>
 <p>The two samples are equivalent.<br>Using one over the other is mostly a choice of preference; however, when using TypeScript with JSX, only <code>as</code>-style assertions are allowed.</p>
-<h1 id="A-note-about-let"><a href="#A-note-about-let" class="headerlink" title="A note about let"></a>A note about <code>let</code></h1><p>You may’ve noticed that so far, we’ve been using the <code>let</code> keyword instead of JavaScript’s <code>var</code> keyword which you might be more familiar with.<br>The <code>let</code> keyword is actually a newer JavaScript construct that TypeScript makes available.<br>We’ll discuss the details later, but many common problems in JavaScript are alleviated by using <code>let</code>, so you should use it instead of <code>var</code> whenever possible.</p>
+<h1 id="A-note【注意】-about-let"><a href="#A-note【注意】-about-let" class="headerlink" title="A note【注意】 about let"></a>A note【注意】 about <code>let</code></h1><p>You may’ve noticed that so far, we’ve been using the <code>let</code> keyword instead of JavaScript’s <code>var</code> keyword which you might be more familiar with.<br>The <code>let</code> keyword is actually a newer JavaScript construct that TypeScript makes available.<br>We’ll discuss the details later, but many common problems in JavaScript are alleviated by using <code>let</code>, so you should use it instead of <code>var</code> whenever possible.</p>
 
   </div>
 </div>
@@ -272,7 +272,7 @@ list<span class="token punctuation">[</span><span class="token number">1</span><
 
 <p class="nav-foot">
   <span class="left"><a href="/2018/05/17/online-ts-1/">« 变量 1 | Typ...</a></span>
-  <span class="right"><a href="/2018/05/25/online-ts-3/">Variable D... »</a></span>
+  <span class="right"><a href="/2018/05/25/online-ts-3/">Variable【变... »</a></span>
 </p>
 
 <!-- 文档信息 -->

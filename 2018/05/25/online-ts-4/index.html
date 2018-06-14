@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>Interfaces | 小沙丘的网络漫游记</title>
+  <title>Interfaces【介绍】 | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -100,13 +100,13 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/05/25/online-ts-3/">
-                    Variable Declarations
+                    Variable【变量】 Declarations【声明】
                 </a>
         </P>
         <P>下一篇：
 
                 <a href="/2018/05/25/online-ts-5/">
-                    Classes
+                    Classes【类】
                 </a>
         </P>
     </div>
@@ -114,7 +114,7 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>Interfaces</h1>
+<h1>Interfaces【介绍】</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
@@ -127,8 +127,8 @@ if(isiOS){
 
   
   <div class="page">
-      <h1 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h1><p>One of TypeScript’s core principles is that type-checking focuses on the <em>shape</em> that values have.<br>This is sometimes called “duck typing” or “structural subtyping”.<br>In TypeScript, interfaces fill the role of naming these types, and are a powerful way of defining contracts within your code as well as contracts with code outside of your project.</p>
-<h1 id="Our-First-Interface"><a href="#Our-First-Interface" class="headerlink" title="Our First Interface"></a>Our First Interface</h1><p>The easiest way to see how interfaces work is to start with a simple example:</p>
+      <h1 id="Introduction【介绍】"><a href="#Introduction【介绍】" class="headerlink" title="Introduction【介绍】"></a>Introduction【介绍】</h1><p>One of TypeScript’s core principles is that type-checking focuses on the <em>shape</em> that values have.<br>This is sometimes called “duck typing” or “structural subtyping”.<br>In TypeScript, interfaces fill the role of naming these types, and are a powerful way of defining contracts within your code as well as contracts with code outside of your project.</p>
+<h1 id="Our-First-Interface【接口】"><a href="#Our-First-Interface【接口】" class="headerlink" title="Our First Interface【接口】"></a>Our First Interface【接口】</h1><p>The easiest way to see how interfaces work is to start with a simple example:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">function</span> <span class="token function">printLabel</span><span class="token punctuation">(</span>labelledObj<span class="token punctuation">:</span> <span class="token punctuation">{</span> label<span class="token punctuation">:</span> <span class="token keyword">string</span> <span class="token punctuation">}</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
     console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>labelledObj<span class="token punctuation">.</span>label<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -151,7 +151,7 @@ if(isiOS){
 </code></pre>
 <p>The interface <code>LabelledValue</code> is a name we can now use to describe the requirement in the previous example.<br>It still represents having a single property called <code>label</code> that is of type string.<br>Notice we didn’t have to explicitly say that the object we pass to <code>printLabel</code> implements this interface like we might have to in other languages.<br>Here, it’s only the shape that matters. If the object we pass to the function meets the requirements listed, then it’s allowed.</p>
 <p>It’s worth pointing out that the type-checker does not require that these properties come in any sort of order, only that the properties the interface requires are present and have the required type.</p>
-<h1 id="Optional-Properties"><a href="#Optional-Properties" class="headerlink" title="Optional Properties"></a>Optional Properties</h1><p>Not all properties of an interface may be required.<br>Some exist under certain conditions or may not be there at all.<br>These optional properties are popular when creating patterns like “option bags” where you pass an object to a function that only has a couple of properties filled in.</p>
+<h1 id="Optional-Properties【属性】"><a href="#Optional-Properties【属性】" class="headerlink" title="Optional Properties【属性】"></a>Optional Properties【属性】</h1><p>Not all properties of an interface may be required.<br>Some exist under certain conditions or may not be there at all.<br>These optional properties are popular when creating patterns like “option bags” where you pass an object to a function that only has a couple of properties filled in.</p>
 <p>Here’s an example of this pattern:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">interface</span> <span class="token class-name">SquareConfig</span> <span class="token punctuation">{</span>
     color<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
@@ -192,7 +192,7 @@ if(isiOS){
 
 <span class="token keyword">let</span> mySquare <span class="token operator">=</span> <span class="token function">createSquare</span><span class="token punctuation">(</span><span class="token punctuation">{</span>color<span class="token punctuation">:</span> <span class="token string">"black"</span><span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<h1 id="Readonly-properties"><a href="#Readonly-properties" class="headerlink" title="Readonly properties"></a>Readonly properties</h1><p>Some properties should only be modifiable when an object is first created.<br>You can specify this by putting <code>readonly</code> before the name of the property:</p>
+<h1 id="Readonly【只读】-properties"><a href="#Readonly【只读】-properties" class="headerlink" title="Readonly【只读】 properties"></a>Readonly【只读】 properties</h1><p>Some properties should only be modifiable when an object is first created.<br>You can specify this by putting <code>readonly</code> before the name of the property:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">interface</span> <span class="token class-name">Point</span> <span class="token punctuation">{</span>
     readonly x<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
     readonly y<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">;</span>
@@ -214,7 +214,7 @@ a <span class="token operator">=</span> ro<span class="token punctuation">;</spa
 <pre class=" language-ts"><code class="language-ts">a <span class="token operator">=</span> ro as <span class="token keyword">number</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="readonly-vs-const"><a href="#readonly-vs-const" class="headerlink" title="readonly vs const"></a><code>readonly</code> vs <code>const</code></h2><p>The easiest way to remember whether to use readonly or const is to ask whether you’re using it on a variable or a property.<br>Variables use <code>const</code> whereas properties use <code>readonly</code>.</p>
-<h1 id="Excess-Property-Checks"><a href="#Excess-Property-Checks" class="headerlink" title="Excess Property Checks"></a>Excess Property Checks</h1><p>In our first example using interfaces, TypeScript lets us pass <code>{ size: number; label: string; }</code> to something that only expected a <code>{ label: string; }</code>.<br>We also just learned about optional properties, and how they’re useful when describing so-called “option bags”.</p>
+<h1 id="Excess-Property-Checks【检查】"><a href="#Excess-Property-Checks【检查】" class="headerlink" title="Excess Property Checks【检查】"></a>Excess Property Checks【检查】</h1><p>In our first example using interfaces, TypeScript lets us pass <code>{ size: number; label: string; }</code> to something that only expected a <code>{ label: string; }</code>.<br>We also just learned about optional properties, and how they’re useful when describing so-called “option bags”.</p>
 <p>However, combining the two naively would let you to shoot yourself in the foot the same way you might in JavaScript.<br>For example, taking our last example using <code>createSquare</code>:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">interface</span> <span class="token class-name">SquareConfig</span> <span class="token punctuation">{</span>
     color<span class="token operator">?</span><span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
@@ -249,7 +249,7 @@ a <span class="token operator">=</span> ro<span class="token punctuation">;</spa
 <span class="token keyword">let</span> mySquare <span class="token operator">=</span> <span class="token function">createSquare</span><span class="token punctuation">(</span>squareOptions<span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <p>Keep in mind that for simple code like above, you probably shouldn’t be trying to “get around” these checks.<br>For more complex object literals that have methods and hold state, you might need to keep these techniques in mind, but a majority of excess property errors are actually bugs.<br>That means if you’re running into excess property checking problems for something like option bags, you might need to revise some of your type declarations.<br>In this instance, if it’s okay to pass an object with both a <code>color</code> or <code>colour</code> property to <code>createSquare</code>, you should fix up the definition of <code>SquareConfig</code> to reflect that.</p>
-<h1 id="Function-Types"><a href="#Function-Types" class="headerlink" title="Function Types"></a>Function Types</h1><p>Interfaces are capable of describing the wide range of shapes that JavaScript objects can take.<br>In addition to describing an object with properties, interfaces are also capable of describing function types.</p>
+<h1 id="Function-Types【类型】"><a href="#Function-Types【类型】" class="headerlink" title="Function Types【类型】"></a>Function Types【类型】</h1><p>Interfaces are capable of describing the wide range of shapes that JavaScript objects can take.<br>In addition to describing an object with properties, interfaces are also capable of describing function types.</p>
 <p>To describe a function type with an interface, we give the interface a call signature.<br>This is like a function declaration with only the parameter list and return type given. Each parameter in the parameter list requires both name and type.</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">interface</span> <span class="token class-name">SearchFunc</span> <span class="token punctuation">{</span>
     <span class="token punctuation">(</span>source<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">,</span> subString<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">boolean</span><span class="token punctuation">;</span>
@@ -276,7 +276,7 @@ mySearch <span class="token operator">=</span> <span class="token keyword">funct
     <span class="token keyword">return</span> result <span class="token operator">></span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h1 id="Indexable-Types"><a href="#Indexable-Types" class="headerlink" title="Indexable Types"></a>Indexable Types</h1><p>Similarly to how we can use interfaces to describe function types, we can also describe types that we can “index into” like <code>a[10]</code>, or <code>ageMap[&quot;daniel&quot;]</code>.<br>Indexable types have an <em>index signature</em> that describes the types we can use to index into the object, along with the corresponding return types when indexing.<br>Let’s take an example:</p>
+<h1 id="Indexable【可索引】-Types"><a href="#Indexable【可索引】-Types" class="headerlink" title="Indexable【可索引】 Types"></a>Indexable【可索引】 Types</h1><p>Similarly to how we can use interfaces to describe function types, we can also describe types that we can “index into” like <code>a[10]</code>, or <code>ageMap[&quot;daniel&quot;]</code>.<br>Indexable types have an <em>index signature</em> that describes the types we can use to index into the object, along with the corresponding return types when indexing.<br>Let’s take an example:</p>
 <pre class=" language-ts"><code class="language-ts"><span class="token keyword">interface</span> <span class="token class-name">StringArray</span> <span class="token punctuation">{</span>
     <span class="token punctuation">[</span>index<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">]</span><span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
@@ -468,8 +468,8 @@ c<span class="token punctuation">.</span>interval <span class="token operator">=
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/05/25/online-ts-3/">« Variable D...</a></span>
-  <span class="right"><a href="/2018/05/25/online-ts-5/">Classes... »</a></span>
+  <span class="left"><a href="/2018/05/25/online-ts-3/">« Variable【变...</a></span>
+  <span class="right"><a href="/2018/05/25/online-ts-5/">Classes【类】... »</a></span>
 </p>
 
 <!-- 文档信息 -->
