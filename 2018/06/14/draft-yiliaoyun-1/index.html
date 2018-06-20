@@ -324,14 +324,41 @@ app<span class="token punctuation">.</span><span class="token keyword">get</span
 <p>3、启动</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> start
 </code></pre>
-<h2 id="例会"><a href="#例会" class="headerlink" title="例会"></a>例会</h2>
+<h2 id="例会-九州通-领导"><a href="#例会-九州通-领导" class="headerlink" title="例会 九州通 领导"></a>例会 九州通 领导</h2><p>九州通 自建物流</p>
+<p>平安好医生 常规机器审方 + 人工审方</p>
+<h2 id="json-web-token"><a href="#json-web-token" class="headerlink" title="json web token"></a>json web token</h2><p>1、安装token库</p>
+<pre class=" language-js"><code class="language-js">npm install <span class="token operator">--</span>save jsonwebtoken
+</code></pre>
+<p>2、生成token</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> jwt <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'jsonwebtoken'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+jwt<span class="token punctuation">.</span><span class="token function">sign</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  exp<span class="token punctuation">:</span> Math<span class="token punctuation">.</span><span class="token function">floor</span><span class="token punctuation">(</span>Date<span class="token punctuation">.</span><span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1000</span><span class="token punctuation">)</span> <span class="token operator">+</span> <span class="token punctuation">(</span><span class="token number">60</span> <span class="token operator">*</span> <span class="token number">60</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+  data<span class="token punctuation">:</span> <span class="token string">'foobar'</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token string">'secret'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>3、验证token</p>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">// verify a token symmetric</span>
+jwt<span class="token punctuation">.</span><span class="token function">verify</span><span class="token punctuation">(</span>token<span class="token punctuation">,</span> <span class="token string">'secret'</span><span class="token punctuation">,</span> <span class="token keyword">function</span><span class="token punctuation">(</span>err<span class="token punctuation">,</span> decoded<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>decoded<span class="token punctuation">.</span>foo<span class="token punctuation">)</span> <span class="token comment" spellcheck="true">// bar</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="登录接口API"><a href="#登录接口API" class="headerlink" title="登录接口API"></a>登录接口API</h2><p>1、登录，获取token<br>网关：/user/login  post</p>
+<p>请求参数：<br>{<br>  username:’admin’,<br>  password:’123’<br>}</p>
+<p>返回：<br>// 正确<br>{<br>  err_code: 0,<br>  token: ‘xxx’<br>}</p>
+<p>// 密码错误<br>{<br>  err_code:1,<br>  token: null<br>}</p>
+<p>2、获取用户信息<br>网关： /user/info post</p>
+<p>请求参数：<br>{<br>  token: ‘xxx’<br>}</p>
+<p>返回：<br>// 正确<br>{<br>  err_code: 0,<br>  username: ‘admin’,<br>  age: 20<br>}</p>
+<p>// 错误<br>{<br>  err_code:1,<br>  username:null<br>  age:null<br>}</p>
+
   </div>
 </div>
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/03/19/draft-store-api-2/">« 餐馆 | api</a></span>
-  <span class="right"><a href="/2018/04/09/draft-youkelili-1/">入门 | 尤克里里 »</a></span>
+  <span class="left"><a href="/2018/04/09/draft-youkelili-1/">« 入门 | 尤克里里</a></span>
+  <span class="right"><a href="/2018/03/08/educate-interview1/">1 | 程序员 »</a></span>
 </p>
 
 <!-- 文档信息 -->
