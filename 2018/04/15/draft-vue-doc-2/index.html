@@ -140,23 +140,24 @@ if(isiOS){
 <h3 id="原始-HTML"><a href="#原始-HTML" class="headerlink" title="原始 HTML"></a>原始 HTML</h3><p>双大括号会将数据解释为普通文本。你需要输出HTML，可以使用 <code>v-html</code> 指令：</p>
 <pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Using mustaches: {{ rawHtml }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Using v-html directive: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">v-html</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>rawHtml<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
-</code></pre>
 
-<div id="example1" class="demo">
-  <p>Using mustaches: {{ rawHtml }}</p>
-  <p>Using v-html directive: <span v-html="rawHtml"></span></p>
-</div>
-<script>
+{% raw %}
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">id</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>example1<span class="token punctuation">"</span></span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>demo<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Using mustaches: {{ rawHtml }}<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span><span class="token punctuation">></span></span>Using v-html directive: <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span> <span class="token attr-name">v-html</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>rawHtml<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span>
 new Vue({
   el: '#example1',
   data: function () {
    return {
-     rawHtml: '<span style="color: red">This should be red.</span>'
+     rawHtml: '<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>span</span><span class="token style-attr language-css"><span class="token attr-name"> <span class="token attr-name">style</span></span><span class="token punctuation">="</span><span class="token attr-value"><span class="token property">color</span><span class="token punctuation">:</span> red</span><span class="token punctuation">"</span></span><span class="token punctuation">></span></span>This should be red.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>span</span><span class="token punctuation">></span></span>'
    }
   }
 })
-</script>
-
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+{% endraw %}
+</code></pre>
 <p class="tip">你的站点上动态渲染的任意 HTML 可能会非常危险，因为它很容易导致 <a href="https://en.wikipedia.org/wiki/Cross-site_scripting" target="_blank" rel="external">XSS 攻击</a>。请只对可信内容使用 HTML 插值，<strong>绝不要</strong>对用户提供的内容使用插值。</p>
 
 <h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><p>HTML 特性不能使用 Mustache 语法，遇到这种情况应该使用 <a href="../api/#v-bind">v-bind 指令</a>：</p>
@@ -220,8 +221,8 @@ new Vue({
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/04/15/draft-vue-doc-6/">« 条件渲染</a></span>
-  <span class="right"><a href="/2018/04/15/draft-vue-doc-1/">Vue 实例 »</a></span>
+  <span class="left"><a href="/2018/04/15/draft-vue-doc-1/">« Vue 实例</a></span>
+  <span class="right"><a href="/2018/04/15/draft-vue-doc-3/">计算属性和侦听器 »</a></span>
 </p>
 
 <!-- 文档信息 -->
