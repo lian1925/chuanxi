@@ -92,7 +92,7 @@ if(isiOS){
         </span>
         <span>
             
-            <a href="#">
+            <a href="/2018/06/22/draft-xiexin-1/">
               &#8677;
             </a>
         </span>
@@ -105,8 +105,8 @@ if(isiOS){
         </P>
         <P>下一篇：
 
-                <a href="#">
-                    无
+                <a href="/2018/06/22/draft-xiexin-1/">
+                    久远的写信 1
                 </a>
         </P>
     </div>
@@ -127,12 +127,36 @@ if(isiOS){
 
   
   <div class="page">
-      <p>1、熟悉gitlab<br>注册gitlab账户：1 独立注册 2 使用github账户<br>本机生成ssh公钥，发送给对方。<br>在gitlab账户授权ssh。</p>
-<p>安装nodejs</p>
-<p>安装 git</p>
-<p>下载项目：</p>
-<p>2、pxt 安装环境</p>
-<p>3、microbit 运行与编译</p>
+      <h2 id="1-如何获取代码"><a href="#1-如何获取代码" class="headerlink" title="1 如何获取代码"></a>1 如何获取代码</h2><h3 id="gitlab"><a href="#gitlab" class="headerlink" title="gitlab"></a>gitlab</h3><p>1、什么是gitlab？<br>gitlab是免费的代码托管平台，与著名的GitHub功能相似，最大的优点在于，提供免费的私有代码托管服务。</p>
+<p>2、如何注册gitlab?<br>gitlab提供了2种注册方式：1 使用GitHub账号关联注册（推荐） 2 独立注册</p>
+<p>3、如何上传代码到gitlab?<br>答：<br>三步完成：<br>1 更新代码<br>git add .<br>2 添加更新日志，并确认<br>git commit -m “update sth”<br>3 提交云端<br>git push origin master</p>
+<p>4、如何授权他人下载代码？<br>答：<br>1 让对方在自己的电脑生成 ssh公钥<br>``bash<br>ssh-keygen<br>cat ~/.ssh/id_rsa.pub</p>
+<pre><code>2 代码拥有者，将对方的ssh公钥加入gitlab白名单
+
+5、如何下载代码？
+答：
+```bash
+git clone git@gitlab.com:gudong/pxt.git
+</code></pre><p>6、如何安装git?<br>答；<br>搜索git官网，下载安装</p>
+<h2 id="2-如何安装开发环境"><a href="#2-如何安装开发环境" class="headerlink" title="2 如何安装开发环境"></a>2 如何安装开发环境</h2><p>1、什么nodejs？<br>答： nodejs提供了JavaScript运行的虚拟机环境，这是目前应用最广的开发环境。</p>
+<p>我们的microbit项目，应用到了不少typescript代码，需要运行在nodejs环境。</p>
+<p>2、如何安装 nodejs?<br>答：搜索nodejs官网，下载安装</p>
+<p>3、什么是vscode?<br>答：常用的代码编辑器有: vscode（推荐），atom，sublime。</p>
+<p>4、如何安装vscode?<br>答： 搜索vscode官网，下载安装</p>
+<p>5、如何运行microbit?<br>答：<br>1、进入microbit项目目录</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> microbit的路径
+</code></pre>
+<p>2、安装项目依赖</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span>
+</code></pre>
+<p>3、安装pxt</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> i -g pxt
+</code></pre>
+<p>4、运行microbit</p>
+<pre class=" language-bash"><code class="language-bash">pxt serve
+</code></pre>
+<p>5、等待运行完成，自动打开浏览器。</p>
+<h2 id="3"><a href="#3" class="headerlink" title="3"></a>3</h2><p>3、microbit 运行与编译</p>
 <p>1<br>安装webstorm，推荐使用的代码编辑器，理由是高效简洁，占用电脑资源少，开发不卡。<br>2<br>安装nodeJs，用于编译typescript（我们的代码有很大部分由typescript组成）。安装包已下载，见node-v8.9.3.pkg，直接双击安装。<br>3<br>安装pxt 命令行工具，开发时对项目代码进行处理。<br>安装方法，打开命令行工具，输入 npm install -g pxt ，敲打回车键，等待安装完成。</p>
 <p>4<br>解压源码，见pxt-microbit源码.zip，建议删除中文字符，因为在某些环境下中文字符会导致代码编译错误。<br>打开命令行工具，进入源码文件夹，安装依赖包，在这里依赖包指项目引用的第三方函数库，若是安装不完整，将会影响项目的启动与运行。<br>安装依赖包的命令为： npm install</p>
 <p>5<br>启动项目<br>打开命令行，输入 pxt serve ,等待项目启动完毕，打开浏览器，输入网址 <a href="http://localhost:3232/index.html#，即可观看效果" target="_blank" rel="external">http://localhost:3232/index.html#，即可观看效果</a></p>
