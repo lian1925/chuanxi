@@ -142,6 +142,86 @@ if(isiOS){
 <p>什么是webpack？</p>
 <p>什么是scss?</p>
 <p>什么是 sass loader？</p>
+<h2 id="细节"><a href="#细节" class="headerlink" title="细节"></a>细节</h2><h3 id="1-Sass-Loader"><a href="#1-Sass-Loader" class="headerlink" title="1 Sass Loader"></a>1 Sass Loader</h3><p>一种webpack加载器，用于加载 sass/scss 文件，并将其编译成css</p>
+<p>1、安装</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> sass-loader node-sass webpack --save-dev
+</code></pre>
+<p>sass-loader需要node-sass 和 webpack 作为同辈依赖(peerDependency)。<br>通俗来讲，如果你要安装sass-loader，你最好同时安装node-sass 和 webpack。</p>
+<p>2、示例<br>一般情况下，安装css-loader和style-loader，以更好兼容常见样式。</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> style-loader css-loader
+--save-dev
+</code></pre>
+<p>配置</p>
+<pre class=" language-bash"><code class="language-bash">// webpack.config.js
+module.exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token punctuation">..</span>.
+    module: <span class="token punctuation">{</span>
+        rules: <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            test: /\.scss$/,
+            use: <span class="token punctuation">[</span>
+                <span class="token string">"style-loader"</span>, // creates style nodes from JS strings
+                <span class="token string">"css-loader"</span>, // translates CSS into CommonJS
+                <span class="token string">"sass-loader"</span> // compiles Sass to CSS
+            <span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>开发过程中，sourceMap功能非常有用，因为它可以帮助程序员快速定位有问题的代码。</p>
+<p>添加sourceMap功能的实现：</p>
+<pre class=" language-js"><code class="language-js">module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+    devtool<span class="token punctuation">:</span> <span class="token string">"source-map"</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// any "source-map"-like devtool is possible</span>
+    module<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        rules<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            test<span class="token punctuation">:</span> <span class="token regex">/\.scss$/</span><span class="token punctuation">,</span>
+            use<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+                loader<span class="token punctuation">:</span> <span class="token string">"style-loader"</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+                loader<span class="token punctuation">:</span> <span class="token string">"css-loader"</span><span class="token punctuation">,</span> options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                    sourceMap<span class="token punctuation">:</span> <span class="token boolean">true</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token punctuation">{</span>
+                loader<span class="token punctuation">:</span> <span class="token string">"sass-loader"</span><span class="token punctuation">,</span> options<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+                    sourceMap<span class="token punctuation">:</span> <span class="token boolean">true</span>
+                <span class="token punctuation">}</span>
+            <span class="token punctuation">}</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>3、生产阶段的建议。</p>
+<p>代码开发、调试完成后，进入生产模式(production)。</p>
+<p>此时，为了提升性能，需要对样式文件进行压缩。</p>
+<p>安装插件</p>
+<pre class=" language-plugin"><code class="language-plugin">mini-css-extract-plugin
+</code></pre>
+<p>配置</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> MiniCssExtractPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"mini-css-extract-plugin"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+    <span class="token operator">...</span>
+    module<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+        rules<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">{</span>
+            test<span class="token punctuation">:</span> <span class="token regex">/\.scss$/</span><span class="token punctuation">,</span>
+            use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+                <span class="token comment" spellcheck="true">// fallback to style-loader in development</span>
+                process<span class="token punctuation">.</span>env<span class="token punctuation">.</span>NODE_ENV <span class="token operator">!==</span> <span class="token string">'production'</span> <span class="token operator">?</span> <span class="token string">'style-loader'</span> <span class="token punctuation">:</span> MiniCssExtractPlugin<span class="token punctuation">.</span>loader<span class="token punctuation">,</span>
+                <span class="token string">"css-loader"</span><span class="token punctuation">,</span>
+                <span class="token string">"sass-loader"</span>
+            <span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    plugins<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token keyword">new</span> <span class="token class-name">MiniCssExtractPlugin</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+            <span class="token comment" spellcheck="true">// Options similar to the same options in webpackOptions.output</span>
+            <span class="token comment" spellcheck="true">// both options are optional</span>
+            filename<span class="token punctuation">:</span> <span class="token string">"[name].css"</span><span class="token punctuation">,</span>
+            chunkFilename<span class="token punctuation">:</span> <span class="token string">"[id].css"</span>
+        <span class="token punctuation">}</span><span class="token punctuation">)</span>
+    <span class="token punctuation">]</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
 
   </div>
 </div>
