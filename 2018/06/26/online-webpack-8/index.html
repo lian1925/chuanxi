@@ -1,0 +1,493 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>代码分割 8 | webpack | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/webpack/">
+            webpack
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/webpack/">
+              webpack
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/06/26/online-webpack-7/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/06/26/online-webpack-9/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/06/26/online-webpack-7/">
+                    生产模式 7 | webpack
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/06/26/online-webpack-9/">
+                    延时加载 9 | webpack
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>代码分割 8 | webpack</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年06月26日 19:06
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <h2 id="代码分割-code-splitting"><a href="#代码分割-code-splitting" class="headerlink" title="代码分割(code splitting)"></a>代码分割(code splitting)</h2><p>代码分割功能，允许用户根据需要，将源码打包成多个更小的文件块，并自由控制文件块的加载优先级，如果应用合理，可以极大改善应用的加载时间。</p>
+<h2 id="1、入口文件"><a href="#1、入口文件" class="headerlink" title="1、入口文件"></a>1、入口文件</h2><p>通过入口配置，手动实现代码分割。这是最简单的实现方式。</p>
+<p>工程目录结构：</p>
+<pre class=" language-bash"><code class="language-bash">webpack-demo
+<span class="token operator">|</span>- package.json
+<span class="token operator">|</span>- webpack.config.js
+<span class="token operator">|</span>- /dist
+<span class="token operator">|</span>- /src
+  <span class="token operator">|</span>- index.js
++ <span class="token operator">|</span>- another-module.js
+<span class="token operator">|</span>- /node_modules
+</code></pre>
+<p>修改文件another-module.js</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">import</span> _ <span class="token keyword">from</span> <span class="token string">'lodash'</span><span class="token punctuation">;</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>
+  _<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'Another'</span><span class="token punctuation">,</span> <span class="token string">'module'</span><span class="token punctuation">,</span> <span class="token string">'loaded!'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">' '</span><span class="token punctuation">)</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>修改文件webpack.config.js</p>
+<pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+  mode<span class="token punctuation">:</span> <span class="token string">'development'</span><span class="token punctuation">,</span>
+  entry<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    index<span class="token punctuation">:</span> <span class="token string">'./src/index.js'</span><span class="token punctuation">,</span>
+<span class="token operator">+</span>   another<span class="token punctuation">:</span> <span class="token string">'./src/another-module.js'</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  output<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+    filename<span class="token punctuation">:</span> <span class="token string">'[name].bundle.js'</span><span class="token punctuation">,</span>
+    path<span class="token punctuation">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'dist'</span><span class="token punctuation">)</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>运行，查看结果</p>
+<pre class=" language-bash"><code class="language-bash">Hash: a948f6cc8219cc2d39a1
+Version: webpack 4.7.0
+Time: 323ms
+            Asset     Size   Chunks             Chunk Names
+another.bundle.js  550 KiB  another  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  another
+  index.bundle.js  550 KiB    index  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  index
+Entrypoint index <span class="token operator">=</span> index.bundle.js
+Entrypoint another <span class="token operator">=</span> another.bundle.js
+<span class="token punctuation">[</span>./node_modules/webpack/buildin/global.js<span class="token punctuation">]</span> <span class="token punctuation">(</span>webpack<span class="token punctuation">)</span>/buildin/global.js 489 bytes <span class="token punctuation">{</span>another<span class="token punctuation">}</span> <span class="token punctuation">{</span>index<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>./node_modules/webpack/buildin/module.js<span class="token punctuation">]</span> <span class="token punctuation">(</span>webpack<span class="token punctuation">)</span>/buildin/module.js 497 bytes <span class="token punctuation">{</span>another<span class="token punctuation">}</span> <span class="token punctuation">{</span>index<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>./src/another-module.js<span class="token punctuation">]</span> 88 bytes <span class="token punctuation">{</span>another<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>./src/index.js<span class="token punctuation">]</span> 86 bytes <span class="token punctuation">{</span>index<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+    + 1 hidden module
+</code></pre>
+<h2 id="2、使用splitChunks"><a href="#2、使用splitChunks" class="headerlink" title="2、使用splitChunks"></a>2、使用splitChunks</h2><p>此方法，自动将公共依赖分离出来，打包入新的文件块，有效防止代码重复打包。</p>
+<p>修改文件webpack.config.js</p>
+<pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+    mode<span class="token punctuation">:</span> <span class="token string">'development'</span><span class="token punctuation">,</span>
+    entry<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      index<span class="token punctuation">:</span> <span class="token string">'./src/index.js'</span><span class="token punctuation">,</span>
+      another<span class="token punctuation">:</span> <span class="token string">'./src/another-module.js'</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    output<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      filename<span class="token punctuation">:</span> <span class="token string">'[name].bundle.js'</span><span class="token punctuation">,</span>
+      path<span class="token punctuation">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'dist'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token operator">+</span>   optimization<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+<span class="token operator">+</span>     splitChunks<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+<span class="token operator">+</span>       chunks<span class="token punctuation">:</span> <span class="token string">'all'</span>
+<span class="token operator">+</span>     <span class="token punctuation">}</span>
+<span class="token operator">+</span>   <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>运行，查看结果</p>
+<pre class=" language-bash"><code class="language-bash">Hash: ac2ac6042ebb4f20ee54
+Version: webpack 4.7.0
+Time: 316ms
+                          Asset      Size                 Chunks             Chunk Names
+              another.bundle.js  5.95 KiB                another  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  another
+                index.bundle.js  5.89 KiB                  index  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  index
+vendors~another~index.bundle.js   547 KiB  vendors~another~index  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  vendors~another~index
+Entrypoint index <span class="token operator">=</span> vendors~another~index.bundle.js index.bundle.js
+Entrypoint another <span class="token operator">=</span> vendors~another~index.bundle.js another.bundle.js
+<span class="token punctuation">[</span>./node_modules/webpack/buildin/global.js<span class="token punctuation">]</span> <span class="token punctuation">(</span>webpack<span class="token punctuation">)</span>/buildin/global.js 489 bytes <span class="token punctuation">{</span>vendors~another~index<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>./node_modules/webpack/buildin/module.js<span class="token punctuation">]</span> <span class="token punctuation">(</span>webpack<span class="token punctuation">)</span>/buildin/module.js 497 bytes <span class="token punctuation">{</span>vendors~another~index<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>./src/another-module.js<span class="token punctuation">]</span> 88 bytes <span class="token punctuation">{</span>another<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>./src/index.js<span class="token punctuation">]</span> 86 bytes <span class="token punctuation">{</span>index<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+    + 1 hidden module
+</code></pre>
+<p>此处，推荐3个有用的插件<br>mini-css-extract-plugin<br>bundle-loader<br>promise-loader</p>
+<h2 id="3、动态导入"><a href="#3、动态导入" class="headerlink" title="3、动态导入"></a>3、动态导入</h2><p>使用import 语法实现动态导入。</p>
+<p>项目目录结构</p>
+<pre class=" language-bash"><code class="language-bash">webpack-demo
+<span class="token operator">|</span>- package.json
+<span class="token operator">|</span>- webpack.config.js
+<span class="token operator">|</span>- /dist
+<span class="token operator">|</span>- /src
+  <span class="token operator">|</span>- index.js
+- <span class="token operator">|</span>- another-module.js
+<span class="token operator">|</span>- /node_modules
+</code></pre>
+<p>修改文件webpack.config.js</p>
+<pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+    mode<span class="token punctuation">:</span> <span class="token string">'development'</span><span class="token punctuation">,</span>
+    entry<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+<span class="token operator">+</span>     index<span class="token punctuation">:</span> <span class="token string">'./src/index.js'</span>
+<span class="token operator">-</span>     index<span class="token punctuation">:</span> <span class="token string">'./src/index.js'</span><span class="token punctuation">,</span>
+<span class="token operator">-</span>     another<span class="token punctuation">:</span> <span class="token string">'./src/another-module.js'</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    output<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      filename<span class="token punctuation">:</span> <span class="token string">'[name].bundle.js'</span><span class="token punctuation">,</span>
+<span class="token operator">+</span>     chunkFilename<span class="token punctuation">:</span> <span class="token string">'[name].bundle.js'</span><span class="token punctuation">,</span>
+      path<span class="token punctuation">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'dist'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token operator">-</span>   optimization<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+<span class="token operator">-</span>     splitChunks<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+<span class="token operator">-</span>       chunks<span class="token punctuation">:</span> <span class="token string">'all'</span>
+<span class="token operator">-</span>     <span class="token punctuation">}</span>
+<span class="token operator">-</span>   <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>修改文件src/index.js</p>
+<pre class=" language-js"><code class="language-js"><span class="token operator">-</span> <span class="token keyword">import</span> _ <span class="token keyword">from</span> <span class="token string">'lodash'</span><span class="token punctuation">;</span>
+<span class="token operator">-</span>
+<span class="token operator">-</span> <span class="token keyword">function</span> <span class="token function">component</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token operator">+</span> <span class="token keyword">function</span> <span class="token function">getComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token operator">-</span>   <span class="token keyword">var</span> element <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">-</span>
+<span class="token operator">-</span>   <span class="token comment" spellcheck="true">// Lodash, now imported by this script</span>
+<span class="token operator">-</span>   element<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'Hello'</span><span class="token punctuation">,</span> <span class="token string">'webpack'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">' '</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">+</span>   <span class="token keyword">return</span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token comment" spellcheck="true">/* webpackChunkName: "lodash" */</span> <span class="token string">'lodash'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>_ <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+<span class="token operator">+</span>     <span class="token keyword">var</span> element <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">+</span>     <span class="token keyword">var</span> _ <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token keyword">default</span><span class="token punctuation">;</span>
+<span class="token operator">+</span>
+<span class="token operator">+</span>     element<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'Hello'</span><span class="token punctuation">,</span> <span class="token string">'webpack'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">' '</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">+</span>
+<span class="token operator">+</span>     <span class="token keyword">return</span> element<span class="token punctuation">;</span>
+<span class="token operator">+</span>
+<span class="token operator">+</span>   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span>error <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'An error occurred while loading the component'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+<span class="token operator">-</span> document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">+</span> <span class="token function">getComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>component <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+<span class="token operator">+</span>   document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>component<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">+</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
+</code></pre>
+<p>运行，查看结果</p>
+<pre class=" language-bash"><code class="language-bash">Hash: a3f7446ffbeb7fb897ff
+Version: webpack 4.7.0
+Time: 316ms
+                   Asset      Size          Chunks             Chunk Names
+         index.bundle.js  7.88 KiB           index  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  index
+vendors~lodash.bundle.js   547 KiB  vendors~lodash  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  vendors~lodash
+Entrypoint index <span class="token operator">=</span> index.bundle.js
+<span class="token punctuation">[</span>./node_modules/webpack/buildin/global.js<span class="token punctuation">]</span> <span class="token punctuation">(</span>webpack<span class="token punctuation">)</span>/buildin/global.js 489 bytes <span class="token punctuation">{</span>vendors~lodash<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>./node_modules/webpack/buildin/module.js<span class="token punctuation">]</span> <span class="token punctuation">(</span>webpack<span class="token punctuation">)</span>/buildin/module.js 497 bytes <span class="token punctuation">{</span>vendors~lodash<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+<span class="token punctuation">[</span>./src/index.js<span class="token punctuation">]</span> 394 bytes <span class="token punctuation">{</span>index<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+    + 1 hidden module
+</code></pre>
+<h2 id="使用异步语法"><a href="#使用异步语法" class="headerlink" title="使用异步语法"></a>使用异步语法</h2><p>修改文件src/index.js</p>
+<pre class=" language-js"><code class="language-js"><span class="token operator">-</span> <span class="token keyword">function</span> <span class="token function">getComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token operator">+</span> <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">getComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+<span class="token operator">-</span>   <span class="token keyword">return</span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token comment" spellcheck="true">/* webpackChunkName: "lodash" */</span> <span class="token string">'lodash'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>_ <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+<span class="token operator">-</span>     <span class="token keyword">var</span> element <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">-</span>
+<span class="token operator">-</span>     element<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'Hello'</span><span class="token punctuation">,</span> <span class="token string">'webpack'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">' '</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">-</span>
+<span class="token operator">-</span>     <span class="token keyword">return</span> element<span class="token punctuation">;</span>
+<span class="token operator">-</span>
+<span class="token operator">-</span>   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span>error <span class="token operator">=</span><span class="token operator">></span> <span class="token string">'An error occurred while loading the component'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">+</span>   <span class="token keyword">var</span> element <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">+</span>   <span class="token keyword">const</span> _ <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token comment" spellcheck="true">/* webpackChunkName: "lodash" */</span> <span class="token string">'lodash'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">+</span>
+<span class="token operator">+</span>   element<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'Hello'</span><span class="token punctuation">,</span> <span class="token string">'webpack'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">' '</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">+</span>
+<span class="token operator">+</span>   <span class="token keyword">return</span> element<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  <span class="token function">getComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>component <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
+    document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>component<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/06/26/online-webpack-7/">« 生产模式 7 | w...</a></span>
+  <span class="right"><a href="/2018/06/26/online-webpack-9/">延时加载 9 | w... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年06月26日 19:06</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-webpack-8
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+
