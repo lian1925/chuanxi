@@ -127,7 +127,7 @@ if(isiOS){
 
   
   <div class="page">
-      <p>本节内容，为工程添加新特性：支持 SCSS 样式语法</p>
+      <p>本节内容，为工程添加新特性：1 支持 SCSS 样式语法； 2优化webpack loader运行效率</p>
 <h2 id="1-修改工程目录结构"><a href="#1-修改工程目录结构" class="headerlink" title="1 修改工程目录结构"></a>1 修改工程目录结构</h2><pre class=" language-bash"><code class="language-bash">  vue1
   <span class="token operator">|</span>- package.json
 + <span class="token operator">|</span>- index.html
@@ -263,6 +263,8 @@ module<span class="token punctuation">.</span>exports <span class="token operato
     rules<span class="token punctuation">:</span> <span class="token punctuation">[</span>
       <span class="token punctuation">{</span>
         test<span class="token punctuation">:</span> <span class="token regex">/\.css$/</span><span class="token punctuation">,</span>
+        <span class="token comment" spellcheck="true">// 优化 webpack loader的运行效率</span>
+<span class="token operator">+</span>        exclude<span class="token punctuation">:</span> <span class="token regex">/(node_modules|bower_components)/</span><span class="token punctuation">,</span>
         use<span class="token punctuation">:</span><span class="token punctuation">[</span>
           <span class="token string">'style-loader'</span><span class="token punctuation">,</span>
           <span class="token string">'css-loader'</span>
@@ -270,22 +272,26 @@ module<span class="token punctuation">.</span>exports <span class="token operato
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
       <span class="token punctuation">{</span>
         test<span class="token punctuation">:</span> <span class="token regex">/\.vue$/</span><span class="token punctuation">,</span>
+<span class="token operator">+</span>        exclude<span class="token punctuation">:</span> <span class="token regex">/(node_modules|bower_components)/</span><span class="token punctuation">,</span>
         loader<span class="token punctuation">:</span> <span class="token string">'vue-loader'</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
       <span class="token comment" spellcheck="true">// 它会应用到普通的 `.js` 文件</span>
       <span class="token comment" spellcheck="true">// 以及 `.vue` 文件中的 `&lt;script>` 块</span>
       <span class="token punctuation">{</span>
         test<span class="token punctuation">:</span> <span class="token regex">/\.js$/</span><span class="token punctuation">,</span>
+<span class="token operator">+</span>        exclude<span class="token punctuation">:</span> <span class="token regex">/(node_modules|bower_components)/</span><span class="token punctuation">,</span>
         loader<span class="token punctuation">:</span> <span class="token string">'babel-loader'</span>
       <span class="token punctuation">}</span><span class="token punctuation">,</span>
        <span class="token punctuation">{</span>
          test<span class="token punctuation">:</span> <span class="token regex">/\.(png|svg|jpg|gif)$/</span><span class="token punctuation">,</span>
+ <span class="token operator">+</span>        exclude<span class="token punctuation">:</span> <span class="token regex">/(node_modules|bower_components)/</span><span class="token punctuation">,</span>
          use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
            <span class="token string">'file-loader'</span>
          <span class="token punctuation">]</span>
        <span class="token punctuation">}</span><span class="token punctuation">,</span>
-<span class="token operator">+</span>       <span class="token punctuation">{</span>
-<span class="token operator">+</span>        test<span class="token punctuation">:</span> <span class="token regex">/\.scss$/</span><span class="token punctuation">,</span>
+       <span class="token punctuation">{</span>
+        test<span class="token punctuation">:</span> <span class="token regex">/\.scss$/</span><span class="token punctuation">,</span>
+<span class="token operator">+</span>        exclude<span class="token punctuation">:</span> <span class="token regex">/(node_modules|bower_components)/</span><span class="token punctuation">,</span>
 <span class="token operator">+</span>        use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
 <span class="token operator">+</span>            <span class="token string">"style-loader"</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// creates style nodes from JS strings</span>
 <span class="token operator">+</span>            <span class="token string">"css-loader"</span><span class="token punctuation">,</span> <span class="token comment" spellcheck="true">// translates CSS into CommonJS</span>
@@ -303,7 +309,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
 
 <p class="nav-foot">
   <span class="left"><a href="/2018/06/27/online-vue-8/">« 路由懒加载 8 | ...</a></span>
-  <span class="right"><a href="/2018/06/27/online-node-1/">初步 1 | Nod... »</a></span>
+  <span class="right"><a href="/2018/06/27/online-vue-10/">登录DEMO 10 ... »</a></span>
 </p>
 
 <!-- 文档信息 -->
