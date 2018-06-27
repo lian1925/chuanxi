@@ -127,7 +127,28 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="2-安装依赖"><a href="#2-安装依赖" class="headerlink" title="2 安装依赖"></a>2 安装依赖</h2><pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> axios
+      <h2 id="1-修改工程目录结构"><a href="#1-修改工程目录结构" class="headerlink" title="1 修改工程目录结构"></a>1 修改工程目录结构</h2><pre class=" language-bash"><code class="language-bash">  vue1
+  <span class="token operator">|</span>- package.json
++ <span class="token operator">|</span>- index.html
++ <span class="token operator">|</span>- .babelrc
++ <span class="token operator">|</span>- /src
++   <span class="token operator">|</span>- /page
++     <span class="token operator">|</span>- HelloWorld.vue
++   <span class="token operator">|</span>- /router
++     <span class="token operator">|</span>- index.js
++   <span class="token operator">|</span>- /components
++     <span class="token operator">|</span>- HelloWorld.vue
++   <span class="token operator">|</span>- /util
++     <span class="token operator">|</span>- store.js
+
++   <span class="token operator">|</span>- main.js
++   <span class="token operator">|</span>- style.css
++ <span class="token operator">|</span>- /build
++   <span class="token operator">|</span>- webpack.base.js
++   <span class="token operator">|</span>- webpack.dev.js
++   <span class="token operator">|</span>- webpack.prod.js
+</code></pre>
+<h2 id="2-安装依赖"><a href="#2-安装依赖" class="headerlink" title="2 安装依赖"></a>2 安装依赖</h2><pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> axios
 </code></pre>
 <h2 id="3-修改文件-util-fetch-js"><a href="#3-修改文件-util-fetch-js" class="headerlink" title="3 修改文件 /util/fetch.js"></a>3 修改文件 /util/fetch.js</h2><pre class=" language-js"><code class="language-js"><span class="token keyword">import</span> axios <span class="token keyword">from</span> <span class="token string">'axios'</span>
 
