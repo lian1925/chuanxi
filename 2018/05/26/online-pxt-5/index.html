@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>Source【原文件】 Embedding【嵌入】 | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/PXT/">
+            PXT
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/PXT/">
+              PXT
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/26/online-pxt-4/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/26/online-pxt-6/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/26/online-pxt-4/">
+                    Partial【部分】 flashing
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/26/online-pxt-6/">
+                    Blockly【块】 Upgrade【升级】
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>Source【原文件】 Embedding【嵌入】</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月26日 08:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <h1 id="Source-Embedding"><a href="#Source-Embedding" class="headerlink" title="Source Embedding"></a>Source Embedding</h1><p>The sources of a program can be embedded【嵌入】 in HEX file, or any other format【其他格式】.  They are flashed with the program on the device【设备】, so if【如果】 the device supports read-back they can be recovered【恢复】 from there.</p>
+<p>This specification【规格说明】 is in terms of the contents of the flash of the device, not the particular file format, HEX or otherwise.</p>
+<h2 id="Binary【二进制】-Header"><a href="#Binary【二进制】-Header" class="headerlink" title="Binary【二进制】 Header"></a>Binary【二进制】 Header</h2><p>The header is aligned【分配】 to 16 bytes, and sits somewhere in the flash.<br>All numbers are unsigned little endian integers.</p>
+<table>
+<thead>
+<tr>
+<th>Offset</th>
+<th>Size</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>8</td>
+<td>Magic, <code>&quot;\x41\x14\x0E\x2F\xB8\x2F\xA2\xBB&quot;</code></td>
+</tr>
+<tr>
+<td>8</td>
+<td>2</td>
+<td>JSON header length</td>
+</tr>
+<tr>
+<td>10</td>
+<td>4</td>
+<td>Text length</td>
+</tr>
+<tr>
+<td>14</td>
+<td>2</td>
+<td>Reserved; write as zero</td>
+</tr>
+</tbody>
+</table>
+<p>Note that text length is not naturally aligned【排列】. This is due to historical【历史】 reasons (it used to be 16 bit long).</p>
+<p>What follows is the JSON header and the text (possibly compressed), both with the specified【指定】 length.</p>
+<h2 id="JSON-header【头部】"><a href="#JSON-header【头部】" class="headerlink" title="JSON header【头部】"></a>JSON header【头部】</h2><p>The JSON header is UTF8 encoded JSON with the following fields:</p>
+<ul>
+<li><code>eURL</code> (string): the URL of the editor</li>
+<li><code>eVER</code> (string): semver of the editor</li>
+<li><code>name</code> (string): name of the script (can be displayed by flashing tools)</li>
+<li><code>compression</code> (string): specifies compression method; optional</li>
+</ul>
+<p>Compression【压缩】 field specifies the encoding of the text section.<br>It can have one of the following values:</p>
+<ul>
+<li><code>&quot;&quot;</code> (or <code>null</code> or missing field) - no compression</li>
+<li><code>&quot;LZMA&quot;</code> - LZMA raw compression</li>
+</ul>
+<p>Editors should always check【检查】 if the project was meant for them (ie., <code>eURL</code> and<br><code>eVER</code> have sensible values). If not, the editor should present the user with a dialog【对话框】 with an option to redirect to <code>eURL</code> (where the file needs to be loaded again), or if it seems possible, with option to try to load the file in the current editor.</p>
+<p>There may be other fields, which are editor-specific.</p>
+<p>This header should be kept small, since it is not compressed.</p>
+<h2 id="Text【文本】"><a href="#Text【文本】" class="headerlink" title="Text【文本】"></a>Text【文本】</h2><p>The interpretation of this section【章节】 is editor-specific.</p>
+<p>In case of PXT, the text is always LZMA compressed. If <code>headerSize</code> field of JSON header is present and non-zero, then the first <code>headerSize</code> characters【字符】 (not bytes) of the decompressed text contain【包含】 a JSON object that logically extends fields of the JSON header (but is compressed).<br>The remainder of the uncompressed text (or the entire text, if there is no header) is JSON files - a map from file name to file content for all files in the project.</p>
+<p>In case of a scripting language, the text can be raw, uncompressed, and used straight by the interpreter.</p>
+<h2 id="Caveats【警告】"><a href="#Caveats【警告】" class="headerlink" title="Caveats【警告】"></a>Caveats【警告】</h2><p>Older【旧版本】 versions of PXT and Touch Develop (as implemented in the legacy micro:bit programming environment) didn’t use <code>eURL</code>/<code>eVER</code>.</p>
+<p>If the source is too large for the flash size it is not embedded.</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/26/online-pxt-4/">« Partial【部分...</a></span>
+  <span class="right"><a href="/2018/05/26/online-pxt-6/">Blockly【块】... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月26日 08:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-pxt-5
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

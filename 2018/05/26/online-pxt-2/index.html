@@ -1,0 +1,439 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>Static【静态】 TypeScript | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/PXT/">
+            PXT
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/PXT/">
+              PXT
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/26/online-pxt-1/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/26/online-pxt-3/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/26/online-pxt-1/">
+                    Features【特性】 of the JavaScript Editor【编辑器】
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/26/online-pxt-3/">
+                    Async【异步】 and threads【线程】
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>Static【静态】 TypeScript</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月26日 08:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <h1 id="MakeCode-Language【语言】-Static-TypeScript"><a href="#MakeCode-Language【语言】-Static-TypeScript" class="headerlink" title="MakeCode Language【语言】: Static TypeScript"></a>MakeCode Language【语言】: Static TypeScript</h1><p>PXT programs are written in a subset【子集】 of <a href="https://www.typescriptlang.org" target="_blank" rel="external">TypeScript</a> called Static【静态】 TypeScript.  Currently, we are using TypeScript version【版本】 2.6.1.<br>TypeScript itself is a superset【超集】 of JavaScript, and many PXT programs,especially at the beginner’s level, are also just plain【纯净】 JavaScript.</p>
+<p>PXT is meant for teaching【教学】 programming first, and JavaScript second. For this reason, we have stayed away【舍弃】 from concepts【概念】 that are specific to JavaScript (for example, prototype inheritance【继承】), and instead focused on ones common to most modern【当代】 programming languages (for example, loops, lexically scoped variables,functions, lambdas, classes).</p>
+<h2 id="Supported【支持】-language-features【特性】"><a href="#Supported【支持】-language-features【特性】" class="headerlink" title="Supported【支持】 language features【特性】"></a>Supported【支持】 language features【特性】</h2><ul>
+<li>variable declarations【定义】 with <code>let</code>, <code>const</code></li>
+<li>functions with lexical【作用域】 scoping and recursion</li>
+<li>top-level【顶层】 code in the file; hello world really is <code>console.log(&quot;Hello world&quot;)</code></li>
+<li><code>if ... else if ... else</code> statements【语句】</li>
+<li><code>while</code> and <code>do ... while</code> loops【循环】</li>
+<li><code>for(;;)</code> loops</li>
+<li><code>for ... of</code> statements (see below about <code>for ... in</code>)</li>
+<li><code>break/continue</code>; also with labeled【标识】 loops</li>
+<li><code>switch</code> statement (on numbers, strings, and arbitrary types - the last one isn’t very useful)</li>
+<li><code>debugger</code> statement for breakpoints【断点】</li>
+<li>conditional【条件】 operator <code>? :</code>; lazy【延时】 boolean operators</li>
+<li>namespaces【命名空间】 (a form of modules) </li>
+<li>all arithmetic【算法】 operators (including bitwise operators); note that in microcontroller【微处理器】 targets<br>all arithmetic is performed on integers【整数】, also when simulating【模拟】 in the browser</li>
+<li>strings (with a few common methods)</li>
+<li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals" target="_blank" rel="external">string templates</a> (<code>`x is ${x}` </code>)</li>
+<li>arrow【箭头】 functions <code>() =&gt; ...</code></li>
+<li>passing【传递】 functions【函数】 (with up to 3 arguments) as values</li>
+<li>classes with static and instance【即时】 fields, methods and constructors【构造器】; <code>new</code> keyword</li>
+<li>array literals【迭代器】 <code>[1, 2, 3]</code></li>
+<li>enumerations (<code>enum</code>)</li>
+<li>asynchronous【异步】 functions that look <a href="/async">synchronous to the user</a></li>
+<li>method-like properties【属性】 (get/set accessors)</li>
+<li>basic generic【原始】 classes, methods, and functions</li>
+<li>class inheritance【继承】</li>
+<li>classes implementing【实现】 interfaces (explicitly and implicitly)</li>
+<li>object literals <code>{ foo: 1, bar: &quot;two&quot; }</code></li>
+</ul>
+<h2 id="Unsupported【不支持】-language-features"><a href="#Unsupported【不支持】-language-features" class="headerlink" title="Unsupported【不支持】 language features"></a>Unsupported【不支持】 language features</h2><p>Static TypeScript has a more restrictive【更加严格】 type checker【检查器】 than TypeScript. In particular, it does not support:</p>
+<ul>
+<li>explicit or implicit use of the <code>any</code> type</li>
+<li><code>union</code> or <code>intersection</code> types</li>
+<li><code>interface</code> with same name as a <code>class</code></li>
+<li>casts of a non-<code>class</code> type to a <code>class</code></li>
+<li>downcasts of a superclass to a subclass</li>
+<li>extending a <code>class</code> by an <code>interface</code></li>
+<li>function parameter bi-variance (parameter subtyping is contra-variant)</li>
+<li>inheriting from a built-in type</li>
+<li>using a built-in or generic function as a value</li>
+<li><code>this</code> used outside of a method</li>
+<li>function overloading</li>
+</ul>
+<p>Static TypeScript enforces <em>nominal typing</em> of classes, rather than the <em>structural typing</em> of TypeScript.</p>
+<p>We generally stay away【舍弃】 from the more dynamic【动态】 parts of JavaScript.  Things you may miss【忽视】 and we may implement【实现】:</p>
+<ul>
+<li>object destructuring【结构】 with initializers</li>
+<li>shorthand【简写】 properties</li>
+<li>exceptions【异常】 (<code>throw</code>, <code>try ... catch</code>, <code>try ... finally</code>)</li>
+<li>using generic【一般】 functions as values and nested【嵌套】 generic functions</li>
+<li>class inheritance【继承】 for generic classes and methods</li>
+<li>initializers【初始化】 for class fields</li>
+<li><code>public</code>/<code>private</code> annotations【注解】 on constructor arguments【参数】 (syntactic sugar to make them into fields)</li>
+<li>binding【绑定】 with arrays【数组】 or objects【对象】: <code>let [a, b] = ...; let { x, y } = ...</code></li>
+<li><code>delete</code> statement【语句】 (on object literals)</li>
+<li>spread【扩展】 and reset【剩余】 operators (statically typed)</li>
+<li>support of <code>enums</code> as run-time【实时】 arrays</li>
+<li>lambda functions【函数】 with more than【多于】 three arguments</li>
+<li><code>new</code> on non-class【非类】 types</li>
+<li><code>typeof</code> expression【表达式】</li>
+</ul>
+<p>Things that we are not very likely to【不实现】 implement due to the scope【作用域】 of the project or other constraints (note that if you don’t know what a given feature is, you’re<br>unlikely to miss it):</p>
+<ul>
+<li>file-based【基于文件】 modules (<code>import * from ...</code>, <code>module.exports</code> etc); we do support namespaces【命名空间】</li>
+<li><code>yield</code> expression and <code>function*</code></li>
+<li><code>await</code> expression and <code>async function</code></li>
+<li><code>typeof</code> expression</li>
+<li>tagged templates <code>tag `text ${expression} more text` </code>; regular templates are supported</li>
+<li><code>with</code> statement</li>
+<li><code>eval</code></li>
+<li><code>for ... in</code> statements (<code>for ... of</code> is supported)</li>
+<li>prototype-based inheritance; <code>this</code> pointer outside classes</li>
+<li><code>arguments</code> keyword; <code>.apply</code> method</li>
+<li>JSX (HTML fragments as part of JavaScript)</li>
+</ul>
+<p>For JS-only targets【目标】 we may implement the following:</p>
+<ul>
+<li>regular expressions</li>
+</ul>
+<p>Note, that you can use all of these while implementing your runtime【实时】 environment<br>(simulator), they just cannot be used in user’s【用户】 programs.</p>
+<h2 id="Semantic【语法】-differences【区别】-against-JavaScript"><a href="#Semantic【语法】-differences【区别】-against-JavaScript" class="headerlink" title="Semantic【语法】 differences【区别】 against JavaScript"></a>Semantic【语法】 differences【区别】 against JavaScript</h2><p>As such, it isn’t really feasible【可用】 to run【运行】 a full JavaScript virtual machine【虚拟机】<br>in 3k of RAM, and thus PXT programs are statically【静态】 compiled to native【原生】 code to run efficiently.<br>There are two compilation【兼容】 strategies【策略】 available - the legacy strategy used by the current【当前】 micro:bit target, and a tagged strategy used by the upcoming SAMD21 targets, as well as all the other targets going forward (possibly including new version of the micro:bit target).</p>
+<p>In the <strong>legacy strategy</strong>, there are some semantic【语法】 differences with JavaScript,particularly:</p>
+<ul>
+<li>numbers are 32 bit signed【有符号】 integers with wrap-around semantics;<br>in JavaScript they are 64 bit floating【浮点】 points</li>
+<li>JavaScript doesn’t have types, and therefore【因此】 every value can be <code>undefined</code> or <code>null</code><br>(which are two different values, distinct from <code>0</code> or <code>false</code>);<br>in PXT <code>0</code>, <code>false</code>, <code>null</code>, and <code>undefined</code> all have the same underlying<br>representation (32 zero bits) and thus will test as equal</li>
+</ul>
+<h2 id="Execution【执行】-environments【环境】"><a href="#Execution【执行】-environments【环境】" class="headerlink" title="Execution【执行】 environments【环境】"></a>Execution【执行】 environments【环境】</h2><p>PXT programs are executed in at least three【3种】 different environments:</p>
+<ul>
+<li>microcontrollers【处理器】, with native code compilation (ARM)</li>
+<li>browsers【浏览器】</li>
+<li>server-side【服务器端】 JavaScript engines【引擎】 (node.js, etc)</li>
+</ul>
+<p>We refer to the browser execution environment as the “simulator” (of the microcontroller), even though for some targets it’s the only environment.</p>
+<p>The node.js execution is currently only used for automated testing, but one can easily imagine a programming experience for scripts running on headless devices, either locally or in the cloud.</p>
+<p>In case of microcontrollers, PXT programs are <a href="https://www.touchdevelop.com/docs/touch-develop-in-208-bits" target="_blank" rel="external">compiled in the browser</a> to ARM Thumb assembly, and then to machine code, resulting in a file which is then deployed to the microcontroller, usually <a href="https://makecode.com/blog/one-chip-to-flash-them-all" target="_blank" rel="external">via USB mass-storage interface</a>.</p>
+<p>For browsers and node.js, PXT programs are compiled to<br><a href="https://en.wikipedia.org/wiki/Continuation-passing_style" target="_blank" rel="external">continuation-passing style</a><br>JavaScript. This utilizes the TypeScript abstract syntax tree as input, but does not use TypeScript JavaScript emitter.<br>On the plus side, this allows for <a href="/async">handling of async calls</a>, even if the browser doesn’t support <code>yield</code> statement, as well as cross-browser and remote debugging. On the other hand, the generated code is not really human readable.</p>
+<p>In the <a href="/js/values">tagged strategy</a>, numbers are either tagged 31-bit signed integers, or if they do not fit boxed doubles. Special constants like <code>false</code>, <code>null</code> and <code>undefined</code> are given special values and can be distinguished.<br>We’re aiming at full JavaScript compatibility here.</p>
+<h2 id="Static【静态】-compilation-vs-a-dynamic-VM"><a href="#Static【静态】-compilation-vs-a-dynamic-VM" class="headerlink" title="Static【静态】 compilation vs a dynamic VM"></a>Static【静态】 compilation vs a dynamic VM</h2><p>PXT programs are compiled【编译】 to native code. The native targets include ARM Thumb, and an unfinished AVR port. The information below concerns the tagged compilation<br>strategy.</p>
+<p>Compared to a typical dynamic JavaScript engine, PXT compiles code statically, giving rise to significant time and space performance improvements:</p>
+<ul>
+<li>user programs are compiled directly to machine code, and are<br>never in any byte-code form that needs to be interpreted; this results in<br>much faster execution than a typical JS interpreter</li>
+<li>there is no RAM overhead for user-code - all code sits in flash; in a dynamic VM<br>there are usually some data-structures representing code</li>
+<li>due to lack of boxing for small integers and static class layout the memory consumption for objects<br>is around half the one you get in a dynamic VM (not counting<br>the user-code structures mentioned above)</li>
+<li>while there is some runtime support code in PXT, it’s typically around 100KB smaller than<br>a dynamic VM, bringing down flash consumption and leaving more space for user code</li>
+</ul>
+<p>The execution time, RAM and flash consumption of PXT code is as a rule of thumb 2x of compiled C code, making it competitive to write drivers and other user-space libraries.</p>
+<p>Interfacing C++ from PXT is easier than interfacing typical dynamic VMs, in particular for simple functions with numbers on input and output - there is no need for unboxing, checking types, or memory management.</p>
+<p>The main disadvantage of using static compilation is lack of dynamic features in the language (think <code>eval</code>), as explained above.</p>
+<p>While it is possible to run a dynamic VM even on an nRF51-class device(256KB of flash, 16KB of RAM), it leaves little space for innovative features on the software side, or more complex user programs and user-space (not C++) drivers.</p>
+<h2 id="Smaller-int-types【类型】"><a href="#Smaller-int-types【类型】" class="headerlink" title="Smaller int types【类型】"></a>Smaller int types【类型】</h2><p>As noted above, when performing computations numbers are treated as doubles.<br>However, when you store numbers in global variables or (soon) record fields you<br>can choose to use a smaller int type to save memory. Microcontrollers typically have very<br>little memory left, so these few bytes saved here and there (especially in commonly<br>used packages) do add up.</p>
+<p>The supported types are:</p>
+<ul>
+<li><code>uint8</code> with range <code>0</code> to <code>255</code></li>
+<li><code>uint16</code> with range <code>0</code> to <code>65536</code></li>
+<li><code>int8</code> with range <code>-128</code> to <code>127</code></li>
+<li><code>int16</code> with range <code>-32768</code> to <code>32767</code></li>
+<li><code>int32</code> with range <code>-2147483648</code> to <code>2147483647</code></li>
+<li><code>uint32</code> with range <code>0</code> to <code>4294967295</code></li>
+</ul>
+<p>If you attempt to store a number exceeding the range of the small int type, only<br>the lowest 8 or 16 bits will be stored. There is no clamping nor overflow exceptions.</p>
+<p>If you just use <code>number</code> type (or specify no type at all) in tagged strategy,<br>then if the number fits in signed 31 bits, 4 bytes of memory will be used.<br>Otherwise, the 4 bytes will point to a heap-allocated double (all together,<br>with memory allocator overhead, around 20 bytes).</p>
+<p>In legacy strategy, <code>number</code> is equivalent to <code>int32</code>, and there is no <code>uint32</code>.</p>
+<h3 id="Limitations【局限】"><a href="#Limitations【局限】" class="headerlink" title="Limitations【局限】"></a>Limitations【局限】</h3><ul>
+<li>arrays of int types are currently not supported; you can use a <code>Buffer</code> instead</li>
+<li>locals and parameters of int types are not supported</li>
+</ul>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/26/online-pxt-1/">« Features【特...</a></span>
+  <span class="right"><a href="/2018/05/26/online-pxt-3/">Async【异步】 ... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月26日 08:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-pxt-2
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

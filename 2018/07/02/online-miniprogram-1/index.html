@@ -1,0 +1,378 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>Hello world 1 | 小程序 | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/webpack/">
+            webpack
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/webpack/">
+              webpack
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/07/01/online-css-12/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="#">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/07/01/online-css-12/">
+                    动画 12
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="#">
+                    无
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>Hello world 1 | 小程序</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年07月02日 09:07
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><h3 id="1-1-小程序文件类型-4种"><a href="#1-1-小程序文件类型-4种" class="headerlink" title="1.1 小程序文件类型(4种)"></a>1.1 小程序文件类型(4种)</h3><p>1、JSON配置文件 <code>.json后缀</code><br>2、WXML模板文件 <code>.wxml后缀</code><br>3、WXSS样式文件 <code>.wxss后缀</code><br>4、JS脚本逻辑文件 <code>.js后缀</code></p>
+<h2 id="2-实践"><a href="#2-实践" class="headerlink" title="2 实践"></a>2 实践</h2><h3 id="2-1-创建新项目"><a href="#2-1-创建新项目" class="headerlink" title="2.1 创建新项目"></a>2.1 创建新项目</h3><p>1、菜单：项目 = 》新建项目 =》 </p>
+<p>2、填写项目参数：1）项目目录 2）AppID 3)项目名称 4）建立普通快速启动模板</p>
+<p>3、生成工程项目</p>
+<pre class=" language-bash"><code class="language-bash">  demo1
+  <span class="token operator">|</span>- /pages
+    <span class="token operator">|</span>- /index
+    <span class="token operator">|</span>- /logs
+  <span class="token operator">|</span>- utils
+    <span class="token operator">|</span>- util.js
+  <span class="token operator">|</span>- app.js
+  <span class="token operator">|</span>- app.json
+  <span class="token operator">|</span>- app.wxss
+  <span class="token operator">|</span>- project.config.json
+</code></pre>
+<h3 id="2-2-修改文件-app-json"><a href="#2-2-修改文件-app-json" class="headerlink" title="2.2 修改文件 app.json"></a>2.2 修改文件 app.json</h3><pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"pages"</span><span class="token operator">:</span><span class="token punctuation">[</span>
+    <span class="token string">"pages/index/index"</span><span class="token punctuation">,</span> //描述index页面所在目录
+    <span class="token string">"pages/logs/logs"</span> // 描述log页面所在目录
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"window"</span><span class="token operator">:</span><span class="token punctuation">{</span>
+    <span class="token property">"backgroundTextStyle"</span><span class="token operator">:</span><span class="token string">"light"</span><span class="token punctuation">,</span> 
+    <span class="token property">"navigationBarBackgroundColor"</span><span class="token operator">:</span> <span class="token string">"#fff"</span><span class="token punctuation">,</span>
+    <span class="token property">"navigationBarTitleText"</span><span class="token operator">:</span> <span class="token string">"WeChat"</span><span class="token punctuation">,</span>
+    <span class="token property">"navigationBarTextStyle"</span><span class="token operator">:</span><span class="token string">"black"</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="2-3-修改文件-project-config-json"><a href="#2-3-修改文件-project-config-json" class="headerlink" title="2.3 修改文件 project.config.json"></a>2.3 修改文件 project.config.json</h3><p>对工具进行个性化配置</p>
+<pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
+    <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"项目配置文件。"</span><span class="token punctuation">,</span>
+    <span class="token property">"packOptions"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"ignore"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"setting"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"urlCheck"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"es6"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"postcss"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"minified"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+        <span class="token property">"newFeature"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token property">"compileType"</span><span class="token operator">:</span> <span class="token string">"miniprogram"</span><span class="token punctuation">,</span>
+    <span class="token property">"libVersion"</span><span class="token operator">:</span> <span class="token string">"2.1.1"</span><span class="token punctuation">,</span>
+    <span class="token property">"appid"</span><span class="token operator">:</span> <span class="token string">"wx2ef86638fe2ab2eb"</span><span class="token punctuation">,</span>
+    <span class="token property">"projectname"</span><span class="token operator">:</span> <span class="token string">"demo1"</span><span class="token punctuation">,</span>
+    <span class="token property">"isGameTourist"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"condition"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"search"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"current"</span><span class="token operator">:</span> -<span class="token number">1</span><span class="token punctuation">,</span>
+            <span class="token property">"list"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"conversation"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"current"</span><span class="token operator">:</span> -<span class="token number">1</span><span class="token punctuation">,</span>
+            <span class="token property">"list"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"game"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"currentL"</span><span class="token operator">:</span> -<span class="token number">1</span><span class="token punctuation">,</span>
+            <span class="token property">"list"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token property">"miniprogram"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+            <span class="token property">"current"</span><span class="token operator">:</span> -<span class="token number">1</span><span class="token punctuation">,</span>
+            <span class="token property">"list"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="2-4-修改文件"><a href="#2-4-修改文件" class="headerlink" title="2.4 修改文件"></a>2.4 修改文件</h3>
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/07/01/online-css-100/">« 初步 1 | CSS...</a></span>
+  <span class="right"><a href="/2018/07/01/online-css-2/">选择器 2 | CS... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年07月02日 09:07</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-miniprogram-1
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

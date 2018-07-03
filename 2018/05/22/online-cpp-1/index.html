@@ -1,0 +1,600 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>C++ Dos and Don&#39;ts | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/编程/">
+            编程
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/编程/">
+              编程
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/04/25/online-vscode-doc-2/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/23/online-react-1/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/04/25/online-vscode-doc-2/">
+                    高级 2 | 代码编辑器
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/23/online-react-1/">
+                    Try【尝试】 React
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>C++ Dos and Don&#39;ts</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月22日 14:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <h2 id="A-Note【笔记】-About-Usage【用法】"><a href="#A-Note【笔记】-About-Usage【用法】" class="headerlink" title="A Note【笔记】 About Usage【用法】"></a>A Note【笔记】 About Usage【用法】</h2><p>Unlike the style guide, the content of this page is advisory【建议】, not required【必要】. You can always deviate【违背】 from something on this page, if the relevant【关联】 author/reviewer/OWNERS agree that another course is better.</p>
+<h2 id="Minimize【最小化】-Code-in-Headers"><a href="#Minimize【最小化】-Code-in-Headers" class="headerlink" title="Minimize【最小化】 Code in Headers"></a>Minimize【最小化】 Code in Headers</h2><h3 id="Don’t-include-unneeded【非必要】-headers"><a href="#Don’t-include-unneeded【非必要】-headers" class="headerlink" title="Don’t include unneeded【非必要】 headers"></a>Don’t include unneeded【非必要】 headers</h3><p>If a file isn’t using the symbols【标记】 from some header, remove【移除】 the header.  It turns out that this happens frequently【经常】 in the Chromium codebase due to refactoring【重构】.</p>
+<p>Move inner【内部】 classes into the implementation【实现】<br>You can also forward declare【声明】 classes inside a class:</p>
+<pre class=" language-java"><code class="language-java"><span class="token keyword">class</span> <span class="token class-name">Whatever</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token comment" spellcheck="true">/* ... */</span>
+ <span class="token keyword">private</span><span class="token operator">:</span>
+  struct DataStruct<span class="token punctuation">;</span>
+  std<span class="token operator">:</span><span class="token operator">:</span>vector<span class="token operator">&lt;</span>DataStruct<span class="token operator">></span> data_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Any headers that DataStruct【数据结构】 needed no longer need to be included in the header file and only need to be included in the implementation【实现】. This will often let you pull includes out【出】 of the header. For reference, the syntax【语法】 in the implementation file is:</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">struct</span> Whatever<span class="token operator">::</span>DataStruct <span class="token punctuation">{</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Note that sometimes you can’t do this because certain STL【标准模板库】 data structures require the full definition【定义】 at declaration【声明】 time (most notably, std::deque and the STL adapters that wrap it).</p>
+<h3 id="Move-static-implementation-details-to-the-implementation-whenever-possible"><a href="#Move-static-implementation-details-to-the-implementation-whenever-possible" class="headerlink" title="Move static implementation details to the implementation whenever possible"></a>Move static implementation details to the implementation whenever possible</h3><p>If you have the class in a header file:</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token macro property">#<span class="token directive keyword">include</span> <span class="token string">"BigImplementationDetail.h"</span></span>
+<span class="token keyword">class</span> <span class="token class-name">PublicInterface</span> <span class="token punctuation">{</span>
+  <span class="token keyword">public</span><span class="token operator">:</span>
+   <span class="token comment" spellcheck="true">/* ... */</span>
+  <span class="token keyword">private</span><span class="token operator">:</span>
+   <span class="token keyword">static</span> BigImplementationDetail detail_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>You should try to move that from a class member into the anonymous【匿名】 namespace in the implementation file:</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">namespace</span> <span class="token punctuation">{</span>
+BigImplementationDetail g_detail<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>  <span class="token comment" spellcheck="true">// namespace</span>
+</code></pre>
+<p>That way, people who don’t use your interface【接口】 don’t need to know about or care about【关心】 BigImplementationDetail.</p>
+<p>You can do this for helper【辅助】 functions, too.  Note that if there is more than one class in the .cc file, it can aid【帮助】 clarity【清楚】 to define your file-scope helpers in an anonymous【匿名】 namespace just above the class that uses them, instead of at the top of the file.</p>
+<h2 id="Stop-inlining【内联】-code-in-headers"><a href="#Stop-inlining【内联】-code-in-headers" class="headerlink" title="Stop inlining【内联】 code in headers"></a>Stop inlining【内联】 code in headers</h2><p>BACKGROUND【背景】: Unless something is a cheap accessor【存储器】 or you truly need it to be inlined, don’t ask for it to be inlined.  Remember that definitions inside class declarations are implicitly【隐晦】 requested to be inlined.</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">InlinedMethods</span> <span class="token punctuation">{</span>
+  <span class="token function">InlinedMethods</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// This constructor is equivalent to having the inline keyword in front</span>
+    <span class="token comment" spellcheck="true">// of it!</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">void</span> <span class="token function">Method</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">// Same here!</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="Stop-inlining-complex【复杂】-methods"><a href="#Stop-inlining-complex【复杂】-methods" class="headerlink" title="Stop inlining complex【复杂】 methods."></a>Stop inlining complex【复杂】 methods.</h3><pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">DontDoThis</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token keyword">int</span> <span class="token function">ComputeSomething</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">int</span> sum <span class="token operator">=</span><span class="token number">0</span><span class="token punctuation">;</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> limit<span class="token punctuation">;</span> <span class="token operator">++</span>i<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      sum <span class="token operator">+</span><span class="token operator">=</span> <span class="token function">OtherMethod</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    <span class="token keyword">return</span> sum<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>A request【请求】 to inline is merely a suggestion to the compiler【编译器】, and anything more than a few operations【操作】 on integral【完整】 data types will probably not be inlined.  However, every file that has to use an inline method will also emit【发射】 a function version in the resulting .o, even if the method was inlined. (This is to support function pointer behavior properly.)  Therefore【因此】, by requesting an inline in this case, you’re likely just adding crud to the .o files which the linker will need to do work to resolve【决定】.</p>
+<p>If the method has significant【重要】 implementation, there’s also a good chance that by not inlining it, you could eliminate【消除】 some includes.</p>
+<h3 id="Stop-inlining-virtual【虚拟】-methods"><a href="#Stop-inlining-virtual【虚拟】-methods" class="headerlink" title="Stop inlining virtual【虚拟】 methods"></a>Stop inlining virtual【虚拟】 methods</h3><p>You can’t inline virtual methods under most circumstances【情况】, even if the method would otherwise be inlined because it’s very short. The compiler【编译器】 must do runtime dispatch【处理】 on any virtual method where the compiler doesn’t know the object’s complete【完整】 type【类型】, which rules out the majority of cases where you have an object.</p>
+<h3 id="Stop-inlining-constructors【构造函数】-and-destructors【析构函数】"><a href="#Stop-inlining-constructors【构造函数】-and-destructors【析构函数】" class="headerlink" title="Stop inlining constructors【构造函数】 and destructors【析构函数】"></a>Stop inlining constructors【构造函数】 and destructors【析构函数】</h3><p>Constructors and destructors are often significantly more complex【复杂】 than you think they are, especially if your class has any non-POD data members. Many STL classes have inlined constructors/destructors which may be copied【复制】 into your function body. Because the bodies of these appear to be empty【空】, they often seem like trivial functions that can safely be inlined.  Don’t give in to this temptation【诱惑】.  Define them in the implementation file unless you really need them to be inlined.  Even if they do nothing now, someone could later add something seemingly-trivial to the class and make your hundreds of inlined destructors much more complex.</p>
+<p>Even worse, inlining constructors/destructors prevents you from using forward【前方】 declared variables:</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Forward</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">WontCompile</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+   <span class="token comment" spellcheck="true">// THIS WON'T COMPILE, BUT IT WOULD HAVE IF WE PUT THESE IN THE</span>
+   <span class="token comment" spellcheck="true">// IMPLEMENTATION FILE!</span>
+   <span class="token comment" spellcheck="true">//</span>
+   <span class="token comment" spellcheck="true">// The compiler needs the definition of Forward to call the</span>
+   <span class="token comment" spellcheck="true">// vector/scoped_ptr ctors/dtors.</span>
+   <span class="token function">Example</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+   <span class="token operator">~</span><span class="token function">Example</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">}</span>
+
+ <span class="token keyword">private</span><span class="token operator">:</span>
+  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>Forward<span class="token operator">></span> examples_<span class="token punctuation">;</span>
+  scoped_ptr<span class="token operator">&lt;</span>Forward<span class="token operator">></span> super_example_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>For more information, read Item 30 in Effective C++.</p>
+<h3 id="When【何时】-you-CAN-inline-constructors-and-destructors"><a href="#When【何时】-you-CAN-inline-constructors-and-destructors" class="headerlink" title="When【何时】 you CAN inline constructors and destructors"></a>When【何时】 you CAN inline constructors and destructors</h3><p>C++ has the concept【概念】 of a trivial destructor. If your class has only POD types and does not explicitly【清晰】 declare【声明】 a destructor, then the compiler will not bother to generate【生成】 or run【运行】 a destructor.</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">struct</span> Data <span class="token punctuation">{</span>
+  <span class="token function">Data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">:</span> <span class="token function">count_one</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">count_two</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+  <span class="token comment" spellcheck="true">// No explicit destructor, thus no implicit destructor either.</span>
+
+  <span class="token comment" spellcheck="true">// The members must all be POD for this trick to work.</span>
+  <span class="token keyword">int</span> count_one<span class="token punctuation">;</span>
+  <span class="token keyword">int</span> count_two<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>In this example, since there is no inheritance【继承】 and only a few POD members, the constructor will be only a few trivial【不重要的】 integer operations, and thus OK to inline.</p>
+<p>For abstract【抽象】 base classes with no members, it’s safe to define the (trivial) destructor inline:</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Interface</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">Interface</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">DoSomething</span><span class="token punctuation">(</span><span class="token keyword">int</span> parameter<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword">virtual</span> <span class="token keyword">int</span> <span class="token function">GetAValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> 
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>But be careful; these two “interfaces” don’t count:</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">ClaimsToBeAnInterface</span> <span class="token operator">:</span> <span class="token keyword">public</span> base<span class="token operator">:</span>RefCounted<span class="token operator">&lt;</span>ClaimsToBeAnInterface<span class="token operator">></span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">ClaimsToBeAnInterface</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token comment" spellcheck="true">/* But derives from a template! */</span> <span class="token punctuation">}</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">HasARealMember</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token keyword">virtual</span> <span class="token keyword">void</span> <span class="token function">InterfaceMethod</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
+  <span class="token keyword">virtual</span> <span class="token operator">~</span><span class="token function">HasARealMember</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+
+ <span class="token keyword">protected</span><span class="token operator">:</span>
+  vector<span class="token operator">&lt;</span>string<span class="token operator">></span> some_data_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>If in doubt【怀疑】, don’t rely on these sorts of exceptions【异常】.  Err on the side of not inlining.</p>
+<h3 id="Be-careful【小心】-about-your-accessors【存储器】"><a href="#Be-careful【小心】-about-your-accessors【存储器】" class="headerlink" title="Be careful【小心】 about your accessors【存储器】"></a>Be careful【小心】 about your accessors【存储器】</h3><p>Not all accessors are light【轻】 weight. Compare:</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Foo</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token keyword">int</span> <span class="token function">count</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> count_<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+
+ <span class="token keyword">private</span><span class="token operator">:</span>
+  <span class="token keyword">int</span> count_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Here the accessor is trivial and safe to inline.  But the following code is probably not, even though it also looks simple:</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">struct</span> MyData <span class="token punctuation">{</span>
+  vector<span class="token operator">&lt;</span>GURL<span class="token operator">></span> urls_<span class="token punctuation">;</span>
+  base<span class="token operator">::</span>Time last_access_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Manager</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  MyData <span class="token function">get_data</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> my_data_<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+
+ <span class="token keyword">private</span><span class="token operator">:</span>
+  MyData my_data_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>The underlying copy constructor calls for MyData are going to be complex【复杂】. (Also, they’re going to be synthesized【合成】, which is bad.)</p>
+<h3 id="What-about-code-outside【外面】-of-headers"><a href="#What-about-code-outside【外面】-of-headers" class="headerlink" title="What about code outside【外面】 of headers?"></a>What about code outside【外面】 of headers?</h3><p>For classes declared【声明】 in .cc files, there’s no risk【风险】 of bloating several .o files with the definitions of the same “inlined” function.  While there are other, weaker arguments to continue to avoid inlining, the primary remaining consideration is simply what would make code most readable【可读性】.</p>
+<p>This is especially true in testing code.  Test framework classes don’t tend to be instantiated separately【分离】 and passed around as objects; they’re effectively【有效的】 just bundles of file-scope functionality coupled with a mechanism【机制】 to reset state between tests.  In these cases, defining the test functions inline at their declaration sites has little negative【负面】 effect and can reduce the amount of “boilerplate” in the test file.</p>
+<p>Different reviewers may have different opinions here; use good judgment.</p>
+<h3 id="Static【静态】-variables"><a href="#Static【静态】-variables" class="headerlink" title="Static【静态】 variables"></a>Static【静态】 variables</h3><p>Dynamic【动态】 initialization of function-scope【函数作用域】 static variables is now threadsafe in Chromium (per standard C++11 behavior). Before 2017, this was thread-unsafe, and base::LazyInstance was widely used. This is no longer necessary【必要】. Background can be found in this thread and this thread.</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">foo</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">static</span> <span class="token keyword">int</span> ok_count <span class="token operator">=</span> <span class="token function">ComputeTheCount</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// OK now, previously a problem.</span>
+    <span class="token keyword">static</span> <span class="token keyword">int</span> good_count <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// C++03 3.6.2 says this is done before dynamic initialization, so probably thread-safe.</span>
+    <span class="token keyword">static</span> <span class="token keyword">constexpr</span> <span class="token keyword">int</span> better_count <span class="token operator">=</span> <span class="token number">42</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// Even better, as this will now likely be inlined at compile time.</span>
+    <span class="token keyword">static</span> <span class="token keyword">auto</span><span class="token operator">&amp;</span> object <span class="token operator">=</span> <span class="token operator">*</span><span class="token keyword">new</span> Object<span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// For class types.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="Variable-initialization【初始化】"><a href="#Variable-initialization【初始化】" class="headerlink" title="Variable initialization【初始化】"></a>Variable initialization【初始化】</h3><p>There are myriad【多种】 ways to initialize variables in C++11.  Prefer the following general【一般】 rules:</p>
+<p>Use assignment【分配】 syntax【语法】 when performing “simple” initialization with one or more literal【字面量】 values which will simply be composed into the object:</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">int</span> i <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+std<span class="token operator">::</span>string s <span class="token operator">=</span> <span class="token string">"Hello"</span><span class="token punctuation">;</span>
+std<span class="token operator">::</span>pair<span class="token operator">&lt;</span><span class="token keyword">bool</span><span class="token punctuation">,</span> <span class="token keyword">double</span><span class="token operator">></span> p <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token boolean">true</span><span class="token punctuation">,</span> <span class="token number">2.0</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+std<span class="token operator">::</span>vector<span class="token operator">&lt;</span>std<span class="token operator">::</span>string<span class="token operator">></span> v <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token string">"one"</span><span class="token punctuation">,</span> <span class="token string">"two"</span><span class="token punctuation">,</span> <span class="token string">"three"</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>Using ‘=’ here is no less efficient【重要】 than “()” (the compiler won’t generate a temp + copy), and ensures that only implicit【隐晦】 constructors are called, so readers seeing this syntax can assume nothing complex or subtle is happening.  Note that “{}” are allowed on the right side of the ‘=’ here (e.g. when you’re merely passing a set of initial values to a “simple” struct/container constructor; see below items for contrast).</p>
+<p>Use constructor syntax when construction performs significant logic, uses an explicit constructor, or in some other way is not intuitively “simple” to the reader:</p>
+<pre class=" language-cpp"><code class="language-cpp">MyClass <span class="token class-name">c</span><span class="token punctuation">(</span><span class="token number">1.7</span><span class="token punctuation">,</span> <span class="token boolean">false</span><span class="token punctuation">,</span> <span class="token string">"test"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+std<span class="token operator">::</span>vector<span class="token operator">&lt;</span><span class="token keyword">double</span><span class="token operator">></span> <span class="token function">v</span><span class="token punctuation">(</span><span class="token number">500</span><span class="token punctuation">,</span> <span class="token number">0.97</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// Creates 500 copies of the provided initializer</span>
+</code></pre>
+<p>Use C++11 “uniform init” syntax (“{}” without ‘=’) only when neither of the above work:</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">C</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token keyword">explicit</span> <span class="token function">C</span><span class="token punctuation">(</span><span class="token keyword">bool</span> b<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">class</span> <span class="token class-name">UsesC</span> <span class="token punctuation">{</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+ <span class="token keyword">private</span><span class="token operator">:</span>
+  C c<span class="token punctuation">{</span><span class="token boolean">true</span><span class="token punctuation">}</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// Cannot use '=' since C() is explicit (and "()" is invalid syntax here)</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Vexing</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token keyword">explicit</span> <span class="token function">Vexing</span><span class="token punctuation">(</span><span class="token keyword">const</span> std<span class="token operator">::</span>string<span class="token operator">&amp;</span> s<span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">void</span> <span class="token function">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  Vexing v<span class="token punctuation">{</span>std<span class="token operator">::</span><span class="token function">string</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">}</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// Using "()" here triggers "most vexing parse";</span>
+                            <span class="token comment" spellcheck="true">// "{}" is arguably more readable than "(())"</span>
+  <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+</code></pre>
+<p>Never mix uniform init syntax with auto, since what it deduces is unlikely to be what was intended:</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">auto</span> x<span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">}</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// Until C++17, decltype(x) is std::initializer_list&lt;int>, not int!</span>
+</code></pre>
+<h3 id="Prefer-MakeUnique-to-WrapUnique"><a href="#Prefer-MakeUnique-to-WrapUnique" class="headerlink" title="Prefer MakeUnique to WrapUnique"></a>Prefer MakeUnique to WrapUnique</h3><p>base::MakeUnique<type>(…) and base::WrapUnique(new Type(…)) are equivalent. MakeUnique should be preferred, because it is harder to use unsafely than WrapUnique. In general, bare calls to “new” require careful scrutiny. Bare calls to “new” are currently required to construct reference-counted types; however, reference counted types themselves require careful scrutiny.</type></p>
+<pre class=" language-cpp"><code class="language-cpp">    <span class="token keyword">return</span> std<span class="token operator">::</span>unique_ptr<span class="token operator">&lt;</span>C<span class="token operator">></span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token function">C</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// BAD: type name mentioned twice</span>
+    <span class="token keyword">return</span> base<span class="token operator">::</span><span class="token function">WrapUnique</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token function">C</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>    <span class="token comment" spellcheck="true">// BAD: bare call to new</span>
+    <span class="token keyword">return</span> base<span class="token operator">::</span>MakeUnique<span class="token operator">&lt;</span>C<span class="token operator">></span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">;</span>        <span class="token comment" spellcheck="true">// GOOD</span>
+</code></pre>
+<p>Notes:<br>Never friend MakeUnique to work around constructor access restrictions. It will allow anyone to construct the class. Use WrapUnique in this case.</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Bad</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  std<span class="token operator">::</span>unique_ptr<span class="token operator">&lt;</span>Bad<span class="token operator">></span> <span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> base<span class="token operator">::</span>MakeUnique<span class="token operator">&lt;</span>Bad<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+
+ <span class="token keyword">private</span><span class="token operator">:</span>
+  <span class="token function">Bad</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+  <span class="token keyword">friend</span> std<span class="token operator">::</span>unique_ptr<span class="token operator">&lt;</span>Bad<span class="token operator">></span> base<span class="token operator">::</span>MakeUnique<span class="token operator">&lt;</span>Bad<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// Lost access control</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">class</span> <span class="token class-name">Okay</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token comment" spellcheck="true">// For explanatory purposes. If Create() adds no value, it is better just</span>
+  <span class="token comment" spellcheck="true">// to have a public constructor instead.</span>
+  std<span class="token operator">::</span>unique_ptr<span class="token operator">&lt;</span>Okay<span class="token operator">></span> <span class="token function">Create</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> base<span class="token operator">::</span><span class="token function">WrapUnique</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token function">Okay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+
+ <span class="token keyword">private</span><span class="token operator">:</span>
+  <span class="token function">Okay</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// ...</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>WrapUnique(new Foo) and WrapUnique(new Foo()) mean something different if Foo does not have a user-defined constructor. Don’t make future maintainers guess whether you left off the ‘()’ on purpose. Use MakeUnique<foo>() instead. If you’re intentionally leaving off the “()” as an optimisation, please leave a comment.</foo></p>
+<pre class=" language-cpp"><code class="language-cpp">    <span class="token keyword">auto</span> a <span class="token operator">=</span> base<span class="token operator">::</span><span class="token function">WrapUnique</span><span class="token punctuation">(</span><span class="token keyword">new</span> A<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// BAD: "()" omitted intentionally?</span>
+    <span class="token keyword">auto</span> a <span class="token operator">=</span> base<span class="token operator">::</span>MakeUnique<span class="token operator">&lt;</span>A<span class="token operator">></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment" spellcheck="true">// GOOD</span>
+
+    <span class="token comment" spellcheck="true">// "()" intentionally omitted to avoid unnecessary zero-initialisation.</span>
+    <span class="token comment" spellcheck="true">// WrapUnique() does the wrong thing for array pointers.</span>
+    <span class="token keyword">auto</span> array <span class="token operator">=</span> std<span class="token operator">::</span>unique_ptr<span class="token operator">&lt;</span>A<span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token keyword">new</span> A<span class="token punctuation">[</span>size<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h3 id="Do-not-use-auto【自动】-to-deduce-a-raw-pointer"><a href="#Do-not-use-auto【自动】-to-deduce-a-raw-pointer" class="headerlink" title="Do not use auto【自动】 to deduce a raw pointer"></a>Do not use auto【自动】 to deduce a raw pointer</h3><p>The use of the auto keyword to deduce the type from the initializing expression is encouraged when it improves readability. However, do not use auto when the type would be deduced to be a pointer type. This can cause confusion. Instead, prefer specifying the “pointer” part outside of auto:</p>
+<pre class=" language-cpp"><code class="language-cpp">    <span class="token keyword">auto</span> item <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">Item</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment" spellcheck="true">// BAD: auto deduces to Item*, type of |item| is Item*</span>
+    <span class="token keyword">auto</span><span class="token operator">*</span> item <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token function">Item</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">// GOOD: auto deduces to Item, type of |item| is Item*</span>
+</code></pre>
+<h3 id="Use-const-correctly"><a href="#Use-const-correctly" class="headerlink" title="Use const correctly"></a>Use const correctly</h3><p>TLDR: For safety and simplicity, don’t return pointers or references to non-const objects from const methods.  Within that constraint, mark methods as const where possible.  Avoid const_cast to remove const, except when implementing non-const getters in terms of const getters.<br>A brief primer on const<br>To the compiler, the const qualifier on a method refers to physical constness: calling this method does not change the bits in this object.  What we want is logical constness, which is only partly overlapping: calling this method does not affect the object in ways callers will notice, nor does it give you a handle with the ability to do so.</p>
+<p>Mismatches between these concepts can occur in both directions.  When something is logically but not physically const, C++ provides the mutable keyword to silence compiler complaints.  This is valuable for e.g. cached calculations, where the cache is an implementation detail callers do not care about.  When something is physically but not logically const, however, the compiler will happily accept it, and there are no tools that will automatically save you.  This discrepancy usually involves pointers.  For example,</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">void</span> T<span class="token operator">::</span><span class="token function">Cleanup</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">delete</span> pointer_member_<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+</code></pre>
+<p>Deleting a member is a change callers are likely to care about, so this is probably not logically const.  But because delete does not affect the pointer itself, but only the memory it points to, this code is physically const, so it will compile.</p>
+<p>Or, more subtly, consider this pseudocode from a node in a tree:</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Node</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token keyword">void</span> <span class="token function">RemoveSelf</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> parent_<span class="token operator">-</span><span class="token operator">></span><span class="token function">RemoveChild</span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  <span class="token keyword">void</span> <span class="token function">RemoveChild</span><span class="token punctuation">(</span>Node<span class="token operator">*</span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>node <span class="token operator">==</span> left_child_<span class="token punctuation">)</span>
+      left_child_ <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span>
+    <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>node <span class="token operator">==</span> right_child_<span class="token punctuation">)</span>
+      right_child_ <span class="token operator">=</span> <span class="token keyword">nullptr</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  Node<span class="token operator">*</span> <span class="token function">left_child</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> left_child_<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+  Node<span class="token operator">*</span> <span class="token function">right_child</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> right_child_<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+
+ <span class="token keyword">private</span><span class="token operator">:</span>
+  Node<span class="token operator">*</span> parent_<span class="token punctuation">;</span>
+  Node<span class="token operator">*</span> left_child_<span class="token punctuation">;</span>
+  Node<span class="token operator">*</span> right_child_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>The left_child() and right_child() methods don’t change anything about |this|, so making them const seems fine.  But they allow code like this:</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">SignatureAppearsHarmlessToCallers</span><span class="token punctuation">(</span><span class="token keyword">const</span> Node<span class="token operator">&amp;</span> node<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  node<span class="token punctuation">.</span><span class="token function">left_child</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">RemoveSelf</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token comment" spellcheck="true">// Now |node| has no |left_child_|, despite having been passed in by const ref.</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>The original class definition compiles, and looks locally fine, but it’s a timebomb: a const method returning a handle that can be used to change the system in ways that affect the original object.  Eventually, someone will actually modify the object, potentially far away from where the handle is obtained.</p>
+<p>These modifications can be difficult to spot in practice.  As we see in the previous example, splitting related concepts or state (like “a tree”) across several objects means a change to one object affects the behavior of others.  And if this tree is in turn referred to by yet more objects (e.g. the DOM of a web page, which influences all sorts of other data structures relating to the page), then small changes can have visible ripples across the entire system.  In a codebase as complex as Chromium, it can be almost impossible to reason about what sorts of local changes could ultimately impact the behavior of distant objects, and vice versa.</p>
+<p>“Logically const correct” code assures readers that const methods will not change the system, directly or indirectly, nor allow callers to easily do so.  They make it easier to reason about large-scale behavior.  But since the compiler verifies physical constness, it will not guarantee that code is actually logically const.  Hence the recommendations here.<br>Classes of const (in)correctness<br>In a larger discussion of this issue, Matt Giuca postulated three classes of const (in)correctness:<br>Const correct: All code marked “const” is logically const; all code that is logically const is marked “const”.<br>Const okay: All code marked “const” is logically const, but not all code that is logically const is marked “const”.  (Basically, if you see “const” you can trust it, but sometimes it’s missing.)<br>Const broken: Some code marked “const” is not logically const.<br>The Chromium codebase currently varies.  A significant amount of Blink code is “const broken”.  A great deal of Chromium code is “const okay”.  A minority of code is “const correct”.</p>
+<p>While “const correct” is ideal, it can take a great deal of work to achieve.  Const (in)correctness is viral, so fixing one API often requires a yak shave.  (On the plus side, this same property helps prevent regressions when people actually use const objects to access the const APIs.)</p>
+<p>At the least, strive to convert code that is “const broken” to be “const okay”.  A simple rule of thumb that will prevent most cases of “const brokenness” is for const methods to never return pointers to non-const objects.  This is overly conservative, but less than you might think, due to how objects can transitively affect distant, seemingly-unrelated parts of the system.  The discussion thread linked above has more detail, but in short, it’s hard for readers and reviewers to prove that returning pointers-to-non-const is truly safe, and will stay safe through later refactorings and modifications.  Following this rule is easier than debating about whether individual cases are exceptions.</p>
+<p>One way to ensure code is “const okay” would be to never mark anything const.  This is suboptimal for the same reason we don’t choose to “never write comments, so they can never be wrong”.  Marking a method “const” provides the reader useful information about the system behavior.  Also, despite physical constness being different than logical constness, using “const” correctly still does catch certain classes of errors at compile time. Accordingly, the Google style guide requests the use of const where possible, so mark methods const when they are logically const.</p>
+<p>Making code more const correct leads to cases where duplicate const and non-const getters are required:</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">const</span> T<span class="token operator">*</span> Foo<span class="token operator">::</span><span class="token function">GetT</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword">const</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> t_<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+T<span class="token operator">*</span> Foo<span class="token operator">::</span><span class="token function">GetT</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> t_<span class="token punctuation">;</span> <span class="token punctuation">}</span>
+</code></pre>
+<p>If the implementation of GetT() is complex, there’s a trick to implement the non-const getter in terms of the const one, courtesy of Effective C++:</p>
+<pre class=" language-cpp"><code class="language-cpp">T<span class="token operator">*</span> Foo<span class="token operator">::</span><span class="token function">GetT</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span> <span class="token keyword">return</span> <span class="token keyword">const_cast</span><span class="token operator">&lt;</span>T<span class="token operator">*</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token keyword">static_cast</span><span class="token operator">&lt;</span><span class="token keyword">const</span> Foo<span class="token operator">*</span><span class="token operator">></span><span class="token punctuation">(</span><span class="token keyword">this</span><span class="token punctuation">)</span><span class="token operator">-</span><span class="token operator">></span><span class="token function">GetT</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token punctuation">}</span>
+</code></pre>
+<p>While this is a mouthful, it does guarantee the implementations won’t get out of sync and no const-incorrectness will occur.  And once you’ve seen it a few times, it’s a recognizable pattern.</p>
+<p>This is probably the only case where you should see const_cast used to remove constness.  Its use anywhere else is generally indicative of either “const broken” code, or a boundary between “const correct” and “const okay” code that could change to “const broken” at any future time without warning from the compiler.  Both cases should be fixed.</p>
+<p>Prefer to use =default<br>Use =default to define special member functions where possible, even if the default implementation is just {}. Be careful when defaulting move operations. Moved-from objects must be in a valid but unspecified state, i.e., they must satisfy the class invariants, and the default implementations may not achieve this.</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">class</span> <span class="token class-name">Good</span> <span class="token punctuation">{</span>
+ <span class="token keyword">public</span><span class="token operator">:</span>
+  <span class="token comment" spellcheck="true">// We can, and usually should, provide the default implementation separately</span>
+  <span class="token comment" spellcheck="true">// from the declaration.</span>
+  <span class="token function">Good</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token comment" spellcheck="true">// Use =default here for consistency, even though the implementation is {}.</span>
+  <span class="token operator">~</span><span class="token function">Good</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">default</span><span class="token punctuation">;</span>
+  <span class="token function">Good</span><span class="token punctuation">(</span><span class="token keyword">const</span> Good<span class="token operator">&amp;</span> other<span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">default</span><span class="token punctuation">;</span>
+
+ <span class="token keyword">private</span><span class="token operator">:</span>
+  std<span class="token operator">::</span>vector<span class="token operator">&lt;</span><span class="token keyword">int</span><span class="token operator">></span> v_<span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+Good<span class="token operator">::</span><span class="token function">Good</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">default</span><span class="token punctuation">;</span>
+</code></pre>
+<p>What are the advantages of =default?<br>Compiler-defined copy and move operations don’t need maintenance every time members are added or removed.<br>Compiler-provided special member functions can be “trivial” (if defaulted in the class), and can be better optimized by the compiler and library.<br>Types with defaulted constructors can be aggregates (if defaulted in the class), and hence support aggregate initialization. User provided constructors disqualify a class from being an aggregate.<br>Defaulted functions are constexpr if the implicit version would have been (and if defaulted in the class).<br>Using =default consistently helps readers identify customized operations.</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="#">« 无</a></span>
+  <span class="right"><a href="#">无 »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月22日 14:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-cpp-1
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

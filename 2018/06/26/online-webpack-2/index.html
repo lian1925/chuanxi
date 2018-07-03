@@ -1,0 +1,537 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>资源管理 2 | webpack | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/webpack/">
+            webpack
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/webpack/">
+              webpack
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/06/26/online-webpack-1/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/06/26/online-webpack-3/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/06/26/online-webpack-1/">
+                    起步 1 | webpack
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/06/26/online-webpack-3/">
+                    输出管理 3 | webpack
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>资源管理 2 | webpack</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年06月26日 18:06
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <h2 id="资源管理"><a href="#资源管理" class="headerlink" title="资源管理"></a>资源管理</h2><p>复制上一节的项目。</p>
+<h2 id="1、加载css"><a href="#1、加载css" class="headerlink" title="1、加载css"></a>1、加载css</h2><p>修改工程目录</p>
+<pre class=" language-bash"><code class="language-bash">  webpack2
+  <span class="token operator">|</span>- package.json
+  <span class="token operator">|</span>- webpack.config.js
+  <span class="token operator">|</span>- /dist
+    <span class="token operator">|</span>- bundle.js
+    <span class="token operator">|</span>- index.html
+  <span class="token operator">|</span>- /src
++   <span class="token operator">|</span>- style.css
+    <span class="token operator">|</span>- index.js
+  <span class="token operator">|</span>- /node_modules
+</code></pre>
+<p>修改文件src/style.css</p>
+<pre class=" language-bash"><code class="language-bash">.hello <span class="token punctuation">{</span>
+  color: red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>修改文件src/index.js</p>
+<pre class=" language-js"><code class="language-js">  <span class="token keyword">import</span> _ <span class="token keyword">from</span> <span class="token string">'lodash'</span><span class="token punctuation">;</span>
+<span class="token operator">+</span> <span class="token keyword">import</span> <span class="token string">'./style.css'</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">function</span> <span class="token function">component</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">var</span> element <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment" spellcheck="true">// Lodash, now imported by this script</span>
+    element<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> _<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'Hello'</span><span class="token punctuation">,</span> <span class="token string">'webpack'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">' '</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token operator">+</span>   element<span class="token punctuation">.</span>classList<span class="token punctuation">.</span><span class="token function">add</span><span class="token punctuation">(</span><span class="token string">'hello'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">return</span> element<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+
+  document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<p>安装css加载器</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev style-loader css-loader
+</code></pre>
+<p>修改文件dist/index.html</p>
+<pre class=" language-html"><code class="language-html">  <span class="token doctype">&lt;!doctype html></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Getting Started<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
++    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Asset Management<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span> <span class="token attr-name">src</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./bundle.js<span class="token punctuation">"</span></span><span class="token punctuation">></span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>修改文件webpack.config.js</p>
+<pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+    entry<span class="token punctuation">:</span> <span class="token string">'./src/index.js'</span><span class="token punctuation">,</span>
+    output<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      filename<span class="token punctuation">:</span> <span class="token string">'bundle.js'</span><span class="token punctuation">,</span>
+      path<span class="token punctuation">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'dist'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token operator">+</span>   module<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+<span class="token operator">+</span>     rules<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+<span class="token operator">+</span>       <span class="token punctuation">{</span>
+<span class="token operator">+</span>         test<span class="token punctuation">:</span> <span class="token regex">/\.css$/</span><span class="token punctuation">,</span>
+<span class="token operator">+</span>         use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+<span class="token operator">+</span>           <span class="token string">'style-loader'</span><span class="token punctuation">,</span>
+<span class="token operator">+</span>           <span class="token string">'css-loader'</span>
+<span class="token operator">+</span>         <span class="token punctuation">]</span>
+<span class="token operator">+</span>       <span class="token punctuation">}</span>
+<span class="token operator">+</span>     <span class="token punctuation">]</span>
+<span class="token operator">+</span>   <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>运行，查看结果</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run build
+
+Hash: 9a3abfc96300ef87880f
+Version: webpack 2.6.1
+Time: 834ms
+    Asset    Size  Chunks                    Chunk Names
+bundle.js  560 kB       0  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  <span class="token punctuation">[</span>big<span class="token punctuation">]</span>  main
+   <span class="token punctuation">[</span>0<span class="token punctuation">]</span> ./~/lodash/lodash.js 540 kB <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>1<span class="token punctuation">]</span> ./src/style.css 1 kB <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>2<span class="token punctuation">]</span> ./~/css-loader<span class="token operator">!</span>./src/style.css 191 bytes <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>3<span class="token punctuation">]</span> ./~/css-loader/lib/css-base.js 2.26 kB <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>4<span class="token punctuation">]</span> ./~/style-loader/lib/addStyles.js 8.7 kB <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>5<span class="token punctuation">]</span> ./~/style-loader/lib/urls.js 3.01 kB <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>6<span class="token punctuation">]</span> <span class="token punctuation">(</span>webpack<span class="token punctuation">)</span>/buildin/global.js 509 bytes <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>7<span class="token punctuation">]</span> <span class="token punctuation">(</span>webpack<span class="token punctuation">)</span>/buildin/module.js 517 bytes <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>8<span class="token punctuation">]</span> ./src/index.js 351 bytes <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+</code></pre>
+<h2 id="2、加载图片"><a href="#2、加载图片" class="headerlink" title="2、加载图片"></a>2、加载图片</h2><p>工程目录结构：</p>
+<pre class=" language-bash"><code class="language-bash">  webpack-demo
+  <span class="token operator">|</span>- package.json
+  <span class="token operator">|</span>- webpack.config.js
+  <span class="token operator">|</span>- /dist
+    <span class="token operator">|</span>- bundle.js
+    <span class="token operator">|</span>- index.html
+  <span class="token operator">|</span>- /src
++   <span class="token operator">|</span>- icon.png
+    <span class="token operator">|</span>- style.css
+    <span class="token operator">|</span>- index.js
+  <span class="token operator">|</span>- /node_modules
+</code></pre>
+<p>修改文件src/style.css</p>
+<pre class=" language-css"><code class="language-css">  <span class="token selector"><span class="token class">.hello</span> </span><span class="token punctuation">{</span>
+    <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
++   <span class="token property">background</span><span class="token punctuation">:</span> <span class="token url">url('./icon.png')</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+</code></pre>
+<p>安装文件加载器</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev file-loader
+</code></pre>
+<p>修改文件webpack.config.js</p>
+<pre class=" language-bash"><code class="language-bash">  const path <span class="token operator">=</span> require<span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  module.exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+    entry: <span class="token string">'./src/index.js'</span>,
+    output: <span class="token punctuation">{</span>
+      filename: <span class="token string">'bundle.js'</span>,
+      path: path.resolve<span class="token punctuation">(</span>__dirname, <span class="token string">'dist'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span>,
+    module: <span class="token punctuation">{</span>
+      rules: <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          test: /\.css$/,
+          use: <span class="token punctuation">[</span>
+            <span class="token string">'style-loader'</span>,
+            <span class="token string">'css-loader'</span>
+          <span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>,
++       <span class="token punctuation">{</span>
++         test: /\.<span class="token punctuation">(</span>png<span class="token operator">|</span>svg<span class="token operator">|</span>jpg<span class="token operator">|</span>gif<span class="token punctuation">)</span>$/,
++         use: <span class="token punctuation">[</span>
++           <span class="token string">'file-loader'</span>
++         <span class="token punctuation">]</span>
++       <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<h2 id="3、加载字体"><a href="#3、加载字体" class="headerlink" title="3、加载字体"></a>3、加载字体</h2><p>工程目录结构</p>
+<pre class=" language-bash"><code class="language-bash"> webpack-demo
+  <span class="token operator">|</span>- package.json
+  <span class="token operator">|</span>- webpack.config.js
+  <span class="token operator">|</span>- /dist
+    <span class="token operator">|</span>- bundle.js
+    <span class="token operator">|</span>- index.html
+  <span class="token operator">|</span>- /src
++   <span class="token operator">|</span>- my-font.woff
++   <span class="token operator">|</span>- my-font.woff2
+    <span class="token operator">|</span>- icon.png
+    <span class="token operator">|</span>- style.css
+    <span class="token operator">|</span>- index.js
+  <span class="token operator">|</span>- /node_modules
+</code></pre>
+<p>修改文件src/style.css</p>
+<pre class=" language-bash"><code class="language-bash">+ @font-face <span class="token punctuation">{</span>
++   font-family: <span class="token string">'MyFont'</span><span class="token punctuation">;</span>
++   src:  url<span class="token punctuation">(</span><span class="token string">'./my-font.woff2'</span><span class="token punctuation">)</span> format<span class="token punctuation">(</span><span class="token string">'woff2'</span><span class="token punctuation">)</span>,
++         url<span class="token punctuation">(</span><span class="token string">'./my-font.woff'</span><span class="token punctuation">)</span> format<span class="token punctuation">(</span><span class="token string">'woff'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
++   font-weight: 600<span class="token punctuation">;</span>
++   font-style: normal<span class="token punctuation">;</span>
++ <span class="token punctuation">}</span>
+
+  .hello <span class="token punctuation">{</span>
+    color: red<span class="token punctuation">;</span>
++   font-family: <span class="token string">'MyFont'</span><span class="token punctuation">;</span>
+    background: url<span class="token punctuation">(</span><span class="token string">'./icon.png'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+</code></pre>
+<p>修改文件webpack.config.js</p>
+<pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
+    entry<span class="token punctuation">:</span> <span class="token string">'./src/index.js'</span><span class="token punctuation">,</span>
+    output<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      filename<span class="token punctuation">:</span> <span class="token string">'bundle.js'</span><span class="token punctuation">,</span>
+      path<span class="token punctuation">:</span> path<span class="token punctuation">.</span><span class="token function">resolve</span><span class="token punctuation">(</span>__dirname<span class="token punctuation">,</span> <span class="token string">'dist'</span><span class="token punctuation">)</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    module<span class="token punctuation">:</span> <span class="token punctuation">{</span>
+      rules<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          test<span class="token punctuation">:</span> <span class="token regex">/\.css$/</span><span class="token punctuation">,</span>
+          use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token string">'style-loader'</span><span class="token punctuation">,</span>
+            <span class="token string">'css-loader'</span>
+          <span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+        <span class="token punctuation">{</span>
+          test<span class="token punctuation">:</span> <span class="token regex">/\.(png|svg|jpg|gif)$/</span><span class="token punctuation">,</span>
+          use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+            <span class="token string">'file-loader'</span>
+          <span class="token punctuation">]</span>
+        <span class="token punctuation">}</span><span class="token punctuation">,</span>
+<span class="token operator">+</span>       <span class="token punctuation">{</span>
+<span class="token operator">+</span>         test<span class="token punctuation">:</span> <span class="token regex">/\.(woff|woff2|eot|ttf|otf)$/</span><span class="token punctuation">,</span>
+<span class="token operator">+</span>         use<span class="token punctuation">:</span> <span class="token punctuation">[</span>
+<span class="token operator">+</span>           <span class="token string">'file-loader'</span>
+<span class="token operator">+</span>         <span class="token punctuation">]</span>
+<span class="token operator">+</span>       <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>运行，查看结构</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run build
+
+Hash: b4aef94169088c79ed1c
+Version: webpack 2.6.1
+Time: 775ms
+                                Asset     Size  Chunks                    Chunk Names
+ 5c999da72346a995e7e2718865d019c8.png  11.3 kB          <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>
+11aebbbd407bcc3ab1e914ca0238d24d.woff   221 kB          <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>
+                            bundle.js   561 kB       0  <span class="token punctuation">[</span>emitted<span class="token punctuation">]</span>  <span class="token punctuation">[</span>big<span class="token punctuation">]</span>  main
+   <span class="token punctuation">[</span>0<span class="token punctuation">]</span> ./src/icon.png 82 bytes <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>1<span class="token punctuation">]</span> ./~/lodash/lodash.js 540 kB <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>2<span class="token punctuation">]</span> ./src/style.css 1 kB <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>3<span class="token punctuation">]</span> ./~/css-loader<span class="token operator">!</span>./src/style.css 420 bytes <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>4<span class="token punctuation">]</span> ./~/css-loader/lib/css-base.js 2.26 kB <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>5<span class="token punctuation">]</span> ./src/MyFont.woff 83 bytes <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>6<span class="token punctuation">]</span> ./~/style-loader/lib/addStyles.js 8.7 kB <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>7<span class="token punctuation">]</span> ./~/style-loader/lib/urls.js 3.01 kB <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>8<span class="token punctuation">]</span> <span class="token punctuation">(</span>webpack<span class="token punctuation">)</span>/buildin/global.js 509 bytes <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+   <span class="token punctuation">[</span>9<span class="token punctuation">]</span> <span class="token punctuation">(</span>webpack<span class="token punctuation">)</span>/buildin/module.js 517 bytes <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+  <span class="token punctuation">[</span>10<span class="token punctuation">]</span> ./src/index.js 503 bytes <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
+</code></pre>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/06/26/online-webpack-1/">« 起步 1 | web...</a></span>
+  <span class="right"><a href="/2018/06/26/online-webpack-3/">输出管理 3 | w... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年06月26日 18:06</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-webpack-2
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

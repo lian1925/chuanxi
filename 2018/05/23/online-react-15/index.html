@@ -1,0 +1,492 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>Static【静态】 Type【类型】 Checking【检查】 | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/React/">
+            React
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/React/">
+              React
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/05/23/online-react-14/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/05/23/online-react-16/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/05/23/online-react-14/">
+                    Typechecking【类型检查】 With PropTypes
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/05/23/online-react-16/">
+                    oRefs【引用】 and the DOM
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>Static【静态】 Type【类型】 Checking【检查】</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年05月23日 20:05
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>Static type checkers like <a href="https://flow.org/" target="_blank" rel="external">Flow</a> and <a href="https://www.typescriptlang.org/" target="_blank" rel="external">TypeScript</a> identify certain types of problems before you even run your code. They can also improve developer workflow by adding features like auto-completion. For this reason, we recommend using Flow or TypeScript instead of <code>PropTypes</code> for larger code bases.</p>
+<h2 id="Flow"><a href="#Flow" class="headerlink" title="Flow"></a>Flow</h2><p><a href="https://flow.org/" target="_blank" rel="external">Flow</a> is a static type checker for your JavaScript code. It is developed at Facebook and is often used with React. It lets you annotate the variables, functions, and React components with a special type syntax, and catch mistakes early. You can read an <a href="https://flow.org/en/docs/getting-started/" target="_blank" rel="external">introduction to Flow</a> to learn its basics.</p>
+<p>To use Flow, you need to:</p>
+<ul>
+<li>Add Flow to your project as a dependency.</li>
+<li>Ensure that Flow syntax is stripped from the compiled code.</li>
+<li>Add type annotations and run Flow to check them.</li>
+</ul>
+<p>We will explain these steps below in detail.</p>
+<h3 id="Adding-Flow-to-a-Project"><a href="#Adding-Flow-to-a-Project" class="headerlink" title="Adding Flow to a Project"></a>Adding Flow to a Project</h3><p>First, navigate to your project directory in the terminal. You will need to run the following command:</p>
+<p>If you use <a href="https://yarnpkg.com/" target="_blank" rel="external">Yarn</a>, run:</p>
+<pre class=" language-bash"><code class="language-bash">yarn add --dev flow-bin
+</code></pre>
+<p>If you use <a href="https://www.npmjs.com/" target="_blank" rel="external">npm</a>, run:</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev flow-bin
+</code></pre>
+<p>This command installs the latest version of Flow into your project.</p>
+<p>Now, add <code>flow</code> to the <code>&quot;scripts&quot;</code> section of your <code>package.json</code> to be able to use this from the terminal:</p>
+<pre class=" language-js{4}"><code class="language-js{4}">{
+  // ...
+  "scripts": {
+    "flow": "flow",
+    // ...
+  },
+  // ...
+}
+</code></pre>
+<p>Finally, run one of the following commands:</p>
+<p>If you use <a href="https://yarnpkg.com/" target="_blank" rel="external">Yarn</a>, run:</p>
+<pre class=" language-bash"><code class="language-bash">yarn run flow init
+</code></pre>
+<p>If you use <a href="https://www.npmjs.com/" target="_blank" rel="external">npm</a>, run:</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run flow init
+</code></pre>
+<p>This command will create a Flow configuration file that you will need to commit.</p>
+<h3 id="Stripping-Flow-Syntax-from-the-Compiled-Code"><a href="#Stripping-Flow-Syntax-from-the-Compiled-Code" class="headerlink" title="Stripping Flow Syntax from the Compiled Code"></a>Stripping Flow Syntax from the Compiled Code</h3><p>Flow extends the JavaScript language with a special syntax for type annotations. However, browsers aren’t aware of this syntax, so we need to make sure it doesn’t end up in the compiled JavaScript bundle that is sent to the browser.</p>
+<p>The exact way to do this depends on the tools you use to compile JavaScript.</p>
+<h4 id="Create-React-App"><a href="#Create-React-App" class="headerlink" title="Create React App"></a>Create React App</h4><p>If your project was set up using <a href="https://github.com/facebookincubator/create-react-app" target="_blank" rel="external">Create React App</a>, congratulations! The Flow annotations are already being stripped by default so you don’t need to do anything else in this step.</p>
+<h4 id="Babel"><a href="#Babel" class="headerlink" title="Babel"></a>Babel</h4><blockquote>
+<p>Note:</p>
+<p>These instructions are <em>not</em> for Create React App users. Even though Create React App uses Babel under the hood, it is already configured to understand Flow. Only follow this step if you <em>don’t</em> use Create React App.</p>
+</blockquote>
+<p>If you manually configured Babel for your project, you will need to install a special preset for Flow.</p>
+<p>If you use Yarn, run:</p>
+<pre class=" language-bash"><code class="language-bash">yarn add --dev babel-preset-flow
+</code></pre>
+<p>If you use npm, run:</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev babel-preset-flow
+</code></pre>
+<p>Then add the <code>flow</code> preset to your <a href="http://babeljs.io/docs/usage/babelrc/" target="_blank" rel="external">Babel configuration</a>. For example, if you configure Babel through <code>.babelrc</code> file, it could look like this:</p>
+<pre class=" language-js{3}"><code class="language-js{3}">{
+  "presets": [
+    "flow",
+    "react"
+  ]
+}
+</code></pre>
+<p>This will let you use the Flow syntax in your code.</p>
+<blockquote>
+<p>Note:</p>
+<p>Flow does not require the <code>react</code> preset, but they are often used together. Flow itself understands JSX syntax out of the box.</p>
+</blockquote>
+<h4 id="Other-Build-Setups"><a href="#Other-Build-Setups" class="headerlink" title="Other Build Setups"></a>Other Build Setups</h4><p>If you don’t use either Create React App or Babel, you can use <a href="https://github.com/flowtype/flow-remove-types" target="_blank" rel="external">flow-remove-types</a> to strip the type annotations.</p>
+<h3 id="Running-Flow"><a href="#Running-Flow" class="headerlink" title="Running Flow"></a>Running Flow</h3><p>If you followed the instructions above, you should be able to run Flow for the first time.</p>
+<pre class=" language-bash"><code class="language-bash">yarn flow
+</code></pre>
+<p>If you use npm, run:</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run flow
+</code></pre>
+<p>You should see a message like:</p>
+<pre><code>No errors!
+✨  Done in 0.17s.
+</code></pre><h3 id="Adding-Flow-Type-Annotations"><a href="#Adding-Flow-Type-Annotations" class="headerlink" title="Adding Flow Type Annotations"></a>Adding Flow Type Annotations</h3><p>By default, Flow only checks the files that include this annotation:</p>
+<pre class=" language-js"><code class="language-js"><span class="token comment" spellcheck="true">// @flow</span>
+</code></pre>
+<p>Typically it is placed at the top of a file. Try adding it to some files in your project and run <code>yarn flow</code> or <code>npm run flow</code> to see if Flow already found any issues.</p>
+<p>There is also <a href="https://flow.org/en/docs/config/options/#toc-all-boolean" target="_blank" rel="external">an option</a> to force Flow to check <em>all</em> files regardless of the annotation. This can be too noisy for existing projects, but is reasonable for a new project if you want to fully type it with Flow.</p>
+<p>Now you’re all set! We recommend to check out the following resources to learn more about Flow:</p>
+<ul>
+<li><a href="https://flow.org/en/docs/types/" target="_blank" rel="external">Flow Documentation: Type Annotations</a></li>
+<li><a href="https://flow.org/en/docs/editors/" target="_blank" rel="external">Flow Documentation: Editors</a></li>
+<li><a href="https://flow.org/en/docs/react/" target="_blank" rel="external">Flow Documentation: React</a></li>
+<li><a href="https://medium.com/flow-type/linting-in-flow-7709d7a7e969" target="_blank" rel="external">Linting in Flow</a></li>
+</ul>
+<h2 id="TypeScript"><a href="#TypeScript" class="headerlink" title="TypeScript"></a>TypeScript</h2><p><a href="https://www.typescriptlang.org/" target="_blank" rel="external">TypeScript</a> is a programming language developed by Microsoft. It is a typed superset of JavaScript, and includes its own compiler. Being a typed language, Typescript can catch errors and bugs at build time, long before your app goes live. You can learn more about using TypeScript with React <a href="https://github.com/Microsoft/TypeScript-React-Starter#typescript-react-starter" target="_blank" rel="external">here</a>.</p>
+<p>To use TypeScript, you need to:</p>
+<ul>
+<li>Add Typescript as a dependency to your project</li>
+<li>Configure the TypeScript compiler options</li>
+<li>Use the right file extensions</li>
+<li>Add definitions for libraries you use</li>
+</ul>
+<p>Let’s go over these in detail.</p>
+<h3 id="Adding-TypeScript-to-a-Project"><a href="#Adding-TypeScript-to-a-Project" class="headerlink" title="Adding TypeScript to a Project"></a>Adding TypeScript to a Project</h3><p>It all begins with running one command in your terminal.</p>
+<p>If you use <a href="https://yarnpkg.com/" target="_blank" rel="external">Yarn</a>, run:</p>
+<pre class=" language-bash"><code class="language-bash">yarn add --dev typescript
+</code></pre>
+<p>If you use <a href="https://www.npmjs.com/" target="_blank" rel="external">npm</a>, run:</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev typescript
+</code></pre>
+<p>Congrats! You’ve installed the latest version of TypeScript into your project. Installing TypeScript gives us access to the <code>tsc</code> command. Before configuration, let’s add <code>tsc</code> to the “scripts” section in our <code>package.json</code>:</p>
+<pre class=" language-js{4}"><code class="language-js{4}">{
+  // ...
+  "scripts": {
+    "build": "tsc",
+    // ...
+  },
+  // ...
+}
+</code></pre>
+<h3 id="Configuring-the-TypeScript-Compiler"><a href="#Configuring-the-TypeScript-Compiler" class="headerlink" title="Configuring the TypeScript Compiler"></a>Configuring the TypeScript Compiler</h3><p>The compiler is of no help to us until we tell it what to do. In TypeScript, these rules are defined in a special file called <code>tsconfig.json</code>. To generate this file run:</p>
+<pre class=" language-bash"><code class="language-bash">tsc --init
+</code></pre>
+<p>Looking at the now generated <code>tsconfig.json</code>, you can see that there are many options you can use to configure the compiler. For a detailed description of all the options, check <a href="https://www.typescriptlang.org/docs/handbook/tsconfig-json.html" target="_blank" rel="external">here</a>.</p>
+<p>Of the many options, we’ll look at <code>rootDir</code> and <code>outDir</code>. In its true fashion, the compiler will take in typescript files and generate javascript files. However we don’t want to get confused with our source files and the generated output.</p>
+<p>We’ll address this in two steps:</p>
+<ul>
+<li>Firstly, let’s arrange our project structure like this. We’ll place all our source code in the <code>src</code> directory.</li>
+</ul>
+<pre><code>├── package.json
+├── src
+│   └── index.ts
+└── tsconfig.json
+</code></pre><ul>
+<li>Next, we’ll tell the compiler where our source code is and where the output should go.</li>
+</ul>
+<pre class=" language-js{6,7}"><code class="language-js{6,7}">// tsconfig.json
+
+{
+  "compilerOptions": {
+    // ...
+    "rootDir": "src",
+    "outDir": "build"
+    // ...
+  },
+}
+</code></pre>
+<p>Great! Now when we run our build script the compiler will output the generated javascript to the <code>build</code> folder. The <a href="https://github.com/Microsoft/TypeScript-React-Starter/blob/master/tsconfig.json" target="_blank" rel="external">TypeScript React Starter</a> provides a <code>tsconfig.json</code> with a good set of rules to get you started.</p>
+<p>Generally, you don’t want to keep the generated javascript in your source control, so be sure to add the build folder to your <code>.gitignore</code>.</p>
+<h3 id="File-extensions"><a href="#File-extensions" class="headerlink" title="File extensions"></a>File extensions</h3><p>In React, you most likely write your components in a <code>.js</code> file. In TypeScript we have 2 file extensions:</p>
+<p><code>.ts</code> is the default file extension while <code>.tsx</code> is a special extension used for files which contain <code>JSX</code>.</p>
+<h3 id="Running-TypeScript"><a href="#Running-TypeScript" class="headerlink" title="Running TypeScript"></a>Running TypeScript</h3><p>If you followed the instructions above, you should be able to run TypeScript for the first time.</p>
+<pre class=" language-bash"><code class="language-bash">yarn build
+</code></pre>
+<p>If you use npm, run:</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run build
+</code></pre>
+<p>If you see no output, it means that it completed successfully.</p>
+<h3 id="Type-Definitions"><a href="#Type-Definitions" class="headerlink" title="Type Definitions"></a>Type Definitions</h3><p>To be able to show errors and hints from other packages, the compiler relies on declaration files. A declaration file provides all the type information about a library. This enables us to use javascript libraries like those on npm in our project. </p>
+<p>There are two main ways to get declarations for a library:</p>
+<p><strong>Bundled</strong> - The library bundles its own declaration file. This is great for us, since all we need to do is install the library, and we can use it right away. To check if a library has bundled types, look for an <code>index.d.ts</code> file in the project. Some libraries will have it specified in their <code>package.json</code> under the <code>typings</code> or <code>types</code> field.</p>
+<p><strong><a href="https://github.com/DefinitelyTyped/DefinitelyTyped" target="_blank" rel="external">DefinitelyTyped</a></strong> - DefinitelyTyped is a huge repository of declarations for libraries that don’t bundle a declaration file. The declarations are crowd-sourced and managed by Microsoft and open source contributors. React for example doesn’t bundle its own declaration file. Instead we can get it from DefinitelyTyped. To do so enter this command in your terminal.</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token comment" spellcheck="true"># yarn</span>
+yarn add --dev @types/react
+
+<span class="token comment" spellcheck="true"># npm</span>
+<span class="token function">npm</span> i --save-dev @types/react
+</code></pre>
+<p><strong>Local Declarations</strong><br>Sometimes the package that you want to use doesn’t bundle declarations nor is it available on DefinitelyTyped. In that case, we can have a local declaration file. To do this, create a <code>declarations.d.ts</code> file in the root of your source directory. A simple declaration could look like this:</p>
+<pre class=" language-typescript"><code class="language-typescript"><span class="token keyword">declare</span> <span class="token keyword">module</span> <span class="token string">'querystring'</span> <span class="token punctuation">{</span>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">stringify</span><span class="token punctuation">(</span>val<span class="token punctuation">:</span> object<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">string</span>
+  <span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">parse</span><span class="token punctuation">(</span>val<span class="token punctuation">:</span> <span class="token keyword">string</span><span class="token punctuation">)</span><span class="token punctuation">:</span> object
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="Using-TypeScript-with-Create-React-App"><a href="#Using-TypeScript-with-Create-React-App" class="headerlink" title="Using TypeScript with Create React App"></a>Using TypeScript with Create React App</h3><p><a href="https://www.npmjs.com/package/react-scripts-ts" target="_blank" rel="external">react-scripts-ts</a> automatically configures a <code>create-react-app</code> project to support TypeScript. You can use it like this:</p>
+<pre class=" language-bash"><code class="language-bash">create-react-app my-app --scripts-version<span class="token operator">=</span>react-scripts-ts
+</code></pre>
+<p>Note that it is a <strong>third party</strong> project, and is not a part of Create React App.</p>
+<p>You can also try <a href="https://github.com/Microsoft/TypeScript-React-Starter#typescript-react-starter" target="_blank" rel="external">typescript-react-starter</a>.</p>
+<p>You are now ready to code! We recommend to check out the following resources to learn more about Typescript:</p>
+<ul>
+<li><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" rel="external">TypeScript Documentation: Basic Types</a></li>
+<li><a href="http://www.typescriptlang.org/docs/handbook/migrating-from-javascript.html" target="_blank" rel="external">TypeScript Documentation: Migrating from Javascript</a></li>
+<li><a href="http://www.typescriptlang.org/docs/handbook/react-&amp;-webpack.html" target="_blank" rel="external">TypeScript Documentation: React and Webpack</a></li>
+</ul>
+<h2 id="Reason"><a href="#Reason" class="headerlink" title="Reason"></a>Reason</h2><p><a href="https://reasonml.github.io/" target="_blank" rel="external">Reason</a> is not a new language; it’s a new syntax and toolchain powered by the battle-tested language, <a href="http://ocaml.org/" target="_blank" rel="external">OCaml</a>. Reason gives OCaml a familiar syntax geared toward JavaScript programmers, and caters to the existing NPM/Yarn workflow folks already know.</p>
+<p>Reason is developed at Facebook, and is used in some of its products like Messenger. It is still somewhat experimental but it has <a href="https://reasonml.github.io/reason-react/" target="_blank" rel="external">dedicated React bindings</a> maintained by Facebook and a <a href="https://reasonml.github.io/docs/en/community.html" target="_blank" rel="external">vibrant community</a>.</p>
+<h2 id="Kotlin"><a href="#Kotlin" class="headerlink" title="Kotlin"></a>Kotlin</h2><p><a href="https://kotlinlang.org/" target="_blank" rel="external">Kotlin</a> is a statically typed language developed by JetBrains. Its target platforms include the JVM, Android, LLVM, and <a href="https://kotlinlang.org/docs/reference/js-overview.html" target="_blank" rel="external">JavaScript</a>. </p>
+<p>JetBrains develops and maintains several tools specifically for the React community: <a href="https://github.com/JetBrains/kotlin-wrappers" target="_blank" rel="external">React bindings</a> as well as <a href="https://github.com/JetBrains/create-react-kotlin-app" target="_blank" rel="external">Create React Kotlin App</a>. The latter helps you start building React apps with Kotlin with no build configuration.</p>
+<h2 id="Other-Languages"><a href="#Other-Languages" class="headerlink" title="Other Languages"></a>Other Languages</h2><p>Note there are other statically typed languages that compile to JavaScript and are thus React compatible. For example, <a href="http://fable.io" target="_blank" rel="external">F#/Fable</a> with <a href="https://elmish.github.io/react" target="_blank" rel="external">elmish-react</a>. Check out their respective sites for more information, and feel free to add more statically typed languages that work with React to this page!</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/05/23/online-react-14/">« Typechecki...</a></span>
+  <span class="right"><a href="/2018/05/23/online-react-16/">oRefs【引用】 ... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年05月23日 20:05</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-react-15
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

@@ -1,0 +1,60 @@
+.entry-card {
+  /* width: 90%; */
+  width: 380px;
+  height: 200px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 1.5rem; }
+
+.entry-card h2 {
+  text-align: center;
+  margin: 0;
+  margin-top: 1.5rem;
+  text-shadow: 0 1px 1px #333;
+  font-weight: bolder;
+  font-size: 2.2rem;
+  line-height: 2.2rem;
+  border: none; }
+
+.entry-card h2 a {
+  color: orange; }
+
+.entry-card h3 {
+  text-shadow: 0 1px 1px #333;
+  text-align: center;
+  font-size: 1.8rem;
+  color: white;
+  font-weight: normal; }
+
+.entry-card .inner p {
+  text-align: center;
+  line-height: 4rem;
+  border-bottom: 1px solid #d3d3d3; }
+
+.entry-card .inner p a {
+  color: orange;
+  font-size: 1.6rem;
+  text-shadow: 0 1px 1px #333;
+  /* padding: 0.5rem; */ }
+
+.index-bg {
+  background-position: 50% 50%;
+  width: 100%;
+  height: 100%;
+  background-attachment: fixed;
+  transition: all 2s ease-in;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("http://www.ruanyifeng.com/images_pub/pub_121.jpg"); }
+
+.entry-card p.honor {
+  text-align: center;
+  color: white;
+  line-height: 220%; }
+
+body.pc .entry-card h3 {
+  margin-top: 0;
+  font-weight: normal; }

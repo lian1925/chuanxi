@@ -1,0 +1,720 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>4 创建功能block | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/PXT/">
+            PXT
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/PXT/">
+              PXT
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="#">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/04/25/online-vscode-doc-1/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="#">
+                    无
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/04/25/online-vscode-doc-1/">
+                    起步 1 | 代码编辑器
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>4 创建功能block</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年02月14日 09:02
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <h2 id="添加功能板块"><a href="#添加功能板块" class="headerlink" title="添加功能板块"></a>添加功能板块</h2><p>1、新建实现文件，如 aPower.cpp</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token macro property"># <span class="token directive keyword">include</span> <span class="token string">"pxt.h"</span></span>
+
+<span class="token keyword">namespace</span> aPower <span class="token punctuation">{</span>
+
+<span class="token punctuation">}</span>
+</code></pre>
+<p>2、在pxt.json中注册</p>
+<pre class=" language-json"><code class="language-json"><span class="token property">"files"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token string">"aBasic.cpp"</span><span class="token punctuation">,</span>
+</code></pre>
+<p>]</p>
+<pre><code>3、在simulator中注册
+```typescript
+namespace pxsim.aPower {
+
+}
+</code></pre><p>1、实现功能块<br>按键功能<br>当检测到按键时，执行代码块内容。<br>实现步骤<br>1、定义按键的枚举结构</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">enum</span> <span class="token keyword">class</span> <span class="token class-name">Button</span> <span class="token punctuation">{</span>
+    A <span class="token operator">=</span> MICROBIT_ID_BUTTON_A<span class="token punctuation">,</span>
+    B <span class="token operator">=</span> MICROBIT_ID_BUTTON_B<span class="token punctuation">,</span>
+    AB <span class="token operator">=</span> MICROBIT_ID_BUTTON_AB<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>2、实现函数体</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token keyword">void</span> <span class="token function">onButtonPressed</span><span class="token punctuation">(</span>Button button<span class="token punctuation">,</span> Action body<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">registerWithDal</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">)</span>button<span class="token punctuation">,</span> MICROBIT_BUTTON_EVT_CLICK<span class="token punctuation">,</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>3、添加pxt注解</p>
+<pre class=" language-cpp"><code class="language-cpp"><span class="token comment" spellcheck="true">// 枚举</span>
+<span class="token comment" spellcheck="true">//% block="A+B"</span>
+
+<span class="token comment" spellcheck="true">// 函数体</span>
+ <span class="token comment" spellcheck="true">/**
+  * Do something when a button (A, B or both A+B) is pusheddown and released again.
+  * @param button the button that needs to be pressed
+  * @param body code to run when event is raised
+  */</span>
+ <span class="token comment" spellcheck="true">//% help=input/on-button-pressed weight=85 blockGap=8</span>
+ <span class="token comment" spellcheck="true">//% blockId=device_button_event block="on button|%NAMEpressed"</span>
+ <span class="token comment" spellcheck="true">//% parts="buttonpair"</span>
+</code></pre>
+<p>4、注册simulator</p>
+<pre class=" language-typescript"><code class="language-typescript"><span class="token keyword">export</span> <span class="token keyword">function</span> <span class="token function">onButtonPressed</span><span class="token punctuation">(</span>button<span class="token punctuation">:</span> <span class="token keyword">number</span><span class="token punctuation">,</span> handler<span class="token punctuation">:</span>RefAction<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token keyword">void</span> <span class="token punctuation">{</span>
+    <span class="token keyword">let</span> b <span class="token operator">=</span> <span class="token function">board</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>buttonPairState<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>button <span class="token operator">==</span> b<span class="token punctuation">.</span>props<span class="token punctuation">.</span>ID_BUTTON_AB <span class="token operator">&amp;&amp;</span> <span class="token operator">!</span>b<span class="token punctuation">.</span>usesButtonAB<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        b<span class="token punctuation">.</span>usesButtonAB <span class="token operator">=</span> <span class="token keyword">true</span><span class="token punctuation">;</span>
+        runtime<span class="token punctuation">.</span><span class="token function">queueDisplayUpdate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    pxtcore<span class="token punctuation">.</span><span class="token function">registerWithDal</span><span class="token punctuation">(</span>button<span class="token punctuation">,</span>DAL<span class="token punctuation">.</span>MICROBIT_BUTTON_EVT_CLICK<span class="token punctuation">,</span> handler<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p>注解是pxt开发中非常重要的概念，它用于将c++底层逻辑代码转换成可视化的block编辑器。<br>这是开发中很有用的抽象理念。<br>1、枚举中的注解，包括两方面：注释和别名封装<br>示例：</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">enum</span> <span class="token keyword">class</span> <span class="token class-name">AcceleratorRange</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
+     * The accelerator measures forces up to 1 gravity
+     */</span>
+    <span class="token comment" spellcheck="true">//%  block="1g"</span>
+    OneG <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">/**
+     * The accelerator measures forces up to 2 gravity
+     */</span>
+    <span class="token comment" spellcheck="true">//%  block="2g"</span>
+    TwoG <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">/**
+     * The accelerator measures forces up to 4 gravity
+     */</span>
+    <span class="token comment" spellcheck="true">//% block="4g"</span>
+    FourG <span class="token operator">=</span> <span class="token number">4</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">/**
+     * The accelerator measures forces up to 8 gravity
+     */</span>
+    <span class="token comment" spellcheck="true">//% block="8g"</span>
+    EightG <span class="token operator">=</span> <span class="token number">8</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>2、功能板块中的注解，以<code>//%</code>开头，包括如下属性：<br>颜色，如：color=#ff0000<br>大小，如：weight=99<br>图标，如：icon=”\uf192”<br>完整示例：</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">//% color=#B4009E weight=99 icon="\uf192"</span>
+namespace input <span class="token punctuation">{</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>3、block块的注解，包括如下属性：<br>注释与接收参数，语法规则如下：<br>以<code>/**</code>作为起始行，以<code>*/</code>作为末行<br>注释行，以<code>*</code>开头<br>参数行，以<code>* @param</code>开头，+参数变量，+ 注释内容，+默认值，<code>,eg: Button.A</code><br>示例：</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">/**
+ * Do something when a button (A, B or both A+B) is pushedown and released again.
+ * @param button the button that needs to be pressed
+ * @param body code to run when event is raised
+ */</span>
+</code></pre>
+<p>block命名，如：</p>
+<pre class=" language-ts"><code class="language-ts">block<span class="token operator">=</span><span class="token string">"on button|%NAME|pressed"</span>
+</code></pre>
+<p>唯一ID，如：</p>
+<pre class=" language-ts"><code class="language-ts">blockId<span class="token operator">=</span>device_button_event
+</code></pre>
+<p>权重，如：</p>
+<pre class=" language-ts"><code class="language-ts">weight<span class="token operator">=</span><span class="token number">85</span>
+</code></pre>
+<p>间距，如：</p>
+<pre class=" language-ts"><code class="language-ts">blogGap<span class="token operator">=</span><span class="token number">8</span>
+</code></pre>
+<p>归类，如：</p>
+<pre class=" language-ts"><code class="language-ts">parts<span class="token operator">=</span><span class="token string">"buttonpair"</span>
+</code></pre>
+<p>帮助，如：</p>
+<pre class=" language-ts"><code class="language-ts">help<span class="token operator">=</span>input<span class="token operator">/</span>on<span class="token operator">-</span>button<span class="token operator">-</span>pressed
+</code></pre>
+<p>完整示例</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token comment" spellcheck="true">/**
+ * Do something when a button (A, B or both A+B) is pusheddown and released again.
+ * @param button the button that needs to be pressed
+ * @param body code to run when event is raised
+ */</span>
+<span class="token comment" spellcheck="true">//% help=input/on-button-pressed weight=85 blockGap=8</span>
+<span class="token comment" spellcheck="true">//% blockId=device_button_event block="on button|%NAMEpressed"</span>
+<span class="token comment" spellcheck="true">//% parts="buttonpair"</span>
+</code></pre>
+<p>3、按键<br>按键block，有2种逻辑类型：<br>一，检测按下与否，输出布尔值；<br>二，检测按下与否，执行函数块；<br>另外，在microbit中，普通引脚也可以充当按键使用，实现按键的点击、按下，释放等功能。不过，其实现与AB按键稍有不同</p>
+<p>枚举类型对比</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">enum</span> <span class="token keyword">class</span> <span class="token class-name">Button</span> <span class="token punctuation">{</span>
+    A <span class="token operator">=</span> MICROBIT_ID_BUTTON_A<span class="token punctuation">,</span>
+    B <span class="token operator">=</span> MICROBIT_ID_BUTTON_B<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block="A+B"</span>
+    AB <span class="token operator">=</span> MICROBIT_ID_BUTTON_AB<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+<span class="token keyword">enum</span> <span class="token keyword">class</span> <span class="token class-name">TouchPin</span> <span class="token punctuation">{</span>
+    P0 <span class="token operator">=</span> MICROBIT_ID_IO_P0<span class="token punctuation">,</span>
+    P1 <span class="token operator">=</span> MICROBIT_ID_IO_P1<span class="token punctuation">,</span>
+    P2 <span class="token operator">=</span> MICROBIT_ID_IO_P2<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>执行函数块示例</p>
+<pre class=" language-typescript"><code class="language-typescript"><span class="token comment" spellcheck="true">// AB按键</span>
+<span class="token keyword">void</span> <span class="token function">onButtonPressed</span><span class="token punctuation">(</span>Button button<span class="token punctuation">,</span> Action body<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">registerWithDal</span><span class="token punctuation">(</span><span class="token punctuation">(</span>int<span class="token punctuation">)</span>button<span class="token punctuation">,</span> MICROBIT_BUTTON_EVT_CLICK<span class="token punctuation">,</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">// 普通引脚</span>
+<span class="token keyword">void</span> <span class="token function">onPinPressed</span><span class="token punctuation">(</span>TouchPin name<span class="token punctuation">,</span> Action body<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    auto pin <span class="token operator">=</span> <span class="token function">getPin</span><span class="token punctuation">(</span><span class="token punctuation">(</span>int<span class="token punctuation">)</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>pin<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// Forces the PIN to switch to makey-makey styledetection.</span>
+    pin<span class="token operator">-</span><span class="token operator">></span><span class="token function">isTouched</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">registerWithDal</span><span class="token punctuation">(</span><span class="token punctuation">(</span>int<span class="token punctuation">)</span>name<span class="token punctuation">,</span> MICROBIT_BUTTON_EVT_CLICK<span class="token punctuation">,</span>body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>输出布尔值示例</p>
+<pre class=" language-typescript"><code class="language-typescript"><span class="token comment" spellcheck="true">// AB按键</span>
+bool <span class="token function">buttonIsPressed</span><span class="token punctuation">(</span>Button button<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>button <span class="token operator">==</span> Button<span class="token punctuation">:</span><span class="token punctuation">:</span>A<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> uBit<span class="token punctuation">.</span>buttonA<span class="token punctuation">.</span><span class="token function">isPressed</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>button <span class="token operator">==</span> Button<span class="token punctuation">:</span><span class="token punctuation">:</span>B<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> uBit<span class="token punctuation">.</span>buttonB<span class="token punctuation">.</span><span class="token function">isPressed</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>button <span class="token operator">==</span> Button<span class="token punctuation">:</span><span class="token punctuation">:</span>AB<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> uBit<span class="token punctuation">.</span>buttonAB<span class="token punctuation">.</span><span class="token function">isPressed</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">return</span> <span class="token keyword">false</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token comment" spellcheck="true">// 普通引脚</span>
+bool <span class="token function">pinIsPressed</span><span class="token punctuation">(</span>TouchPin name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    auto pin <span class="token operator">=</span> <span class="token function">getPin</span><span class="token punctuation">(</span><span class="token punctuation">(</span>int<span class="token punctuation">)</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> pin <span class="token operator">&amp;&amp;</span> pin<span class="token operator">-</span><span class="token operator">></span><span class="token function">isTouched</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>另外，相对AB按键，普通引脚还多了一项功能，检测引脚释放动作。</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">void</span> <span class="token function">onPinReleased</span><span class="token punctuation">(</span>TouchPin name<span class="token punctuation">,</span> Action body<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    auto pin <span class="token operator">=</span> <span class="token function">getPin</span><span class="token punctuation">(</span><span class="token punctuation">(</span>int<span class="token punctuation">)</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>pin<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span>
+    <span class="token comment" spellcheck="true">// Forces the PIN to switch to makey-makey styledetection.</span>
+    pin<span class="token operator">-</span><span class="token operator">></span><span class="token function">isTouched</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">registerWithDal</span><span class="token punctuation">(</span><span class="token punctuation">(</span>int<span class="token punctuation">)</span>name<span class="token punctuation">,</span> MICROBIT_BUTTON_EVT_UP<span class="token punctuation">,</span> body<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>动作感应，包括：抖动，logo朝上，logo朝下，显示屏朝上，显示器朝下。</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">enum</span> <span class="token keyword">class</span> <span class="token class-name">Gesture</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">/**
+     * Raised when shaken
+     */</span>
+    <span class="token comment" spellcheck="true">//% block=shake</span>
+    Shake <span class="token operator">=</span> MICROBIT_ACCELEROMETER_EVT_SHAKE<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">/**
+     * Raised when the logo is upward and the screen is vertical
+     */</span>
+    <span class="token comment" spellcheck="true">//% block="logo up"</span>
+    LogoUp <span class="token operator">=</span> MICROBIT_ACCELEROMETER_EVT_TILT_UP<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">/**
+     * Raised when the logo is downward and the screen is vertical
+     */</span>
+    <span class="token comment" spellcheck="true">//% block="logo down"</span>
+    LogoDown <span class="token operator">=</span> MICROBIT_ACCELEROMETER_EVT_TILT_DOWN<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">/**
+     * Raised when the screen is pointing down and the board is horizontal
+     */</span>
+    <span class="token comment" spellcheck="true">//% block="screen up"</span>
+    ScreenUp <span class="token operator">=</span> MICROBIT_ACCELEROMETER_EVT_FACE_UP<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">/**
+     * Raised when the screen is pointing up and the board is horizontal
+     */</span>
+    <span class="token comment" spellcheck="true">//% block="screen down"</span>
+    ScreenDown <span class="token operator">=</span> MICROBIT_ACCELEROMETER_EVT_FACE_DOWN<span class="token punctuation">,</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>检测到特定动作，执行代码块</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">void</span> <span class="token function">onGesture</span><span class="token punctuation">(</span>Gesture gesture<span class="token punctuation">,</span> Action body<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    int gi <span class="token operator">=</span> <span class="token punctuation">(</span>int<span class="token punctuation">)</span>gesture<span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>gi <span class="token operator">==</span> MICROBIT_ACCELEROMETER_EVT_3G <span class="token operator">&amp;&amp;</span>uBit<span class="token punctuation">.</span>accelerometer<span class="token punctuation">.</span><span class="token function">getRange</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">3</span><span class="token punctuation">)</span>
+        uBit<span class="token punctuation">.</span>accelerometer<span class="token punctuation">.</span><span class="token function">setRange</span><span class="token punctuation">(</span><span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token punctuation">(</span>gi <span class="token operator">==</span> MICROBIT_ACCELEROMETER_EVT_6G <span class="token operator">||</span> gi <span class="token operator">==</span>MICROBIT_ACCELEROMETER_EVT_8G<span class="token punctuation">)</span> <span class="token operator">&amp;&amp;</span>uBit<span class="token punctuation">.</span>accelerometer<span class="token punctuation">.</span><span class="token function">getRange</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">&lt;</span> <span class="token number">6</span><span class="token punctuation">)</span>
+        uBit<span class="token punctuation">.</span>accelerometer<span class="token punctuation">.</span><span class="token function">setRange</span><span class="token punctuation">(</span><span class="token number">8</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">registerWithDal</span><span class="token punctuation">(</span>MICROBIT_ID_GESTURE<span class="token punctuation">,</span> gi<span class="token punctuation">,</span> body<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>加速度计，可以检测直角坐标系,x,y,z三轴的加速度值。</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">enum</span> <span class="token keyword">class</span> <span class="token class-name">Dimension</span> <span class="token punctuation">{</span>
+    <span class="token comment" spellcheck="true">//% block=x</span>
+    X <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block=y</span>
+    Y <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block=z</span>
+    Z <span class="token operator">=</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block=strength</span>
+    Strength <span class="token operator">=</span> <span class="token number">3</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+int <span class="token function">getAccelerationStrength</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    double x <span class="token operator">=</span> uBit<span class="token punctuation">.</span>accelerometer<span class="token punctuation">.</span><span class="token function">getX</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    double y <span class="token operator">=</span> uBit<span class="token punctuation">.</span>accelerometer<span class="token punctuation">.</span><span class="token function">getY</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    double z <span class="token operator">=</span> uBit<span class="token punctuation">.</span>accelerometer<span class="token punctuation">.</span><span class="token function">getZ</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token punctuation">(</span>int<span class="token punctuation">)</span><span class="token function">sqrt</span><span class="token punctuation">(</span>x<span class="token operator">*</span>x<span class="token operator">+</span>y<span class="token operator">*</span>y<span class="token operator">+</span>z<span class="token operator">*</span>z<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+int <span class="token function">acceleration</span><span class="token punctuation">(</span>Dimension dimension<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">switch</span> <span class="token punctuation">(</span>dimension<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">case</span> Dimension<span class="token punctuation">:</span><span class="token punctuation">:</span>X<span class="token punctuation">:</span> <span class="token keyword">return</span> uBit<span class="token punctuation">.</span>accelerometer<span class="token punctuation">.</span><span class="token function">getX</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">case</span> Dimension<span class="token punctuation">:</span><span class="token punctuation">:</span>Y<span class="token punctuation">:</span> <span class="token keyword">return</span> uBit<span class="token punctuation">.</span>accelerometer<span class="token punctuation">.</span><span class="token function">getY</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">case</span> Dimension<span class="token punctuation">:</span><span class="token punctuation">:</span>Z<span class="token punctuation">:</span> <span class="token keyword">return</span> uBit<span class="token punctuation">.</span>accelerometer<span class="token punctuation">.</span><span class="token function">getZ</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">case</span> Dimension<span class="token punctuation">:</span><span class="token punctuation">:</span>Strength<span class="token punctuation">:</span> <span class="token keyword">return</span> <span class="token function">getAccelerationStrength</span><span class="token punctuation">(</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>温度感应，获取此时的温度值，单位 摄氏度</p>
+<pre class=" language-ts"><code class="language-ts">int <span class="token function">temperature</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">return</span> uBit<span class="token punctuation">.</span>thermometer<span class="token punctuation">.</span><span class="token function">getTemperature</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>磁力测量</p>
+<pre class=" language-ts"><code class="language-ts">int <span class="token function">magneticForce</span><span class="token punctuation">(</span>Dimension dimension<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>uBit<span class="token punctuation">.</span>compass<span class="token punctuation">.</span><span class="token function">isCalibrated</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    uBit<span class="token punctuation">.</span>compass<span class="token punctuation">.</span><span class="token function">calibrate</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">switch</span> <span class="token punctuation">(</span>dimension<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">case</span> Dimension<span class="token punctuation">:</span><span class="token punctuation">:</span>X<span class="token punctuation">:</span> returnuBit<span class="token punctuation">.</span>compass<span class="token punctuation">.</span><span class="token function">getX</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1000</span><span class="token punctuation">;</span>
+  <span class="token keyword">case</span> Dimension<span class="token punctuation">:</span><span class="token punctuation">:</span>Y<span class="token punctuation">:</span> returnuBit<span class="token punctuation">.</span>compass<span class="token punctuation">.</span><span class="token function">getY</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1000</span><span class="token punctuation">;</span>
+  <span class="token keyword">case</span> Dimension<span class="token punctuation">:</span><span class="token punctuation">:</span>Z<span class="token punctuation">:</span> returnuBit<span class="token punctuation">.</span>compass<span class="token punctuation">.</span><span class="token function">getZ</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">1000</span><span class="token punctuation">;</span>
+  <span class="token keyword">case</span> Dimension<span class="token punctuation">:</span><span class="token punctuation">:</span>Strength<span class="token punctuation">:</span> returnuBit<span class="token punctuation">.</span>compass<span class="token punctuation">.</span><span class="token function">getFieldStrength</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">/</span> <span class="token number">1000</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>led矩阵<br>1、单个灯</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">void</span> <span class="token function">plot</span><span class="token punctuation">(</span>int x<span class="token punctuation">,</span> int y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  uBit<span class="token punctuation">.</span>display<span class="token punctuation">.</span>image<span class="token punctuation">.</span><span class="token function">setPixelValue</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> <span class="token number">0xff</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword">void</span> <span class="token function">unplot</span><span class="token punctuation">(</span>int x<span class="token punctuation">,</span> int y<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  uBit<span class="token punctuation">.</span>display<span class="token punctuation">.</span>image<span class="token punctuation">.</span><span class="token function">setPixelValue</span><span class="token punctuation">(</span>x<span class="token punctuation">,</span> y<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>2、显示数字</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">void</span> <span class="token function">showNumber</span><span class="token punctuation">(</span>int value<span class="token punctuation">,</span> int interval <span class="token operator">=</span> <span class="token number">150</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>interval <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    interval <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  ManagedString <span class="token function">t</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>value <span class="token operator">&lt;</span> <span class="token number">0</span> <span class="token operator">||</span> value <span class="token operator">>=</span> <span class="token number">10</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    uBit<span class="token punctuation">.</span>display<span class="token punctuation">.</span><span class="token function">scroll</span><span class="token punctuation">(</span>t<span class="token punctuation">,</span> interval<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    uBit<span class="token punctuation">.</span>display<span class="token punctuation">.</span><span class="token function">printChar</span><span class="token punctuation">(</span>t<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> interval <span class="token operator">*</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>3、显示字符串</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">void</span> <span class="token function">showString</span><span class="token punctuation">(</span>StringData <span class="token operator">*</span>text<span class="token punctuation">,</span> int interval <span class="token operator">=</span> <span class="token number">150</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>interval <span class="token operator">&lt;=</span> <span class="token number">0</span><span class="token punctuation">)</span>
+    interval <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+  ManagedString <span class="token function">s</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  int l <span class="token operator">=</span> s<span class="token punctuation">.</span><span class="token function">length</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">if</span> <span class="token punctuation">(</span>l <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    uBit<span class="token punctuation">.</span>display<span class="token punctuation">.</span><span class="token function">clear</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">fiber_sleep</span><span class="token punctuation">(</span>interval <span class="token operator">*</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>l <span class="token operator">></span> <span class="token number">1</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    uBit<span class="token punctuation">.</span>display<span class="token punctuation">.</span><span class="token function">scroll</span><span class="token punctuation">(</span>s<span class="token punctuation">,</span> interval<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
+    uBit<span class="token punctuation">.</span>display<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span><span class="token function">charAt</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">,</span> interval <span class="token operator">*</span> <span class="token number">5</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>4、自定义图案</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">void</span> <span class="token function">plotLeds</span><span class="token punctuation">(</span>ImageLiteral leds<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  MicroBitImage <span class="token function">i</span><span class="token punctuation">(</span><span class="token function">imageBytes</span><span class="token punctuation">(</span>leds<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  uBit<span class="token punctuation">.</span>display<span class="token punctuation">.</span><span class="token function">print</span><span class="token punctuation">(</span>i<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">void</span> <span class="token function">forever_stub</span><span class="token punctuation">(</span><span class="token keyword">void</span> <span class="token operator">*</span>a<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token keyword">true</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">runAction0</span><span class="token punctuation">(</span><span class="token punctuation">(</span>Action<span class="token punctuation">)</span>a<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">fiber_sleep</span><span class="token punctuation">(</span><span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>引脚I/O<br>1、利用宏语法定义pin的读与写。</p>
+<pre class=" language-ts"><code class="language-ts">#define <span class="token function">PINOP</span><span class="token punctuation">(</span>op<span class="token punctuation">)</span> \
+  MicroBitPin <span class="token operator">*</span>pin <span class="token operator">=</span> <span class="token function">getPin</span><span class="token punctuation">(</span><span class="token punctuation">(</span>int<span class="token punctuation">)</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span> \
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>pin<span class="token punctuation">)</span> <span class="token keyword">return</span><span class="token punctuation">;</span> \
+  pin<span class="token operator">-</span><span class="token operator">></span>op
+#define <span class="token function">PINREAD</span><span class="token punctuation">(</span>op<span class="token punctuation">)</span> \
+  MicroBitPin <span class="token operator">*</span>pin <span class="token operator">=</span> <span class="token function">getPin</span><span class="token punctuation">(</span><span class="token punctuation">(</span>int<span class="token punctuation">)</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span> \
+  <span class="token keyword">if</span> <span class="token punctuation">(</span><span class="token operator">!</span>pin<span class="token punctuation">)</span> <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span> \
+  <span class="token keyword">return</span> pin<span class="token operator">-</span><span class="token operator">></span>op
+</code></pre>
+<p>2、枚举引脚类型</p>
+<pre class=" language-ts"><code class="language-ts">
+<span class="token keyword">enum</span> <span class="token keyword">class</span> <span class="token class-name">DigitalPin</span> <span class="token punctuation">{</span>
+    P0 <span class="token operator">=</span> MICROBIT_ID_IO_P0<span class="token punctuation">,</span>
+    P1 <span class="token operator">=</span> MICROBIT_ID_IO_P1<span class="token punctuation">,</span>
+    P2 <span class="token operator">=</span> MICROBIT_ID_IO_P2<span class="token punctuation">,</span>
+    P3 <span class="token operator">=</span> MICROBIT_ID_IO_P3<span class="token punctuation">,</span>
+    P4 <span class="token operator">=</span> MICROBIT_ID_IO_P4<span class="token punctuation">,</span>
+    P5 <span class="token operator">=</span> MICROBIT_ID_IO_P5<span class="token punctuation">,</span>
+    P6 <span class="token operator">=</span> MICROBIT_ID_IO_P6<span class="token punctuation">,</span>
+    P7 <span class="token operator">=</span> MICROBIT_ID_IO_P7<span class="token punctuation">,</span>
+    P8 <span class="token operator">=</span> MICROBIT_ID_IO_P8<span class="token punctuation">,</span>
+    P9 <span class="token operator">=</span> MICROBIT_ID_IO_P9<span class="token punctuation">,</span>
+    P10 <span class="token operator">=</span> MICROBIT_ID_IO_P10<span class="token punctuation">,</span>
+    P11 <span class="token operator">=</span> MICROBIT_ID_IO_P11<span class="token punctuation">,</span>
+    P12 <span class="token operator">=</span> MICROBIT_ID_IO_P12<span class="token punctuation">,</span>
+    P13 <span class="token operator">=</span> MICROBIT_ID_IO_P13<span class="token punctuation">,</span>
+    P14 <span class="token operator">=</span> MICROBIT_ID_IO_P14<span class="token punctuation">,</span>
+    P15 <span class="token operator">=</span> MICROBIT_ID_IO_P15<span class="token punctuation">,</span>
+    P16 <span class="token operator">=</span> MICROBIT_ID_IO_P16<span class="token punctuation">,</span>
+    P19 <span class="token operator">=</span> MICROBIT_ID_IO_P19<span class="token punctuation">,</span>
+    P20 <span class="token operator">=</span> MICROBIT_ID_IO_P20<span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+<span class="token keyword">enum</span> <span class="token keyword">class</span> <span class="token class-name">AnalogPin</span> <span class="token punctuation">{</span>
+    P0 <span class="token operator">=</span> MICROBIT_ID_IO_P0<span class="token punctuation">,</span>
+    P1 <span class="token operator">=</span> MICROBIT_ID_IO_P1<span class="token punctuation">,</span>
+    P2 <span class="token operator">=</span> MICROBIT_ID_IO_P2<span class="token punctuation">,</span>
+    P3 <span class="token operator">=</span> MICROBIT_ID_IO_P3<span class="token punctuation">,</span>
+    P4 <span class="token operator">=</span> MICROBIT_ID_IO_P4<span class="token punctuation">,</span>
+    P10 <span class="token operator">=</span> MICROBIT_ID_IO_P10<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block="P5 (write only)"</span>
+    P5 <span class="token operator">=</span> MICROBIT_ID_IO_P5<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block="P6 (write only)"</span>
+    P6 <span class="token operator">=</span> MICROBIT_ID_IO_P6<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block="P7 (write only)"</span>
+    P7 <span class="token operator">=</span> MICROBIT_ID_IO_P7<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block="P8 (write only)"</span>
+    P8 <span class="token operator">=</span> MICROBIT_ID_IO_P8<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block="P9 (write only)"</span>
+    P9 <span class="token operator">=</span> MICROBIT_ID_IO_P9<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block="P11 (write only)"</span>
+    P11 <span class="token operator">=</span> MICROBIT_ID_IO_P11<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block="P12 (write only)"</span>
+    P12 <span class="token operator">=</span> MICROBIT_ID_IO_P12<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block="P13 (write only)"</span>
+    P13 <span class="token operator">=</span> MICROBIT_ID_IO_P13<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block="P14 (write only)"</span>
+    P14 <span class="token operator">=</span> MICROBIT_ID_IO_P14<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block="P15 (write only)"</span>
+    P15 <span class="token operator">=</span> MICROBIT_ID_IO_P15<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block="P16 (write only)"</span>
+    P16 <span class="token operator">=</span> MICROBIT_ID_IO_P16<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block="P19 (write only)"</span>
+    P19 <span class="token operator">=</span> MICROBIT_ID_IO_P19<span class="token punctuation">,</span>
+    <span class="token comment" spellcheck="true">//% block="P20 (write only)"</span>
+    P20 <span class="token operator">=</span> MICROBIT_ID_IO_P20
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+</code></pre>
+<p>3、读取指定引脚的数字信号</p>
+<pre class=" language-ts"><code class="language-ts">int <span class="token function">digitalReadPin</span><span class="token punctuation">(</span>DigitalPin name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">PINREAD</span><span class="token punctuation">(</span><span class="token function">getDigitalValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>4、将数字信号写入指定引脚</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">void</span> <span class="token function">digitalWritePin</span><span class="token punctuation">(</span>DigitalPin name<span class="token punctuation">,</span> int value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">PINOP</span><span class="token punctuation">(</span><span class="token function">setDigitalValue</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>5、同理，完成模拟信号的读与写</p>
+<pre class=" language-ts"><code class="language-ts">int <span class="token function">analogReadPin</span><span class="token punctuation">(</span>AnalogPin name<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">PINREAD</span><span class="token punctuation">(</span><span class="token function">getAnalogValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">void</span> <span class="token function">analogWritePin</span><span class="token punctuation">(</span>AnalogPin name<span class="token punctuation">,</span> int value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">PINOP</span><span class="token punctuation">(</span><span class="token function">setAnalogValue</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>6、舵机控制</p>
+<pre class=" language-ts"><code class="language-ts"><span class="token keyword">void</span> <span class="token function">servoWritePin</span><span class="token punctuation">(</span>AnalogPin name<span class="token punctuation">,</span> int value<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token function">PINOP</span><span class="token punctuation">(</span><span class="token function">setServoValue</span><span class="token punctuation">(</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="图标icon"><a href="#图标icon" class="headerlink" title="图标icon"></a>图标icon</h2><p>pxt的UI使用了semantic UI<br>图标<br>1、打开连接<a href="https://fontawesome.com/icons?d=gallery" target="_blank" rel="external">https://fontawesome.com/icons?d=gallery</a><br>2、选择合适图标<br>3、填写图标的Unicode码<br>4、配置 icon = “\uf0eb”</p>
+<h2 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h2><p>1、打包生产代码。</p>
+<pre class=" language-bash"><code class="language-bash">pxt staticpkg
+</code></pre>
+<p>2、拷贝目录builde/packaged的所有文件，<br>粘贴到pxt-lian目录。<br>3、用terminal进入pxt-lian目录，执行命令：</p>
+<pre class=" language-js"><code class="language-js">git add <span class="token punctuation">.</span>
+git commit <span class="token operator">-</span>m <span class="token string">"update msg"</span>
+git push origin master
+</code></pre>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/06/28/online-pxt-23/">« 3 pxt 调试与编...</a></span>
+  <span class="right"><a href="#">无... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年02月14日 09:02</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+
