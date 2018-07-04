@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>标题 2 | HTML | 小沙丘的网络漫游记</title>
+  <title>Flex 布局 1 | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -60,8 +60,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/webpack/">
-            webpack
+          <a href="/tags/Flex/">
+            Flex
           </a>
       </span>
       
@@ -77,8 +77,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/webpack/">
-              webpack
+            <a href="/tags/Flex/">
+              Flex
             </a>
         </span>
       </p>
@@ -86,27 +86,27 @@ if(isiOS){
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2018/06/28/online-html-1/">
+            <a href="/2018/07/02/online-miniprogram-1/">
             &#8676;
             </a>
         </span>
         <span>
             
-            <a href="/2018/06/29/online-html-3/">
+            <a href="/2018/07/04/online-flex-2/">
               &#8677;
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2018/06/28/online-html-1/">
-                    初步 | HTML
+                <a href="/2018/07/02/online-miniprogram-1/">
+                    Hello world 1 | 小程序
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2018/06/29/online-html-3/">
-                    meta 元数据 3 | HTML
+                <a href="/2018/07/04/online-flex-2/">
+                    Flex 容器 2
                 </a>
         </P>
     </div>
@@ -114,11 +114,11 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>标题 2 | HTML</h1>
+<h1>Flex 布局 1</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
-    2018年06月28日 08:06
+    2018年07月04日 10:07
   </p>
 </div>
 </div>
@@ -127,45 +127,35 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="1-标题"><a href="#1-标题" class="headerlink" title="1 标题"></a>1 标题</h2><p>规则：<title>你的题目</title></p>
-<h3 id="1-修改文件-index-html"><a href="#1-修改文件-index-html" class="headerlink" title="1.修改文件 index.html"></a>1.修改文件 index.html</h3><pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
-+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
-+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>欢迎 登录<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
-+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
-
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>登录(Login)<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
-
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><h3 id="1-1-Flex-布局"><a href="#1-1-Flex-布局" class="headerlink" title="1.1 Flex 布局"></a>1.1 Flex 布局</h3><p>Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。</p>
+<p>任何一个容器都可以指定为 Flex 布局。</p>
+<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span></span><span class="token punctuation">{</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
-<h2 id="2-DOCTYPE-声明"><a href="#2-DOCTYPE-声明" class="headerlink" title="2 DOCTYPE 声明"></a>2 DOCTYPE 声明</h2><p>用途：告诉web浏览器，你将使用哪个版本的HTML标准来编写HTML代码。</p>
-<h3 id="2-1-用法"><a href="#2-1-用法" class="headerlink" title="2.1 用法"></a>2.1 用法</h3><p>HTML 4 (传统)</p>
-<pre class=" language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd"></span>
+<p>行内元素也可以使用 Flex 布局。</p>
+<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span></span><span class="token punctuation">{</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> inline-flex<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
-<p>HTML 5 (推荐)</p>
-<pre class=" language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
+<p>Webkit 内核的浏览器，必须加上-webkit前缀。</p>
+<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.box</span></span><span class="token punctuation">{</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> -webkit-flex<span class="token punctuation">;</span> <span class="token comment" spellcheck="true">/* Safari */</span>
+  <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
 </code></pre>
-<h3 id="2-2-修改文件-index-html"><a href="#2-2-修改文件-index-html" class="headerlink" title="2.2 修改文件 index.html"></a>2.2 修改文件 index.html</h3><pre class=" language-html"><code class="language-html">+<span class="token doctype">&lt;!DOCTYPE html></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>欢迎 登录<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
-
-    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>登录(Login)<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
-
-  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
-<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
-</code></pre>
+<h3 id="1-2-容器-与-元素"><a href="#1-2-容器-与-元素" class="headerlink" title="1.2 容器 与 元素"></a>1.2 容器 与 元素</h3><p>采用 Flex 布局的元素，称为 Flex 容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为 Flex 项目（flex item），简称”项目”。</p>
+<p><img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071004.png" alt=""></p>
+<p>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；交叉轴的开始位置叫做cross start，结束位置叫做cross end。</p>
+<p>项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。</p>
 
   </div>
 </div>
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/06/28/online-html-1/">« 初步 | HTML</a></span>
-  <span class="right"><a href="/2018/06/29/online-html-3/">meta 元数据 3 »</a></span>
+  <span class="left"><a href="#">« 无</a></span>
+  <span class="right"><a href="/2018/07/04/online-flex-2/">Flex 容器 2 »</a></span>
 </p>
 
 <!-- 文档信息 -->
@@ -176,7 +166,7 @@ if(isiOS){
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
     <li>作者：<a href="/">Lian</a></li>
-    <li>日期：2018年06月28日 08:06</li>
+    <li>日期：2018年07月04日 10:07</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
 </div>
@@ -319,7 +309,7 @@ if(isiOS){
 
 
 <p id="info-meta" style="display:none;">
-  online-html-2
+  online-flex-1
 </p>
 
 
