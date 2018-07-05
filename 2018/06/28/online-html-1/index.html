@@ -127,10 +127,22 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="1-网页的构成"><a href="#1-网页的构成" class="headerlink" title="1 网页的构成"></a>1 网页的构成</h2><p>网页 = HTML(内容) + CSS(样式) + JavaScript(行为)</p>
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><h3 id="1-1-网页的构成"><a href="#1-1-网页的构成" class="headerlink" title="1.1 网页的构成"></a>1.1 网页的构成</h3><p>网页 = HTML(内容) + CSS(样式) + JavaScript(行为)</p>
 <p>举例，示范如何查看淘宝的网页代码。</p>
-<h2 id="2-安装编辑器-vscode"><a href="#2-安装编辑器-vscode" class="headerlink" title="2 安装编辑器(vscode)"></a>2 安装编辑器(vscode)</h2><p>搜索vscode，进入官网，下载，完成安装。</p>
-<h2 id="3-示例-Hello-world"><a href="#3-示例-Hello-world" class="headerlink" title="3 示例(Hello world)"></a>3 示例(Hello world)</h2><pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+<h2 id="1-2-安装编辑器-vscode"><a href="#1-2-安装编辑器-vscode" class="headerlink" title="1.2 安装编辑器(vscode)"></a>1.2 安装编辑器(vscode)</h2><p>搜索vscode，进入官网，下载，完成安装。</p>
+<h2 id="1-3-HTML结构"><a href="#1-3-HTML结构" class="headerlink" title="1.3 HTML结构"></a>1.3 HTML结构</h2><p>html = head + body</p>
+<h2 id="1-4-HTML元素"><a href="#1-4-HTML元素" class="headerlink" title="1.4 HTML元素"></a>1.4 HTML元素</h2><p>html页面由多个Html元素组成。<br>我们的HTML元素有3个组成部分：开始标签，结束标签，内容。</p>
+<p>1、开始标签：以&lt;开头，以&gt;结束，标签中的第一个单词，是标签的名称，描述它的功能。接下来的其他单词，是标签的属性，用于描述标签的行为。</p>
+<p>2、结束标签：以&lt;/开头，以&gt;结束。大多数标签是成对存在的，良好的编程习惯，是不能忘了写结束标签。如：省略</p>
+<p>元素的结束标签，就是很多前端程序员容易犯的错误。</p>
+<p>3、内容：包含在开始标签和结束标签中的内容，很多时候是文本。</p>
+<p>如：</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>main<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>My cat <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+</code></pre>
+<h2 id="2-实践"><a href="#2-实践" class="headerlink" title="2 实践"></a>2 实践</h2><h2 id="2-1-创建工程目录"><a href="#2-1-创建工程目录" class="headerlink" title="2.1 创建工程目录"></a>2.1 创建工程目录</h2><pre class=" language-bash"><code class="language-bash">  html1
+  <span class="token operator">|</span>- index.html
+</code></pre>
+<h2 id="2-2-示例-Hello-world"><a href="#2-2-示例-Hello-world" class="headerlink" title="2.2 示例(Hello world)"></a>2.2 示例(Hello world)</h2><pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
@@ -139,15 +151,6 @@ if(isiOS){
 
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
-</code></pre>
-<h2 id="4-HTML结构"><a href="#4-HTML结构" class="headerlink" title="4 HTML结构"></a>4 HTML结构</h2><p>html = head + body</p>
-<h2 id="5-HTML元素"><a href="#5-HTML元素" class="headerlink" title="5 HTML元素"></a>5 HTML元素</h2><p>html页面由多个Html元素组成。<br>我们的HTML元素有3个组成部分：开始标签，结束标签，内容。</p>
-<p>1、开始标签：以&lt;开头，以&gt;结束，标签中的第一个单词，是标签的名称，描述它的功能。接下来的其他单词，是标签的属性，用于描述标签的行为。</p>
-<p>2、结束标签：以&lt;/开头，以&gt;结束。大多数标签是成对存在的，良好的编程习惯，是不能忘了写结束标签。如：省略</p>
-<p>元素的结束标签，就是很多前端程序员容易犯的错误。</p>
-<p>3、内容：包含在开始标签和结束标签中的内容，很多时候是文本。</p>
-<p>如：</p>
-<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>p</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>main<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>My cat <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
 </code></pre>
 <p>Ps:我们会在讲解过程中，逐步完成登录页面。</p>
 
