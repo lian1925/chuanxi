@@ -1,0 +1,327 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>课1 第一个程序 | Python | 小沙丘的网络漫游记</title>
+ <meta name="description" content="&lt;p&gt;前面学习完python环境的安装后，本课将会学习如何编写第一段python代码，并且让它运行起来。&lt;br&gt;" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/python/">
+            python
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/python/">
+              python
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2017/10/05/online-reading-1/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2017/11/07/python-code-2/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2017/10/05/online-reading-1/">
+                    书单
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2017/11/07/python-code-2/">
+                    课2 注释和#号 | Python
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>课1 第一个程序 | Python</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2017年11月07日 09:11
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>前面学习完python环境的安装后，本课将会学习如何编写第一段python代码，并且让它运行起来。<br><a id="more"></a><br>本课会接触到第一个python 命令：print ，请先和它混个脸熟，学会拼写，记住他的名字。<br>在接下来的代码实践中，将会学习它的具体使用。</p>
+<h2 id="1-代码练习"><a href="#1-代码练习" class="headerlink" title="1 代码练习"></a>1 代码练习</h2><p>打开atom，新建一个文件，敲打下面的代码，取名为lesson1.py。这个命名很重要，所有的python代码最好都以.py结尾。</p>
+<pre class=" language-python"><code class="language-python"><span class="token keyword">print</span> <span class="token string">"Hello World!"</span>
+<span class="token keyword">print</span> <span class="token string">"Hello Again"</span>
+<span class="token keyword">print</span> <span class="token string">"I like typing this."</span>
+<span class="token keyword">print</span> <span class="token string">"This is fun."</span>
+<span class="token keyword">print</span> <span class="token string">'Yay! Printing.'</span>
+<span class="token keyword">print</span> <span class="token string">"I'd much rather you 'not'."</span>
+<span class="token keyword">print</span> <span class="token string">'I "said" do not touch this.'</span>
+</code></pre>
+<p>重要的事情说三遍，说三遍。<br>1、每句代码一字一字手打。<br>2、每句代码一字一字手打。<br>3、每句代码一字一字手打。<br>千万别偷懒，复制代码。学习编程最重要的是自己敲代码。</p>
+<p>OK，代码编写完，打开命令行终端，输入内容：<br>python lesson1.py<br>注意：请先用命令行进入lesson1.py所在的目录，若是不懂操作，尝试上网搜索</p>
+<h2 id="2-你应该看到的结果是"><a href="#2-你应该看到的结果是" class="headerlink" title="2 你应该看到的结果是"></a>2 你应该看到的结果是</h2><p>To do next</p>
+<h2 id="3-加分项"><a href="#3-加分项" class="headerlink" title="3 加分项"></a>3 加分项</h2><p>在这个练习中，试试这些东西：<br>1、让你的脚本多打印一行内容。<br>2、在一行的起始位置放一个”#”，它起什么作用，自己研究一下。</p>
+<h2 id="4-常见问题"><a href="#4-常见问题" class="headerlink" title="4 常见问题"></a>4 常见问题</h2><p>1、如果你看到关于ASCII错误，尝试在python代码的最上面添加一行代码<br><code># -*- coding: utf-8 -*-</code><br>这样你的脚本即可支持unicode 编码，不再出现字符乱码。</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="#">« 无</a></span>
+  <span class="right"><a href="/2017/11/07/python-code-2/">课2 注释和#号 | »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2017年11月07日 09:11</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  课1 第一个程序 | Python
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

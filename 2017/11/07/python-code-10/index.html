@@ -1,0 +1,358 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>课10 认识函数 | Python | 小沙丘的网络漫游记</title>
+ <meta name="description" content="&lt;p&gt;在编程中，函数是非常重要的概念。程序员都喜欢函数，因为函数可以用来给代码块命名，方便代码复用。&lt;br&gt;" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/python/">
+            python
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/python/">
+              python
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2017/11/07/python-code-9/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2017/11/07/python-code-11/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2017/11/07/python-code-9/">
+                    课9 读写文件 | Python
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2017/11/07/python-code-11/">
+                    课11 知识回顾 | Python
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>课10 认识函数 | Python</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2017年11月07日 14:11
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>在编程中，函数是非常重要的概念。程序员都喜欢函数，因为函数可以用来给代码块命名，方便代码复用。<br><a id="more"></a><br>函数可以做三件事：<br>1、它们给代码片段命名，就像变量给数字和字符串命名一样；<br>2、它们可以接收参数，就像你的脚本可以接收参数一样；<br>3、它们可以返回参数。</p>
+<h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>函数定义：<br>1、定义以 def 开始<br>2、接着是函数名<br>3、接着是括号，括号内包含参数<br>4、接着是冒号：<br>5、下一行的函数体，使用4个字符的缩进<br>6、函数结束位置，取消缩进</p>
+<p>函数调用<br>1、使用函数名称<br>2、接着是括号，括号内包含参数，多个参数使用逗号隔开</p>
+<h2 id="2-代码练习"><a href="#2-代码练习" class="headerlink" title="2 代码练习"></a>2 代码练习</h2><pre class=" language-python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">add</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">"ADDING %d + %d"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> a <span class="token operator">+</span> b
+<span class="token keyword">def</span> <span class="token function">subtract</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">"SUBTRACTING %d - %d"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> a <span class="token operator">-</span> b
+<span class="token keyword">def</span> <span class="token function">multiply</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">"MULTIPLYING %d * %d"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+    <span class="token keyword">return</span> a <span class="token operator">*</span> b
+<span class="token keyword">def</span> <span class="token function">divide</span><span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">"DIVIDING %d / %d"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>a<span class="token punctuation">,</span> b<span class="token punctuation">)</span>
+    <span class="token keyword">print</span> <span class="token string">"Let's do some math with just functions!"</span>
+    <span class="token keyword">return</span> a <span class="token operator">/</span> b
+age <span class="token operator">=</span> add<span class="token punctuation">(</span><span class="token number">30</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">)</span>
+height <span class="token operator">=</span> subtract<span class="token punctuation">(</span><span class="token number">78</span><span class="token punctuation">,</span> <span class="token number">4</span><span class="token punctuation">)</span>
+weight <span class="token operator">=</span> multiply<span class="token punctuation">(</span><span class="token number">90</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+iq <span class="token operator">=</span> divide<span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span> <span class="token string">"Age: %d, Height: %d, Weight: %d, IQ: %d"</span> <span class="token operator">%</span> <span class="token punctuation">(</span>age<span class="token punctuation">,</span> height<span class="token punctuation">,</span> weight<span class="token punctuation">,</span> iq<span class="token punctuation">)</span>
+
+<span class="token comment" spellcheck="true"># A puzzle for the extra credit, type it in anyway.</span>
+<span class="token keyword">print</span> <span class="token string">"Here is a puzzle."</span>
+
+what <span class="token operator">=</span> add<span class="token punctuation">(</span>age<span class="token punctuation">,</span> subtract<span class="token punctuation">(</span>height<span class="token punctuation">,</span> multiply<span class="token punctuation">(</span>weight<span class="token punctuation">,</span> divide<span class="token punctuation">(</span>iq<span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+<span class="token keyword">print</span> <span class="token string">"That becomes: "</span><span class="token punctuation">,</span> what<span class="token punctuation">,</span> <span class="token string">"Can you do it by hand?"</span>
+</code></pre>
+<h2 id="3-你应该看到的效果"><a href="#3-你应该看到的效果" class="headerlink" title="3 你应该看到的效果"></a>3 你应该看到的效果</h2><pre class=" language-bash"><code class="language-bash">$ python lesson10.py
+Let's <span class="token keyword">do</span> some math with just functions<span class="token operator">!</span>
+ADDING 30 + 5
+SUBTRACTING 78 - 4
+MULTIPLYING 90 * 2
+DIVIDING 100 / 2
+Age: 35, Height: 74, Weight: 180, IQ: 50
+Here is a puzzle.
+DIVIDING 50 / 2
+MULTIPLYING 180 * 25
+SUBTRACTING 74 - 4500
+ADDING 35 + -4426
+That becomes:  -4391 Can you <span class="token keyword">do</span> it by hand?
+$
+</code></pre>
+<h2 id="4-常见问题"><a href="#4-常见问题" class="headerlink" title="4 常见问题"></a>4 常见问题</h2><p>1、为什么 Python 会把函数或公式倒着打印出来?<br>其实不是倒着打印,而是自内而外打印。如果你把函数内容逐句看下去,你会发现这里的规律。试 着搞清楚为什么说它是“自内而外”而不是“自下而上”。</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2017/11/07/python-code-8/">« 课8 读取文件 | ...</a></span>
+  <span class="right"><a href="/2017/11/07/python-code-11/">课11 知识回顾 |... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2017年11月07日 14:11</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  课10 认识函数 | Python
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+

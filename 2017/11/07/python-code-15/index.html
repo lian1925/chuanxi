@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>课15 地图与游戏 | python | 小沙丘的网络漫游记</title>
+ <meta name="description" content="&lt;p&gt;你已经学会了 if 语句、函数、还有列表。让我们试着将这些知识结合起来，你将会发现我们可以实现有趣好玩的游戏。&lt;br&gt;" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/python/">
+            python
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/python/">
+              python
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2017/11/07/python-code-14/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2017/11/07/python-code-16/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2017/11/07/python-code-14/">
+                    课14 列表与循环 | Python
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2017/11/07/python-code-16/">
+                    课16 可爱的字典 | Python
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>课15 地图与游戏 | python</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2017年11月07日 18:11
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <p>你已经学会了 if 语句、函数、还有列表。让我们试着将这些知识结合起来，你将会发现我们可以实现有趣好玩的游戏。<br><a id="more"></a></p>
+<h2 id="1-代码练习"><a href="#1-代码练习" class="headerlink" title="1 代码练习"></a>1 代码练习</h2><pre class=" language-python"><code class="language-python"><span class="token keyword">from</span> sys <span class="token keyword">import</span> exit
+
+<span class="token keyword">def</span> <span class="token function">gold_room</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">"This room is full of gold. How much do you take?"</span>
+
+    next <span class="token operator">=</span> raw_input<span class="token punctuation">(</span><span class="token string">"> "</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token string">"0"</span> <span class="token keyword">in</span> next <span class="token operator">or</span> <span class="token string">"1"</span> <span class="token keyword">in</span> next<span class="token punctuation">:</span>
+       how_much <span class="token operator">=</span> int<span class="token punctuation">(</span>next<span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+       dead<span class="token punctuation">(</span><span class="token string">"Man, learn to type a number."</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> how_much <span class="token operator">&lt;</span> <span class="token number">50</span><span class="token punctuation">:</span>
+       <span class="token keyword">print</span> <span class="token string">"Nice, you're not greedy, you win!"</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+       dead<span class="token punctuation">(</span><span class="token string">"You greedy bastard!"</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">bear_room</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">"There is a bear here."</span>
+    <span class="token keyword">print</span> <span class="token string">"The bear has a bunch of honey."</span>
+    <span class="token keyword">print</span> <span class="token string">"The fat bear is in front of another door."</span>
+    <span class="token keyword">print</span> <span class="token string">"How are you going to move the bear?"</span>
+    bear_moved <span class="token operator">=</span> <span class="token boolean">False</span>
+
+    <span class="token keyword">while</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+        next <span class="token operator">=</span> raw_input<span class="token punctuation">(</span><span class="token string">"> "</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> next <span class="token operator">==</span> <span class="token string">"take honey"</span><span class="token punctuation">:</span>
+            dead<span class="token punctuation">(</span><span class="token string">"The bear looks at you then slaps your face off."</span><span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> next <span class="token operator">==</span> <span class="token string">"taunt bear"</span> <span class="token operator">and</span> <span class="token operator">not</span> bear_moved<span class="token punctuation">:</span>
+            <span class="token keyword">print</span> <span class="token string">"The bear has moved from the door. You can go through it now."</span>
+            bear_moved <span class="token operator">=</span> <span class="token boolean">True</span>
+        <span class="token keyword">elif</span> next <span class="token operator">==</span> <span class="token string">"taunt bear"</span> <span class="token operator">and</span> bear_moved<span class="token punctuation">:</span>
+            dead<span class="token punctuation">(</span><span class="token string">"The bear gets pissed off and chews your leg off."</span><span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> next <span class="token operator">==</span> <span class="token string">"open door"</span> <span class="token operator">and</span> bear_moved<span class="token punctuation">:</span>
+            gold_room<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            <span class="token keyword">print</span> <span class="token string">"I got no idea what that means."</span>
+
+<span class="token keyword">def</span> <span class="token function">cthulhu_room</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">"Here you see the great evil Cthulhu."</span> <span class="token number">48</span>
+    <span class="token keyword">print</span> <span class="token string">"He, it, whatever stares at you and you go insane."</span>
+    <span class="token keyword">print</span> <span class="token string">"Do you flee for your life or eat your head?"</span>
+
+    next <span class="token operator">=</span> raw_input<span class="token punctuation">(</span><span class="token string">"> "</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> <span class="token string">"flee"</span> <span class="token keyword">in</span> next<span class="token punctuation">:</span>
+        start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> <span class="token string">"head"</span> <span class="token keyword">in</span> next<span class="token punctuation">:</span>
+        dead<span class="token punctuation">(</span><span class="token string">"Well that was tasty!"</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        cthulhu_room<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">dead</span><span class="token punctuation">(</span>why<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> why<span class="token punctuation">,</span> <span class="token string">"Good job!"</span>
+    exit<span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">start</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span> <span class="token string">"You are in a dark room."</span>
+    <span class="token keyword">print</span> <span class="token string">"There is a door to your right and left."</span> <span class="token number">66</span>
+    <span class="token keyword">print</span> <span class="token string">"Which one do you take?"</span> <span class="token number">68</span>
+
+    next <span class="token operator">=</span> raw_input<span class="token punctuation">(</span><span class="token string">"> "</span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> next <span class="token operator">==</span> <span class="token string">"left"</span><span class="token punctuation">:</span>
+        bear_room<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">elif</span> next <span class="token operator">==</span> <span class="token string">"right"</span><span class="token punctuation">:</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+      dead<span class="token punctuation">(</span><span class="token string">"You stumble around the room until you starve."</span><span class="token punctuation">)</span>
+
+start<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<h2 id="2-你应该看到的结果"><a href="#2-你应该看到的结果" class="headerlink" title="2 你应该看到的结果"></a>2 你应该看到的结果</h2><p>下面是我玩游戏的过程:</p>
+<pre class=" language-python"><code class="language-python">$ python lesson15<span class="token punctuation">.</span>py
+You are <span class="token keyword">in</span> a dark room<span class="token punctuation">.</span>
+There <span class="token keyword">is</span> a door to your right <span class="token operator">and</span> left<span class="token punctuation">.</span>
+Which one do you take?
+`<span class="token operator">></span> left`
+There <span class="token keyword">is</span> a bear here<span class="token punctuation">.</span>
+The bear has a bunch of honey<span class="token punctuation">.</span>
+The fat bear <span class="token keyword">is</span> <span class="token keyword">in</span> front of another door<span class="token punctuation">.</span>
+How are you going to move the bear?
+`<span class="token operator">></span> taunt bear`
+The bear has moved <span class="token keyword">from</span> the door<span class="token punctuation">.</span> You can go through it now<span class="token punctuation">.</span>
+`<span class="token operator">></span> open door`
+This room <span class="token keyword">is</span> full of gold<span class="token punctuation">.</span>  How much do you take?
+`<span class="token operator">></span> asf`
+Man<span class="token punctuation">,</span> learn to type a number<span class="token punctuation">.</span> Good job!
+$
+</code></pre>
+<h2 id="3-加分项"><a href="#3-加分项" class="headerlink" title="3 加分项"></a>3 加分项</h2><p>1、逐行读代码，关键地方加上注释<br>2、画出游戏的地图</p>
+<h2 id="4-常见问题"><a href="#4-常见问题" class="headerlink" title="4 常见问题"></a>4 常见问题</h2><p>1、为什么是 while True:?<br>这样可以创建一个无限循环。<br>2、exit(0) 有什么功能?<br>在很多类型的操作系统里,<code>exit(0)</code> 可以中断某个程序,而其中的数字参数则用来表示程序是否是碰到错误而中断。 exit(1) 表示发生了错误,而 exit(0) 则表示程序是正常退出的。</p>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2017/11/07/python-code-14/">« 课14 列表与循环 ...</a></span>
+  <span class="right"><a href="/2017/11/07/python-code-16/">课16 可爱的字典 ... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2017年11月07日 18:11</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  课15 地图与游戏 | python
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+
