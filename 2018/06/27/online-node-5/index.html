@@ -127,8 +127,11 @@ if(isiOS){
 
   
   <div class="page">
-      <p>此接口已部署到云端，访问入口： <a href="http://138.128.204.8:3000" target="_blank" rel="external">http://138.128.204.8:3000</a></p>
-<h2 id="1-修改工程目录结构"><a href="#1-修改工程目录结构" class="headerlink" title="1 修改工程目录结构"></a>1 修改工程目录结构</h2><pre class=" language-bash"><code class="language-bash">  node1
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><h3 id="1-1-token-令牌"><a href="#1-1-token-令牌" class="headerlink" title="1.1 token 令牌"></a>1.1 token 令牌</h3><p>token，又称令牌，可以作为用户的授权凭证。</p>
+<p>用户请求个人数据时，为了证明用户的身份，用户需要提交账号与密码。</p>
+<p>每次提交请求，都提交账号密码的方式，一方面麻烦，另一方面增加了账号泄露的风险。</p>
+<p>故，现在各大网站采用的解决</p>
+<h2 id="2-实践"><a href="#2-实践" class="headerlink" title="2 实践"></a>2 实践</h2><h3 id="2-1-修改工程目录结构"><a href="#2-1-修改工程目录结构" class="headerlink" title="2.1 修改工程目录结构"></a>2.1 修改工程目录结构</h3><pre class=" language-bash"><code class="language-bash">  node1
   <span class="token operator">|</span>- package.json
 + <span class="token operator">|</span>- app.js
 + <span class="token operator">|</span>- .gitignore
@@ -138,9 +141,9 @@ if(isiOS){
 +   <span class="token operator">|</span>- index.js
 +   <span class="token operator">|</span>- user.js
 </code></pre>
-<h2 id="2-安装依赖"><a href="#2-安装依赖" class="headerlink" title="2 安装依赖"></a>2 安装依赖</h2><pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save jsonwebtoken
+<h3 id="2-2-安装依赖"><a href="#2-2-安装依赖" class="headerlink" title="2.2 安装依赖"></a>2.2 安装依赖</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save jsonwebtoken
 </code></pre>
-<h2 id="2-修改文件-router-user-js"><a href="#2-修改文件-router-user-js" class="headerlink" title="2 修改文件 /router/user.js"></a>2 修改文件 /router/user.js</h2><pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h3 id="2-3-修改文件-router-user-js"><a href="#2-3-修改文件-router-user-js" class="headerlink" title="2.3 修改文件 /router/user.js"></a>2.3 修改文件 /router/user.js</h3><pre class=" language-js"><code class="language-js"><span class="token keyword">var</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">var</span> router <span class="token operator">=</span> express<span class="token punctuation">.</span><span class="token function">Router</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">var</span> jwt <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'jsonwebtoken'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -202,7 +205,7 @@ router<span class="token punctuation">.</span><span class="token function">post<
 
 module<span class="token punctuation">.</span>exports <span class="token operator">=</span> router<span class="token punctuation">;</span>
 </code></pre>
-<h2 id="3-修改文件-gitignore"><a href="#3-修改文件-gitignore" class="headerlink" title="3 修改文件 .gitignore"></a>3 修改文件 .gitignore</h2><pre class=" language-js"><code class="language-js"><span class="token punctuation">.</span>DS_Store
+<h3 id="2-3-修改文件-gitignore"><a href="#2-3-修改文件-gitignore" class="headerlink" title="2.3 修改文件 .gitignore"></a>2.3 修改文件 .gitignore</h3><pre class=" language-js"><code class="language-js"><span class="token punctuation">.</span>DS_Store
 node_modules<span class="token operator">/</span>
 npm<span class="token operator">-</span>debug<span class="token punctuation">.</span>log
 <span class="token keyword">package</span><span class="token operator">-</span>lock<span class="token punctuation">.</span>json
@@ -211,16 +214,16 @@ npm<span class="token operator">-</span>debug<span class="token punctuation">.</
 tree<span class="token punctuation">.</span>md
 <span class="token operator">*</span><span class="token punctuation">.</span>idea
 </code></pre>
-<h2 id="二-登录接口API"><a href="#二-登录接口API" class="headerlink" title="二 登录接口API"></a>二 登录接口API</h2><p>1、登录，获取token</p>
-<p>1、网关：/user/login post</p>
+<h2 id="3-接口API"><a href="#3-接口API" class="headerlink" title="3 接口API"></a>3 接口API</h2><h3 id="3-1-登录，获取token"><a href="#3-1-登录，获取token" class="headerlink" title="3.1 登录，获取token"></a>3.1 登录，获取token</h3><p>1、网关：/user/login post</p>
 <p>访问格式： ip + 端口 + 网关<br>如： <a href="http://172.20.10.3:3000/user/login" target="_blank" rel="external">http://172.20.10.3:3000/user/login</a></p>
 <p>2、请求参数：<br>{<br>username:’admin’,<br>password:’123’<br>}</p>
 <p>3、返回：<br>// 正确<br>{<br>err_code: 0,<br>token: ‘xxx’<br>}</p>
-<p>// 密码错误<br>{<br>err_code:1,<br>token: null<br>}<br>2、获取用户信息</p>
-<p>1、网关： /user/info post</p>
+<p>// 密码错误<br>{<br>err_code:1,<br>token: null<br>}</p>
+<h3 id="3-2-获取用户信息"><a href="#3-2-获取用户信息" class="headerlink" title="3.2 获取用户信息"></a>3.2 获取用户信息</h3><p>1、网关： /user/info post</p>
 <p>2、请求参数：<br>{<br>token: ‘xxx’<br>}</p>
 <p>3、返回：<br>// 正确<br>{<br>err_code: 0,<br>username: ‘admin’,<br>age: 20<br>}</p>
 <p>// 错误<br>{<br>err_code:1,<br>username:null<br>age:null<br>}</p>
+<h2 id="4-测试"><a href="#4-测试" class="headerlink" title="4 测试"></a>4 测试</h2><p>此接口已部署到云端，访问入口： <a href="http://138.128.204.8:3000" target="_blank" rel="external">http://138.128.204.8:3000</a></p>
 
   </div>
 </div>
