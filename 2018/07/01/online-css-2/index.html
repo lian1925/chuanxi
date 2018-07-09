@@ -145,7 +145,56 @@ login
   <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h3 id="1-4-ID-选择器"><a href="#1-4-ID-选择器" class="headerlink" title="1.4 ID 选择器"></a>1.4 ID 选择器</h3>
+<h3 id="1-4-ID-选择器"><a href="#1-4-ID-选择器" class="headerlink" title="1.4 ID 选择器"></a>1.4 ID 选择器</h3><p>为HTML元素命名，通过命名进行定位。</p>
+<p>注意：与类选择器相比，一个HTML文档中可以有很多个<code>同名</code>的<code>类选择器</code>，却只能有一个同名的<code>ID选择器</code></p>
+<p>1、在HTML元素里，添加id属性，通常我们会配合div标签使用。</p>
+<pre class=" language-html"><code class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>title<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+login
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<p>2、定义css样式。</p>
+<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.class</span></span><span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h2 id="2-实践"><a href="#2-实践" class="headerlink" title="2 实践"></a>2 实践</h2><h3 id="2-1-创建工程目录结构"><a href="#2-1-创建工程目录结构" class="headerlink" title="2.1 创建工程目录结构"></a>2.1 创建工程目录结构</h3><pre class=" language-bash"><code class="language-bash">  css2
+  <span class="token operator">|</span>- index.html
+  <span class="token operator">|</span>- style.css
+</code></pre>
+<h3 id="2-2-修改文件-index-html"><a href="#2-2-修改文件-index-html" class="headerlink" title="2.2 修改文件 index.html"></a>2.2 修改文件 index.html</h3><pre class=" language-html"><code class="language-html"><span class="token doctype">&lt;!DOCTYPE html></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>meta</span> <span class="token attr-name">charset</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>utf-8<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>欢迎 登录<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>link</span> <span class="token attr-name">rel</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>stylesheet<span class="token punctuation">"</span></span> <span class="token attr-name">type</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>text/css<span class="token punctuation">"</span></span> <span class="token attr-name">href</span><span class="token attr-value"><span class="token punctuation">=</span><span class="token punctuation">"</span>./style.css<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>head</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
+
+    <span class="token comment" spellcheck="true">&lt;!-- 元素选择器 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>h1</span><span class="token punctuation">></span></span>登录(Login)<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>h1</span><span class="token punctuation">></span></span>
+
+    <span class="token comment" spellcheck="true">&lt;!-- 类选择器 --></span>
+    &lt;div class = "border">你好。<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+    &lt;p class = "border">小沙丘<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>p</span><span class="token punctuation">></span></span>
+
+    <span class="token comment" spellcheck="true">&lt;!-- ID 选择器 --></span>
+    &lt;div id = "tip">我是ID<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
+</code></pre>
+<h3 id="2-3-修改文件-index-css"><a href="#2-3-修改文件-index-css" class="headerlink" title="2.3 修改文件 index.css"></a>2.3 修改文件 index.css</h3><pre class=" language-css"><code class="language-css"><span class="token selector">h1 </span><span class="token punctuation">{</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector"><span class="token class">.border</span></span><span class="token punctuation">{</span>
+  <span class="token property">border</span><span class="token punctuation">:</span> <span class="token number">1</span>px solid red<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token selector"><span class="token id">#tip</span></span><span class="token punctuation">{</span>
+  <span class="token property">border-bottom</span><span class="token punctuation">:</span> <span class="token number">1</span>px solid blue<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
   </div>
 </div>
 

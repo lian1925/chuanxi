@@ -127,7 +127,34 @@ if(isiOS){
 
   
   <div class="page">
-      
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>常见的动画可以理解为：某种动画属性从一个值变化到另一个值。</p>
+<p>动画属性包括：尺寸大小，数量，颜色</p>
+<h3 id="1-1-keyframses"><a href="#1-1-keyframses" class="headerlink" title="1.1 keyframses"></a>1.1 keyframses</h3><p>用于定义动画的初始状态和结束状态。<br>如：</p>
+<pre class=" language-css"><code class="language-css"><span class="token atrule"><span class="token rule">@keyframes</span> move</span> <span class="token punctuation">{</span>
+  <span class="token selector">from </span><span class="token punctuation">{</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector">to </span><span class="token punctuation">{</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> green<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token comment" spellcheck="true">/* safari 和 chrome */</span>
+<span class="token atrule"><span class="token rule">@-webkit-keyframes</span> move</span> <span class="token punctuation">{</span>
+  <span class="token selector">from </span><span class="token punctuation">{</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+  <span class="token selector">to </span><span class="token punctuation">{</span>
+    <span class="token property">background-color</span><span class="token punctuation">:</span> green<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h3 id="1-2-animation"><a href="#1-2-animation" class="headerlink" title="1.2 animation"></a>1.2 animation</h3><p>将定义好的动画与HTML元素绑定。<br>如：</p>
+<pre class=" language-css"><code class="language-css"><span class="token selector">div </span><span class="token punctuation">{</span>
+  <span class="token property">animation</span><span class="token punctuation">:</span> move <span class="token number">5</span>s<span class="token punctuation">;</span>
+  <span class="token property">-webkit-animation</span><span class="token punctuation">:</span> move <span class="token number">5</span>s<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
   </div>
 </div>
 

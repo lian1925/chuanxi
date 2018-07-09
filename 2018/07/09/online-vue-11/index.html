@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>居中 10 | 小沙丘的网络漫游记</title>
+  <title>online-vue-11 | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -60,8 +60,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/css/">
-            css
+          <a href="/tags/vue/">
+            vue
           </a>
       </span>
       
@@ -77,8 +77,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/css/">
-              css
+            <a href="/tags/vue/">
+              vue
             </a>
         </span>
       </p>
@@ -86,27 +86,27 @@ if(isiOS){
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2018/07/01/online-css-9/">
+            <a href="/2018/07/05/online-node-6/">
             &#8676;
             </a>
         </span>
         <span>
             
-            <a href="/2018/07/01/online-css-11/">
+            <a href="#">
               &#8677;
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2018/07/01/online-css-9/">
-                    文档流 9
+                <a href="/2018/07/05/online-node-6/">
+                    配置 HTTPS 功能
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2018/07/01/online-css-11/">
-                    浮动 11
+                <a href="#">
+                    无
                 </a>
         </P>
     </div>
@@ -114,11 +114,11 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>居中 10</h1>
+<h1>online-vue-11</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
-    2018年07月01日 16:07
+    2018年07月09日 15:07
   </p>
 </div>
 </div>
@@ -127,46 +127,15 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>居中是样式设计中的常用需求，一般包括：水平居中和垂直居中。</p>
-<h3 id="1-1-水平居中"><a href="#1-1-水平居中" class="headerlink" title="1.1 水平居中"></a>1.1 水平居中</h3><p>1、行内元素</p>
-<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.text</span></span><span class="token punctuation">{</span>
-  <span class="token property">width</span><span class="token punctuation">:</span> <span class="token number">500</span>px<span class="token punctuation">;</span>
-  <span class="token property">text-align</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<h3 id="1-2-垂直居中"><a href="#1-2-垂直居中" class="headerlink" title="1.2 垂直居中"></a>1.2 垂直居中</h3><p>1、行内元素<br>对于行内元素，padding属性会失效，设置line-height 和 height 相等，则实现居中。</p>
-<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.text</span></span><span class="token punctuation">{</span>
-  <span class="token property">height</span><span class="token punctuation">:</span> <span class="token number">200</span>px<span class="token punctuation">;</span>
-  <span class="token property">line-height</span><span class="token punctuation">:</span> <span class="token number">200</span>px<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<h3 id="1-3-水平垂直居中"><a href="#1-3-水平垂直居中" class="headerlink" title="1.3 水平垂直居中"></a>1.3 水平垂直居中</h3><p>1、常规解法</p>
-<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.parent</span> </span><span class="token punctuation">{</span>
-  <span class="token property">position</span><span class="token punctuation">:</span> relative<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token selector"><span class="token class">.child</span> </span><span class="token punctuation">{</span>
-  <span class="token property">position</span><span class="token punctuation">:</span> <span class="token property">absolute</span><span class="token punctuation">:</span>
-  <span class="token property">top</span><span class="token punctuation">:</span> <span class="token number">50%</span><span class="token punctuation">;</span>
-  <span class="token property">left</span><span class="token punctuation">:</span> <span class="token number">50%</span><span class="token punctuation">;</span>
-  <span class="token property">transform</span><span class="token punctuation">:</span> <span class="token function">translate</span><span class="token punctuation">(</span>-<span class="token number">50%</span>,-<span class="token number">50%</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
-<p>2、flexbox解法</p>
-<pre class=" language-css"><code class="language-css"><span class="token selector"><span class="token class">.parent</span></span><span class="token punctuation">{</span>
-  <span class="token property">display</span><span class="token punctuation">:</span> flex<span class="token punctuation">;</span>
-  <span class="token property">justify-content</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
-  <span class="token property">align-items</span><span class="token punctuation">:</span> center<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-</code></pre>
+      <p>本人已履行网站备案信息当面核验手续，承认网站备案信息和核验记录真实有效，承诺本网站是个人网站，未含企业、单位等非个人网站的信息，承诺网站备案信息一旦发生变更，将及时进行更新，填报虚假备案信息、未履行备案变更手续，超出备案项目提供服务的，愿意承担关闭网站并注销备案相应处理。</p>
 
   </div>
 </div>
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/07/01/online-css-9/">« 文档流 9</a></span>
-  <span class="right"><a href="/2018/07/01/online-css-11/">浮动 11 »</a></span>
+  <span class="left"><a href="/2018/06/27/online-vue-3/">« 输出管理 3 | V...</a></span>
+  <span class="right"><a href="/2018/06/27/online-vue-4/">开发者模式 4 | ... »</a></span>
 </p>
 
 <!-- 文档信息 -->
@@ -177,7 +146,7 @@ if(isiOS){
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
     <li>作者：<a href="/">Lian</a></li>
-    <li>日期：2018年07月01日 16:07</li>
+    <li>日期：2018年07月09日 15:07</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
 </div>
@@ -320,7 +289,7 @@ if(isiOS){
 
 
 <p id="info-meta" style="display:none;">
-  online-css-10
+  online-vue-11
 </p>
 
 
