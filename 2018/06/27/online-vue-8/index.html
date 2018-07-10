@@ -127,7 +127,9 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="1-修改工程目录结构"><a href="#1-修改工程目录结构" class="headerlink" title="1 修改工程目录结构"></a>1 修改工程目录结构</h2><pre class=" language-bash"><code class="language-bash">  vue1
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>随着项目不断开发，不断增加的页面，使得JavaScript包变得非常大，影响页面的加载。</p>
+<p>路由懒加载，按照路由将不同的组件分割成不同的代码块，当访问时才加载，减少页面的等待时间。</p>
+<h3 id="1-1-修改工程目录结构"><a href="#1-1-修改工程目录结构" class="headerlink" title="1.1 修改工程目录结构"></a>1.1 修改工程目录结构</h3><pre class=" language-bash"><code class="language-bash">  vue1
   <span class="token operator">|</span>- package.json
 + <span class="token operator">|</span>- index.html
 + <span class="token operator">|</span>- .babelrc
@@ -148,14 +150,14 @@ if(isiOS){
 +   <span class="token operator">|</span>- webpack.dev.js
 +   <span class="token operator">|</span>- webpack.prod.js
 </code></pre>
-<h2 id="2-安装依赖"><a href="#2-安装依赖" class="headerlink" title="2 安装依赖"></a>2 安装依赖</h2><pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev babel-plugin-syntax-dynamic-import
+<h3 id="1-2-安装依赖"><a href="#1-2-安装依赖" class="headerlink" title="1.2 安装依赖"></a>1.2 安装依赖</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev babel-plugin-syntax-dynamic-import
 </code></pre>
-<h2 id="3-修改文件-babelrc"><a href="#3-修改文件-babelrc" class="headerlink" title="3 修改文件 .babelrc"></a>3 修改文件 .babelrc</h2><pre class=" language-js"><code class="language-js"><span class="token punctuation">{</span>
+<h3 id="1-3-修改文件-babelrc"><a href="#1-3-修改文件-babelrc" class="headerlink" title="1.3 修改文件 .babelrc"></a>1.3 修改文件 .babelrc</h3><pre class=" language-js"><code class="language-js"><span class="token punctuation">{</span>
   <span class="token string">"presets"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span> <span class="token string">"es2015"</span> <span class="token punctuation">]</span><span class="token punctuation">,</span>
   <span class="token string">"plugins"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"syntax-dynamic-import"</span><span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="4-修改文件-src-router-index-js"><a href="#4-修改文件-src-router-index-js" class="headerlink" title="4 修改文件 \src\router\index.js"></a>4 修改文件 \src\router\index.js</h2><pre class=" language-js"><code class="language-js"><span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">'vue'</span>
+<h3 id="1-4-修改文件-src-router-index-js"><a href="#1-4-修改文件-src-router-index-js" class="headerlink" title="1.4 修改文件 \src\router\index.js"></a>1.4 修改文件 \src\router\index.js</h3><pre class=" language-js"><code class="language-js"><span class="token keyword">import</span> Vue <span class="token keyword">from</span> <span class="token string">'vue'</span>
 <span class="token keyword">import</span> Router <span class="token keyword">from</span> <span class="token string">'vue-router'</span>
 
 <span class="token comment" spellcheck="true">// 路由推荐使用懒加载，提升SPA加载性能。</span>

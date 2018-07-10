@@ -127,8 +127,11 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="资源管理"><a href="#资源管理" class="headerlink" title="资源管理"></a>资源管理</h2><p>复制上一节的项目。</p>
-<h2 id="1、加载css"><a href="#1、加载css" class="headerlink" title="1、加载css"></a>1、加载css</h2><h2 id="2、创建工程目录结构，文件和内容。"><a href="#2、创建工程目录结构，文件和内容。" class="headerlink" title="2、创建工程目录结构，文件和内容。"></a>2、创建工程目录结构，文件和内容。</h2><pre class=" language-bash"><code class="language-bash">  vue1
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>厨师做菜，需要用到主材，调料等资源。</p>
+<p>前端程序员编程，也需要用到各种web资源(asset)，常见的有：css样式文件，图片文件，字体文件等。</p>
+<p>默认情况下，webpack是无法解析和加载css，图片，字体等资源的。因此，如果需要使用这些资源，则需要安装相关加载器，并正确加载。</p>
+<p>本节主要介绍如何加载和使用css文件资源。</p>
+<h3 id="1-1-工程目录结构"><a href="#1-1-工程目录结构" class="headerlink" title="1.1 工程目录结构"></a>1.1 工程目录结构</h3><pre class=" language-bash"><code class="language-bash">  vue1
   <span class="token operator">|</span>- package.json
 + <span class="token operator">|</span>- index.html
 + <span class="token operator">|</span>- /src
@@ -136,13 +139,11 @@ if(isiOS){
 +   <span class="token operator">|</span>- style.css
 + <span class="token operator">|</span>- webpack.config.js
 </code></pre>
-<p>修改文件src/style.css</p>
-<pre class=" language-bash"><code class="language-bash">.hello <span class="token punctuation">{</span>
+<h3 id="1-2-修改文件src-style-css"><a href="#1-2-修改文件src-style-css" class="headerlink" title="1.2 修改文件src/style.css"></a>1.2 修改文件src/style.css</h3><pre class=" language-bash"><code class="language-bash">.hello <span class="token punctuation">{</span>
   color: red<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>修改文件src/main.js</p>
-<pre class=" language-js"><code class="language-js">  <span class="token keyword">import</span> _ <span class="token keyword">from</span> <span class="token string">'lodash'</span><span class="token punctuation">;</span>
+<h3 id="1-3-修改文件src-main-js"><a href="#1-3-修改文件src-main-js" class="headerlink" title="1.3 修改文件src/main.js"></a>1.3 修改文件src/main.js</h3><pre class=" language-js"><code class="language-js">  <span class="token keyword">import</span> _ <span class="token keyword">from</span> <span class="token string">'lodash'</span><span class="token punctuation">;</span>
 <span class="token operator">+</span> <span class="token keyword">import</span> <span class="token string">'./style.css'</span><span class="token punctuation">;</span>
 
   <span class="token keyword">function</span> <span class="token function">component</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -157,11 +158,9 @@ if(isiOS){
 
   document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>安装css加载器</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev style-loader css-loader
+<h3 id="1-4-安装css加载器"><a href="#1-4-安装css加载器" class="headerlink" title="1.4 安装css加载器"></a>1.4 安装css加载器</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev style-loader css-loader
 </code></pre>
-<p>修改文件dist/index.html</p>
-<pre class=" language-html"><code class="language-html">  <span class="token doctype">&lt;!doctype html></span>
+<h3 id="1-5-修改文件dist-index-html"><a href="#1-5-修改文件dist-index-html" class="headerlink" title="1.5 修改文件dist/index.html"></a>1.5 修改文件dist/index.html</h3><pre class=" language-html"><code class="language-html">  <span class="token doctype">&lt;!doctype html></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
 -    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>title</span><span class="token punctuation">></span></span>Getting Started<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>title</span><span class="token punctuation">></span></span>
@@ -172,8 +171,7 @@ if(isiOS){
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
 </code></pre>
-<p>修改文件webpack.config.js</p>
-<pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<h3 id="1-6-修改文件webpack-config-js"><a href="#1-6-修改文件webpack-config-js" class="headerlink" title="1.6 修改文件webpack.config.js"></a>1.6 修改文件webpack.config.js</h3><pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
     entry<span class="token punctuation">:</span> <span class="token string">'./src/index.js'</span><span class="token punctuation">,</span>
@@ -194,8 +192,7 @@ if(isiOS){
 <span class="token operator">+</span>   <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>运行，查看结果</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run build
+<h3 id="1-7-运行，查看结果"><a href="#1-7-运行，查看结果" class="headerlink" title="1.7 运行，查看结果"></a>1.7 运行，查看结果</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run build
 
 Hash: 9a3abfc96300ef87880f
 Version: webpack 2.6.1

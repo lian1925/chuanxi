@@ -127,7 +127,10 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="1、修改工程目录结构"><a href="#1、修改工程目录结构" class="headerlink" title="1、修改工程目录结构"></a>1、修改工程目录结构</h2><pre class=" language-bash"><code class="language-bash">  vue1
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>为了更好开展软件项目，推荐按照时间线，将项目配置为开发者与生产者两个阶段。</p>
+<p>前者称为开发者模式(development)，后者称为生产者模式(production)。</p>
+<p>本节关注开发者模式的介绍。</p>
+<h3 id="1-1-修改工程目录结构"><a href="#1-1-修改工程目录结构" class="headerlink" title="1.1 修改工程目录结构"></a>1.1 修改工程目录结构</h3><pre class=" language-bash"><code class="language-bash">  vue1
   <span class="token operator">|</span>- package.json
 + <span class="token operator">|</span>- index.html
 + <span class="token operator">|</span>- /src
@@ -135,10 +138,10 @@ if(isiOS){
 +   <span class="token operator">|</span>- style.css
 + <span class="token operator">|</span>- webpack.config.js
 </code></pre>
-<h2 id="2-使用-webpack-dev-server"><a href="#2-使用-webpack-dev-server" class="headerlink" title="2 使用 webpack-dev-server"></a>2 使用 webpack-dev-server</h2><p>安装依赖</p>
+<h3 id="1-2-使用-webpack-dev-server"><a href="#1-2-使用-webpack-dev-server" class="headerlink" title="1.2 使用 webpack-dev-server"></a>1.2 使用 webpack-dev-server</h3><p>1、安装依赖</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev webpack-dev-server
 </code></pre>
-<p>修改文件webpack.config.js</p>
+<p>2、修改文件webpack.config.js</p>
 <pre class=" language-js"><code class="language-js">
 <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> HtmlWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'html-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -180,7 +183,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>这里，把/dist当成默认目录，启动服务器，并提供访问入口：<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a></p>
-<p>修改文件package.json</p>
+<p>3、修改文件package.json</p>
 <pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"vue1"</span><span class="token punctuation">,</span>
   <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0.0"</span><span class="token punctuation">,</span>
@@ -208,7 +211,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>启动，查看结果</p>
+<p>4、启动，查看结果</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run dev
 </code></pre>
 

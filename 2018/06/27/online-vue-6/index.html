@@ -127,7 +127,9 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="1-工程目录结构"><a href="#1-工程目录结构" class="headerlink" title="1 工程目录结构"></a>1 工程目录结构</h2><pre class=" language-bash"><code class="language-bash">  vue1
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>新版本的JavaScript，如：ES6、ES7，添加很多新功能，新特性，可以极大程度提升程序的性能与可读性。可惜，并不是所有的浏览器都支持这些特性。</p>
+<p>使用babel语法转换器，可以将新版本的JavaScript语法转换成标准的ES5语法，以保证浏览器正常解析与运行。</p>
+<h3 id="1-1-工程目录结构"><a href="#1-1-工程目录结构" class="headerlink" title="1.1 工程目录结构"></a>1.1 工程目录结构</h3><pre class=" language-bash"><code class="language-bash">  vue1
   <span class="token operator">|</span>- package.json
 + <span class="token operator">|</span>- index.html
 + <span class="token operator">|</span>- .babelrc
@@ -140,9 +142,9 @@ if(isiOS){
 +   <span class="token operator">|</span>- webpack.dev.js
 +   <span class="token operator">|</span>- webpack.prod.js
 </code></pre>
-<h2 id="2-安装相关依赖。"><a href="#2-安装相关依赖。" class="headerlink" title="2 安装相关依赖。"></a>2 安装相关依赖。</h2><pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> babel-loader babel-core babel-preset-env babel-preset-es2015  --save-dev
+<h3 id="1-2-安装相关依赖。"><a href="#1-2-安装相关依赖。" class="headerlink" title="1.2 安装相关依赖。"></a>1.2 安装相关依赖。</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> babel-loader babel-core babel-preset-env babel-preset-es2015  --save-dev
 </code></pre>
-<h2 id="3-修改文件-build-webpack-base-js"><a href="#3-修改文件-build-webpack-base-js" class="headerlink" title="3 修改文件 /build/webpack.base.js"></a>3 修改文件 /build/webpack.base.js</h2><pre class=" language-js"><code class="language-js">
+<h3 id="1-3-修改文件-build-webpack-base-js"><a href="#1-3-修改文件-build-webpack-base-js" class="headerlink" title="1.3 修改文件 /build/webpack.base.js"></a>1.3 修改文件 /build/webpack.base.js</h3><pre class=" language-js"><code class="language-js">
 <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> HtmlWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'html-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> CleanWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'clean-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -201,7 +203,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<h2 id="4-修改文件-babelrc"><a href="#4-修改文件-babelrc" class="headerlink" title="4 修改文件 .babelrc"></a>4 修改文件 .babelrc</h2><pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
+<h3 id="1-4-修改文件-babelrc"><a href="#1-4-修改文件-babelrc" class="headerlink" title="1.4 修改文件 .babelrc"></a>1.4 修改文件 .babelrc</h3><pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
   <span class="token property">"presets"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"es2015"</span><span class="token punctuation">]</span>
 <span class="token punctuation">}</span>
 </code></pre>
