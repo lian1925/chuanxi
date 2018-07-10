@@ -128,19 +128,19 @@ if(isiOS){
   
   <div class="page">
       <h2 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h2><p>webpack的首要用途在于编译和打包JavaScript模块。</p>
-<h2 id="1、基本操作"><a href="#1、基本操作" class="headerlink" title="1、基本操作"></a>1、基本操作</h2><p>1创建目录 2初始化npm 3安装webpack</p>
+<h2 id="1-基本操作"><a href="#1-基本操作" class="headerlink" title="1 基本操作"></a>1 基本操作</h2><p>1、初始化工程<br>包括步骤：1创建目录 2初始化npm 3安装webpack</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">mkdir</span> webpack1 <span class="token operator">&amp;&amp;</span> <span class="token function">cd</span> webpack1
 <span class="token function">npm</span> init -y
 <span class="token function">npm</span> <span class="token function">install</span> webpack webpack-cli --save-dev
 </code></pre>
-<p>2创建工程目录结构，文件和内容。</p>
+<p>2、工程目录结构，文件和内容。</p>
 <pre class=" language-bash"><code class="language-bash">  webpack1
   <span class="token operator">|</span>- package.json
 + <span class="token operator">|</span>- index.html
 + <span class="token operator">|</span>- /src
 +   <span class="token operator">|</span>- index.js
 </code></pre>
-<p>修改文本 src/index.js</p>
+<p>3、修改文本 src/index.js</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">component</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   <span class="token keyword">var</span> element <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'div'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -152,7 +152,7 @@ if(isiOS){
 
 document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>修改文件 index.html</p>
+<p>4、修改文件 index.html</p>
 <pre class=" language-html"><code class="language-html"><span class="token doctype">&lt;!doctype html></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
@@ -164,7 +164,7 @@ document<span class="token punctuation">.</span>body<span class="token punctuati
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
 </code></pre>
-<h2 id="3合并js文件"><a href="#3合并js文件" class="headerlink" title="3合并js文件"></a>3合并js文件</h2><p>修改工程目录结构</p>
+<h2 id="2-打包js文件"><a href="#2-打包js文件" class="headerlink" title="2 打包js文件"></a>2 打包js文件</h2><p>1、修改工程目录结构</p>
 <pre class=" language-bash"><code class="language-bash">  webpack-demo
   <span class="token operator">|</span>- package.json
 + <span class="token operator">|</span>- webpack.config.js
@@ -173,10 +173,10 @@ document<span class="token punctuation">.</span>body<span class="token punctuati
   <span class="token operator">|</span>- /src
     <span class="token operator">|</span>- index.js
 </code></pre>
-<p>安装lodash依赖</p>
+<p>2、安装lodash依赖</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save lodash
 </code></pre>
-<p>修改文件src/index.js</p>
+<p>3、修改文件src/index.js</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">+</span> <span class="token keyword">import</span> _ <span class="token keyword">from</span> <span class="token string">'lodash'</span><span class="token punctuation">;</span>
 <span class="token operator">+</span>
   <span class="token keyword">function</span> <span class="token function">component</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -191,7 +191,7 @@ document<span class="token punctuation">.</span>body<span class="token punctuati
 
   document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>修改文件dist/index.html</p>
+<p>4、修改文件dist/index.html</p>
 <pre class=" language-html"><code class="language-html">  <span class="token doctype">&lt;!doctype html></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
@@ -204,7 +204,7 @@ document<span class="token punctuation">.</span>body<span class="token punctuati
    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
 </code></pre>
-<p>创建文件webpack.config.js</p>
+<p>5、创建文件webpack.config.js</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
@@ -215,7 +215,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>修改文件package.json</p>
+<p>6、修改文件package.json</p>
 <pre class=" language-json"><code class="language-json">  <span class="token punctuation">{</span>
     <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"webpack-demo"</span><span class="token punctuation">,</span>
     <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0.0"</span><span class="token punctuation">,</span>
@@ -234,7 +234,8 @@ module<span class="token punctuation">.</span>exports <span class="token operato
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="运行，查看结果"><a href="#运行，查看结果" class="headerlink" title="运行，查看结果"></a>运行，查看结果</h2><pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run build
+<p>7、运行，查看结果</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run build
 
 Hash: dabab1bac2b940c1462b
 Version: webpack 4.12.0
