@@ -127,8 +127,8 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="热替换"><a href="#热替换" class="headerlink" title="热替换"></a>热替换</h2><p>热替换功能，最大的特点在于当有文件修改时，局部更新，而无需完整刷新。</p>
-<p>修改文件webpack.config.js</p>
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>热替换功能，最大的特点在于当有文件修改时，局部更新，而无需完整刷新。</p>
+<h3 id="1-1-配置文件"><a href="#1-1-配置文件" class="headerlink" title="1.1 配置文件"></a>1.1 配置文件</h3><p>1、修改文件webpack.config.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">const</span> HtmlWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'html-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">const</span> CleanWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'clean-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -158,7 +158,7 @@ if(isiOS){
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>修改文件index.js</p>
+<p>2、修改文件index.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">import</span> _ <span class="token keyword">from</span> <span class="token string">'lodash'</span><span class="token punctuation">;</span>
   <span class="token keyword">import</span> printMe <span class="token keyword">from</span> <span class="token string">'./print.js'</span><span class="token punctuation">;</span>
 
@@ -185,13 +185,13 @@ if(isiOS){
 <span class="token operator">+</span>   <span class="token punctuation">}</span><span class="token punctuation">)</span>
 <span class="token operator">+</span> <span class="token punctuation">}</span>
 </code></pre>
-<p>修改文件print.js</p>
+<p>3、修改文件print.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">printMe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 <span class="token operator">-</span>   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'I get called from print.js!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token operator">+</span>   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Updating print.js...'</span><span class="token punctuation">)</span>
   <span class="token punctuation">}</span>
 </code></pre>
-<p>查看结果，console</p>
+<p>4、查看结果，console</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token punctuation">[</span>HMR<span class="token punctuation">]</span> Waiting <span class="token keyword">for</span> update signal from WDS<span class="token punctuation">..</span>.
 main.js:4395 <span class="token punctuation">[</span>WDS<span class="token punctuation">]</span> Hot Module Replacement enabled.
 + 2main.js:4395 <span class="token punctuation">[</span>WDS<span class="token punctuation">]</span> App updated. Recompiling<span class="token punctuation">..</span>.
@@ -202,8 +202,7 @@ main.js:4395 <span class="token punctuation">[</span>WDS<span class="token punct
 + main.js:4330 <span class="token punctuation">[</span>HMR<span class="token punctuation">]</span> Updated modules:
 + main.js:4330 <span class="token punctuation">[</span>HMR<span class="token punctuation">]</span>  - 20
 </code></pre>
-<p>使用 Node.js API</p>
-<p>修改文件dev-server.js</p>
+<h3 id="1-2-使用-Node-js-API"><a href="#1-2-使用-Node-js-API" class="headerlink" title="1.2 使用 Node.js API"></a>1.2 使用 Node.js API</h3><p>1、修改文件dev-server.js</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> webpackDevServer <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack-dev-server'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> webpack <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 

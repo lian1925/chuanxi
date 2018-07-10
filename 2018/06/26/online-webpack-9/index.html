@@ -127,8 +127,8 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="延时加载"><a href="#延时加载" class="headerlink" title="延时加载"></a>延时加载</h2><p>延时，又称为按需加载。实践中，提前将代码按照逻辑断点进行分割，当用户操作某个事件时，进行加载。</p>
-<p>工程目录结构：</p>
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>延时，又称为按需加载。实践中，提前将代码按照逻辑断点进行分割，当用户操作某个事件时，进行加载。</p>
+<p>1、工程目录结构：</p>
 <pre class=" language-bash"><code class="language-bash">webpack-demo
 <span class="token operator">|</span>- package.json
 <span class="token operator">|</span>- webpack.config.js
@@ -138,14 +138,14 @@ if(isiOS){
 + <span class="token operator">|</span>- print.js
 <span class="token operator">|</span>- /node_modules
 </code></pre>
-<p>修改文件src/print.js</p>
+<p>2、修改文件src/print.js</p>
 <pre class=" language-js"><code class="language-js">console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'The print.js module has loaded! See the network tab in dev tools...'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Button Clicked: Here\'s "some text"!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>修改文件src/index.js</p>
+<p>3、修改文件src/index.js</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">+</span> <span class="token keyword">import</span> _ <span class="token keyword">from</span> <span class="token string">'lodash'</span><span class="token punctuation">;</span>
 <span class="token operator">+</span>
 <span class="token operator">-</span> <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">getComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -176,7 +176,7 @@ if(isiOS){
 <span class="token operator">-</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token operator">+</span> document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>运行，查看结果：</p>
+<p>4、运行，查看结果：</p>
 <pre class=" language-bash"><code class="language-bash">Hash: e0f95cc0bda81c2a1340
 Version: webpack 3.0.0
 Time: 1378ms

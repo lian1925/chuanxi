@@ -100,7 +100,7 @@ if(isiOS){
     <div class="entry-location">
         <P>上一篇：
                 <a href="/2018/06/26/online-webpack-1/">
-                    起步 1 | webpack
+                    初步 1 | webpack
                 </a>
         </P>
         <P>下一篇：
@@ -127,9 +127,10 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="资源管理"><a href="#资源管理" class="headerlink" title="资源管理"></a>资源管理</h2><p>厨师做菜，需要用到主材，调料等资源。</p>
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>厨师做菜，需要用到主材，调料等资源。</p>
 <p>前端程序员编程，也需要用到各种web资源(asset)，常见的有：css样式文件，图片文件，字体文件等。</p>
-<h2 id="1、加载css"><a href="#1、加载css" class="headerlink" title="1、加载css"></a>1、加载css</h2><p>修改工程目录</p>
+<p>默认情况下，webpack是无法解析和加载css，图片，字体等资源的。因此，如果需要使用这些资源，则需要安装相关加载器，并正确加载。</p>
+<h3 id="1-1-加载css"><a href="#1-1-加载css" class="headerlink" title="1.1 加载css"></a>1.1 加载css</h3><p>1、修改工程目录</p>
 <pre class=" language-bash"><code class="language-bash">  webpack2
   <span class="token operator">|</span>- package.json
   <span class="token operator">|</span>- webpack.config.js
@@ -141,12 +142,12 @@ if(isiOS){
     <span class="token operator">|</span>- index.js
   <span class="token operator">|</span>- /node_modules
 </code></pre>
-<p>修改文件src/style.css</p>
+<p>2、修改文件src/style.css</p>
 <pre class=" language-bash"><code class="language-bash">.hello <span class="token punctuation">{</span>
   color: red<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>修改文件src/index.js</p>
+<p>3、修改文件src/index.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">import</span> _ <span class="token keyword">from</span> <span class="token string">'lodash'</span><span class="token punctuation">;</span>
 <span class="token operator">+</span> <span class="token keyword">import</span> <span class="token string">'./style.css'</span><span class="token punctuation">;</span>
 
@@ -162,10 +163,10 @@ if(isiOS){
 
   document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>安装css加载器</p>
+<p>4、安装css加载器</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev style-loader css-loader
 </code></pre>
-<p>修改文件dist/index.html</p>
+<p>5、修改文件dist/index.html</p>
 <pre class=" language-html"><code class="language-html">  <span class="token doctype">&lt;!doctype html></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
@@ -177,7 +178,7 @@ if(isiOS){
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
 </code></pre>
-<p>修改文件webpack.config.js</p>
+<p>6、修改文件webpack.config.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
@@ -199,7 +200,7 @@ if(isiOS){
 <span class="token operator">+</span>   <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>运行，查看结果</p>
+<p>7、运行，查看结果</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run build
 
 Hash: 9a3abfc96300ef87880f
@@ -217,7 +218,7 @@ bundle.js  560 kB       0  <span class="token punctuation">[</span>emitted<span 
    <span class="token punctuation">[</span>7<span class="token punctuation">]</span> <span class="token punctuation">(</span>webpack<span class="token punctuation">)</span>/buildin/module.js 517 bytes <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
    <span class="token punctuation">[</span>8<span class="token punctuation">]</span> ./src/index.js 351 bytes <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
 </code></pre>
-<h2 id="2、加载图片"><a href="#2、加载图片" class="headerlink" title="2、加载图片"></a>2、加载图片</h2><p>工程目录结构：</p>
+<h3 id="1-2-加载图片"><a href="#1-2-加载图片" class="headerlink" title="1.2 加载图片"></a>1.2 加载图片</h3><p>1、工程目录结构：</p>
 <pre class=" language-bash"><code class="language-bash">  webpack-demo
   <span class="token operator">|</span>- package.json
   <span class="token operator">|</span>- webpack.config.js
@@ -230,16 +231,16 @@ bundle.js  560 kB       0  <span class="token punctuation">[</span>emitted<span 
     <span class="token operator">|</span>- index.js
   <span class="token operator">|</span>- /node_modules
 </code></pre>
-<p>修改文件src/style.css</p>
+<p>2、修改文件src/style.css</p>
 <pre class=" language-css"><code class="language-css">  <span class="token selector"><span class="token class">.hello</span> </span><span class="token punctuation">{</span>
     <span class="token property">color</span><span class="token punctuation">:</span> red<span class="token punctuation">;</span>
 +   <span class="token property">background</span><span class="token punctuation">:</span> <span class="token url">url('./icon.png')</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 </code></pre>
-<p>安装文件加载器</p>
+<p>3、安装文件加载器</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev file-loader
 </code></pre>
-<p>修改文件webpack.config.js</p>
+<p>4、修改文件webpack.config.js</p>
 <pre class=" language-bash"><code class="language-bash">  const path <span class="token operator">=</span> require<span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   module.exports <span class="token operator">=</span> <span class="token punctuation">{</span>
@@ -267,7 +268,7 @@ bundle.js  560 kB       0  <span class="token punctuation">[</span>emitted<span 
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<h2 id="3、加载字体"><a href="#3、加载字体" class="headerlink" title="3、加载字体"></a>3、加载字体</h2><p>工程目录结构</p>
+<h3 id="1-3-加载字体"><a href="#1-3-加载字体" class="headerlink" title="1.3 加载字体"></a>1.3 加载字体</h3><p>1、工程目录结构</p>
 <pre class=" language-bash"><code class="language-bash"> webpack-demo
   <span class="token operator">|</span>- package.json
   <span class="token operator">|</span>- webpack.config.js
@@ -282,7 +283,7 @@ bundle.js  560 kB       0  <span class="token punctuation">[</span>emitted<span 
     <span class="token operator">|</span>- index.js
   <span class="token operator">|</span>- /node_modules
 </code></pre>
-<p>修改文件src/style.css</p>
+<p>2、修改文件src/style.css</p>
 <pre class=" language-bash"><code class="language-bash">+ @font-face <span class="token punctuation">{</span>
 +   font-family: <span class="token string">'MyFont'</span><span class="token punctuation">;</span>
 +   src:  url<span class="token punctuation">(</span><span class="token string">'./my-font.woff2'</span><span class="token punctuation">)</span> format<span class="token punctuation">(</span><span class="token string">'woff2'</span><span class="token punctuation">)</span>,
@@ -297,7 +298,7 @@ bundle.js  560 kB       0  <span class="token punctuation">[</span>emitted<span 
     background: url<span class="token punctuation">(</span><span class="token string">'./icon.png'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 </code></pre>
-<p>修改文件webpack.config.js</p>
+<p>3、修改文件webpack.config.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
@@ -331,7 +332,7 @@ bundle.js  560 kB       0  <span class="token punctuation">[</span>emitted<span 
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>运行，查看结构</p>
+<p>4、运行，查看结构</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run build
 
 Hash: b4aef94169088c79ed1c
@@ -359,7 +360,7 @@ Time: 775ms
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/06/26/online-webpack-1/">« 起步 1 | web...</a></span>
+  <span class="left"><a href="/2018/06/26/online-webpack-1/">« 初步 1 | web...</a></span>
   <span class="right"><a href="/2018/06/26/online-webpack-3/">输出管理 3 | w... »</a></span>
 </p>
 

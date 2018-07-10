@@ -127,7 +127,9 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="输出管理"><a href="#输出管理" class="headerlink" title="输出管理"></a>输出管理</h2><h2 id="1、多个入口文件"><a href="#1、多个入口文件" class="headerlink" title="1、多个入口文件"></a>1、多个入口文件</h2><p>工程目录结构：</p>
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>webpack对模块编译完成后，开始执行打包任务。</p>
+<p>打包任务的重点是输出管理，包括输出文件的命名，输出文件的切分等等。</p>
+<h3 id="1-1-多个入口文件"><a href="#1-1-多个入口文件" class="headerlink" title="1.1 多个入口文件"></a>1.1 多个入口文件</h3><p>1、工程目录结构：</p>
 <pre class=" language-bash"><code class="language-bash">  webpack-demo
   <span class="token operator">|</span>- package.json
   <span class="token operator">|</span>- webpack.config.js
@@ -137,12 +139,12 @@ if(isiOS){
 +   <span class="token operator">|</span>- print.js
   <span class="token operator">|</span>- /node_modules
 </code></pre>
-<p>修改文件src/print.js</p>
+<p>2、修改文件src/print.js</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">export</span> default <span class="token keyword">function</span> printMe<span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
   console.log<span class="token punctuation">(</span><span class="token string">'I get called from print.js!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
-<p>修改文件src/index.js</p>
+<p>3、修改文件src/index.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">import</span> _ <span class="token keyword">from</span> <span class="token string">'lodash'</span><span class="token punctuation">;</span>
 <span class="token operator">+</span> <span class="token keyword">import</span> printMe <span class="token keyword">from</span> <span class="token string">'./print.js'</span><span class="token punctuation">;</span>
 
@@ -162,7 +164,7 @@ if(isiOS){
 
   document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span><span class="token function">component</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>修改文件dist/index.html</p>
+<p>4、修改文件dist/index.html</p>
 <pre class=" language-html"><code class="language-html">  <span class="token doctype">&lt;!doctype html></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
@@ -176,7 +178,7 @@ if(isiOS){
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span>
 </code></pre>
-<p>修改文件webpack.config.js</p>
+<p>5、修改文件webpack.config.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
@@ -192,7 +194,7 @@ if(isiOS){
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>运行，查看结果</p>
+<p>6、运行，查看结果</p>
 <pre class=" language-bash"><code class="language-bash">Hash: aa305b0f3373c63c9051
 Version: webpack 3.0.0
 Time: 536ms
@@ -205,10 +207,10 @@ print.bundle.js  2.74 kB       1  <span class="token punctuation">[</span>emitte
    <span class="token punctuation">[</span>4<span class="token punctuation">]</span> <span class="token punctuation">(</span>webpack<span class="token punctuation">)</span>/buildin/module.js 517 bytes <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
     + 1 hidden module
 </code></pre>
-<h2 id="2、配置HtmlWebpackPlugin"><a href="#2、配置HtmlWebpackPlugin" class="headerlink" title="2、配置HtmlWebpackPlugin"></a>2、配置HtmlWebpackPlugin</h2><p>安装依赖</p>
+<h3 id="1-2-配置HtmlWebpackPlugin"><a href="#1-2-配置HtmlWebpackPlugin" class="headerlink" title="1.2 配置HtmlWebpackPlugin"></a>1.2 配置HtmlWebpackPlugin</h3><p>1、安装依赖</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev html-webpack-plugin
 </code></pre>
-<p>修改文件webpack.config.js</p>
+<p>2、修改文件webpack.config.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token operator">+</span> <span class="token keyword">const</span> HtmlWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'html-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
@@ -228,7 +230,7 @@ print.bundle.js  2.74 kB       1  <span class="token punctuation">[</span>emitte
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>运行，查看结果</p>
+<p>3、运行，查看结果</p>
 <pre class=" language-bash"><code class="language-bash">
 Hash: 81f82697c19b5f49aebd
 Version: webpack 2.6.1
@@ -248,10 +250,10 @@ Child html-webpack-plugin <span class="token keyword">for</span> <span class="to
        <span class="token punctuation">[</span>2<span class="token punctuation">]</span> <span class="token punctuation">(</span>webpack<span class="token punctuation">)</span>/buildin/global.js 509 bytes <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
        <span class="token punctuation">[</span>3<span class="token punctuation">]</span> <span class="token punctuation">(</span>webpack<span class="token punctuation">)</span>/buildin/module.js 517 bytes <span class="token punctuation">{</span>0<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
 </code></pre>
-<h2 id="3、清空dist目录"><a href="#3、清空dist目录" class="headerlink" title="3、清空dist目录"></a>3、清空dist目录</h2><p>安装依赖</p>
+<h3 id="1-3-清空dist目录"><a href="#1-3-清空dist目录" class="headerlink" title="1.3 清空dist目录"></a>1.3 清空dist目录</h3><p>1、安装依赖</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> clean-webpack-plugin --save-dev
 </code></pre>
-<p>修改文件webpack.config.js</p>
+<p>2、修改文件webpack.config.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">const</span> HtmlWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'html-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token operator">+</span> <span class="token keyword">const</span> CleanWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'clean-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>

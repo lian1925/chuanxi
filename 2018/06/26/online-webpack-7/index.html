@@ -127,13 +127,13 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="生产模式"><a href="#生产模式" class="headerlink" title="生产模式"></a>生产模式</h2><p>开发模式下，我们的目标：满足源码映射，实时重载和热更新。</p>
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>开发模式下，我们的目标：满足源码映射，实时重载和热更新。</p>
 <p>生产模式下，我们的目标：打包文件极度压缩化，更轻的源码映射，优化资源，以提升加载时间。</p>
-<h2 id="1、融合"><a href="#1、融合" class="headerlink" title="1、融合"></a>1、融合</h2><p>为了更好解构，我们建议将development 和 production 的配置独立开来。<br>不过，为了避免重复编码，我们依然需要将公用代码提炼出来。</p>
-<p>安装依赖</p>
+<h3 id="1-1-融合"><a href="#1-1-融合" class="headerlink" title="1.1 融合"></a>1.1 融合</h3><p>为了更好解构，我们建议将development 和 production 的配置独立开来。<br>不过，为了避免重复编码，我们依然需要将公用代码提炼出来。</p>
+<p>1、安装依赖</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev webpack-merge
 </code></pre>
-<p>修改文件project</p>
+<p>2、修改文件project</p>
 <pre class=" language-bash"><code class="language-bash">  webpack-demo
   <span class="token operator">|</span>- package.json
 - <span class="token operator">|</span>- webpack.config.js
@@ -146,7 +146,7 @@ if(isiOS){
     <span class="token operator">|</span>- math.js
   <span class="token operator">|</span>- /node_modules
 </code></pre>
-<p>修改文件webpack.base.js</p>
+<p>3、修改文件webpack.base.js</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">+</span> <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token operator">+</span> <span class="token keyword">const</span> CleanWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'clean-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token operator">+</span> <span class="token keyword">const</span> HtmlWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'html-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -167,7 +167,7 @@ if(isiOS){
 <span class="token operator">+</span>   <span class="token punctuation">}</span>
 <span class="token operator">+</span> <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>修改文件webpack.dev.js</p>
+<p>4、修改文件webpack.dev.js</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">+</span> <span class="token keyword">const</span> merge <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack-merge'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token operator">+</span> <span class="token keyword">const</span> common <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./webpack.base.js'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token operator">+</span>
@@ -179,7 +179,7 @@ if(isiOS){
 <span class="token operator">+</span>   <span class="token punctuation">}</span>
 <span class="token operator">+</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>修改文件webpack.prod.js</p>
+<p>5、修改文件webpack.prod.js</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">+</span> <span class="token keyword">const</span> merge <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack-merge'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token operator">+</span> <span class="token keyword">const</span> common <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./webpack.common.js'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token operator">+</span>
@@ -187,7 +187,7 @@ if(isiOS){
 <span class="token operator">+</span>   mode<span class="token punctuation">:</span> <span class="token string">'production'</span><span class="token punctuation">,</span>
 <span class="token operator">+</span> <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>修改文件package.json</p>
+<p>6、修改文件package.json</p>
 <pre class=" language-json"><code class="language-json">  <span class="token punctuation">{</span>
     <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"development"</span><span class="token punctuation">,</span>
     <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0.0"</span><span class="token punctuation">,</span>
@@ -218,8 +218,8 @@ if(isiOS){
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 </code></pre>
-<h2 id="2、源码映射-source-map"><a href="#2、源码映射-source-map" class="headerlink" title="2、源码映射 source map"></a>2、源码映射 source map</h2><p>即使在生产模式，source map 依然好用，特别在debug和test场合。一般，我们在production下使用source-map，而development下使用inline-source-map</p>
-<p>修改文件webpack.prod.js</p>
+<h2 id="1-2-源码映射-source-map"><a href="#1-2-源码映射-source-map" class="headerlink" title="1.2 源码映射 source map"></a>1.2 源码映射 source map</h2><p>即使在生产模式，source map 依然好用，特别在debug和test场合。一般，我们在production下使用source-map，而development下使用inline-source-map</p>
+<p>1、修改文件webpack.prod.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> merge <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack-merge'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">const</span> UglifyJSPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'uglifyjs-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">const</span> common <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'./webpack.common.js'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -236,7 +236,7 @@ if(isiOS){
   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
 <h2 id="3、环境变量"><a href="#3、环境变量" class="headerlink" title="3、环境变量"></a>3、环境变量</h2><p>很多第三方库，会根据process.env.NODE_ENV来决定加载行为。因此，指定process.env.NODE_ENV变量为production，可以优化最终的代码。</p>
-<p>修改文件webpack.prod.js</p>
+<p>1、修改文件webpack.prod.js</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">+</span> <span class="token keyword">const</span> webpack <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">const</span> merge <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack-merge'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">const</span> UglifyJSPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'uglifyjs-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -256,7 +256,7 @@ if(isiOS){
     <span class="token punctuation">]</span>
   <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>建议检查更改环境变量是否生效。</p>
+<p>2、建议检查更改环境变量是否生效。</p>
 <p>修改文件src/index.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">import</span> <span class="token punctuation">{</span> cube <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">'./math.js'</span><span class="token punctuation">;</span>
 <span class="token operator">+</span>

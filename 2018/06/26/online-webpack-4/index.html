@@ -127,8 +127,10 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="开发者模式"><a href="#开发者模式" class="headerlink" title="开发者模式"></a>开发者模式</h2><p>复制上节的工程文件。</p>
-<h2 id="1、使用源码映射-source-maps"><a href="#1、使用源码映射-source-maps" class="headerlink" title="1、使用源码映射 source maps"></a>1、使用源码映射 source maps</h2><p>修改文件webpack.config.js</p>
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>程序员在开发阶段，比较注重两点：<br>1、代码一旦发生更改，自动编译，并刷新浏览器，方便开发者看到效果。<br>2、代码出现错误，帮助程序员快速定位到出错的地方。</p>
+<p>前者，称为热加载。后者，称为source-map。</p>
+<h2 id="2-source-map"><a href="#2-source-map" class="headerlink" title="2 source map"></a>2 source map</h2><p>使用源码映射 source map</p>
+<p>1、修改文件webpack.config.js</p>
 <pre class=" language-JS"><code class="language-JS">  const path = require('path');
   const HtmlWebpackPlugin = require('html-webpack-plugin');
   const CleanWebpackPlugin = require('clean-webpack-plugin');
@@ -151,21 +153,21 @@ if(isiOS){
     }
   };
 </code></pre>
-<p>故意写个错误，修改文件src/print.js</p>
+<p>2、故意写个错误，修改文件src/print.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">printMe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 <span class="token operator">-</span>   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'I get called from print.js!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token operator">+</span>   cosnole<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'I get called from print.js!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 </code></pre>
-<p>运行打包</p>
+<p>3、运行打包</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run build
 </code></pre>
-<p>使用浏览器，打开index.html，打开开发者调试工具，看到：</p>
+<p>4、使用浏览器，打开index.html，打开开发者调试工具，看到：</p>
 <pre class=" language-bash"><code class="language-bash"> Uncaught ReferenceError: cosnole is not defined
     at HTMLButtonElement.printMe <span class="token punctuation">(</span>print.js:2<span class="token punctuation">)</span>
 </code></pre>
-<h2 id="2、监视文件改动，并自动编译"><a href="#2、监视文件改动，并自动编译" class="headerlink" title="2、监视文件改动，并自动编译"></a>2、监视文件改动，并自动编译</h2><p>webpack 提供了3种方式实现该功能： watch 模式，webpack-dev-server，webpack-dev-middleware</p>
-<h3 id="2-1-watch模式"><a href="#2-1-watch模式" class="headerlink" title="2.1 watch模式"></a>2.1 watch模式</h3><p>修改文件package.json</p>
+<h2 id="3-监视改动"><a href="#3-监视改动" class="headerlink" title="3 监视改动"></a>3 监视改动</h2><p>webpack可以监视文件改动，并自动编译，并提供了3种方式实现该功能： watch 模式，webpack-dev-server，webpack-dev-middleware</p>
+<h3 id="3-2-watch模式"><a href="#3-2-watch模式" class="headerlink" title="3.2 watch模式"></a>3.2 watch模式</h3><p>1、修改文件package.json</p>
 <pre class=" language-json"><code class="language-json">  <span class="token punctuation">{</span>
     <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"development"</span><span class="token punctuation">,</span>
     <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0.0"</span><span class="token punctuation">,</span>
@@ -191,17 +193,17 @@ if(isiOS){
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 </code></pre>
-<p>修改文件src/print.js</p>
+<p>2、修改文件src/print.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">export</span> <span class="token keyword">default</span> <span class="token keyword">function</span> <span class="token function">printMe</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 <span class="token operator">-</span>   cosnole<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'I get called from print.js!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token operator">+</span>   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'I get called from print.js!'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token punctuation">}</span>
 </code></pre>
 <p>你会发现，一旦保存修改，webpack马上重新编译。不过，你得手动刷新浏览器才能看到变化。</p>
-<h3 id="2-2-使用-webpack-dev-server"><a href="#2-2-使用-webpack-dev-server" class="headerlink" title="2.2 使用 webpack-dev-server"></a>2.2 使用 webpack-dev-server</h3><p>安装依赖</p>
+<h3 id="3-2-webpack-dev-server"><a href="#3-2-webpack-dev-server" class="headerlink" title="3.2 webpack-dev-server"></a>3.2 webpack-dev-server</h3><p>1、安装依赖</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev webpack-dev-server
 </code></pre>
-<p>修改文件webpack.config.js</p>
+<p>2、修改文件webpack.config.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">const</span> HtmlWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'html-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">const</span> CleanWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'clean-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -228,7 +230,7 @@ if(isiOS){
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
 <p>这里，把/dist当成默认目录，启动服务器，并提供访问入口：<a href="http://localhost:8080" target="_blank" rel="external">http://localhost:8080</a></p>
-<p>修改文件package.json</p>
+<p>3、修改文件package.json</p>
 <pre class=" language-json"><code class="language-json">  <span class="token punctuation">{</span>
     <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"development"</span><span class="token punctuation">,</span>
     <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0.0"</span><span class="token punctuation">,</span>
@@ -255,11 +257,11 @@ if(isiOS){
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 </code></pre>
-<p>启动，查看结果</p>
+<p>4、启动，查看结果</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> run start
 </code></pre>
-<h3 id="2-3-使用-webpack-dev-middleware"><a href="#2-3-使用-webpack-dev-middleware" class="headerlink" title="2.3 使用 webpack-dev-middleware"></a>2.3 使用 webpack-dev-middleware</h3><p>这里仅仅提供中间件，你需要自己实现服务器功能。</p>
-<p>工程目录结构：</p>
+<h3 id="3-3-webpack-dev-middleware"><a href="#3-3-webpack-dev-middleware" class="headerlink" title="3.3 webpack-dev-middleware"></a>3.3 webpack-dev-middleware</h3><p>这里仅仅提供中间件，你需要自己实现服务器功能。</p>
+<p>1、工程目录结构：</p>
 <pre class=" language-bash"><code class="language-bash">  webpack-demo
   <span class="token operator">|</span>- package.json
   <span class="token operator">|</span>- webpack.config.js
@@ -270,10 +272,10 @@ if(isiOS){
     <span class="token operator">|</span>- print.js
   <span class="token operator">|</span>- /node_modules
 </code></pre>
-<p>安装依赖</p>
+<p>2、安装依赖</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> --save-dev express webpack-dev-middleware
 </code></pre>
-<p>修改文件webpack.config.js</p>
+<p>3、修改文件webpack.config.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">const</span> HtmlWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'html-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
   <span class="token keyword">const</span> CleanWebpackPlugin <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'clean-webpack-plugin'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -297,7 +299,7 @@ if(isiOS){
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>修改文件server.js</p>
+<p>4、修改文件server.js</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> express <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'express'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> webpack <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">const</span> webpackDevMiddleware <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'webpack-dev-middleware'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
@@ -317,7 +319,7 @@ app<span class="token punctuation">.</span><span class="token function">listen</
   console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token string">'Example app listening on port 3000!\n'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>修改文件package.json</p>
+<p>5、修改文件package.json</p>
 <pre class=" language-json"><code class="language-json">  <span class="token punctuation">{</span>
     <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"development"</span><span class="token punctuation">,</span>
     <span class="token property">"version"</span><span class="token operator">:</span> <span class="token string">"1.0.0"</span><span class="token punctuation">,</span>
@@ -347,7 +349,7 @@ app<span class="token punctuation">.</span><span class="token function">listen</
     <span class="token punctuation">}</span>
   <span class="token punctuation">}</span>
 </code></pre>
-<p>运行，查看结果</p>
+<p>6、运行，查看结果</p>
 <pre class=" language-bash"><code class="language-bash">Example app listening on port 3000<span class="token operator">!</span>
 webpack built 27b137af6d9d8668c373 <span class="token keyword">in</span> 1198ms
 Hash: 27b137af6d9d8668c373

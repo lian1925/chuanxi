@@ -127,9 +127,9 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="代码分割-code-splitting"><a href="#代码分割-code-splitting" class="headerlink" title="代码分割(code splitting)"></a>代码分割(code splitting)</h2><p>代码分割功能，允许用户根据需要，将源码打包成多个更小的文件块，并自由控制文件块的加载优先级，如果应用合理，可以极大改善应用的加载时间。</p>
-<h2 id="1、入口文件"><a href="#1、入口文件" class="headerlink" title="1、入口文件"></a>1、入口文件</h2><p>通过入口配置，手动实现代码分割。这是最简单的实现方式。</p>
-<p>工程目录结构：</p>
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>代码分割(code splitting)<br>代码分割功能，允许用户根据需要，将源码打包成多个更小的文件块，并自由控制文件块的加载优先级，如果应用合理，可以极大改善应用的加载时间。</p>
+<h3 id="1-1-入口文件"><a href="#1-1-入口文件" class="headerlink" title="1.1 入口文件"></a>1.1 入口文件</h3><p>通过入口配置，手动实现代码分割。这是最简单的实现方式。</p>
+<p>1、工程目录结构：</p>
 <pre class=" language-bash"><code class="language-bash">webpack-demo
 <span class="token operator">|</span>- package.json
 <span class="token operator">|</span>- webpack.config.js
@@ -139,14 +139,14 @@ if(isiOS){
 + <span class="token operator">|</span>- another-module.js
 <span class="token operator">|</span>- /node_modules
 </code></pre>
-<p>修改文件another-module.js</p>
+<p>2、修改文件another-module.js</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">import</span> _ <span class="token keyword">from</span> <span class="token string">'lodash'</span><span class="token punctuation">;</span>
 
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>
   _<span class="token punctuation">.</span><span class="token function">join</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token string">'Another'</span><span class="token punctuation">,</span> <span class="token string">'module'</span><span class="token punctuation">,</span> <span class="token string">'loaded!'</span><span class="token punctuation">]</span><span class="token punctuation">,</span> <span class="token string">' '</span><span class="token punctuation">)</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span>
 </code></pre>
-<p>修改文件webpack.config.js</p>
+<p>3、修改文件webpack.config.js</p>
 <pre class=" language-js"><code class="language-js"><span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
 module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
@@ -161,7 +161,7 @@ module<span class="token punctuation">.</span>exports <span class="token operato
   <span class="token punctuation">}</span>
 <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>运行，查看结果</p>
+<p>4、运行，查看结果</p>
 <pre class=" language-bash"><code class="language-bash">Hash: a948f6cc8219cc2d39a1
 Version: webpack 4.7.0
 Time: 323ms
@@ -176,8 +176,8 @@ Entrypoint another <span class="token operator">=</span> another.bundle.js
 <span class="token punctuation">[</span>./src/index.js<span class="token punctuation">]</span> 86 bytes <span class="token punctuation">{</span>index<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
     + 1 hidden module
 </code></pre>
-<h2 id="2、使用splitChunks"><a href="#2、使用splitChunks" class="headerlink" title="2、使用splitChunks"></a>2、使用splitChunks</h2><p>此方法，自动将公共依赖分离出来，打包入新的文件块，有效防止代码重复打包。</p>
-<p>修改文件webpack.config.js</p>
+<h3 id="1-2-使用splitChunks"><a href="#1-2-使用splitChunks" class="headerlink" title="1.2 使用splitChunks"></a>1.2 使用splitChunks</h3><p>此方法，自动将公共依赖分离出来，打包入新的文件块，有效防止代码重复打包。</p>
+<p>1、修改文件webpack.config.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
@@ -197,7 +197,7 @@ Entrypoint another <span class="token operator">=</span> another.bundle.js
 <span class="token operator">+</span>   <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>运行，查看结果</p>
+<p>2、运行，查看结果</p>
 <pre class=" language-bash"><code class="language-bash">Hash: ac2ac6042ebb4f20ee54
 Version: webpack 4.7.0
 Time: 316ms
@@ -214,8 +214,8 @@ Entrypoint another <span class="token operator">=</span> vendors~another~index.b
     + 1 hidden module
 </code></pre>
 <p>此处，推荐3个有用的插件<br>mini-css-extract-plugin<br>bundle-loader<br>promise-loader</p>
-<h2 id="3、动态导入"><a href="#3、动态导入" class="headerlink" title="3、动态导入"></a>3、动态导入</h2><p>使用import 语法实现动态导入。</p>
-<p>项目目录结构</p>
+<h3 id="1-3-动态导入"><a href="#1-3-动态导入" class="headerlink" title="1.3 动态导入"></a>1.3 动态导入</h3><p>使用import 语法实现动态导入。</p>
+<p>1、项目目录结构</p>
 <pre class=" language-bash"><code class="language-bash">webpack-demo
 <span class="token operator">|</span>- package.json
 <span class="token operator">|</span>- webpack.config.js
@@ -225,7 +225,7 @@ Entrypoint another <span class="token operator">=</span> vendors~another~index.b
 - <span class="token operator">|</span>- another-module.js
 <span class="token operator">|</span>- /node_modules
 </code></pre>
-<p>修改文件webpack.config.js</p>
+<p>2、修改文件webpack.config.js</p>
 <pre class=" language-js"><code class="language-js">  <span class="token keyword">const</span> path <span class="token operator">=</span> <span class="token function">require</span><span class="token punctuation">(</span><span class="token string">'path'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
   module<span class="token punctuation">.</span>exports <span class="token operator">=</span> <span class="token punctuation">{</span>
@@ -247,7 +247,7 @@ Entrypoint another <span class="token operator">=</span> vendors~another~index.b
 <span class="token operator">-</span>   <span class="token punctuation">}</span>
   <span class="token punctuation">}</span><span class="token punctuation">;</span>
 </code></pre>
-<p>修改文件src/index.js</p>
+<p>3、修改文件src/index.js</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">-</span> <span class="token keyword">import</span> _ <span class="token keyword">from</span> <span class="token string">'lodash'</span><span class="token punctuation">;</span>
 <span class="token operator">-</span>
 <span class="token operator">-</span> <span class="token keyword">function</span> <span class="token function">component</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
@@ -272,7 +272,7 @@ Entrypoint another <span class="token operator">=</span> vendors~another~index.b
 <span class="token operator">+</span>   document<span class="token punctuation">.</span>body<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>component<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token operator">+</span> <span class="token punctuation">}</span><span class="token punctuation">)</span>
 </code></pre>
-<p>运行，查看结果</p>
+<p>4、运行，查看结果</p>
 <pre class=" language-bash"><code class="language-bash">Hash: a3f7446ffbeb7fb897ff
 Version: webpack 4.7.0
 Time: 316ms
@@ -285,7 +285,7 @@ Entrypoint index <span class="token operator">=</span> index.bundle.js
 <span class="token punctuation">[</span>./src/index.js<span class="token punctuation">]</span> 394 bytes <span class="token punctuation">{</span>index<span class="token punctuation">}</span> <span class="token punctuation">[</span>built<span class="token punctuation">]</span>
     + 1 hidden module
 </code></pre>
-<h2 id="使用异步语法"><a href="#使用异步语法" class="headerlink" title="使用异步语法"></a>使用异步语法</h2><p>修改文件src/index.js</p>
+<h2 id="1-4-使用异步语法"><a href="#1-4-使用异步语法" class="headerlink" title="1.4 使用异步语法"></a>1.4 使用异步语法</h2><p>1、修改文件src/index.js</p>
 <pre class=" language-js"><code class="language-js"><span class="token operator">-</span> <span class="token keyword">function</span> <span class="token function">getComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 <span class="token operator">+</span> <span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">getComponent</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
 <span class="token operator">-</span>   <span class="token keyword">return</span> <span class="token keyword">import</span><span class="token punctuation">(</span><span class="token comment" spellcheck="true">/* webpackChunkName: "lodash" */</span> <span class="token string">'lodash'</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">then</span><span class="token punctuation">(</span>_ <span class="token operator">=</span><span class="token operator">></span> <span class="token punctuation">{</span>
