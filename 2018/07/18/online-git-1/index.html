@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>函数 4 | Go | 小沙丘的网络漫游记</title>
+  <title>使用技巧 1 | git | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -60,8 +60,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/Go/">
-            Go
+          <a href="/tags/git/">
+            git
           </a>
       </span>
       
@@ -77,8 +77,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/Go/">
-              Go
+            <a href="/tags/git/">
+              git
             </a>
         </span>
       </p>
@@ -86,27 +86,27 @@ if(isiOS){
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2018/07/15/online-go-3/">
+            <a href="/2018/07/16/online-css-13/">
             &#8676;
             </a>
         </span>
         <span>
             
-            <a href="/2018/07/16/online-css-13/">
+            <a href="/2018/07/18/online-tip-1/">
               &#8677;
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2018/07/15/online-go-3/">
-                    常量与变量 3 | Go
+                <a href="/2018/07/16/online-css-13/">
+                    波纹 13 | css
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2018/07/16/online-css-13/">
-                    波纹 13 | css
+                <a href="/2018/07/18/online-tip-1/">
+                    服务器添加SSH特权 1
                 </a>
         </P>
     </div>
@@ -114,11 +114,11 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>函数 4 | Go</h1>
+<h1>使用技巧 1 | git</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
-    2018年07月15日 16:07
+    2018年07月18日 11:07
   </p>
 </div>
 </div>
@@ -127,34 +127,54 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>函数，是编程的一个非常重要的概念。简单来说，函数可以帮助我们将一些代码包装起来，并命名，方便重复调用。</p>
-<h3 id="1-1-工程目录结构"><a href="#1-1-工程目录结构" class="headerlink" title="1.1 工程目录结构"></a>1.1 工程目录结构</h3><pre class=" language-bash"><code class="language-bash">  demo2
-  <span class="token operator">|</span>-  index.go
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>本节内容，主要汇总git的实用操作场景。</p>
+<h3 id="1-1-推送新版本"><a href="#1-1-推送新版本" class="headerlink" title="1.1 推送新版本"></a>1.1 推送新版本</h3><p>1、添加更新内容</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> add <span class="token keyword">.</span>
 </code></pre>
-<h3 id="1-2-修改文件-index-go"><a href="#1-2-修改文件-index-go" class="headerlink" title="1.2 修改文件 index.go"></a>1.2 修改文件 index.go</h3><pre class=" language-go"><code class="language-go"><span class="token keyword">package</span> main
-
-<span class="token keyword">import</span> <span class="token string">"fmt"</span>
-
-<span class="token comment" spellcheck="true">// 定义加法函数</span>
-<span class="token keyword">func</span> <span class="token function">add</span><span class="token punctuation">(</span>a <span class="token builtin">int</span><span class="token punctuation">,</span> b <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token builtin">int</span> <span class="token punctuation">{</span>
-  <span class="token keyword">var</span> c <span class="token operator">=</span> a <span class="token operator">+</span> b<span class="token punctuation">;</span>
-  <span class="token keyword">return</span> c<span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-<span class="token keyword">func</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-  <span class="token comment" spellcheck="true">// 调用加法函数</span>
-  <span class="token keyword">var</span> count <span class="token operator">=</span> <span class="token function">add</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span>
-  fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>count<span class="token punctuation">)</span>
-<span class="token punctuation">}</span>
+<p>2、添加更新日志</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> commit -m <span class="token string">"something to tell."</span>
 </code></pre>
-<h3 id="1-3-运行，查看结果"><a href="#1-3-运行，查看结果" class="headerlink" title="1.3 运行，查看结果"></a>1.3 运行，查看结果</h3><p>1、编译，同一目录下生成执行代码index</p>
-<pre class=" language-bas"><code class="language-bas">go build index.go
+<p>3、推送至云版本</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> push origin master
 </code></pre>
-<p>2、运行</p>
-<pre class=" language-bash"><code class="language-bash">./index
+<h3 id="1-2-初始化git"><a href="#1-2-初始化git" class="headerlink" title="1.2 初始化git"></a>1.2 初始化git</h3><p>为一个新的工程，实现初始化git。</p>
+<p>1、进入工程根目录</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> /path to project
 </code></pre>
-<p>3、查看结果</p>
-<pre class=" language-bash"><code class="language-bash">Hello, world
+<p>2、初始化命令</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> init
+</code></pre>
+<p>3、设置 .gitignore<br>项目中有些文件，我们并不需要对其进行版本跟踪，此时可以指定git忽略文件。<br>如：第三方库文件(node_modelus文件夹)</p>
+<pre class=" language-bash"><code class="language-bash">.DS_Store
+node_modules/
+dist/
+</code></pre>
+<h3 id="1-3-更改远端版本关联"><a href="#1-3-更改远端版本关联" class="headerlink" title="1.3 更改远端版本关联"></a>1.3 更改远端版本关联</h3><p>1、删除旧的git源</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> remote remove origin
+</code></pre>
+<p>2、添加新的git源</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> remote add origin
+</code></pre>
+<p>3、推送，测试</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> push origin master
+</code></pre>
+<h3 id="1-4-拉取git代码"><a href="#1-4-拉取git代码" class="headerlink" title="1.4 拉取git代码"></a>1.4 拉取git代码</h3><p>1、拉取全部代码</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> fetch --all
+</code></pre>
+<p>2、指定代码版本</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> reset --hard origin/master
+</code></pre>
+<h3 id="1-5-代码合并"><a href="#1-5-代码合并" class="headerlink" title="1.5 代码合并"></a>1.5 代码合并</h3><p>1、创建git分支，如：master -&gt; develop</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> branch develop
+</code></pre>
+<p>2、切换分支，如：master -&gt; develop</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> checkout develop
+</code></pre>
+<p>3、切换至主分支</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> checkout master
+</code></pre>
+<p>4、融合develop分支</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">git</span> merge develop
 </code></pre>
 
   </div>
@@ -162,8 +182,8 @@ if(isiOS){
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/07/15/online-go-3/">« 常量与变量 3 | ...</a></span>
-  <span class="right"><a href="#">无... »</a></span>
+  <span class="left"><a href="#">« 无</a></span>
+  <span class="right"><a href="#">无 »</a></span>
 </p>
 
 <!-- 文档信息 -->
@@ -174,7 +194,7 @@ if(isiOS){
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
     <li>作者：<a href="/">Lian</a></li>
-    <li>日期：2018年07月15日 16:07</li>
+    <li>日期：2018年07月18日 11:07</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
 </div>
@@ -317,7 +337,7 @@ if(isiOS){
 
 
 <p id="info-meta" style="display:none;">
-  online-go-4
+  online-git-1
 </p>
 
 
