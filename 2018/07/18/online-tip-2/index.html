@@ -131,6 +131,17 @@ if(isiOS){
 <h2 id="2-查看信息"><a href="#2-查看信息" class="headerlink" title="2 查看信息"></a>2 查看信息</h2><p>1、系统版本</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">cat</span> /proc/version
 </code></pre>
+<h2 id="3-实用操作"><a href="#3-实用操作" class="headerlink" title="3 实用操作"></a>3 实用操作</h2><h3 id="3-1-关闭指定端口"><a href="#3-1-关闭指定端口" class="headerlink" title="3.1 关闭指定端口"></a>3.1 关闭指定端口</h3><p>web开发时，经常遇到端口占用问题，如：80端口被占用。此时，我们需要手动关闭指定端口，恢复使用。</p>
+<p>1、查看占用端口的进程</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">lsof</span> -i tcp:80
+</code></pre>
+<p>查看结果，如：</p>
+<pre class=" language-bash"><code class="language-bash">COMMAND   PID   USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
+Google    563 huahua  110u  IPv4 0xd4de73d89a557025      0t0  TCP bogon:64435-<span class="token operator">></span>14.116.179.205:http <span class="token punctuation">(</span>CLOSED<span class="token punctuation">)</span>
+</code></pre>
+<p>2、关闭该进程</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">kill</span> -9 563
+</code></pre>
 
   </div>
 </div>

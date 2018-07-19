@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>Pm2 部署管理器 | 小沙丘的网络漫游记</title>
+  <title>巧删console.log 14 | Vue | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -60,8 +60,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/工具/">
-            工具
+          <a href="/tags/vue/">
+            vue
           </a>
       </span>
       
@@ -77,8 +77,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/工具/">
-              工具
+            <a href="/tags/vue/">
+              vue
             </a>
         </span>
       </p>
@@ -86,27 +86,27 @@ if(isiOS){
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2018/07/18/online-tip-2/">
+            <a href="/2018/07/19/online-node-7/">
             &#8676;
             </a>
         </span>
         <span>
             
-            <a href="/2018/07/19/online-go-0/">
+            <a href="#">
               &#8677;
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2018/07/18/online-tip-2/">
-                    常用命令 | Linux
+                <a href="/2018/07/19/online-node-7/">
+                    SPA前端工程服务器
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2018/07/19/online-go-0/">
-                    go 电子教程 | Go
+                <a href="#">
+                    无
                 </a>
         </P>
     </div>
@@ -114,11 +114,11 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>Pm2 部署管理器</h1>
+<h1>巧删console.log 14 | Vue</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
-    2018年07月18日 17:07
+    2018年07月19日 16:07
   </p>
 </div>
 </div>
@@ -127,52 +127,29 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>pm2 ，用于部署nodejs工程。</p>
-<h3 id="1-1-安装"><a href="#1-1-安装" class="headerlink" title="1.1 安装"></a>1.1 安装</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> i -g pm2
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>console.log()是前端开发经常使用到的语句，用于打印程序中运行中遇到的数据。</p>
+<p>这对于我们跟踪程序的执行状态非常有帮助。</p>
+<p>然而，当程序开发完成，进入生产(production)阶段时，我们需要及时删除打印信息，这是因为打印输出可能会泄露程序的敏感信息。</p>
+<p>本文目的在于介绍一种非常有用的删除打印信息的技巧，这里将会使用到一种babel插件。</p>
+<h3 id="1-1-安装依赖"><a href="#1-1-安装依赖" class="headerlink" title="1.1 安装依赖"></a>1.1 安装依赖</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> <span class="token function">install</span> babel-plugin-transform-remove-console --dev-save
 </code></pre>
-<h3 id="1-2-使用"><a href="#1-2-使用" class="headerlink" title="1.2 使用"></a>1.2 使用</h3><p>1、启动</p>
-<pre class=" language-bash"><code class="language-bash">pm2 start app.js
-</code></pre>
-<p>2、停止</p>
-<pre class=" language-bash"><code class="language-bash">pm2 stop app.js
-</code></pre>
-<p>3、监听文件改动(适用于开发阶段)</p>
-<pre class=" language-bash"><code class="language-bash">pm2 start app.js --watch
-</code></pre>
-<h3 id="1-3-配合nginx"><a href="#1-3-配合nginx" class="headerlink" title="1.3 配合nginx"></a>1.3 配合nginx</h3><p>nginx 一般用于提供服务器代理服务。两者配合使用时，nginx接收请求，并转发到pm2启动的服务节点。</p>
-<p>实现方式：在nginx构建一个服务区块。</p>
-<pre class=" language-js"><code class="language-js">upstream my_nodejs_upstream <span class="token punctuation">{</span>
-    server <span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">3001</span><span class="token punctuation">;</span>
-    keepalive <span class="token number">64</span><span class="token punctuation">;</span>
-<span class="token punctuation">}</span>
-
-server <span class="token punctuation">{</span>
-    listen <span class="token number">80</span><span class="token punctuation">;</span>
-    server_name my_nodejs_server<span class="token punctuation">;</span>
-    root <span class="token operator">/</span>home<span class="token operator">/</span>www<span class="token operator">/</span>project_root<span class="token punctuation">;</span>
-
-    location <span class="token operator">/</span> <span class="token punctuation">{</span>
-        proxy_set_header X<span class="token operator">-</span>Forwarded<span class="token operator">-</span>For $proxy_add_x_forwarded_for<span class="token punctuation">;</span>
-        proxy_set_header Host $http_host<span class="token punctuation">;</span>
-        proxy_set_header X<span class="token operator">-</span>NginX<span class="token operator">-</span>Proxy <span class="token boolean">true</span><span class="token punctuation">;</span>
-        proxy_http_version <span class="token number">1.1</span><span class="token punctuation">;</span>
-        proxy_set_header Upgrade $http_upgrade<span class="token punctuation">;</span>
-        proxy_set_header Connection <span class="token string">"upgrade"</span><span class="token punctuation">;</span>
-        proxy_max_temp_file_size <span class="token number">0</span><span class="token punctuation">;</span>
-        proxy_pass http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>my_nodejs_upstream<span class="token operator">/</span><span class="token punctuation">;</span>
-        proxy_redirect off<span class="token punctuation">;</span>
-        proxy_read_timeout 240s<span class="token punctuation">;</span>
+<h3 id="1-2-修改文件-babelrc"><a href="#1-2-修改文件-babelrc" class="headerlink" title="1.2 修改文件 .babelrc"></a>1.2 修改文件 .babelrc</h3><pre class=" language-json"><code class="language-json"><span class="token punctuation">{</span>
+  <span class="token property">"env"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"production"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+      <span class="token property">"plugins"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"transform-remove-console"</span><span class="token punctuation">]</span>
     <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
 <span class="token punctuation">}</span>
 </code></pre>
+<p>注：此处的<code>production</code>限定只在生产模式下，删除console.log</p>
 
   </div>
 </div>
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/07/15/online-tool-6/">« Go 环境 6 | ...</a></span>
-  <span class="right"><a href="#">无... »</a></span>
+  <span class="left"><a href="#">« 无</a></span>
+  <span class="right"><a href="/2018/06/27/online-vue-1/">初步 1 | Vue »</a></span>
 </p>
 
 <!-- 文档信息 -->
@@ -183,7 +160,7 @@ server <span class="token punctuation">{</span>
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
     <li>作者：<a href="/">Lian</a></li>
-    <li>日期：2018年07月18日 17:07</li>
+    <li>日期：2018年07月19日 16:07</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
 </div>
@@ -326,7 +303,7 @@ server <span class="token punctuation">{</span>
 
 
 <p id="info-meta" style="display:none;">
-  online-tool-7
+  online-vue-14
 </p>
 
 
