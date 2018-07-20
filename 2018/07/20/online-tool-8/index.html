@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>常用命令 | Linux | 小沙丘的网络漫游记</title>
+  <title>Pm2 部署管理器 | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -60,8 +60,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/技巧/">
-            技巧
+          <a href="/tags/工具/">
+            工具
           </a>
       </span>
       
@@ -77,8 +77,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/技巧/">
-              技巧
+            <a href="/tags/工具/">
+              工具
             </a>
         </span>
       </p>
@@ -86,27 +86,27 @@ if(isiOS){
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2018/07/18/online-tip-1/">
+            <a href="/2018/07/20/online-tool-7/">
             &#8676;
             </a>
         </span>
         <span>
             
-            <a href="/2018/07/19/online-go-0/">
+            <a href="#">
               &#8677;
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2018/07/18/online-tip-1/">
-                    服务器添加SSH特权 1
+                <a href="/2018/07/20/online-tool-7/">
+                    git 客户端 sourcetree 7
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2018/07/19/online-go-0/">
-                    go 电子教程 | Go
+                <a href="#">
+                    无
                 </a>
         </P>
     </div>
@@ -114,11 +114,11 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>常用命令 | Linux</h1>
+<h1>Pm2 部署管理器</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
-    2018年07月18日 15:07
+    2018年07月20日 16:07
   </p>
 </div>
 </div>
@@ -127,30 +127,43 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>本节内容介绍常用的Linux经常使用的命令。</p>
-<h2 id="2-查看信息"><a href="#2-查看信息" class="headerlink" title="2 查看信息"></a>2 查看信息</h2><p>1、系统版本</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">cat</span> /proc/version
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>pm2 ，用于部署nodejs工程。</p>
+<h3 id="1-1-安装"><a href="#1-1-安装" class="headerlink" title="1.1 安装"></a>1.1 安装</h3><pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> i -g pm2
 </code></pre>
-<p>2、查看当前文件夹内文件清单</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">ls</span>
+<h3 id="1-2-使用"><a href="#1-2-使用" class="headerlink" title="1.2 使用"></a>1.2 使用</h3><p>1、启动</p>
+<pre class=" language-bash"><code class="language-bash">pm2 start app.js
 </code></pre>
-<h2 id="3-实用操作"><a href="#3-实用操作" class="headerlink" title="3 实用操作"></a>3 实用操作</h2><h3 id="3-1-关闭指定端口"><a href="#3-1-关闭指定端口" class="headerlink" title="3.1 关闭指定端口"></a>3.1 关闭指定端口</h3><p>web开发时，经常遇到端口占用问题，如：80端口被占用。此时，我们需要手动关闭指定端口，恢复使用。</p>
-<p>1、查看占用端口的进程</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">lsof</span> -i tcp:80
+<p>2、停止</p>
+<pre class=" language-bash"><code class="language-bash">pm2 stop app.js
 </code></pre>
-<p>查看结果，如：</p>
-<pre class=" language-bash"><code class="language-bash">COMMAND   PID   USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
-Google    563 huahua  110u  IPv4 0xd4de73d89a557025      0t0  TCP bogon:64435-<span class="token operator">></span>14.116.179.205:http <span class="token punctuation">(</span>CLOSED<span class="token punctuation">)</span>
+<p>3、监听文件改动(适用于开发阶段)</p>
+<pre class=" language-bash"><code class="language-bash">pm2 start app.js --watch
 </code></pre>
-<p>2、关闭该进程</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">kill</span> -9 563
-</code></pre>
-<h3 id="3-2-复制文件夹"><a href="#3-2-复制文件夹" class="headerlink" title="3.2 复制文件夹"></a>3.2 复制文件夹</h3><p>命令格式</p>
-<pre class=" language-bash"><code class="language-bash">命令格式：cp <span class="token punctuation">[</span>-adfilprsu<span class="token punctuation">]</span> 源文件<span class="token punctuation">(</span>source<span class="token punctuation">)</span> 目标文件<span class="token punctuation">(</span>destination<span class="token punctuation">)</span>
-</code></pre>
-<p>参数说明：<br>-r 递归复制，适用于子目录的文件夹复制。<br>-u 若源文件比目标文件新，更新目标文件<br>-f 强制(force)执行</p>
-<p>示例：将project/dist目录，复制到server/dist目录。</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">cp</span> -rfu project/dist server
+<h3 id="1-3-配合nginx"><a href="#1-3-配合nginx" class="headerlink" title="1.3 配合nginx"></a>1.3 配合nginx</h3><p>nginx 一般用于提供服务器代理服务。两者配合使用时，nginx接收请求，并转发到pm2启动的服务节点。</p>
+<p>实现方式：在nginx构建一个服务区块。</p>
+<pre class=" language-js"><code class="language-js">upstream my_nodejs_upstream <span class="token punctuation">{</span>
+    server <span class="token number">127.0</span><span class="token punctuation">.</span><span class="token number">0.1</span><span class="token punctuation">:</span><span class="token number">3001</span><span class="token punctuation">;</span>
+    keepalive <span class="token number">64</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+server <span class="token punctuation">{</span>
+    listen <span class="token number">80</span><span class="token punctuation">;</span>
+    server_name my_nodejs_server<span class="token punctuation">;</span>
+    root <span class="token operator">/</span>home<span class="token operator">/</span>www<span class="token operator">/</span>project_root<span class="token punctuation">;</span>
+
+    location <span class="token operator">/</span> <span class="token punctuation">{</span>
+        proxy_set_header X<span class="token operator">-</span>Forwarded<span class="token operator">-</span>For $proxy_add_x_forwarded_for<span class="token punctuation">;</span>
+        proxy_set_header Host $http_host<span class="token punctuation">;</span>
+        proxy_set_header X<span class="token operator">-</span>NginX<span class="token operator">-</span>Proxy <span class="token boolean">true</span><span class="token punctuation">;</span>
+        proxy_http_version <span class="token number">1.1</span><span class="token punctuation">;</span>
+        proxy_set_header Upgrade $http_upgrade<span class="token punctuation">;</span>
+        proxy_set_header Connection <span class="token string">"upgrade"</span><span class="token punctuation">;</span>
+        proxy_max_temp_file_size <span class="token number">0</span><span class="token punctuation">;</span>
+        proxy_pass http<span class="token punctuation">:</span><span class="token operator">/</span><span class="token operator">/</span>my_nodejs_upstream<span class="token operator">/</span><span class="token punctuation">;</span>
+        proxy_redirect off<span class="token punctuation">;</span>
+        proxy_read_timeout 240s<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
 </code></pre>
 
   </div>
@@ -158,7 +171,7 @@ Google    563 huahua  110u  IPv4 0xd4de73d89a557025      0t0  TCP bogon:64435-<s
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/07/18/online-tip-1/">« 服务器添加SSH特权...</a></span>
+  <span class="left"><a href="/2018/07/20/online-tool-7/">« git 客户端 so...</a></span>
   <span class="right"><a href="#">无... »</a></span>
 </p>
 
@@ -170,7 +183,7 @@ Google    563 huahua  110u  IPv4 0xd4de73d89a557025      0t0  TCP bogon:64435-<s
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
     <li>作者：<a href="/">Lian</a></li>
-    <li>日期：2018年07月18日 15:07</li>
+    <li>日期：2018年07月20日 16:07</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
 </div>
@@ -313,7 +326,7 @@ Google    563 huahua  110u  IPv4 0xd4de73d89a557025      0t0  TCP bogon:64435-<s
 
 
 <p id="info-meta" style="display:none;">
-  online-tip-2
+  online-tool-8
 </p>
 
 

@@ -15,7 +15,7 @@
   <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
   <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
   
-  <title>常用命令 | Linux | 小沙丘的网络漫游记</title>
+  <title>git 客户端 sourcetree 7 | 小沙丘的网络漫游记</title>
  <meta name="description" content="" >
 
  <!-- 百度统计 -->
@@ -60,8 +60,8 @@ if(isiOS){
       </span>
       
       <span> » 
-          <a href="/tags/技巧/">
-            技巧
+          <a href="/tags/工具/">
+            工具
           </a>
       </span>
       
@@ -77,8 +77,8 @@ if(isiOS){
     <div class="entry-categories">
       <p>主题：
         <span> 
-            <a href="/tags/技巧/">
-              技巧
+            <a href="/tags/工具/">
+              工具
             </a>
         </span>
       </p>
@@ -86,27 +86,27 @@ if(isiOS){
     <div class="entry-location-mobile">
         <span>
             
-            <a href="/2018/07/18/online-tip-1/">
+            <a href="/2018/07/19/online-vue-14/">
             &#8676;
             </a>
         </span>
         <span>
             
-            <a href="/2018/07/19/online-go-0/">
+            <a href="/2018/07/20/online-tool-8/">
               &#8677;
             </a>
         </span>
     </div>
     <div class="entry-location">
         <P>上一篇：
-                <a href="/2018/07/18/online-tip-1/">
-                    服务器添加SSH特权 1
+                <a href="/2018/07/19/online-vue-14/">
+                    巧删console.log 14 | Vue
                 </a>
         </P>
         <P>下一篇：
 
-                <a href="/2018/07/19/online-go-0/">
-                    go 电子教程 | Go
+                <a href="/2018/07/20/online-tool-8/">
+                    Pm2 部署管理器
                 </a>
         </P>
     </div>
@@ -114,11 +114,11 @@ if(isiOS){
 
 <div class="post">
 <div class="title-post">
-<h1>常用命令 | Linux</h1>
+<h1>git 客户端 sourcetree 7</h1>
 <div class="post-meta">
   <p>作者： Lian</p>
   <p>日期：
-    2018年07月18日 15:07
+    2018年07月20日 16:07
   </p>
 </div>
 </div>
@@ -127,39 +127,21 @@ if(isiOS){
 
   
   <div class="page">
-      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>本节内容介绍常用的Linux经常使用的命令。</p>
-<h2 id="2-查看信息"><a href="#2-查看信息" class="headerlink" title="2 查看信息"></a>2 查看信息</h2><p>1、系统版本</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">cat</span> /proc/version
-</code></pre>
-<p>2、查看当前文件夹内文件清单</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">ls</span>
-</code></pre>
-<h2 id="3-实用操作"><a href="#3-实用操作" class="headerlink" title="3 实用操作"></a>3 实用操作</h2><h3 id="3-1-关闭指定端口"><a href="#3-1-关闭指定端口" class="headerlink" title="3.1 关闭指定端口"></a>3.1 关闭指定端口</h3><p>web开发时，经常遇到端口占用问题，如：80端口被占用。此时，我们需要手动关闭指定端口，恢复使用。</p>
-<p>1、查看占用端口的进程</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">lsof</span> -i tcp:80
-</code></pre>
-<p>查看结果，如：</p>
-<pre class=" language-bash"><code class="language-bash">COMMAND   PID   USER   FD   TYPE             DEVICE SIZE/OFF NODE NAME
-Google    563 huahua  110u  IPv4 0xd4de73d89a557025      0t0  TCP bogon:64435-<span class="token operator">></span>14.116.179.205:http <span class="token punctuation">(</span>CLOSED<span class="token punctuation">)</span>
-</code></pre>
-<p>2、关闭该进程</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">kill</span> -9 563
-</code></pre>
-<h3 id="3-2-复制文件夹"><a href="#3-2-复制文件夹" class="headerlink" title="3.2 复制文件夹"></a>3.2 复制文件夹</h3><p>命令格式</p>
-<pre class=" language-bash"><code class="language-bash">命令格式：cp <span class="token punctuation">[</span>-adfilprsu<span class="token punctuation">]</span> 源文件<span class="token punctuation">(</span>source<span class="token punctuation">)</span> 目标文件<span class="token punctuation">(</span>destination<span class="token punctuation">)</span>
-</code></pre>
-<p>参数说明：<br>-r 递归复制，适用于子目录的文件夹复制。<br>-u 若源文件比目标文件新，更新目标文件<br>-f 强制(force)执行</p>
-<p>示例：将project/dist目录，复制到server/dist目录。</p>
-<pre class=" language-bash"><code class="language-bash"><span class="token function">cp</span> -rfu project/dist server
-</code></pre>
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>默认情况下，我们会使用命令行来操作git。</p>
+<p>不过，对于新手而言，理解和记忆命令行，是一件挺难受的事情。因此，使用可视化的客户端，对git进行控制，是一个不错的选择。</p>
+<p>sourcetree 是一款非常有用的工具。</p>
+<h3 id="1-1-安装"><a href="#1-1-安装" class="headerlink" title="1.1 安装"></a>1.1 安装</h3><p>搜索 sourcetree，进入官网，下载，完成安装。</p>
+<h3 id="1-2-使用"><a href="#1-2-使用" class="headerlink" title="1.2 使用"></a>1.2 使用</h3><p>1、准备好一个git项目</p>
+<p>2、本地 =》 新建 =》 选中项目 </p>
+<p>3、done</p>
 
   </div>
 </div>
 
 
 <p class="nav-foot">
-  <span class="left"><a href="/2018/07/18/online-tip-1/">« 服务器添加SSH特权...</a></span>
-  <span class="right"><a href="#">无... »</a></span>
+  <span class="left"><a href="/2018/07/15/online-tool-6/">« Go 环境 6 | ...</a></span>
+  <span class="right"><a href="/2018/07/20/online-tool-8/">Pm2 部署管理器... »</a></span>
 </p>
 
 <!-- 文档信息 -->
@@ -170,7 +152,7 @@ Google    563 huahua  110u  IPv4 0xd4de73d89a557025      0t0  TCP bogon:64435-<s
       <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
     </li>
     <li>作者：<a href="/">Lian</a></li>
-    <li>日期：2018年07月18日 15:07</li>
+    <li>日期：2018年07月20日 16:07</li>
     <li>邮箱：lian1925@126.com</li>
   </ul>
 </div>
@@ -313,7 +295,7 @@ Google    563 huahua  110u  IPv4 0xd4de73d89a557025      0t0  TCP bogon:64435-<s
 
 
 <p id="info-meta" style="display:none;">
-  online-tip-2
+  online-tool-7
 </p>
 
 
