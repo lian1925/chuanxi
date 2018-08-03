@@ -134,6 +134,15 @@ if(isiOS){
 <p>2、查看当前文件夹内文件清单</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">ls</span>
 </code></pre>
+<p>3、查看cpu信息</p>
+<pre class=" language-bash"><code class="language-bash">lscpu
+</code></pre>
+<p>4、查看内存</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">free</span> -m
+</code></pre>
+<p>5、查看磁盘</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">df</span> -h
+</code></pre>
 <h2 id="3-实用操作"><a href="#3-实用操作" class="headerlink" title="3 实用操作"></a>3 实用操作</h2><h3 id="3-1-关闭指定端口"><a href="#3-1-关闭指定端口" class="headerlink" title="3.1 关闭指定端口"></a>3.1 关闭指定端口</h3><p>web开发时，经常遇到端口占用问题，如：80端口被占用。此时，我们需要手动关闭指定端口，恢复使用。</p>
 <p>1、查看占用端口的进程</p>
 <pre class=" language-bash"><code class="language-bash"><span class="token function">lsof</span> -i tcp:80
