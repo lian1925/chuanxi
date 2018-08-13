@@ -144,6 +144,20 @@ if(isiOS){
 <p>3、执行检查</p>
 <pre class=" language-bash"><code class="language-bash">eslint yourfile.js
 </code></pre>
+<h3 id="1-3-eslint-config-airbnb"><a href="#1-3-eslint-config-airbnb" class="headerlink" title="1.3 eslint-config-airbnb"></a>1.3 eslint-config-airbnb</h3><p>airbnb定义了一整套规范的react的eslint规则，是当前最受欢迎的开源项目。本节介绍如何在项目中引入。</p>
+<p>1、查看相关依赖</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> info <span class="token string">"eslint-config-airbnb@latest"</span> peerDependencies
+</code></pre>
+<p>2、得到结果</p>
+<pre class=" language-js"><code class="language-js"><span class="token punctuation">{</span> eslint<span class="token punctuation">:</span> <span class="token string">'^4.19.1'</span><span class="token punctuation">,</span>
+  <span class="token string">'eslint-plugin-import'</span><span class="token punctuation">:</span> <span class="token string">'^2.12.0'</span><span class="token punctuation">,</span>
+  <span class="token string">'eslint-plugin-jsx-a11y'</span><span class="token punctuation">:</span> <span class="token string">'^6.0.3'</span><span class="token punctuation">,</span>
+  <span class="token string">'eslint-plugin-react'</span><span class="token punctuation">:</span> <span class="token string">'^7.9.1'</span> <span class="token punctuation">}</span>
+</code></pre>
+<p>3、将依赖添加入package.json</p>
+<p>4、执行安装</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">npm</span> i
+</code></pre>
 
   </div>
 </div>

@@ -131,9 +131,10 @@ if(isiOS){
 <p>盒子 = margin &gt; border &gt; padding &gt; content</p>
 <p>解释：<br>margin 外边距<br>border 边框<br>padding 内边距<br>content 内容<br>这里使用 <code>&gt;</code> 代表包含关系，如：margin 包含border，border包含 padding。。。</p>
 <h3 id="1-2-盒子种类"><a href="#1-2-盒子种类" class="headerlink" title="1.2 盒子种类"></a>1.2 盒子种类</h3><p>1、content-box<br>仅仅将内容放于盒子内，而内边距，边框和外边距均放在盒子外面。<br>盒子大小 = 内容大小</p>
+<p>div中通常会设置width和heigh ,这里的大小指的就是盒子大小。</p>
 <p>2、border-box<br>内容，内边距，边框放在盒子内，而外边距放在盒子外面。<br>盒子大小 = 内容 + 内边距 + 边框</p>
-<p>盒子模型种类的配置，一般放在body，保证对所有样式生效。<br>如：content-box border-box</p>
-<pre class=" language-css"><code class="language-css"><span class="token selector">body</span><span class="token punctuation">{</span>
+<p>盒子模型种类的配置，一般放在body，后面需要加 <code>*</code> 保证对所有样式生效。<br>如：content-box border-box</p>
+<pre class=" language-css"><code class="language-css"><span class="token selector">body * </span><span class="token punctuation">{</span>
   <span class="token property">box-sizing</span><span class="token punctuation">:</span> border-box<span class="token punctuation">;</span>
 <span class="token punctuation">}</span>
 </code></pre>
