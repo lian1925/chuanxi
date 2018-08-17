@@ -1,0 +1,368 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="icon" type="image/png" href="/img/sand2.png">
+  <link rel="shortcut icon" type="image/x-icon" href="/img/sand2.png">
+  <meta property="og:image" content="https://assets-cdn.github.com/images/modules/open_graph/github-octocat.png">
+  
+  <link rel="stylesheet" href="/css/style.css?v=1.3"> 
+  <link href="//vjs.zencdn.net/6.7/video-js.min.css" rel="stylesheet">
+  <script src="//vjs.zencdn.net/6.7/video.min.js"></script>
+  
+  <title>nginx 安装 12 | 工具 | 小沙丘的网络漫游记</title>
+ <meta name="description" content="" >
+
+ <!-- 百度统计 -->
+ <script>
+  var _hmt = _hmt || [];
+  (function() {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?eafa0040e1ab3bed28ce82ef03de6e01";
+    var s = document.getElementsByTagName("script")[0]; 
+    s.parentNode.insertBefore(hm, s);
+  })();
+  </script>
+  
+<link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
+<body>
+  
+  <script>
+      if (/mobile/i.test(navigator.userAgent) || /android/i.test(navigator.userAgent)){
+        document.body.classList.add('mobile');            
+      } else{
+        document.body.classList.add('pc');
+        document.getElementsByTagName("html")[0].style.fontSize="62.5%";
+      }
+      var u = navigator.userAgent;
+var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+if(isiOS){
+  document.body.classList.add('ios');
+  document.getElementsByTagName("html")[0].style.fontSize="65%";
+           
+}
+    </script>
+
+  <div class="container">
+<!-- 用于文章页面的顶部，提供返回主页和主题页的按键 -->
+<!-- 头部开始 -->
+
+<div id="header">
+    <p>小沙丘的网络漫游记
+      <span> » 
+        <a href="/home/">首页</a>
+      </span>
+      
+      <span> » 
+          <a href="/tags/工具/">
+            工具
+          </a>
+      </span>
+      
+    </p>
+</div>
+
+<!-- 头部结束 -->
+
+
+
+<!-- 分类组件，放置于文章页面的顶部，提供上(或下)一篇导航按键。 -->
+<div class="asset-nav">
+    <div class="entry-categories">
+      <p>主题：
+        <span> 
+            <a href="/tags/工具/">
+              工具
+            </a>
+        </span>
+      </p>
+    </div>
+    <div class="entry-location-mobile">
+        <span>
+            
+            <a href="/2018/08/13/online-tool-11/">
+            &#8676;
+            </a>
+        </span>
+        <span>
+            
+            <a href="/2018/08/13/online-miniprogram-3/">
+              &#8677;
+            </a>
+        </span>
+    </div>
+    <div class="entry-location">
+        <P>上一篇：
+                <a href="/2018/08/13/online-tool-11/">
+                    VScode 配置eslint 11 | 工具
+                </a>
+        </P>
+        <P>下一篇：
+
+                <a href="/2018/08/13/online-miniprogram-3/">
+                    朋友圈分享小程序 3
+                </a>
+        </P>
+    </div>
+</div>
+
+<div class="post">
+<div class="title-post">
+<h1>nginx 安装 12 | 工具</h1>
+<div class="post-meta">
+  <p>作者： Lian</p>
+  <p>日期：
+    2018年08月13日 13:08
+  </p>
+</div>
+</div>
+
+
+
+  
+  <div class="page">
+      <h2 id="1-知识点"><a href="#1-知识点" class="headerlink" title="1 知识点"></a>1 知识点</h2><p>nginx 是一个高性能的web服务器，支持如下功能：<br>1、部署前端代码<br>2、代理服务器<br>3、负载均衡</p>
+<h2 id="2-实践"><a href="#2-实践" class="headerlink" title="2 实践"></a>2 实践</h2><h3 id="2-1-安装"><a href="#2-1-安装" class="headerlink" title="2.1 安装"></a>2.1 安装</h3><h4 id="2-1-1-centos安装"><a href="#2-1-1-centos安装" class="headerlink" title="2.1.1 centos安装"></a>2.1.1 centos安装</h4><p>1、更新系统的软件库</p>
+<pre class=" language-bash"><code class="language-bash">yum -y update
+</code></pre>
+<p>2、安装epel-release</p>
+<pre class=" language-bash"><code class="language-bash">yum <span class="token function">install</span> epel-release
+</code></pre>
+<p>3、安装nginx</p>
+<pre class=" language-bash"><code class="language-bash">yum <span class="token function">install</span> nginx
+</code></pre>
+<h3 id="2-2-常见命令"><a href="#2-2-常见命令" class="headerlink" title="2.2 常见命令"></a>2.2 常见命令</h3><p>1、启动</p>
+<pre class=" language-bash"><code class="language-bash">systemctl start nginx
+</code></pre>
+<p>2、关闭</p>
+<pre class=" language-bash"><code class="language-bash">systemctl stop nginx
+</code></pre>
+<h3 id="2-3-配置"><a href="#2-3-配置" class="headerlink" title="2.3 配置"></a>2.3 配置</h3><p>配置文件位于：<code>/etc/nginx/nginx.conf</code></p>
+<p>1、将前端项目文件放置于 /data/home/dist目录下。</p>
+<pre class=" language-bash"><code class="language-bash"><span class="token function">cd</span> /data
+<span class="token function">mkdir</span> home
+<span class="token function">mkdir</span> dist
+</code></pre>
+<p>2、端口配置为 80</p>
+<pre class=" language-bash"><code class="language-bash">server <span class="token punctuation">{</span>
+  listen 80<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<p>3、配置文件目录</p>
+<pre class=" language-bash"><code class="language-bash">server <span class="token punctuation">{</span>
+  listen 80<span class="token punctuation">;</span>
+  root /home/data/dist
+<span class="token punctuation">}</span>
+</code></pre>
+<p>4、综上，修改配置如下：</p>
+<pre class=" language-json"><code class="language-json">server <span class="token punctuation">{</span>
+    listen       <span class="token number">80</span><span class="token punctuation">;</span>
+    root  /home/data/dist<span class="token punctuation">;</span>
+
+    charset utf<span class="token number">-8</span><span class="token punctuation">;</span>
+    access_log  /var/log/fe.log<span class="token punctuation">;</span>
+
+    location /api/v1/  <span class="token punctuation">{</span>
+        proxy_pass http<span class="token operator">:</span>//demo.server.com/api/v1/<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    location ^~ /index <span class="token punctuation">{</span>
+        try_files $uri /index.html<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+    location /business<span class="token punctuation">{</span>
+        try_files $uri /index.html<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    location ^~ /basename/ <span class="token punctuation">{</span>
+        try_files $uri /index.html<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre>
+
+  </div>
+</div>
+
+
+<p class="nav-foot">
+  <span class="left"><a href="/2018/08/13/online-tool-11/">« VScode 配置e...</a></span>
+  <span class="right"><a href="#">无... »</a></span>
+</p>
+
+<!-- 文档信息 -->
+<div class="post-foot">
+  <h3>文档信息</h3>
+  <ul>
+    <li>版权声明：自由转载-非商用-非衍生-保持署名（
+      <a href="http://creativecommons.org/licenses/by-nc-nd/3.0/deed.zh">创意共享3.0许可证</a>）
+    </li>
+    <li>作者：<a href="/">Lian</a></li>
+    <li>日期：2018年08月13日 13:08</li>
+    <li>邮箱：lian1925@126.com</li>
+  </ul>
+</div>
+      
+
+
+
+
+<div class="content-comment">
+  <h2>留言</h2>
+  
+  
+		
+</div>
+
+<!-- 评论输入组件，填写数据：留言，称呼，电子邮件 -->
+
+<div class="form-comment">
+  <h2>
+		我要发表看法
+	</h2>
+
+	<form method="post" 
+	target="targetIfr"
+	action="">
+	 <!-- 留言正文 -->
+	 
+		
+<p>
+	<label for="comment-content">
+		您的留言:
+	</label>
+</p>
+
+<p>
+	<textarea 
+	id="comment-content" 
+	name="content" 
+	rows="10" cols="50">
+	</textarea>
+</p>
+
+		<!-- 姓名 -->
+	 
+		
+<p>
+	<label for="comment-author">
+		您的大名:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-author" 
+	name="author" 
+	size="30" 
+	value=""
+	pattern="^.{2,150}$"
+	required
+	>
+	<span class="hint">
+			 «-必填
+	</span
+</p>
+
+
+		<!-- 微信 -->
+	 
+		
+<p>
+	<label for="comment-wechat">
+		您的微信:
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-wechat" 
+	name="wechat" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Zd_]{5,}$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		<!-- 电子邮箱 -->
+		
+		
+<p>
+	<label for="comment-email">
+		电子邮箱：
+	</label>
+</p>
+
+<p>
+	<input 
+	id="comment-email" 
+	name="email" 
+	size="30" 
+	value=""
+	pattern="^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(.[a-zA-Z0-9_-]+)+$"
+	
+	>
+	<span class="hint">
+			 «-选填，不公开
+	</span
+</p>
+
+
+		
+		<p>
+
+		
+<div class="button">
+    <input 
+    class="submit-button" 
+    onclick="doButton('addComment')"
+    value="发表">
+    <span class="hint"> «- 点击按钮</span>
+</div>
+		</p>
+	</form>
+	<iframe name="targetIfr" style="display:none"></iframe> 
+</div>
+
+
+<!-- data:{
+	name:'',
+	type:'passwor',
+	label:'您的大名',
+	hint:'',
+	pattern:'[A-z]{3}',
+	required:"required"
+} -->
+
+
+<p id="info-meta" style="display:none;">
+  online-tool-12
+</p>
+
+
+<p id="info-url" style="display:none;">
+  
+</p>
+
+<div class="footer">
+  Copyright @ <a href="/">lian</a> | 2009-2018
+</div>
+
+</div>
+
+<script src="/js/jquery.js"></script>
+<script src="/js/APlayer.min.js"></script>
+<script src="/js/post.js"></script>
+
+</body>
+
+</html>
+
